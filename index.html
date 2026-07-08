@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Dan Martín Mecikovsky — Philosophy & AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EBEAE4;
+    --panel:#F3F2ED;
+    --ink:#16171A;
+    --muted:#5C5E60;
+    --accent:#26456B;
+    --line:#D6D4CC;
+    --line-strong:#C3C0B6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 28px}
+  a{color:inherit}
+
+  /* eyebrow / mono utility */
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:500;
+  }
+
+  /* ---- hero ---- */
+  header{padding:96px 0 64px;border-bottom:1px solid var(--line)}
+  .name{
+    font-family:"JetBrains Mono",monospace;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:36px;
+  }
+  .thesis{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:clamp(30px,5.4vw,50px);
+    line-height:1.12;
+    letter-spacing:-.01em;
+    max-width:15ch;
+  }
+  .thesis em{font-style:italic;color:var(--accent)}
+  .lede{
+    margin-top:28px;max-width:52ch;color:var(--muted);font-size:18px;
+  }
+  .contact{
+    margin-top:32px;font-family:"JetBrains Mono",monospace;font-size:14px;
+    display:flex;gap:22px;flex-wrap:wrap;align-items:center;
+  }
+  .contact a{
+    color:var(--ink);text-decoration:none;
+    border-bottom:1px solid var(--line-strong);padding-bottom:2px;
+    transition:border-color .2s;
+  }
+  .contact a:hover,.contact a:focus-visible{border-color:var(--accent)}
+
+  /* ---- section heading ---- */
+  .sec-head{padding:56px 0 8px}
+  .sec-head .eyebrow{display:block;margin-bottom:6px}
+
+  /* ---- project ---- */
+  .project{
+    padding:40px 0;border-bottom:1px solid var(--line);
+  }
+  .project .eyebrow{display:block;margin-bottom:14px}
+  .p-title{
+    font-family:"Fraunces",serif;font-weight:600;
+    font-size:26px;letter-spacing:-.01em;margin-bottom:10px;
+  }
+  .claim{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:400;
+    font-size:21px;line-height:1.35;color:var(--accent);
+    max-width:42ch;margin-bottom:16px;
+  }
+  .desc{max-width:60ch;color:var(--ink);margin-bottom:18px}
+  .tags{
+    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;
+  }
+  .tag{
+    font-family:"JetBrains Mono",monospace;font-size:11.5px;
+    letter-spacing:.03em;color:var(--muted);
+    border:1px solid var(--line-strong);border-radius:2px;
+    padding:4px 9px;
+  }
+
+  /* ---- media slot (placeholder for a screenshot / demo) ---- */
+  .slot{
+    background:var(--panel);
+    border:1px dashed var(--line-strong);
+    border-radius:3px;
+    aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    color:var(--muted);
+    font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:.03em;
+    padding:20px;margin-bottom:18px;
+  }
+  .slot span{max-width:32ch;line-height:1.5}
+
+  /* ---- real demo embeds (used once a project block is filled in) ---- */
+  .demo-frame{
+    border:1px solid var(--line-strong);border-radius:3px;overflow:hidden;
+    background:var(--panel);aspect-ratio:16/9;margin-bottom:18px;
+  }
+  .demo-frame iframe{width:100%;height:100%;border:0;display:block}
+  video.demo,img.demo{
+    width:100%;border:1px solid var(--line-strong);border-radius:3px;
+    display:block;margin-bottom:18px;
+  }
+
+  /* ---- link button ---- */
+  .btn{
+    display:inline-block;font-family:"JetBrains Mono",monospace;
+    font-size:13px;letter-spacing:.03em;text-decoration:none;
+    color:var(--bg);background:var(--accent);
+    padding:11px 18px;border-radius:2px;
+    transition:opacity .18s,transform .18s;
+  }
+  .btn:hover,.btn:focus-visible{opacity:.9;transform:translateY(-1px)}
+  .btn.ghost{
+    background:transparent;color:var(--accent);
+    border:1px solid var(--accent);
+  }
+
+  /* ---- approach ---- */
+  .approach{padding:56px 0;border-bottom:1px solid var(--line)}
+  .approach p{
+    font-family:"Fraunces",serif;font-size:22px;line-height:1.5;
+    max-width:34ch;font-weight:400;
+  }
+  .approach .body{
+    font-family:"Inter",sans-serif;font-size:17px;color:var(--muted);
+    max-width:58ch;margin-top:18px;line-height:1.65;
+  }
+
+  /* ---- footer ---- */
+  footer{padding:56px 0 90px}
+  footer .eyebrow{display:block;margin-bottom:14px}
+  footer a{
+    color:var(--ink);text-decoration:none;font-family:"JetBrains Mono",monospace;
+    font-size:14px;border-bottom:1px solid var(--line-strong);padding-bottom:2px;
+  }
+  footer a:hover,footer a:focus-visible{border-color:var(--accent)}
+
+  /* ---- load motion ---- */
+  .fade{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards}
+  .fade:nth-child(2){animation-delay:.06s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    .fade{animation:none;opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  @media(max-width:560px){
+    body{font-size:16px}
+    header{padding:68px 0 48px}
+    .wrap{padding:0 20px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="name fade">Dan Martín Mecikovsky</div>
+    <h1 class="thesis fade">Machines are trained. I <em>studied</em> — to ask what makes us human, and where that line runs now.</h1>
+    <p class="lede fade">Philosophy professor (University of Buenos Aires). My question has always been what makes us human and sets us apart from the rest of existence. Now I ask it of the limits and challenges AI puts in front of us — and I build with these tools while I do.</p>
+    <div class="contact fade">
+      <a href="mailto:meci.dan@gmail.com">meci.dan@gmail.com</a>
+      <span style="color:var(--muted)">Buenos Aires · Remote</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="sec-head">
+    <span class="eyebrow">Selected work</span>
+  </div>
+
+  <!-- PROJECT 1 -->
+  <section class="project">
+    <span class="eyebrow">AI AGENT · GOVERNMENT DATA</span>
+    <h2 class="p-title">EHOBA</h2>
+    <p class="claim">A monthly 53-hotel survey turned into a rule-bound processing agent.</p>
+    <p class="desc">EHOBA processes Buenos Aires's monthly hotel occupancy survey for IDECBA, validates submissions against fixed consistency rules, and follows a documented eight-step correction order. I built it end to end with Claude Code, including the desktop UI, processing pipeline, and design system.</p>
+    <div class="tags">
+      <span class="tag">Claude Code</span>
+      <span class="tag">Agent design</span>
+      <span class="tag">Data processing</span>
+      <span class="tag">Design system</span>
+    </div>
+    <img class="demo" src="https://mecidan-design.github.io/ehoba-walkthrough/ehoba-preview.svg" alt="Scrubbed EHOBA dashboard preview with anonymized hotel rows and masked CUEs">
+    <a class="btn ghost" href="https://mecidan-design.github.io/ehoba-walkthrough/">Watch the walkthrough</a>
+  </section>
+
+  <!-- PROJECT 2 -->
+  <section class="project">
+    <span class="eyebrow">TEACHING TOOLS · CLASSROOM-TESTED</span>
+    <h2 class="p-title">Interactive lessons</h2>
+    <p class="claim">Philosophy you scroll through; exercises that correct themselves.</p>
+    <p class="desc">A set of self-contained HTML/JS tools I build for my own classes: a Descartes scrollytelling lesson, a feudalism-to-modernity timeline, and a guided Plato cave sequence. They are used as classroom material: students scroll, answer, retry, and get immediate feedback without accounts or student data.</p>
+    <div class="tags">
+      <span class="tag">HTML/JS</span>
+      <span class="tag">Prompt-built</span>
+      <span class="tag">Ed-tech</span>
+      <span class="tag">Self-correcting</span>
+    </div>
+    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/interactive-lessons/" title="Interactive lesson demo" loading="lazy"></iframe></div>
+    <a class="btn" href="https://mecidan-design.github.io/interactive-lessons/">Open the live demo</a>
+  </section>
+
+  <!-- PROJECT 3 -->
+  <section class="project">
+    <span class="eyebrow">CREATIVE WRITING · LLM APP</span>
+    <h2 class="p-title">The Imaginarium Machine</h2>
+    <p class="claim">A classroom machine for starting stories and leaving the writing to students.</p>
+    <p class="desc">A local-first creative writing app for A2 English learners. It organizes prompt cards, characters, constraints, and play modes; students use them to write, draw, speak, or act their own stories.</p>
+    <div class="tags">
+      <span class="tag">LLM app</span>
+      <span class="tag">Prompt design</span>
+      <span class="tag">Creative writing</span>
+    </div>
+    <video class="demo" src="https://mecidan-design.github.io/imaginarium-demo/imaginarium-walkthrough.webm" controls muted playsinline></video>
+    <a class="btn ghost" href="https://mecidan-design.github.io/imaginarium-demo/">Watch it in action</a>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach">
+    <span class="eyebrow">How I work</span>
+    <p>I've worked with language models since 2022 — prompting them, testing their reasoning, watching where they fail.</p>
+    <p class="body">I build with them on one condition: they extend human judgment, they don't stand in for it. Bias, gaps, and confident errors are the interesting part — the places where a philosopher's training earns its keep. That criterion is the whole point.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span class="eyebrow">Get in touch</span>
+  <a href="mailto:meci.dan@gmail.com">meci.dan@gmail.com</a>
+</footer>
+
+</body>
+</html>
