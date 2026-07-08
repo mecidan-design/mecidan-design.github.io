@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La demolición — Del Renacimiento a Descartes (v2)</title>
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:4px}
+
+/* ---------- barra de progreso ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:60;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .15s linear}
+
+/* ---------- riel de navegación ---------- */
+nav.rail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;
+  display:flex;flex-direction:column;gap:14px}
+nav.rail a{display:block;width:10px;height:10px;border-radius:50%;
+  background:transparent;border:1.5px solid var(--faint);position:relative;transition:all .25s}
+nav.rail a.on{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 10px rgba(34,228,255,.6)}
+nav.rail a span{position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  white-space:nowrap;font-size:12px;color:var(--dim);background:var(--card);
+  border:1px solid var(--line);border-radius:6px;padding:3px 9px;opacity:0;
+  pointer-events:none;transition:opacity .2s}
+nav.rail a:hover span,nav.rail a:focus-visible span{opacity:1}
+@media(max-width:820px){nav.rail{display:none}}
+
+/* ---------- capítulos ---------- */
+.chap{max-width:900px;margin:0 auto;padding:13vh 26px 9vh;min-height:60vh}
+.chap .inner{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.chap.vis .inner{opacity:1;transform:none}
+.kicker{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);
+  font-weight:700;margin-bottom:14px}
+.kicker .num{color:var(--faint);margin-right:.8em}
+h1{font-size:clamp(38px,7vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(28px,4.6vw,48px);line-height:1.06;font-weight:800;letter-spacing:-.015em;margin-bottom:10px}
+h2 .u{color:var(--amber)}
+h3{font-size:clamp(17px,2vw,21px);font-weight:800;margin-bottom:8px}
+p.lead{font-size:clamp(17px,2vw,21px);color:var(--dim);max-width:64ch;margin:14px 0}
+p.body{font-size:clamp(16px,1.85vw,19px);color:var(--ink);max-width:66ch;margin:12px 0}
+p.body b{color:var(--amber)} p.lead b{color:var(--amber)}
+.g{color:var(--green);font-weight:700} .c{color:var(--coral);font-weight:700}
+.v{color:var(--violet);font-weight:700} .cy{color:var(--cyan);font-weight:700}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(18px,2.2vw,26px);line-height:1.45;margin:26px 0 10px;max-width:56ch;
+  border-left:3px solid var(--violet);padding-left:1em}
+.cite{display:block;font-size:13px;color:var(--faint);margin-top:10px;font-style:normal;
+  font-family:"Segoe UI",system-ui,sans-serif}
+.note{font-size:13.5px;color:var(--faint);max-width:64ch;margin-top:10px;line-height:1.45}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent);margin:34px 0}
+
+/* ---------- héroe ---------- */
+#c0{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+#c0::before{content:"";position:absolute;inset:-40%;
+  background:radial-gradient(ellipse 42% 34% at 62% 38%,rgba(34,228,255,.09),transparent 60%),
+             radial-gradient(ellipse 36% 30% at 30% 72%,rgba(201,160,255,.08),transparent 60%);
+  pointer-events:none}
+#c0 .cogitomark{position:absolute;right:-3vw;bottom:-2vh;font-weight:800;
+  font-size:clamp(90px,17vw,220px);color:rgba(255,255,255,.03);letter-spacing:-.03em;
+  transform:rotate(-4deg);pointer-events:none;user-select:none}
+.scrollcue{margin-top:7vh;color:var(--faint);font-size:14px;letter-spacing:.18em;text-transform:uppercase}
+.scrollcue .arr{display:inline-block;animation:bob 1.8s ease-in-out infinite;margin-left:.5em}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ---------- botones ---------- */
+.btn{appearance:none;border:1px solid var(--line2);background:var(--card);color:var(--ink);
+  font:inherit;font-size:15px;font-weight:600;border-radius:12px;padding:11px 18px;
+  cursor:pointer;transition:all .18s;user-select:none}
+.btn:hover{border-color:var(--cyan);box-shadow:0 0 14px rgba(34,228,255,.18);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn.primary{border-color:var(--cyan);color:var(--cyan)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none;border-color:var(--line)}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* ---------- modo docente ---------- */
+#docbadge{display:none;position:fixed;top:10px;left:12px;z-index:70;
+  background:rgba(255,201,60,.14);border:1px solid var(--amber);color:var(--amber);
+  font-size:11px;letter-spacing:.22em;padding:5px 10px;border-radius:8px;font-weight:700}
+body.docente #docbadge{display:block}
+.tnotes{display:none;margin-top:28px;border:1px dashed rgba(255,201,60,.55);border-radius:14px;
+  padding:16px 18px;background:rgba(255,201,60,.04)}
+body.docente .tnotes{display:block}
+.tnotes .tlabel{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);
+  font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tnotes ul{list-style:none}
+.tnotes li{font-size:13.5px;color:var(--dim);margin:6px 0;padding-left:1.1em;position:relative;line-height:1.5}
+.tnotes li::before{content:"—";position:absolute;left:0;color:var(--amber)}
+.tnotes b{color:var(--ink)} .tnotes i{color:var(--violet)}
+.dkey{display:none;margin-top:10px;font-size:13px;color:var(--amber);
+  border-top:1px dashed rgba(255,201,60,.35);padding-top:8px}
+body.docente .dkey{display:block}
+body.docente .opt.key{border-color:rgba(255,201,60,.6)}
+body.docente .opt.key::after{content:" ✓ respuesta";color:var(--amber);font-size:12px}
+
+/* ---------- línea de épocas ---------- */
+.epochs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+@media(max-width:680px){.epochs{grid-template-columns:1fr}}
+button.epoch{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;
+  cursor:pointer;transition:all .22s;position:relative;text-align:left;font:inherit;color:var(--ink);width:100%}
+button.epoch:hover{border-color:var(--line2);transform:translateY(-2px)}
+button.epoch.open{border-color:var(--cyan);box-shadow:0 0 18px rgba(34,228,255,.12)}
+.epoch .tag{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.epoch.open .tag{color:var(--cyan)}
+.epoch h3{margin:6px 0 2px}
+.epoch .yrs{font-size:13px;color:var(--dim)}
+.epoch .more{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:14.5px;color:var(--dim);line-height:1.5}
+.epoch.open .more{max-height:400px;margin-top:10px}
+.epoch .more b{color:var(--amber)}
+.epoch .plus{position:absolute;top:14px;right:16px;color:var(--faint);font-weight:700;transition:transform .25s}
+.epoch.open .plus{transform:rotate(45deg);color:var(--cyan)}
+
+/* ---------- dos fuegos ---------- */
+.fires{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+@media(max-width:680px){.fires{grid-template-columns:1fr}}
+.fire{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.fire.rel{border-top:3px solid var(--coral)} .fire.epi{border-top:3px solid var(--green)}
+.fire h3 span{font-size:12px;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:4px}
+.fire.rel h3 span{color:var(--coral)} .fire.epi h3 span{color:var(--green)}
+.fire p{font-size:14.5px;color:var(--dim);line-height:1.5}
+.fire p b{color:var(--ink)}
+
+/* ---------- máquina de criterios ---------- */
+#regress{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px;margin-top:26px}
+#regress .claim{font-family:Georgia,serif;font-style:italic;font-size:18px;color:var(--ink);
+  border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;display:inline-block}
+#rstack{margin-top:14px}
+.rlevel{border-left:2px solid var(--cyan);margin-left:8px;padding:10px 0 2px 16px;
+  animation:slidein .45s ease both}
+.rlevel .rq{font-size:15px;color:var(--dim)} .rlevel .rq b{color:var(--cyan)}
+.rlevel .ra{font-size:15px;color:var(--ink);margin-top:2px}
+@keyframes slidein{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+#rend{display:none;margin-top:18px}
+#rend.show{display:block;animation:slidein .5s ease both}
+
+/* ---------- círculos ---------- */
+.circles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+@media(max-width:760px){.circles{grid-template-columns:1fr}}
+.circle{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.circle h3 span{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.cstep{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border-radius:10px;
+  font-size:14.5px;color:var(--dim);transition:all .3s;margin:4px 0;line-height:1.45}
+.cstep .dot{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--faint);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--faint);margin-top:1px;transition:all .3s}
+.cstep.hot{background:rgba(34,228,255,.07);color:var(--ink)}
+.cstep.hot .dot{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px rgba(34,228,255,.5)}
+.cfoot{display:flex;align-items:center;gap:14px;margin-top:12px}
+.laps{font-size:13px;color:var(--faint)} .laps b{color:var(--amber);font-size:15px}
+.cverdict{display:none;margin-top:10px;font-size:14px;color:var(--violet);font-family:Georgia,serif;font-style:italic}
+.cverdict.show{display:block;animation:slidein .5s ease both}
+
+/* ---------- perfiles M/B ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+@media(max-width:720px){.duo{grid-template-columns:1fr}}
+.who{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.who.m{border-top:3px solid var(--coral)} .who.b{border-top:3px solid var(--green)}
+.who .role{font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:700}
+.who.m .role{color:var(--coral)} .who.b .role{color:var(--green)}
+.who h3{margin-top:4px} .who .yrs{font-size:13px;color:var(--faint);margin-bottom:8px}
+.who ul{list-style:none;margin-top:8px}
+.who li{font-size:14.5px;color:var(--dim);padding-left:1.2em;position:relative;margin:7px 0;line-height:1.45}
+.who li::before{content:"—";position:absolute;left:0;font-weight:700}
+.who.m li::before{color:var(--coral)} .who.b li::before{color:var(--green)}
+.who li b{color:var(--ink)}
+
+/* ---------- juegos ---------- */
+.game{background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:26px}
+.game .glabel{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px}
+.qcard{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:18px;
+  font-family:Georgia,serif;font-style:italic;font-size:17.5px;line-height:1.5;min-height:84px}
+.gfeed{margin-top:12px;font-size:14.5px;line-height:1.5;min-height:44px;color:var(--dim)}
+.gfeed.ok{color:var(--green)} .gfeed.bad{color:var(--coral)}
+.gscore{font-size:13px;color:var(--faint);margin-top:10px}
+.gscore b{color:var(--amber)}
+.shake{animation:shk .4s ease}
+@keyframes shk{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+/* ---------- demolición: escena ---------- */
+#demo-stage{margin-top:26px}
+.demo-viz{position:sticky;top:10px;z-index:20;background:rgba(6,8,11,.97);
+  border:1px solid var(--line);border-radius:16px;padding:0 8px 8px;margin-bottom:16px}
+.demo-viz svg{display:block;width:100%;height:auto;max-height:38vh}
+@media(max-width:760px){.demo-viz svg{max-height:32vh}}
+.gbar{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:9px 10px 8px;
+  border-bottom:1px solid var(--line);
+  font-family:Georgia,serif;font-style:italic;color:var(--violet);
+  font-size:clamp(12.5px,1.7vw,15.5px);line-height:1.4;min-height:38px}
+.gbar .who{flex:0 0 auto;font:700 10px/1.6 "Segoe UI",system-ui,sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--faint);font-style:normal}
+
+/* genio */
+#genio{transform-box:fill-box;transform-origin:50% 100%;transform:scale(var(--gs,.8));
+  transition:transform .9s cubic-bezier(.3,1.25,.4,1)}
+#genio.flinch{animation:gflinch .55s ease}
+@keyframes gflinch{0%,100%{transform:scale(var(--gs,.8))}
+  30%{transform:scale(var(--gs,.8)) rotate(-3deg) translateX(-5px)}
+  65%{transform:scale(var(--gs,.8)) rotate(2deg) translateX(4px)}}
+#g-headg,#g-torso,#g-armL,#g-armR,#g-tail,#g-eyes{transform-box:fill-box;transform-origin:center}
+#g-cracks{transition:opacity .25s}
+#genio.broken #g-headg{animation:brkHead 1.5s ease-out forwards}
+#genio.broken #g-armL{animation:brkAL 1.5s ease-out forwards}
+#genio.broken #g-armR{animation:brkAR 1.5s ease-out forwards}
+#genio.broken #g-torso{animation:brkTor 1.5s ease-out forwards}
+#genio.broken #g-tail{animation:brkTail 1.7s ease-out forwards}
+#genio.broken #g-eyes{animation:brkEyes .9s ease-out forwards}
+#genio.broken #g-cracks{animation:brkEyes 1s ease-out .5s forwards}
+@keyframes brkHead{to{transform:translate(30px,-38px) rotate(32deg);opacity:.12}}
+@keyframes brkAL{to{transform:translate(-34px,10px) rotate(-40deg);opacity:.1}}
+@keyframes brkAR{to{transform:translate(30px,-6px) rotate(34deg);opacity:.1}}
+@keyframes brkTor{to{transform:translate(-8px,16px) rotate(-14deg);opacity:.14}}
+@keyframes brkTail{to{transform:translate(6px,26px) scale(.7);opacity:.1}}
+@keyframes brkEyes{to{opacity:0}}
+/* pilar */
+#pillarG rect{transition:fill .8s,stroke .8s}
+#cogitoLabel{opacity:0;transition:opacity 1.2s .3s}
+#bsvg.won #cogitoLabel{opacity:1}
+#bsvg.won #pillarG{animation:pglow 2.4s ease-in-out infinite}
+@keyframes pglow{0%,100%{filter:drop-shadow(0 0 5px rgba(34,228,255,.7))}50%{filter:drop-shadow(0 0 16px rgba(34,228,255,1))}}
+#bsvg.won #pillar{fill:url(#pillarGrad);stroke:var(--cyan)}
+#bsvg.won #pillarCap{fill:#173038;stroke:var(--cyan)}
+#pillarG.flash{animation:pflash .5s ease}
+@keyframes pflash{50%{filter:drop-shadow(0 0 12px rgba(34,228,255,.9))}}
+#bsvg.shaking{animation:bshake .5s ease}
+@keyframes bshake{20%{transform:translate(-4px,1px)}40%{transform:translate(4px,-1px)}60%{transform:translate(-3px,1px)}80%{transform:translate(2px,0)}}
+.instant *{transition:none !important;animation-duration:.01s !important;animation-delay:0s !important}
+
+/* demolición: controles */
+.demo-progress{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.demo-progress b{color:var(--amber)}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:760px){.tools{grid-template-columns:repeat(2,1fr)}}
+.tool{border:1px solid var(--line2);background:var(--card);border-radius:12px;padding:12px;
+  cursor:pointer;transition:all .18s;text-align:left;font:inherit;color:var(--ink)}
+.tool:hover:not(:disabled){border-color:var(--amber);transform:translateY(-2px)}
+.tool .tn{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.tool .tt{font-size:14.5px;font-weight:700;margin-top:3px}
+.tool .td{font-size:12.5px;color:var(--dim);margin-top:3px;line-height:1.4}
+.tool.used{opacity:.45}
+.tool:disabled{opacity:.35;cursor:default;transform:none}
+.belief{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line2);
+  border-radius:16px;padding:26px;margin:18px 0;text-align:center;position:relative;
+  transition:all .3s}
+.belief .blabel{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.belief .btext{font-family:Georgia,serif;font-style:italic;font-size:clamp(19px,2.6vw,26px);margin-top:8px;line-height:1.4}
+.belief.fall{animation:crumble 1s ease forwards}
+@keyframes crumble{
+  0%{transform:none;opacity:1}
+  25%{transform:translateX(-6px) rotate(-.6deg)}
+  45%{transform:translateX(6px) rotate(.8deg)}
+  100%{transform:translateY(46px) rotate(3deg);opacity:0}
+}
+.belief.fallen{transform:translateY(46px) rotate(3deg);opacity:0}
+.belief.hold{border-color:var(--cyan);box-shadow:0 0 34px rgba(34,228,255,.25);animation:glowpulse 2s ease-in-out infinite}
+@keyframes glowpulse{0%,100%{box-shadow:0 0 22px rgba(34,228,255,.18)}50%{box-shadow:0 0 42px rgba(34,228,255,.4)}}
+#demo-feed{min-height:64px;font-size:15px;line-height:1.55;margin-top:6px;color:var(--dim)}
+#demo-feed.ok{color:var(--green)} #demo-feed.bad{color:var(--coral)}
+#demo-feed .hintline{display:block;color:var(--amber);margin-top:8px}
+#deep{display:none;margin-top:26px;border:1px solid var(--line2);border-left:3px solid var(--cyan);
+  border-radius:14px;padding:22px;background:rgba(34,228,255,.03)}
+#deep.show{display:block;animation:slidein .6s ease both}
+#cogito-reveal{display:none;margin-top:26px}
+#cogito-reveal.show{display:block;animation:rise .9s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+#cogito-reveal .big{font-size:clamp(34px,6vw,60px);font-weight:800;letter-spacing:-.02em;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- clasificador ---------- */
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+@media(max-width:720px){.duel{grid-template-columns:1fr}}
+.dcol{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card)}
+.dcol h3 span{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.dcol.p{border-top:3px solid var(--coral)} .dcol.m{border-top:3px solid var(--green)}
+.dcol p{font-size:13.5px;color:var(--dim);line-height:1.45}
+
+/* ---------- reglas ---------- */
+#rules-pool{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+@media(max-width:720px){#rules-pool{grid-template-columns:1fr}}
+.rule{border:1px solid var(--line2);background:var(--card);border-radius:12px;padding:14px;
+  cursor:pointer;transition:all .2s;text-align:left;font:inherit;color:var(--ink)}
+.rule:hover{border-color:var(--amber)}
+.rule .rn{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:700}
+.rule .rt{font-weight:800;font-size:16px;margin-top:2px}
+.rule .rd{font-size:13.5px;color:var(--dim);margin-top:4px;line-height:1.4}
+.rule.placed{opacity:.28;cursor:default;border-color:var(--line)}
+#rules-track{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.slot{flex:1;min-width:130px;border:1px dashed var(--line2);border-radius:12px;padding:10px;
+  min-height:58px;font-size:13px;color:var(--faint);transition:all .3s}
+.slot.filled{border-style:solid;border-color:var(--green);color:var(--ink)}
+.slot .sn{font-size:11px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;font-weight:700}
+.slot .st{font-weight:800;font-size:14.5px;margin-top:2px;color:var(--green)}
+#rules-feed{min-height:30px;margin-top:12px;font-size:14.5px;color:var(--dim)}
+
+/* ---------- autoexamen ---------- */
+.quiz-q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:14px}
+.quiz-q .qt{font-weight:700;font-size:16.5px;line-height:1.45}
+.quiz-q .opts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.opt{text-align:left;border:1px solid var(--line2);background:var(--card2);color:var(--ink);
+  font:inherit;font-size:14.5px;border-radius:10px;padding:10px 14px;cursor:pointer;transition:all .18s;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--cyan)}
+.opt.right{border-color:var(--green);color:var(--green);background:rgba(87,227,139,.06)}
+.opt.wrong{border-color:var(--coral);color:var(--coral);background:rgba(255,107,107,.05)}
+.opt:disabled{cursor:default}
+.qfeed{font-size:13.5px;color:var(--dim);margin-top:10px;min-height:18px;line-height:1.45}
+#quiz-score{margin-top:18px;font-size:15px;color:var(--dim)}
+#quiz-score b{color:var(--amber);font-size:19px}
+
+/* ---------- código de resultado ---------- */
+#result{display:none;margin-top:22px;border:1px solid var(--line2);border-left:3px solid var(--amber);
+  border-radius:14px;padding:20px;background:rgba(255,201,60,.03)}
+#result.show{display:block;animation:slidein .5s ease both}
+.codebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.codebox code{font-family:Consolas,Menlo,monospace;font-size:clamp(14px,2.4vw,19px);letter-spacing:.05em;
+  color:var(--amber);background:var(--card);border:1px solid var(--line2);border-radius:10px;
+  padding:10px 14px;user-select:all}
+#codelegend{margin-top:12px;font-size:13px;color:var(--faint);line-height:1.7}
+#codelegend b{color:var(--dim)}
+
+/* ---------- aviso de progreso ---------- */
+#resume{display:none;position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:80;
+  background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:14px 16px;
+  box-shadow:0 10px 34px rgba(0,0,0,.55);max-width:min(92vw,560px)}
+#resume.show{display:block}
+#resume p{font-size:14px;color:var(--dim);margin-bottom:10px}
+#resume p b{color:var(--cyan)}
+
+/* ---------- fuentes / footer ---------- */
+.sources{margin-top:30px;font-size:13.5px;color:var(--faint);line-height:1.7;max-width:66ch}
+.sources b{color:var(--dim)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:26px;display:flex;
+  justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--faint)}
+footer .btn{font-size:12.5px;padding:7px 12px}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div id="docbadge">MODO DOCENTE</div>
+<div id="progress"></div>
+
+<nav class="rail" aria-label="Capítulos">
+  <a href="#c0" aria-label="Umbral"><span>Umbral</span></a>
+  <a href="#c1" aria-label="Capítulo I: El umbral roto"><span>I · El umbral roto</span></a>
+  <a href="#c2" aria-label="Capítulo II: La máquina de criterios"><span>II · La máquina de criterios</span></a>
+  <a href="#c3" aria-label="Capítulo III: Dos herencias"><span>III · Dos herencias</span></a>
+  <a href="#c4" aria-label="Capítulo IV: La demolición"><span>IV · La demolición</span></a>
+  <a href="#c5" aria-label="Capítulo V: La primera certeza"><span>V · La primera certeza</span></a>
+  <a href="#c6" aria-label="Capítulo VI: Duda contra duda"><span>VI · Duda contra duda</span></a>
+  <a href="#c7" aria-label="Capítulo VII: Las cuatro reglas"><span>VII · Las cuatro reglas</span></a>
+  <a href="#c8" aria-label="Capítulo VIII: El umbral, cruzado"><span>VIII · El umbral, cruzado</span></a>
+</nav>
+
+<!-- ============ 0 · UMBRAL ============ -->
+<section class="chap" id="c0">
+  <div class="cogitomark">COGITO</div>
+  <div class="inner">
+    <div class="kicker">Filosofía · versión pública de aula</div>
+    <h1>Del Renacimiento a Descartes<br><span style="color:var(--cyan)">La demolición</span></h1>
+    <p class="lead">Un recorrido interactivo: vas a ver caer un criterio de verdad, vas a heredar una duda y un método, y vas a demoler —con tus propias manos— el edificio entero del saber. Para ver qué queda en pie.</p>
+    <div class="apho">Toda certeza heredada es una deuda. Tarde o temprano, alguien la cobra.</div>
+    <p class="note">Tu avance queda guardado en este dispositivo: podés cerrar y retomar donde dejaste. Todo funciona también con teclado (Tab y Enter).</p>
+    <div class="scrollcue">Bajá para empezar <span class="arr">↓</span></div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · plan de vuelo</span><span>~90 min totales</span></div>
+      <ul>
+        <li><b>Bloques del guion:</b> apertura ~10 min · Renacimiento y crisis ~10 · Montaigne (lecturas) ~20 · Bacon ~8 · Descartes ~20 · Discurso, libro en mano ~15 · cierre ~10.</li>
+        <li>Una idea por capítulo. Si una discusión se abre, <b>anotarla y volver al camino</b>.</li>
+        <li>Este modo muestra respuestas y notas. Para la vista pública, quitá <i>?modo=docente</i> de la dirección.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ I · EL UMBRAL ROTO ============ -->
+<section class="chap" id="c1">
+  <div class="inner">
+    <div class="kicker"><span class="num">I</span>El umbral roto</div>
+    <h2>El Renacimiento es <span class="u">transición</span>, no comienzo</h2>
+    <div class="apho">Toda época cree despertar de la anterior. El Renacimiento, al menos, sospechó que seguía soñando.</div>
+    <p class="body">Un dato incómodo: al "padre de la filosofía moderna" lo encontramos recién en el <b>siglo XVII</b> —<i>Discurso del método</i> (1637), <i>Meditaciones metafísicas</i> (1641)—. Si la Edad Moderna empieza a mediados del siglo XV, el padre llega tarde a su propio nacimiento. ¿Qué pasó en el medio?</p>
+    <p class="body">Pasó el Renacimiento: dos siglos que <b>critican lo medieval</b> pero todavía no definen lo nuevo. Un período de ensayo y tanteo, filosóficamente "casi estéril" —dice Carpio—, pero que prepara el terreno. Tocá cada época:</p>
+
+    <div class="epochs">
+      <button class="epoch" aria-expanded="false">
+        <span class="plus">+</span>
+        <span class="tag">Lo que se deja</span>
+        <h3>Medioevo</h3>
+        <span class="yrs">Escolástica · s. V–XV</span>
+        <span class="more">La verdad tiene dueño: la <b>autoridad</b>. La Iglesia interpreta las Escrituras; Aristóteles, filtrado por la escolástica, explica la naturaleza mediante formas sustanciales. Conocer es, en buena medida, comentar lo ya sabido.</span>
+      </button>
+      <button class="epoch" aria-expanded="false">
+        <span class="plus">+</span>
+        <span class="tag">El umbral</span>
+        <h3>Renacimiento</h3>
+        <span class="yrs">Transición · s. XV–XVI</span>
+        <span class="more">Se redescubre la Antigüedad grecolatina: platonismo, neoplatonismo, tradición hermética. Surge una <b>filosofía de la naturaleza</b> que la concibe como organismo vivo, con un componente todavía <b>mágico</b>. Época de crítica y de crisis: derriba, pero no funda. <span style="color:var(--faint)">(Carpio VIII §1; Jáuregui, T1)</span></span>
+      </button>
+      <button class="epoch" aria-expanded="false">
+        <span class="plus">+</span>
+        <span class="tag">Lo que empieza</span>
+        <h3>Modernidad</h3>
+        <span class="yrs">Descartes · s. XVII</span>
+        <span class="more">La revolución científica (Galileo, luego Newton) aplica la <b>matemática a la física</b>. Y Descartes coloca un pilar nuevo bajo todo el edificio: la <b>subjetividad</b>. Ya no se empieza por el mundo ni por Dios: se empieza por el <b>yo</b> que conoce.</span>
+      </button>
+    </div>
+    <p class="note">Discutible, como todo en filosofía: hay quien hace comenzar la modernidad con Bacon, o con Nicolás de Cusa. Seguimos aquí la lectura de Carpio y de Jáuregui: rasgos nuevos aparecen en el Renacimiento, pero la <i>manera</i> moderna de filosofar empieza con Descartes.</p>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · I</span><span>~10 min</span></div>
+      <ul>
+        <li>Dato para abrir: el "padre" llega tarde (1637/1641). Dejar que la incomodidad del dato haga la pregunta por el Renacimiento.</li>
+        <li>Carpio VIII §1: Renacimiento "casi estéril" en filosofía — crítica al pasado inmediato sin fundación nueva; época de crisis, ensayos y tanteos.</li>
+        <li><b>Riesgo de rama:</b> la discusión "¿cuándo empieza la modernidad?" (Bacon, Nicolás de Cusa — Jáuregui T1). Anotarla y seguir.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ II · LA MÁQUINA DE CRITERIOS ============ -->
+<section class="chap" id="c2">
+  <div class="inner">
+    <div class="kicker"><span class="num">II</span>La crisis de la autoridad</div>
+    <h2>Se rompe el <span class="u">criterio</span> de verdad</h2>
+    <div class="apho">Quien necesita un criterio para elegir su criterio ya empezó a caer.</div>
+    <p class="body">Dos incendios <b>sin relación entre sí</b> se declaran en el siglo XVI, confluyen y se potencian. Ninguno es causa del otro; juntos, queman el criterio medieval de verdad:</p>
+
+    <div class="fires">
+      <div class="fire rel">
+        <h3><span>Fuego religioso</span>La Reforma</h3>
+        <p>Lutero niega que la Iglesia tenga la autoridad exclusiva para interpretar las Escrituras: <b>cada uno puede interpretarlas</b>. De golpe hay <b>dos criterios</b> de verdad donde había uno.</p>
+      </div>
+      <div class="fire epi">
+        <h3><span>Fuego epistémico</span>El escepticismo que vuelve</h3>
+        <p>Se traducen en el s. XVI las obras de <b>Sexto Empírico</b>, que recogen el escepticismo <b>pirrónico</b> (Pirrón de Elis, c. 360–270 a.C.). El académico decía "no se puede conocer nada" —pero eso ya es afirmar algo—. El pirrónico es más radical: <b>suspende el juicio</b>. No afirma ni niega.</p>
+      </div>
+    </div>
+
+    <div id="regress">
+      <div class="glabel" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px">Probá la máquina · ¿con qué criterio elijo el criterio?</div>
+      <div class="claim">«La verdad está en las Escrituras. ¿Quién las interpreta correctamente?»</div>
+      <div id="rstack"></div>
+      <div class="btnrow">
+        <button class="btn primary" id="rbtn">Necesito un criterio para decidir</button>
+        <button class="btn ghost" id="rreset" style="display:none">Reiniciar</button>
+      </div>
+      <div id="rend">
+        <div class="apho" style="margin-top:6px">…y así al infinito. Si hay más de un criterio, hace falta un criterio para elegir criterio. La escalera no termina: por eso el problema deja de ser teológico y se vuelve <b style="font-style:normal">gnoseológico</b> —un problema del conocimiento.<span class="cite">(Carpio VIII §2 · Jáuregui, T1)</span></div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)">El círculo del que nadie sale</h3>
+    <p class="body">Cada bando intentó fundar su criterio. Los dos terminaron girando. Recorré cada círculo y contá las vueltas:</p>
+
+    <div class="circles">
+      <div class="circle" data-circle="p">
+        <h3><span>Calvino · la doble iluminación</span>Círculo protestante</h3>
+        <div class="cstep"><span class="dot">1</span><span>Una iluminación divina me asegura que la verdad está en la Escritura.</span></div>
+        <div class="cstep"><span class="dot">2</span><span>Otra iluminación me dice cuál es la interpretación correcta.</span></div>
+        <div class="cstep"><span class="dot">3</span><span>¿Y cómo sé que esas iluminaciones vienen de Dios? …Por otra iluminación.</span></div>
+        <div class="cfoot">
+          <button class="btn" data-go>Recorrer el círculo</button>
+          <span class="laps">Vueltas: <b data-laps>0</b></span>
+        </div>
+        <div class="cverdict">La luz que garantiza a la luz que garantiza a la luz. Nunca se toca el suelo.</div>
+      </div>
+      <div class="circle" data-circle="c">
+        <h3><span>Roma · la autoridad se cita a sí misma</span>Círculo católico</h3>
+        <div class="cstep"><span class="dot">1</span><span>La Iglesia tiene autoridad para interpretar la Escritura.</span></div>
+        <div class="cstep"><span class="dot">2</span><span>¿En qué se funda esa autoridad? En pasajes de la Escritura.</span></div>
+        <div class="cstep"><span class="dot">3</span><span>¿Y quién interpreta esos pasajes? …La Iglesia.</span></div>
+        <div class="cfoot">
+          <button class="btn" data-go>Recorrer el círculo</button>
+          <span class="laps">Vueltas: <b data-laps>0</b></span>
+        </div>
+        <div class="cverdict">El sello certifica al documento que certifica al sello.</div>
+      </div>
+    </div>
+    <p class="note">Curiosidad histórica: el escepticismo se usó primero <i>para defender a la Iglesia</i> —si la razón es tan débil, mejor la sumisión a la fe (Erasmo, y sobre todo Montaigne). El arma que la defendía terminó abriendo la puerta de la modernidad.</p>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · II</span><span>~10 min</span></div>
+      <ul>
+        <li>Fórmula para el pizarrón: <i>si hay más de un criterio, necesito un criterio para elegir criterio → regreso al infinito</i>.</li>
+        <li>Insistir: Reforma y redescubrimiento de Sexto Empírico son <b>dos procesos sin relación causal</b> que confluyen y se potencian (Jáuregui, T1).</li>
+        <li>Conclusión a subrayar: el problema deja de ser teológico y pasa a ser <b>gnoseológico</b> — el conocimiento queda en primer plano.</li>
+        <li>Los dos círculos salen del T1: Calvino y la doble iluminación; la Iglesia fundada en la Escritura que ella misma interpreta.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ III · DOS HERENCIAS ============ -->
+<section class="chap" id="c3">
+  <div class="inner">
+    <div class="kicker"><span class="num">III</span>Los predecesores</div>
+    <h2>Montaigne para <span class="c">dudar</span>, Bacon para el <span class="g">método</span></h2>
+    <div class="apho">De Montaigne, la duda; de Bacon, el hambre de método; de Descartes, la audacia de juntarlos.</div>
+
+    <div class="duo">
+      <div class="who m">
+        <div class="role">Primer predecesor · la duda</div>
+        <h3>Michel de Montaigne</h3>
+        <div class="yrs">1533–1592 · Francia en guerra de religión</div>
+        <ul>
+          <li>Inventa un género: el <b>ensayo</b>. Se ensaya a sí mismo.</li>
+          <li>Lee a Sexto Empírico: por él, el <b>pirronismo</b> antiguo llega hasta Descartes.</li>
+          <li>En la <b>Apología de Raimundo Sabunde</b> finge defender al teólogo y lo hunde: acusan a Sabunde de argumentos débiles, y Montaigne responde que es cierto… porque <b>toda</b> razón humana es débil.</li>
+          <li>Deja argumentos que Descartes retomará: el sueño, los sentidos que engañan, las cualidades que no están en las cosas.</li>
+          <li>Su desenlace: humildad, sumisión, <b>quedarse en la duda</b>.</li>
+        </ul>
+      </div>
+      <div class="who b">
+        <div class="role">Segundo predecesor · el método</div>
+        <h3>Francis Bacon</h3>
+        <div class="yrs">1561–1626 · Novum Organum (1620)</div>
+        <ul>
+          <li>Planteada la crisis del criterio, hace la otra pregunta: ¿con qué <b>método</b> se descubre la verdad?</li>
+          <li>Rechaza el <b>silogismo</b>: sólo transmite lo que ya se sabía; no descubre nada y arrastra errores viejos.</li>
+          <li>Momento destructivo: derribar los <b>ídolos</b> — tribu, caverna, foro, teatro.</li>
+          <li>Momento constructivo: el método <b>inductivo</b> — de casos observados y registrados, subir a leyes.</li>
+          <li>Su talón de Aquiles: la inducción es <b>inválida</b> — la conclusión afirma más que las premisas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="game" id="attrib">
+      <div class="glabel">Juego · ¿Quién firma esto?</div>
+      <div class="qcard" id="aq"></div>
+      <div class="btnrow">
+        <button class="btn" id="aM" style="border-color:rgba(255,107,107,.5)">Montaigne</button>
+        <button class="btn" id="aB" style="border-color:rgba(87,227,139,.5)">Bacon</button>
+        <button class="btn primary" id="aNext" style="display:none">Siguiente →</button>
+      </div>
+      <div class="gfeed" id="afeed" aria-live="polite"></div>
+      <div class="gscore" id="ascore"></div>
+      <div class="dkey" id="akey"></div>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · III</span><span>Montaigne ~20 min · Bacon ~8 min</span></div>
+      <ul>
+        <li><b>El bloque de lecturas.</b> Leer en este orden (T1): <i>«la razón es de suyo tan corta y tan ciega…»</i> — el corazón; <i>«sólo la humildad y la sumisión engendran los hombres de bien»</i>; y para cerrar, punzante: <i>«El tormento humano es la sed de saber; he aquí por qué la religión católica recomienda tanto la ignorancia»</i>.</li>
+        <li>Línea de transmisión para el pizarrón: <b>Sexto Empírico → Montaigne → Descartes</b>.</li>
+        <li>Bacon es <b>predecesor, no protagonista</b>: un ejemplo actual por ídolo alcanza. No demorarse.</li>
+        <li>Cierre del bloque: misma munición, otra guerra — Montaigne <b>se queda</b> en la duda; Descartes usará los mismos argumentos como instrumento.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ IV · LA DEMOLICIÓN ============ -->
+<section class="chap" id="c4">
+  <div class="inner">
+    <div class="kicker"><span class="num">IV</span>La duda metódica en obra</div>
+    <h2>La <span class="u">demolición</span></h2>
+    <div class="apho">No se derriba el edificio opinión por opinión: se dinamitan los cimientos.</div>
+    <p class="body">René Descartes (1596–1650). Formado por jesuitas en La Flèche, sale insatisfecho de todo lo aprendido salvo de la <b>matemática</b>, cuyo modelo de certeza adopta para todo saber. La noche del <b>10 de noviembre de 1619</b>, un sueño le revela —así lo interpreta él— la unidad de todas las ciencias y su método. Hegel dirá: <i>"Descartes es un héroe porque tomó las cosas por el comienzo"</i>.</p>
+    <p class="body">Su plan es de un radicalismo total: ir a la <b>raíz</b>, dar por falso todo aquello de lo que se pueda dudar aunque sea mínimamente, y ver si algo sobrevive. Las opiniones son infinitas: no se las examina una por una. Se atacan sus <b>fundamentos</b>: las facultades que las produjeron —los sentidos y la razón—. Caen los cimientos, cae el edificio. La duda es <b>universal</b> (todo), <b>radical</b> (la raíz) e <b>hiperbólica</b> (exagerada al extremo: basta la sospecha). <span style="color:var(--faint)">(Carpio VIII §4)</span></p>
+    <p class="body">Ahora demolé vos. Enfrente está el <b>edificio del saber</b> —cuatro pisos, y algo más que todavía no se ve— y el genio, esperando su turno. Tenés <b>cuatro instrumentos de duda</b>, de menor a mayor potencia. Regla del juego —y de Descartes—: usá el <b>argumento mínimo que baste</b> para volver dudosa cada creencia.</p>
+
+    <div id="demo-stage">
+      <div class="demo-viz">
+        <div class="gbar"><span class="who">El genio maligno</span><span id="gbubble-t" aria-live="polite"></span></div>
+        <svg id="bsvg" viewBox="0 40 720 360" role="img" aria-label="El edificio del saber, de cuatro pisos sobre un pilar central, y el genio maligno observando desde la derecha." xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gviol" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#191227"/>
+              <stop offset="1" stop-color="#3A2A63"/>
+            </linearGradient>
+            <linearGradient id="pillarGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#22E4FF"/>
+              <stop offset="1" stop-color="#0E5B66"/>
+            </linearGradient>
+            <radialGradient id="skyGlow" cx=".32" cy=".38" r=".75">
+              <stop offset="0" stop-color="rgba(34,228,255,.07)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0)"/>
+            </radialGradient>
+          </defs>
+          <rect x="0" y="0" width="720" height="400" fill="url(#skyGlow)"/>
+          <line x1="16" y1="364" x2="704" y2="364" stroke="#232936" stroke-width="3"/>
+          <g id="pillarG">
+            <rect id="pillar" x="202" y="96" width="24" height="266" fill="#12161F" stroke="#232936" stroke-width="1.5"/>
+            <rect id="pillarCap" x="192" y="88" width="44" height="10" rx="2" fill="#1A2029" stroke="#232936" stroke-width="1.5"/>
+          </g>
+          <text id="cogitoLabel" x="214" y="72" text-anchor="middle" font-size="21" font-weight="800" letter-spacing="4" fill="#22E4FF">COGITO</text>
+          <g id="floorsLayer"></g>
+          <g id="shardLayer"></g>
+          <g id="dustLayer"></g>
+          <g id="genioRoot" transform="translate(566,362)">
+            <g id="genio">
+              <path id="g-tail" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+                d="M0,2 C-30,2 -36,-14 -30,-26 C-27,-44 -28,-56 -28,-66 L28,-66 C28,-56 27,-44 30,-26 C36,-14 30,2 0,2 Z"/>
+              <path id="g-torso" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+                d="M-28,-64 C-30,-92 -26,-112 -16,-124 L16,-124 C26,-112 30,-92 28,-64 Z"/>
+              <path id="g-armL" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+                d="M-16,-118 C-44,-124 -64,-114 -78,-98 C-76,-94 -70,-93 -66,-96 C-54,-106 -38,-108 -14,-102 Z"/>
+              <path id="g-armR" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+                d="M16,-118 C36,-124 52,-138 58,-158 C55,-161 50,-160 48,-156 C42,-142 32,-130 14,-104 Z"/>
+              <g id="g-headg">
+                <circle id="g-head" cx="0" cy="-146" r="24" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"/>
+                <path id="g-hornL" d="M-13,-162 C-22,-166 -28,-174 -30,-184 C-20,-180 -12,-172 -9,-163 Z" fill="#2A1F45" stroke="#5A4390"/>
+                <path id="g-hornR" d="M13,-162 C22,-166 28,-174 30,-184 C20,-180 12,-172 9,-163 Z" fill="#2A1F45" stroke="#5A4390"/>
+                <path d="M-17,-157 L-4,-152" stroke="#2A1F45" stroke-width="3" stroke-linecap="round"/>
+                <path d="M17,-157 L4,-152" stroke="#2A1F45" stroke-width="3" stroke-linecap="round"/>
+                <g id="g-eyes">
+                  <ellipse cx="-9" cy="-147" rx="5" ry="6.2" transform="rotate(14 -9 -147)" fill="#FFC93C"/>
+                  <ellipse cx="9" cy="-147" rx="5" ry="6.2" transform="rotate(-14 9 -147)" fill="#FFC93C"/>
+                </g>
+                <path id="g-mouth" d="M-12,-131 Q0,-121 12,-131" stroke="#E0525E" stroke-width="2" fill="none" stroke-linecap="round"/>
+              </g>
+              <g id="g-cracks" stroke="#FFC93C" stroke-width="1.6" fill="none" opacity="0">
+                <path d="M-6,-160 L2,-148 L-4,-138 L4,-128"/>
+                <path d="M-14,-118 L-4,-106 L-12,-92 L-2,-80"/>
+                <path d="M12,-114 L6,-100 L14,-88"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="demo-progress" id="dprog">Edificio del saber · creencia <b>1</b> de 5</div>
+      <div class="tools" id="dtools">
+        <button class="tool" data-tool="0">
+          <span class="tn">Instrumento 1 · sentidos</span>
+          <span class="tt">Las ilusiones</span>
+          <span class="td">Los sentidos a veces yerran; es prudente no fiarse de quien nos engañó alguna vez.</span>
+        </button>
+        <button class="tool" data-tool="1">
+          <span class="tn">Instrumento 2 · sentidos</span>
+          <span class="tt">El sueño</span>
+          <span class="td">No hay indicio cierto para distinguir el sueño de la vigilia.</span>
+        </button>
+        <button class="tool" data-tool="2">
+          <span class="tn">Instrumento 3 · razón</span>
+          <span class="tt">Los paralogismos</span>
+          <span class="td">Hay hombres que yerran al razonar aun en la más simple geometría.</span>
+        </button>
+        <button class="tool" data-tool="3">
+          <span class="tn">Instrumento 4 · razón</span>
+          <span class="tt">El genio maligno</span>
+          <span class="td">Un espíritu tan poderoso como astuto y burlador, dedicado por entero a engañarme.</span>
+        </button>
+      </div>
+      <div class="dkey" id="dkey"></div>
+      <div class="belief" id="dbelief">
+        <div class="blabel" id="dblabel"></div>
+        <div class="btext" id="dbtext"></div>
+      </div>
+      <div id="demo-feed" aria-live="polite"></div>
+
+      <div id="deep">
+        <div class="apho" style="border-color:var(--cyan);color:var(--ink);margin-top:0">«Como si de pronto hubiese caído en unas aguas profundísimas, quédome tan sorprendido, que no puedo afirmar los pies en el fondo, ni nadar para mantenerme sobre la superficie.»<span class="cite">Descartes, Meditaciones — citado en Carpio VIII §6</span></div>
+        <p class="body" style="font-size:15px;color:var(--dim)">La superficie: el saber vulgar, la vida cotidiana. El fondo: el fundamento firme que se busca. El filósofo quedó suspendido entre ambos. Todo es dudoso. Sentidos y razón, demolidos. Del edificio no queda casi nada… salvo esa columna que asoma entre los escombros. Queda una creencia más. La última.</p>
+        <div class="btnrow"><button class="btn primary" id="dlast">Ir a la última creencia →</button></div>
+      </div>
+
+      <div id="cogito-reveal">
+        <div class="kicker" style="color:var(--violet)">En el extremo de la duda</div>
+        <div class="big">Cogito, ergo sum</div>
+        <p class="body">En el preciso momento en que la duda llega al extremo, <b>se convierte en su opuesto</b>: conocimiento absolutamente cierto. Para dudar tengo que pensar; para pensar tengo que ser. El genio maligno puede falsear todo el contenido de mis pensamientos —el mundo, mi cuerpo, la matemática—, pero no puede hacer que yo no sea <i>mientras pienso que soy algo</i>. El engaño perfecto exige una víctima real.</p>
+        <div class="apho">La duda, llevada al fondo, rebota. Descartes no salió del pozo: encontró que el pozo tenía suelo.</div>
+        <p class="note">La primera verdad indubitable —y el <b>primer principio</b> de la filosofía: primero no porque explique todo, sino porque es el punto de partida cierto sobre el que se edificará lo demás. (Carpio VIII §7)</p>
+      </div>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · IV</span><span>~20 min</span></div>
+      <ul>
+        <li>La duda: <b>universal</b> (todo), <b>radical</b> (a la raíz: las facultades, no las opiniones una por una), <b>hiperbólica</b> (basta la mínima sospecha) — Carpio VIII §4.</li>
+        <li>La regla del juego («argumento mínimo que baste») enseña la economía de la duda y prepara la distinción fina: los <b>paralogismos</b> atacan lo discursivo (procesos con pasos); el <b>genio</b>, lo intuido (captación inmediata) — Carpio VIII §6.</li>
+        <li>El genio no se afirma: basta que <b>no tengamos razón para descartarlo</b>. Toda la potencia de Dios sin su bondad (T1).</li>
+        <li><b>Riesgo de rama:</b> el genio maligno fascina — no adelantarse a las Meditaciones.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ V · LA PRIMERA CERTEZA ============ -->
+<section class="chap" id="c5">
+  <div class="inner">
+    <div class="kicker"><span class="num">V</span>Del cogito al criterio</div>
+    <h2>Por qué <span class="u">«pienso, soy»</span> y no un silogismo</h2>
+    <div class="apho">Nadie deduce que existe: se sorprende existiendo.</div>
+    <p class="body">Cuidado con el «ergo». Si el cogito fuera un razonamiento («todo lo que piensa existe; yo pienso; luego existo»), dependería de una premisa general que la duda ya volvió sospechosa —el genio puede falsear mis deducciones—. Pero no es un razonamiento: es una <b>intuición</b>, una captación inmediata, de un solo golpe de vista, en el acto mismo de pensar. Por eso Descartes prefiere formularlo sin «luego»: <b>«pienso, soy»</b>. (Carpio VIII §7)</p>
+    <p class="body">El intelecto —facultad superior de conocimiento para este <b>racionalismo</b>— opera de dos maneras: la <span class="g">intuición</span>, que capta ideas de modo inmediato por la "luz natural", y la <span class="g">deducción</span>, que infiere verdades a partir de lo intuido (y pierde inmediatez: interviene la memoria). La sensibilidad, en cambio, sirve más para conservar el cuerpo que para conocer. (Jáuregui, T1)</p>
+    <p class="body">Y del cogito, Descartes extrae la <b>regla general</b> de todo lo verdadero. ¿Qué hace indubitable al cogito? Que lo concibo con total <b>claridad y distinción</b>. Entonces: todo lo que conciba así de claro y distinto, será verdadero. <span class="cy">Clara</span>: la idea presente y manifiesta a un espíritu atento. <span class="cy">Distinta</span>: tan precisa y separada de las demás que sólo contiene lo que le pertenece. Todo lo distinto es claro; no todo lo claro es distinto —un dolor es claro, pero rara vez distinto—.</p>
+    <p class="note">El criterio de verdad ya no es la autoridad de nadie: es la <b>evidencia</b>, que se da en el interior del sujeto. Ahí está el giro moderno completo: el pilar del saber es la subjetividad. (Carpio VIII §6–8)</p>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · V</span></div>
+      <ul>
+        <li>Si el cogito fuera silogismo (entimema), exigiría la premisa «todos los entes que piensan son» — que la duda ya volvió sospechosa. Es <b>intuición</b>: basta reflexionar sobre el cogito para reconocer en él su verdad (Carpio VIII §7).</li>
+        <li>Ejemplo del dolor para claridad sin distinción (Carpio VIII §8; T1: lo confundimos con un juicio sobre la parte herida).</li>
+        <li>Cerrar el arco con la distinción del deck: no encontró el <i>principio</i> (arché); fundó un <b>comienzo</b>.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ VI · DUDA CONTRA DUDA ============ -->
+<section class="chap" id="c6">
+  <div class="inner">
+    <div class="kicker"><span class="num">VI</span>La distinción clave</div>
+    <h2>Duda <span class="c">pirrónica</span>, duda <span class="g">metódica</span></h2>
+    <div class="apho">Dos hombres dudan ante la misma puerta: uno se queda a vivir en el umbral; el otro la usa para entrar.</div>
+    <div class="duel">
+      <div class="dcol p">
+        <h3><span>Pirrón · Sexto Empírico · Montaigne</span>Pirrónica / sistemática</h3>
+        <p>Se duda por la duda misma. Es una <b>posición</b>, un punto de llegada. Destructiva: exhibe la debilidad de la razón y desemboca en la suspensión del juicio.</p>
+      </div>
+      <div class="dcol m">
+        <h3><span>Descartes</span>Metódica / cartesiana</h3>
+        <p>Se duda como <b>instrumento</b>, etapa momentánea de un camino. Constructiva: busca una verdad indubitable que sirva de cimiento. Apuesta a que, superada la duda, la razón alcanza la verdad.</p>
+      </div>
+    </div>
+
+    <div class="game" id="classify">
+      <div class="glabel">Clasificá · ¿quién habla: el pirrónico o Descartes?</div>
+      <div class="qcard" id="cq"></div>
+      <div class="btnrow">
+        <button class="btn" id="cP" style="border-color:rgba(255,107,107,.5)">Duda pirrónica</button>
+        <button class="btn" id="cM" style="border-color:rgba(87,227,139,.5)">Duda metódica</button>
+        <button class="btn primary" id="cNext" style="display:none">Siguiente →</button>
+      </div>
+      <div class="gfeed" id="cfeed" aria-live="polite"></div>
+      <div class="gscore" id="cscore"></div>
+      <div class="dkey" id="ckey"></div>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · VI</span></div>
+      <ul>
+        <li>La distinción central de la clase (Carpio I §6): pirrónica = <b>posición</b>, punto de llegada; metódica = <b>instrumento</b>, etapa momentánea.</li>
+        <li>Preguntarles: ¿en cuál de las dos está Montaigne?</li>
+        <li>Matiz para los rápidos: Descartes no suspende el juicio — <b>da por falso lo dudoso</b>, que es más violento (Carpio VIII §4, Principios I §2).</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ VII · LAS CUATRO REGLAS ============ -->
+<section class="chap" id="c7">
+  <div class="inner">
+    <div class="kicker"><span class="num">VII</span>Discurso del método · segunda parte</div>
+    <h2>Las cuatro <span class="u">reglas</span></h2>
+    <div class="apho">El método no regala verdades: impide tomar lo falso por verdadero.</div>
+    <p class="body">«Por método entiendo un conjunto de <b>reglas ciertas y fáciles</b>», escribe Descartes en las <i>Reglas para la dirección del espíritu</i>. Cuatro preceptos, con un orden interno preciso. Están desordenados: tocálos en el orden correcto.</p>
+
+    <div id="rules-track">
+      <div class="slot" data-slot="0"><span class="sn">Paso 1</span></div>
+      <div class="slot" data-slot="1"><span class="sn">Paso 2</span></div>
+      <div class="slot" data-slot="2"><span class="sn">Paso 3</span></div>
+      <div class="slot" data-slot="3"><span class="sn">Paso 4</span></div>
+    </div>
+    <div id="rules-pool"></div>
+    <div id="rules-feed" aria-live="polite"></div>
+    <div class="dkey">Docente · orden: Evidencia → Análisis → Síntesis → Enumeración.</div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · VII</span><span>~15 min · libro en mano</span></div>
+      <ul>
+        <li>Leer las cuatro reglas del <i>Discurso</i>, 2.ª parte, en voz alta (la 4 se puede parafrasear, como hace Jáuregui).</li>
+        <li>Glosa de la regla 1: <b>precipitación</b> = afirmar antes de la evidencia; <b>prevención</b> = el prejuicio, lo heredado (Carpio VIII §9).</li>
+        <li>Idea de fondo: conocer ya no es clasificar (medieval); es <b>ordenar lógicamente</b> (T1).</li>
+        <li>La regla 4 existe porque la deducción pierde inmediatez: interviene la memoria, que puede fallar — revisar acerca la deducción a la intuición.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ VIII · EL UMBRAL, CRUZADO ============ -->
+<section class="chap" id="c8">
+  <div class="inner">
+    <div class="kicker"><span class="num">VIII</span>Cierre</div>
+    <h2>El umbral, <span class="u">cruzado</span></h2>
+    <div class="apho">Descartes no encontró más verdades: encontró un suelo. Dudó de todo para no volver a apoyarse en nada prestado.</div>
+    <p class="body">Recapitulá el arco entero: un criterio de verdad que se rompe (Reforma + pirronismo), dos herencias que no se conocían entre sí (la duda de Montaigne, el hambre de método de Bacon), y un hombre que las junta y las radicaliza hasta que la duda misma entrega la primera certeza. De ahí en más, el saber moderno se edifica sobre la <b>subjetividad</b>.</p>
+
+    <div class="hr"></div>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)">Autoexamen · cinco preguntas</h3>
+    <p class="note" style="margin-bottom:6px">Al terminar vas a recibir un código local con tus resultados. El resto queda entre vos y el genio maligno.</p>
+    <div id="quiz"></div>
+    <div id="quiz-score" aria-live="polite"></div>
+
+    <div id="result">
+      <h3>Tu código de resultado</h3>
+      <p class="note">Copialo si querés guardar el recorrido. Lleva la fecha y tus aciertos por sección — nada más, nada menos.</p>
+      <div class="codebox">
+        <code id="codeval"></code>
+        <button class="btn primary" id="copybtn">Copiar código</button>
+      </div>
+      <div id="codelegend"></div>
+      <div class="btnrow"><button class="btn ghost" id="redoquiz">Rehacer el autoexamen</button></div>
+    </div>
+
+    <div class="hr"></div>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)">Para discutir en clase</h3>
+    <p class="body">¿Es <b>sensato</b> dudar de que estás despierto, o de que 2 + 2 = 4? ¿Dónde termina una duda razonable y empieza una duda hiperbólica —y qué se gana al cruzar esa frontera a propósito?</p>
+    <p class="body">Si el criterio de verdad es la <b>evidencia</b>, que se da dentro de cada sujeto… ¿lo evidente para uno es evidente para todos? ¿No reaparece, dentro del yo, el mismo problema del criterio que hundió a católicos y protestantes?</p>
+
+    <div class="sources">
+      <b>Fuentes.</b> A. P. Carpio, <i>Principios de filosofía</i>, cap. I §6 (la duda como origen; escepticismos) y cap. VIII (del Renacimiento a Descartes, §1–9). C. Jáuregui, <i>Historia de la Filosofía Moderna</i>, Teórico N.º 1 (UBA, 2007). R. Descartes, <i>Discurso del método</i> (1637), partes II y IV; <i>Meditaciones metafísicas</i> (1641), I y II — citados según Carpio.
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · VIII</span><span>~10 min · preguntar y callar</span></div>
+      <ul>
+        <li>No exponer: preguntar. ¿Es sensato dudar de que estás despierto? ¿Lo evidente para uno lo es para todos? Dejar la última <b>sin respuesta</b> — es la puerta de la próxima clase (Dios como garante; Carpio VIII §11).</li>
+        <li><b>Cómo leer el código</b> que mandan: A = atribución Montaigne/Bacon (…/6) · C = clasificación de dudas (…/6) · D = errores en la demolición · R = errores en el orden de reglas · Q = autoexamen (…/5). Una «x» = sección sin terminar.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<footer>
+    <span>La demolición · Del Renacimiento a Descartes — versión pública de aula</span>
+  <button class="btn ghost" id="freset">Reiniciar progreso</button>
+  <span>© 2026 Dan Mecikovsky · Todos los derechos reservados</span>
+</footer>
+
+<div id="resume" role="dialog" aria-label="Progreso guardado">
+  <p id="resume-msg"></p>
+  <div class="btnrow" style="margin-top:0">
+    <button class="btn primary" id="resume-go">Llevame ahí</button>
+    <button class="btn ghost" id="resume-reset">Empezar de cero</button>
+    <button class="btn ghost" id="resume-x" aria-label="Cerrar aviso">✕</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ============ utilidades ============ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function rnd(n){const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x);}
+
+/* ============ modo docente ============ */
+const DOCENTE=new URLSearchParams(location.search).get('modo')==='docente';
+if(DOCENTE)document.body.classList.add('docente');
+
+/* ============ estado persistente ============ */
+const SKEY=DOCENTE?'demolicion_v2_docente':'demolicion_v2';
+function defaultState(){return{v:2,chap:0,
+  attrib:{i:0,ok:0,done:false},
+  cls:{i:0,ok:0,done:false},
+  rules:{next:0,errs:0},
+  demo:{done:0,phase:'floors',errs:0,tried:[]},
+  quiz:{ans:[-1,-1,-1,-1,-1]},
+  code:null};}
+let savedExisted=false;
+let S=(function(){
+  try{const j=JSON.parse(localStorage.getItem(SKEY));
+    if(j&&j.v===2){savedExisted=true;return j;}}catch(e){}
+  return defaultState();
+})();
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
+function resetProgress(){
+  if(!confirm('¿Borrar todo el progreso guardado y empezar de cero?'))return;
+  try{localStorage.removeItem(SKEY);}catch(e){}
+  location.reload();
+}
+$('#freset').addEventListener('click',resetProgress);
+
+/* ============ progreso + riel + aparición ============ */
+const chaps=$$('.chap'), dots=$$('nav.rail a'), bar=$('#progress');
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:.12});
+chaps.forEach(c=>io.observe(c));
+let curChap=0, chapSaveT=null;
+function onScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(max>0?(scrollY/max)*100:0)+'%';
+  let cur=0;
+  chaps.forEach((c,i)=>{if(c.getBoundingClientRect().top<innerHeight*.45)cur=i;});
+  dots.forEach((d,i)=>d.classList.toggle('on',i===cur));
+  if(cur!==curChap){
+    curChap=cur;
+    clearTimeout(chapSaveT);
+    chapSaveT=setTimeout(()=>{S.chap=curChap;save();},900);
+  }
+}
+addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* ============ aviso: retomar donde dejaste ============ */
+(function(){
+  const any=S.chap>0||S.demo.done>0||S.demo.phase!=='floors'||S.attrib.done||S.attrib.i>0||
+            S.cls.done||S.cls.i>0||S.rules.next>0||S.quiz.ans.some(a=>a>=0);
+  if(!savedExisted||!any)return;
+  const CH=['el umbral','I · El umbral roto','II · La máquina de criterios','III · Dos herencias',
+            'IV · La demolición','V · La primera certeza','VI · Duda contra duda',
+            'VII · Las cuatro reglas','VIII · El umbral, cruzado'];
+  const tgt=Math.min(Math.max(S.chap,0),8);
+  $('#resume-msg').innerHTML='Progreso recuperado. Habías llegado a <b>'+CH[tgt]+'</b>.';
+  const box=$('#resume');
+  box.classList.add('show');
+  $('#resume-go').addEventListener('click',()=>{
+    document.getElementById('c'+tgt).scrollIntoView({behavior:'smooth'});
+    box.classList.remove('show');
+  });
+  $('#resume-reset').addEventListener('click',resetProgress);
+  $('#resume-x').addEventListener('click',()=>box.classList.remove('show'));
+})();
+
+/* ============ I · épocas ============ */
+$$('.epoch').forEach(el=>{
+  el.addEventListener('click',()=>{
+    const open=el.classList.toggle('open');
+    el.setAttribute('aria-expanded',open?'true':'false');
+  });
+});
+
+/* ============ II · máquina de criterios ============ */
+const rlevels=[
+  {q:'¿Quién interpreta correctamente?',a:'<b>Criterio 1</b> — "La Iglesia tiene la autoridad." / "Cada uno por sí mismo."'},
+  {q:'¿Y con qué criterio elijo entre esos dos criterios?',a:'<b>Criterio 2</b> — necesito un criterio que valide al criterio.'},
+  {q:'¿Y quién valida al validador?',a:'<b>Criterio 3</b> — un criterio para el criterio del criterio.'},
+  {q:'¿Y a ese, quién?',a:'<b>Criterio 4</b> — esto ya es un espejo frente a otro espejo.'},
+  {q:'¿Cuántos escalones más pensás subir?',a:'<b>Criterio 5</b> — …'}
+];
+let rn=0;
+const rbtn=$('#rbtn'),rstack=$('#rstack'),rend=$('#rend'),rreset=$('#rreset');
+rbtn.addEventListener('click',()=>{
+  if(rn>=rlevels.length)return;
+  const L=rlevels[rn];
+  const d=document.createElement('div');
+  d.className='rlevel';
+  d.innerHTML='<div class="rq"><b>?</b> '+L.q+'</div><div class="ra">'+L.a+'</div>';
+  rstack.appendChild(d);
+  rn++;
+  if(rn===rlevels.length){
+    rend.classList.add('show');
+    rbtn.style.display='none';
+    rreset.style.display='inline-block';
+  }
+});
+rreset.addEventListener('click',()=>{
+  rn=0;rstack.innerHTML='';rend.classList.remove('show');
+  rbtn.style.display='inline-block';rreset.style.display='none';
+});
+
+/* ============ II · círculos ============ */
+$$('[data-circle]').forEach(box=>{
+  const steps=[...box.querySelectorAll('.cstep')];
+  const btn=box.querySelector('[data-go]');
+  const lapsEl=box.querySelector('[data-laps]');
+  const verdict=box.querySelector('.cverdict');
+  let laps=0,running=false;
+  btn.addEventListener('click',()=>{
+    if(running)return;
+    running=true;btn.disabled=true;
+    let k=0;
+    const tick=setInterval(()=>{
+      steps.forEach((s,i)=>s.classList.toggle('hot',i===k%steps.length));
+      k++;
+      if(k>steps.length){
+        clearInterval(tick);
+        steps.forEach(s=>s.classList.remove('hot'));
+        laps++;
+        lapsEl.textContent=laps;
+        if(laps>=2){verdict.classList.add('show');btn.textContent='Seguir girando';}
+        running=false;btn.disabled=false;
+      }
+    },650);
+  });
+});
+
+/* ============ III · ¿quién firma? ============ */
+const aItems=[
+  {t:'«La razón humana es de suyo tan corta y tan ciega, que lo que conviene es la humildad y la sumisión.»',who:'M',
+   ok:'Montaigne, en la Apología de Raimundo Sabunde: finge defender al teólogo y hunde a la razón entera.',
+   bad:'Es Montaigne. Bacon desconfía de la herencia, no de la razón: quiere dirigirla con un método.'},
+  {t:'«El silogismo no descubre nada nuevo: sólo transmite una verdad que ya se poseía — y arrastra los errores viejos.»',who:'B',
+   ok:'Bacon, momento destructivo del Novum Organum: la lógica heredada no sirve para descubrir.',
+   bad:'Es Bacon. Montaigne no propone reformar la lógica: propone bajarle el precio a la razón.'},
+  {t:'«¿Que sé algo? Ni siquiera eso afirmo: suspendo el juicio.»',who:'M',
+   ok:'Montaigne, respirando pirronismo puro: lo toma de Sexto Empírico, y por esa vía llegará a Descartes.',
+   bad:'Es Montaigne — el eco de Pirrón vía Sexto Empírico. Bacon nunca suspende el juicio: quiere leyes de la naturaleza.'},
+  {t:'«No se injerta lo nuevo en el tronco viejo: hay que empezar todo de nuevo.»',who:'B',
+   ok:'Bacon: rechazo de los saberes heredados. Ojo — Descartes va a radicalizar exactamente este gesto.',
+   bad:'Es Bacon. Aunque suene cartesiano: Descartes hereda de él este empezar-de-cero.'},
+  {t:'«De casos particulares, observados y registrados según un plan, se asciende a leyes cada vez más generales.»',who:'B',
+   ok:'Bacon, momento constructivo: la inducción. Su problema: es un razonamiento inválido — la conclusión afirma más que las premisas.',
+   bad:'Es Bacon: la inducción. Montaigne no busca leyes; se busca a sí mismo en el ensayo.'},
+  {t:'«Cuando dormimos creemos tan firmemente como despiertos. ¿Qué nos asegura que ahora no soñamos?»',who:'M',
+   ok:'Montaigne. Guardá este argumento: Descartes lo va a levantar del ensayo y lo va a convertir en dinamita.',
+   bad:'Es Montaigne. El argumento del sueño nace escéptico; Descartes lo vuelve metódico.'}
+];
+let ai=Math.min(S.attrib.i,aItems.length-1),aok=S.attrib.ok;
+const aq=$('#aq'),afeed=$('#afeed'),ascore=$('#ascore'),
+      aM=$('#aM'),aB=$('#aB'),aNext=$('#aNext'),akey=$('#akey');
+function aShow(){
+  const it=aItems[ai];
+  aq.textContent=it.t;
+  afeed.textContent='';afeed.className='gfeed';
+  aM.style.display=aB.style.display='inline-block';
+  aM.disabled=aB.disabled=false;
+  aNext.style.display='none';
+  ascore.innerHTML='Cita '+(ai+1)+' de '+aItems.length+' · aciertos: <b>'+aok+'</b>';
+  akey.textContent='Docente · firma: '+(it.who==='M'?'Montaigne':'Bacon');
+}
+function aAnswer(g){
+  const it=aItems[ai];
+  aM.disabled=aB.disabled=true;
+  if(g===it.who){aok++;afeed.className='gfeed ok';afeed.innerHTML='✔ '+it.ok;}
+  else{afeed.className='gfeed bad';afeed.innerHTML='✘ '+it.bad;
+       aq.classList.add('shake');setTimeout(()=>aq.classList.remove('shake'),450);}
+  S.attrib.ok=aok;save();
+  ascore.innerHTML='Cita '+(ai+1)+' de '+aItems.length+' · aciertos: <b>'+aok+'</b>';
+  aNext.style.display='inline-block';
+  aNext.textContent=(ai===aItems.length-1)?'Ver el balance →':'Siguiente →';
+}
+function aFinish(){
+  aq.innerHTML='Balance: <b style="font-style:normal;color:var(--amber)">'+aok+' / '+aItems.length+'</b>. Montaigne aporta la <b style="font-style:normal;color:var(--coral)">duda</b>; Bacon, la exigencia de un <b style="font-style:normal;color:var(--green)">método de descubrimiento</b>. Descartes no elige entre los dos: funde la duda <i>dentro</i> del método.';
+  afeed.textContent='';ascore.textContent='';akey.textContent='';
+  aM.style.display=aB.style.display=aNext.style.display='none';
+}
+aM.addEventListener('click',()=>aAnswer('M'));
+aB.addEventListener('click',()=>aAnswer('B'));
+aNext.addEventListener('click',()=>{
+  if(ai<aItems.length-1){ai++;S.attrib.i=ai;save();aShow();}
+  else if(!S.attrib.done){S.attrib.done=true;save();aFinish();}
+});
+if(S.attrib.done)aFinish();else aShow();
+
+/* ============ IV · demolición: datos ============ */
+const BELIEFS=[
+  {label:'Creencia 1 · lo lejano',text:'«Aquella torre, a lo lejos, es redonda.»',correct:0,
+   feed:[
+    '✔ Demolida. De cerca la torre resulta cuadrada; el remo en el agua se quiebra y al sacarlo se endereza. Los sentidos ya nos engañaron alguna vez: es propio de la prudencia no confiar jamás demasiado en quien nos engañó. (Carpio VIII §5)',
+    '✘ Alcanza con menos. Para lo lejano y lo difícil de percibir bastan las ilusiones conocidas. La duda es económica: usá el argumento mínimo que baste.',
+    '✘ Instrumento equivocado: acá no hay razonamiento que pueda descarrilar — hay una percepción. Atacá a los sentidos.',
+    '✘ ¿El genio maligno para una torre? Dinamita para un castillo de arena. Guardalo: lo vas a necesitar de verdad.'
+   ],
+   genio:'¿Ves qué fácil? Seguí.'},
+  {label:'Creencia 2 · lo patente',text:'«Estoy acá, en el aula, sentado, con esta hoja en las manos.»',correct:1,
+   feed:[
+    '✘ No alcanza. Descartes lo concede: dudar de lo tan patente y cercano parecería cosa de insensatos. Las ilusiones valen para lo lejano y lo diminuto. Hace falta algo más profundo.',
+    '✔ Demolida. Muchas veces soñé estar exactamente así — despierto, escribiendo — y estaba dormido y acostado. «No hay indicios ciertos para distinguir el sueño de la vigilia.» Ni pellizcarse sirve: ¿y si el pellizco es soñado? Todo lo sensible cae, hasta lo más patente. (Carpio VIII §5)',
+    '✘ Instrumento equivocado: no estoy razonando, estoy percibiendo. El golpe tiene que entrar por los sentidos.',
+    '✘ Alcanza con menos. Todavía no hace falta el monstruo: hay un argumento más doméstico que voltea esto.'
+   ],
+   genio:'Ni tu propio cuerpo te queda.'},
+  {label:'Creencia 3 · el cálculo',text:'«Hice esta suma larga tres veces: tiene que estar bien.»',correct:2,
+   feed:[
+    '✘ Los sentidos no son el blanco: la suma es un proceso del pensamiento, no una percepción.',
+    '✘ No alcanza: aun soñando, la matemática parece seguir valiendo dentro del sueño. El ataque tiene que ir contra la razón misma.',
+    '✔ Demolida. «Hay hombres que yerran al razonar aun acerca de los más simples asuntos de geometría.» Todo proceso discursivo — con pasos, con memoria — puede descarrilar; y si pudo fallar una vez, la sospecha lo cubre todo. (Carpio VIII §6)',
+    '✘ Alcanza con menos: contra un razonamiento con pasos basta recordar los paralogismos. El genio, todavía no.'
+   ],
+   genio:'También tu razón es mía.'},
+  {label:'Creencia 4 · el principio',text:'«2 + 2 = 4.»',correct:3,
+   feed:[
+    '✘ Esto no se ve ni se toca: se intuye. Los sentidos no tienen jurisdicción.',
+    '✘ Aun dormido, 2 + 2 = 4 parece valer. El sueño no muerde acá.',
+    '✘ No alcanza — y esta es la distinción fina: los paralogismos atañen a <b>razonamientos</b>, procesos con pasos. Pero esto no es discursivo: se capta de un solo golpe, por simple inspección del espíritu. Contra una <b>intuición</b>, el error de cálculo no tiene agarre.',
+    '✔ Demolida. Sólo una hipótesis extrema alcanza: un genio «no menos astuto y burlador que poderoso», dedicado por entero a engañarme — incluso cuando intuyo. Descartes no afirma que exista; señala que no tenemos razón para descartar que exista. Y para esta duda, la mera posibilidad basta. Punto máximo. (Carpio VIII §6)'
+   ],
+   genio:'Ahora todo es mío.'},
+  {label:'Creencia 5 · la última',text:'«Ahora mismo, estoy dudando.»',correct:-1,
+   feed:[
+    '✘ Falló. La duda no se ve ni se toca: los sentidos no tienen nada que decir acá.',
+    '✘ Falló. ¿Y si sueño que dudo? Entonces sueño… y pienso. Sigo pensando: sigo siendo.',
+    '✘ Falló. No es un razonamiento con pasos: es una captación inmediata, en el acto mismo de dudar. No hay dónde descarrilar.',
+    '✘ Falló. Que me engañe en todo lo que quiera: <b>para engañarme, necesita que yo sea</b>. No puede hacer que yo no sea nada mientras yo piense que soy algo.'
+   ]}
+];
+const GENIO_FAILS=['Esto también va a caer.','Dame un momento…','Tiene que haber una grieta.','…Para engañarte, necesito que seas. Perdí.'];
+const TOOL_MIN=['las ilusiones (instrumento 1)','el sueño (instrumento 2)','los paralogismos (instrumento 3)','el genio maligno (instrumento 4)','ninguno alcanza — la creencia resiste: es el cogito'];
+
+/* ============ IV · edificio SVG ============ */
+const svg=$('#bsvg');
+const floorsLayer=$('#floorsLayer'),shardLayer=$('#shardLayer'),dustLayer=$('#dustLayer');
+const genioEl=$('#genio'),gCracks=$('#g-cracks'),gEyes=$('#g-eyes');
+const gbubbleT=$('#gbubble-t');
+const BX=64,BW=300,TOPY=114,FH=62,GROUND=362;
+const FLOORLABELS=['1 · LO LEJANO','2 · LO PATENTE','3 · EL CÁLCULO','4 · LOS PRINCIPIOS'];
+const floorEls=[];
+(function buildFloors(){
+  for(let f=0;f<4;f++){
+    const y=TOPY+f*FH;
+    const g=document.createElementNS(NS,'g');
+    if(f===0){
+      const co=document.createElementNS(NS,'rect');
+      co.setAttribute('x',BX-8);co.setAttribute('y',y-12);
+      co.setAttribute('width',BW+16);co.setAttribute('height',12);co.setAttribute('rx',3);
+      co.setAttribute('fill','#1A2029');co.setAttribute('stroke','#232936');
+      g.appendChild(co);
+    }
+    const wall=document.createElementNS(NS,'rect');
+    wall.setAttribute('x',BX);wall.setAttribute('y',y);
+    wall.setAttribute('width',BW);wall.setAttribute('height',FH);
+    wall.setAttribute('fill','#10141B');wall.setAttribute('stroke','#232936');
+    g.appendChild(wall);
+    const slab=document.createElementNS(NS,'rect');
+    slab.setAttribute('x',BX);slab.setAttribute('y',y);
+    slab.setAttribute('width',BW);slab.setAttribute('height',5);
+    slab.setAttribute('fill','#1A2029');
+    g.appendChild(slab);
+    [84,148,240,304].forEach(wx=>{
+      const w=document.createElementNS(NS,'rect');
+      w.setAttribute('x',wx);w.setAttribute('y',y+13);
+      w.setAttribute('width',30);w.setAttribute('height',22);w.setAttribute('rx',2);
+      w.setAttribute('fill','#0A0E14');w.setAttribute('stroke','#2E3644');
+      g.appendChild(w);
+    });
+    const t=document.createElementNS(NS,'text');
+    t.setAttribute('x',BX+16);t.setAttribute('y',y+FH-12);
+    t.setAttribute('font-size','14');t.setAttribute('font-weight','700');
+    t.setAttribute('letter-spacing','2');t.setAttribute('fill','#8B95A5');
+    t.textContent=FLOORLABELS[f];
+    g.appendChild(t);
+    floorsLayer.appendChild(g);
+    floorEls.push(g);
+  }
+})();
+function fly(el,dx,dy,rot,dur,anim){
+  el.style.transformBox='fill-box';el.style.transformOrigin='center';
+  const end='translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px) rotate('+rot.toFixed(1)+'deg)';
+  if(!anim||REDUCED){el.style.transform=end;return;}
+  const a=el.animate([
+    {transform:'translate(0px,0px) rotate(0deg)',easing:'cubic-bezier(.5,.05,.85,.5)'},
+    {transform:'translate('+(dx*.6).toFixed(1)+'px,'+(dy*.82).toFixed(1)+'px) rotate('+(rot*.65).toFixed(1)+'deg)',easing:'cubic-bezier(.15,.6,.3,1)'},
+    {transform:end}
+  ],{duration:dur,fill:'forwards'});
+  a.onfinish=()=>{el.style.transform=end;try{a.cancel();}catch(e){}};
+}
+function collapseFloor(f,anim){
+  const fl=floorEls[f];
+  if(!fl||fl.style.display==='none')return;
+  fl.style.display='none';
+  const y=TOPY+f*FH;
+  const shards=[];
+  for(let r2=0;r2<2;r2++)for(let c=0;c<4;c++){
+    const i=r2*4+c;
+    const x0=BX+c*(BW/4),y0=y+r2*(FH/2),w=BW/4,h=FH/2;
+    const j=s=>rnd(f*97+i*13+s)*12-6;
+    const pts=[[x0+j(1),y0+j(2)],[x0+w+j(3),y0+j(4)],[x0+w+j(5),y0+h+j(6)],[x0+j(7),y0+h+j(8)]];
+    const p=document.createElementNS(NS,'polygon');
+    p.setAttribute('points',pts.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' '));
+    p.setAttribute('fill',['#151A24','#10141B','#0D1118','#171D28'][i%4]);
+    p.setAttribute('stroke','#232936');
+    shardLayer.appendChild(p);
+    shards.push({el:p,cx:x0+w/2,cy:y0+h/2,i:i});
+  }
+  if(f===0){
+    for(let c=0;c<3;c++){
+      const i=8+c;
+      const w=(BW+16)/3;
+      const x0=BX-8+c*w;
+      const p=document.createElementNS(NS,'polygon');
+      p.setAttribute('points',
+        x0.toFixed(1)+','+(y-12)+' '+(x0+w).toFixed(1)+','+(y-12)+' '+
+        (x0+w-4).toFixed(1)+','+y+' '+(x0+4).toFixed(1)+','+y);
+      p.setAttribute('fill','#1A2029');p.setAttribute('stroke','#232936');
+      shardLayer.appendChild(p);
+      shards.push({el:p,cx:x0+w/2,cy:y-6,i:i});
+    }
+  }
+  const lb=document.createElementNS(NS,'text');
+  lb.setAttribute('x',BX+16);lb.setAttribute('y',y+FH-12);
+  lb.setAttribute('font-size','14');lb.setAttribute('font-weight','700');
+  lb.setAttribute('letter-spacing','2');lb.setAttribute('fill','#6E7888');
+  lb.textContent=FLOORLABELS[f];
+  shardLayer.appendChild(lb);
+  shards.push({el:lb,cx:BX+70,cy:y+FH-16,i:12,label:true});
+  shards.forEach(s=>{
+    const k=f*17+s.i;
+    const tx=s.label?(BX+34+rnd(k*3+1)*(BW-120)):(BX+14+rnd(k*3+1)*(BW-28));
+    const ty=GROUND-6-f*7-rnd(k*3+2)*14;
+    const rot=s.label?(rnd(k*3+3)*30-15):(rnd(k*3+3)*150-75);
+    fly(s.el,tx-s.cx,ty-s.cy,rot,850+rnd(k)*500,anim);
+  });
+  if(anim&&!REDUCED){dust(y);shakeSvg();}
+}
+function dust(y){
+  for(let i=0;i<8;i++){
+    const c=document.createElementNS(NS,'circle');
+    const cx=BX+16+rnd(y*3+i*7)*(BW-32),cy=y+FH-8-rnd(i*5)*20,r=7+rnd(i*11+y)*9;
+    c.setAttribute('cx',cx.toFixed(1));c.setAttribute('cy',cy.toFixed(1));c.setAttribute('r',r.toFixed(1));
+    c.setAttribute('fill','rgba(185,196,214,.13)');
+    c.style.transformBox='fill-box';c.style.transformOrigin='center';
+    dustLayer.appendChild(c);
+    const a=c.animate([
+      {transform:'scale(.5)',opacity:.9},
+      {transform:'scale(2.6) translate('+(rnd(i)*20-10).toFixed(1)+'px,-14px)',opacity:0}
+    ],{duration:1000+rnd(i*3)*500,easing:'ease-out',fill:'forwards'});
+    a.onfinish=()=>c.remove();
+  }
+}
+function shakeSvg(){
+  svg.classList.remove('shaking');
+  void svg.getBoundingClientRect();
+  svg.classList.add('shaking');
+  setTimeout(()=>svg.classList.remove('shaking'),600);
+}
+function setGenio(n){
+  svg.style.setProperty('--gs',(0.78+n*0.14).toFixed(2));
+  gEyes.style.filter='drop-shadow(0 0 '+(3+n*2.4)+'px rgba(255,201,60,.95))';
+}
+function speak(t){gbubbleT.textContent='«'+t+'»';}
+function flinch(){
+  genioEl.classList.remove('flinch');
+  void svg.getBoundingClientRect();
+  genioEl.classList.add('flinch');
+  setTimeout(()=>genioEl.classList.remove('flinch'),600);
+}
+function genioBreak(anim){
+  gCracks.style.opacity='1';
+  if(anim&&!REDUCED){flinch();setTimeout(()=>genioEl.classList.add('broken'),620);}
+  else genioEl.classList.add('broken');
+}
+function pillarFlash(){
+  const p=$('#pillarG');
+  p.classList.remove('flash');
+  void svg.getBoundingClientRect();
+  p.classList.add('flash');
+  setTimeout(()=>p.classList.remove('flash'),550);
+}
+
+/* ============ IV · demolición: lógica ============ */
+const dbelief=$('#dbelief'),dblabel=$('#dblabel'),dbtext=$('#dbtext'),dfeed=$('#demo-feed'),
+      dprog=$('#dprog'),deep=$('#deep'),dlast=$('#dlast'),cogito=$('#cogito-reveal'),
+      dkey=$('#dkey'),toolBtns=$$('#dtools .tool');
+let demoLocked=false;
+function setTools(on){toolBtns.forEach(b=>{b.disabled=!on;});}
+function updateProg(){
+  const ph=S.demo.phase;
+  if(ph==='floors')dprog.innerHTML='Edificio del saber · creencia <b>'+(S.demo.done+1)+'</b> de 5 · errores: <b>'+S.demo.errs+'</b>';
+  else if(ph==='deep')dprog.innerHTML='Cuatro creencias demolidas · <b>queda una</b>';
+  else if(ph==='last')dprog.innerHTML='Edificio del saber · creencia <b>5</b> de 5 — la última';
+  else dprog.innerHTML='Demolición detenida · <b>algo quedó en pie</b>';
+  dkey.textContent='Docente · argumento mínimo: '+TOOL_MIN[ph==='floors'?S.demo.done:4];
+}
+function dShowBelief(n){
+  const b=BELIEFS[n];
+  dblabel.textContent=b.label;
+  dbtext.textContent=b.text;
+  dfeed.innerHTML='';dfeed.className='';
+  dbelief.classList.remove('fall','fallen','hold');
+  updateProg();
+}
+function toolClick(t){
+  if(demoLocked)return;
+  const ph=S.demo.phase;
+  if(ph==='deep'||ph==='won')return;
+  if(ph==='last'){lastBelief(t);return;}
+  const b=BELIEFS[S.demo.done];
+  if(t===b.correct){
+    demoLocked=true;
+    dfeed.className='ok';dfeed.innerHTML=b.feed[t];
+    dbelief.classList.add('fall');
+    collapseFloor(S.demo.done,true);
+    setGenio(S.demo.done+1);
+    speak(b.genio);
+    S.demo.done++;save();
+    setTimeout(()=>{
+      if(S.demo.done===4){
+        S.demo.phase='deep';save();
+        setTools(false);
+        deep.classList.add('show');
+        deep.scrollIntoView({behavior:'smooth',block:'center'});
+        updateProg();
+      }else{
+        dShowBelief(S.demo.done);
+      }
+      demoLocked=false;
+    },1150);
+  }else{
+    S.demo.errs++;save();
+    dfeed.className='bad';dfeed.innerHTML=b.feed[t];
+    dbelief.classList.add('shake');
+    setTimeout(()=>dbelief.classList.remove('shake'),450);
+    updateProg();
+  }
+}
+function lastBelief(t){
+  const b=BELIEFS[4];
+  if(!S.demo.tried.includes(t))S.demo.tried.push(t);
+  dbelief.classList.add('hold');
+  toolBtns[t].classList.add('used');
+  pillarFlash();
+  dfeed.className='bad';
+  if(t===3){
+    dfeed.innerHTML=b.feed[3];
+    speak(GENIO_FAILS[3]);
+    genioBreak(true);
+    S.demo.phase='won';save();
+    setTools(false);
+    updateProg();
+    setTimeout(()=>{svg.classList.add('won');},1000);
+    setTimeout(()=>{
+      const btn=document.createElement('button');
+      btn.className='btn primary';btn.style.marginTop='14px';
+      btn.textContent='Algo quedó en pie →';
+      btn.addEventListener('click',()=>{
+        cogito.classList.add('show');
+        cogito.scrollIntoView({behavior:'smooth',block:'center'});
+        btn.remove();
+      });
+      dfeed.appendChild(btn);
+      btn.scrollIntoView({behavior:'smooth',block:'center'});
+      btn.focus({preventScroll:true});
+    },1500);
+  }else{
+    const nong=S.demo.tried.filter(x=>x!==3).length;
+    speak(GENIO_FAILS[Math.min(Math.max(nong-1,0),2)]);
+    flinch();
+    let extra='';
+    if(nong>=2)extra='<span class="hintline">Un solo instrumento queda a la altura de esta creencia: el genio. Usalo.</span>';
+    dfeed.innerHTML=b.feed[t]+extra;
+    save();
+  }
+}
+toolBtns.forEach((b,t)=>b.addEventListener('click',()=>toolClick(t)));
+dlast.addEventListener('click',()=>{
+  S.demo.phase='last';save();
+  setTools(true);
+  toolBtns.forEach(b=>b.classList.remove('used'));
+  dShowBelief(4);
+  dfeed.className='';
+  dfeed.innerHTML='Cuatro instrumentos, una creencia. Probalos.';
+  dbelief.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+/* restaurar demolición guardada */
+(function restoreDemo(){
+  svg.classList.add('instant');
+  const ph=S.demo.phase;
+  const fallen=(ph==='floors')?S.demo.done:4;
+  for(let f=0;f<fallen;f++)collapseFloor(f,false);
+  setGenio(ph==='won'?4:fallen);
+  if(ph==='floors'){
+    dShowBelief(S.demo.done);
+    speak(S.demo.done===0?'Demolé tranquilo. Todo lo que caiga es mío.':BELIEFS[S.demo.done-1].genio);
+  }else if(ph==='deep'){
+    setTools(false);
+    deep.classList.add('show');
+    dShowBelief(3);
+    dbelief.classList.add('fallen');
+    speak(BELIEFS[3].genio);
+    updateProg();
+  }else if(ph==='last'){
+    deep.classList.add('show');
+    dShowBelief(4);
+    S.demo.tried.forEach(t=>toolBtns[t].classList.add('used'));
+    if(S.demo.tried.length){
+      dbelief.classList.add('hold');
+      const lastT=S.demo.tried[S.demo.tried.length-1];
+      dfeed.className='bad';dfeed.innerHTML=BELIEFS[4].feed[lastT];
+      const nong=S.demo.tried.filter(x=>x!==3).length;
+      speak(GENIO_FAILS[Math.min(Math.max(nong-1,0),2)]);
+    }else{
+      dfeed.innerHTML='Cuatro instrumentos, una creencia. Probalos.';
+      speak(BELIEFS[3].genio);
+    }
+  }else{ /* won */
+    deep.classList.add('show');
+    dShowBelief(4);
+    dbelief.classList.add('hold');
+    setTools(false);
+    S.demo.tried.forEach(t=>toolBtns[t].classList.add('used'));
+    dfeed.className='bad';dfeed.innerHTML=BELIEFS[4].feed[3];
+    speak(GENIO_FAILS[3]);
+    genioBreak(false);
+    svg.classList.add('won');
+    cogito.classList.add('show');
+    updateProg();
+  }
+  setTimeout(()=>svg.classList.remove('instant'),200);
+})();
+
+/* ============ VI · clasificador ============ */
+const cItems=[
+  {t:'«Suspendo el juicio: ni afirmo ni niego.»',who:'P',
+   ok:'Pirrónica: la epojé, más radical que decir "no se puede conocer nada" — que ya es afirmar algo.',
+   bad:'Es la pirrónica: la suspensión del juicio es su firma. Descartes nunca suspende: da por falso lo dudoso, que es otra cosa.'},
+  {t:'«Dudo de todo para encontrar algo de lo que no pueda dudar.»',who:'M',
+   ok:'Metódica: la duda como camino hacia un cimiento. Duda con dirección.',
+   bad:'Es metódica: hay un "para". El pirrónico no busca cimiento; descansa en la duda.'},
+  {t:'«La duda es mi casa: me quedo a vivir en ella.»',who:'P',
+   ok:'Pirrónica: punto de llegada, posición filosófica. Ahí se queda Montaigne.',
+   bad:'Es pirrónica. Para Descartes la duda es campamento de una noche, jamás una casa.'},
+  {t:'«Doy por falso — provisoriamente — todo lo dudoso, para ver qué queda en pie.»',who:'M',
+   ok:'Metódica, y notá el matiz: dar por falso lo dudoso es más violento que suspender el juicio. Violencia con propósito.',
+   bad:'Es metódica: ese "provisoriamente" delata el instrumento. El pirrónico no da por falso: no juzga.'},
+  {t:'«La razón es tan corta y tan ciega que sólo cabe la humildad y la sumisión.»',who:'P',
+   ok:'Pirrónica — es Montaigne. La debilidad de la razón como conclusión final.',
+   bad:'Es la pirrónica de Montaigne. Descartes jamás diría "sumisión": su apuesta es que la razón, bien dirigida, alcanza la verdad.'},
+  {t:'«La duda es una etapa momentánea; el destino es la certeza.»',who:'M',
+   ok:'Metódica: constructiva, transitoria, al servicio del edificio nuevo.',
+   bad:'Es metódica: etapa, camino, destino. El vocabulario del método, no el de la suspensión.'}
+];
+let ci=Math.min(S.cls.i,cItems.length-1),cok=S.cls.ok;
+const cq=$('#cq'),cfeed=$('#cfeed'),cscore=$('#cscore'),
+      cP=$('#cP'),cM=$('#cM'),cNext=$('#cNext'),ckey=$('#ckey');
+function cShow(){
+  const it=cItems[ci];
+  cq.textContent=it.t;
+  cfeed.textContent='';cfeed.className='gfeed';
+  cP.style.display=cM.style.display='inline-block';
+  cP.disabled=cM.disabled=false;
+  cNext.style.display='none';
+  cscore.innerHTML='Frase '+(ci+1)+' de '+cItems.length+' · aciertos: <b>'+cok+'</b>';
+  ckey.textContent='Docente · respuesta: duda '+(it.who==='P'?'pirrónica':'metódica');
+}
+function cAnswer(g){
+  const it=cItems[ci];
+  cP.disabled=cM.disabled=true;
+  if(g===it.who){cok++;cfeed.className='gfeed ok';cfeed.innerHTML='✔ '+it.ok;}
+  else{cfeed.className='gfeed bad';cfeed.innerHTML='✘ '+it.bad;
+       cq.classList.add('shake');setTimeout(()=>cq.classList.remove('shake'),450);}
+  S.cls.ok=cok;save();
+  cscore.innerHTML='Frase '+(ci+1)+' de '+cItems.length+' · aciertos: <b>'+cok+'</b>';
+  cNext.style.display='inline-block';
+  cNext.textContent=(ci===cItems.length-1)?'Ver el balance →':'Siguiente →';
+}
+function cFinish(){
+  cq.innerHTML='Balance: <b style="font-style:normal;color:var(--amber)">'+cok+' / '+cItems.length+'</b>. Misma herramienta, distinto uso: para el pirrónico la duda es una <b style="font-style:normal;color:var(--coral)">posición</b>; para Descartes, un <b style="font-style:normal;color:var(--green)">instrumento</b>. (Carpio I §6 · VIII §4)';
+  cfeed.textContent='';cscore.textContent='';ckey.textContent='';
+  cP.style.display=cM.style.display=cNext.style.display='none';
+}
+cP.addEventListener('click',()=>cAnswer('P'));
+cM.addEventListener('click',()=>cAnswer('M'));
+cNext.addEventListener('click',()=>{
+  if(ci<cItems.length-1){ci++;S.cls.i=ci;save();cShow();}
+  else if(!S.cls.done){S.cls.done=true;save();cFinish();}
+});
+if(S.cls.done)cFinish();else cShow();
+
+/* ============ VII · las cuatro reglas ============ */
+const RULES=[
+  {t:'Evidencia',d:'No admitir jamás nada que no se presente con claridad y distinción; evitar la precipitación y la prevención.'},
+  {t:'Análisis',d:'Dividir cada dificultad en tantas partes como sea posible, hasta llegar a lo simple.'},
+  {t:'Síntesis',d:'Conducir con orden los pensamientos: de lo más simple a lo más compuesto.'},
+  {t:'Enumeración',d:'Hacer recuentos tan completos y revisiones tan generales que se esté seguro de no omitir nada.'}
+];
+const RULES_DONE='<span style="color:var(--green);font-weight:700">Orden completo.</span> Notá el diseño: la regla 1 fija el <b style="color:var(--amber)">criterio de verdad</b> — sólo lo evidente, lo claro y distinto. Dar por falso lo dudoso (la duda metódica) es la contracara exacta de admitir sólo lo evidente. Las otras tres dicen cómo llegar hasta ahí: descomponer, recomponer en orden, revisar. (Carpio VIII §9)';
+const RULE_HINTS=[
+  'No. Primero viene la regla que fija qué se admite como verdadero: sin criterio, no hay método.',
+  'No. Después del criterio, lo primero es romper el problema en partes simples.',
+  'No. Antes de recomponer hay que haber descompuesto.',
+  'No. La revisión general va al final: es el control de todo lo anterior.'
+];
+const poolOrder=[2,0,3,1];
+let nextSlot=Math.min(S.rules.next,4);
+const pool=$('#rules-pool'),slots=$$('.slot'),rfeed=$('#rules-feed');
+const ruleBtns={};
+poolOrder.forEach(idx=>{
+  const r=RULES[idx];
+  const b=document.createElement('button');
+  b.className='rule';
+  b.innerHTML='<div class="rn">Regla</div><div class="rt">'+r.t+'</div><div class="rd">'+r.d+'</div>';
+  b.addEventListener('click',()=>{
+    if(b.classList.contains('placed'))return;
+    if(nextSlot>=4)return;
+    if(idx===nextSlot){
+      placeRule(idx);
+      nextSlot++;S.rules.next=nextSlot;save();
+      if(nextSlot===4)rfeed.innerHTML=RULES_DONE;
+      else rfeed.textContent='Bien. '+(4-nextSlot)+' por acomodar.';
+    }else{
+      S.rules.errs++;save();
+      b.classList.add('shake');
+      setTimeout(()=>b.classList.remove('shake'),450);
+      rfeed.textContent=RULE_HINTS[nextSlot];
+    }
+  });
+  ruleBtns[idx]=b;
+  pool.appendChild(b);
+});
+function placeRule(idx){
+  ruleBtns[idx].classList.add('placed');
+  const s=slots[idx];
+  s.classList.add('filled');
+  s.innerHTML='<span class="sn">Paso '+(idx+1)+'</span><div class="st">'+RULES[idx].t+'</div>';
+}
+for(let k=0;k<nextSlot;k++)placeRule(k);
+if(nextSlot===4)rfeed.innerHTML=RULES_DONE;
+
+/* ============ VIII · autoexamen + código ============ */
+const QUIZ=[
+  {q:'1 · ¿Por qué la filosofía moderna no comienza en el Renacimiento?',
+   opts:['Porque en el Renacimiento no se escribió filosofía.',
+         'Porque el Renacimiento critica lo medieval pero todavía no define la nueva manera de filosofar: es transición.',
+         'Porque la Iglesia prohibió filosofar hasta el siglo XVII.'],
+   ok:1,why:'Época de crítica y crisis, "casi estéril": derriba sin fundar. La manera moderna de filosofar empieza con Descartes. (Carpio VIII §1)'},
+  {q:'2 · Las dos situaciones sin relación entre sí que confluyen en la crisis del criterio de verdad son…',
+   opts:['La Reforma protestante y la redescubierta obra de Sexto Empírico.',
+         'La caída de Constantinopla y la invención de la imprenta.',
+         'La condena de Galileo y la Apología de Raimundo Sabunde.'],
+   ok:0,why:'Dos fuegos independientes que se potencian: ninguno causa al otro. (Carpio VIII §1–2; Jáuregui T1)'},
+  {q:'3 · De sus predecesores, Descartes toma…',
+   opts:['De Montaigne, el método inductivo; de Bacon, el ensayo.',
+         'De ambos, la suspensión del juicio.',
+         'De Montaigne, la duda; de Bacon, la exigencia de un método de descubrimiento.'],
+   ok:2,why:'Y su síntesis es la duda metódica: la duda puesta a trabajar dentro de un método.'},
+  {q:'4 · ¿Por qué contra «2 + 2 = 4» hace falta el genio maligno y no bastan los paralogismos?',
+   opts:['Porque los principios no se conocen discursivamente sino por intuición: el error de razonamiento no los alcanza.',
+         'Porque la matemática es un saber sensible.',
+         'Porque el genio maligno existe y los paralogismos no.'],
+   ok:0,why:'Los paralogismos atañen a procesos con pasos. Lo intuido se capta de un golpe: para volverlo dudoso hay que suponer una mente fabricada para errar. (Carpio VIII §6)'},
+  {q:'5 · El cogito no es un silogismo porque…',
+   opts:['Le falta la premisa menor.',
+         'Es una intuición: se capta de modo inmediato en el acto mismo de pensar — por eso Descartes prefiere «pienso, soy».',
+         'Descartes desconfiaba de toda lógica por ser aristotélica.'],
+   ok:1,why:'Si dependiera de premisas generales, la duda ya las habría contaminado. Basta reflexionar sobre el cogito para reconocer, en él mismo, su verdad. (Carpio VIII §7)'}
+];
+const quizBox=$('#quiz'),quizScore=$('#quiz-score');
+function markQ(opts,item,i,feed){
+  [...opts.children].forEach(x=>x.disabled=true);
+  if(i===item.ok)opts.children[i].classList.add('right');
+  else{opts.children[i].classList.add('wrong');opts.children[item.ok].classList.add('right');}
+  feed.textContent=item.why;
+}
+function quizOkCount(){
+  return QUIZ.reduce((n,item,qi)=>n+(S.quiz.ans[qi]===item.ok?1:0),0);
+}
+function buildCode(qok){
+  const d=new Date();
+  const dd=String(d.getDate()).padStart(2,'0'),
+        mm=String(d.getMonth()+1).padStart(2,'0'),
+        yy=String(d.getFullYear()).slice(-2);
+  const A=S.attrib.done?S.attrib.ok:'x',
+        C=S.cls.done?S.cls.ok:'x',
+        D=(S.demo.phase==='won')?S.demo.errs:'x',
+        R=(S.rules.next===4)?S.rules.errs:'x';
+  const k=((S.attrib.ok*7+S.cls.ok*5+S.rules.errs*3+S.demo.errs*2+qok*11+Number(dd)+Number(mm))%36).toString(36).toUpperCase();
+  return 'LD2-'+dd+mm+yy+'-A'+A+'C'+C+'D'+D+'R'+R+'Q'+qok+'-'+k;
+}
+function buildLegend(qok){
+  const st=(done,v)=>done?('<b>'+v+'</b>'):'<span style="color:var(--coral)">sin terminar</span>';
+  $('#codelegend').innerHTML=
+    'A · atribución (Montaigne/Bacon): '+st(S.attrib.done,S.attrib.ok+'/6')+
+    ' &nbsp;·&nbsp; C · clasificación de dudas: '+st(S.cls.done,S.cls.ok+'/6')+
+    ' &nbsp;·&nbsp; D · errores en la demolición: '+st(S.demo.phase==='won',S.demo.errs)+
+    ' &nbsp;·&nbsp; R · errores en las reglas: '+st(S.rules.next===4,S.rules.errs)+
+    ' &nbsp;·&nbsp; Q · autoexamen: <b>'+qok+'/5</b>';
+}
+function checkQuizDone(){
+  if(S.quiz.ans.some(a=>a<0)){$('#result').classList.remove('show');return;}
+  const qok=quizOkCount();
+  const verdict=qok===5?'Claro y distinto.'
+    :qok>=3?'Claro, pero todavía no distinto. Repasá lo que falló.'
+    :'El genio maligno anda cerca. Releé Carpio, cap. VIII.';
+  quizScore.innerHTML='Resultado: <b>'+qok+' / 5</b> — '+verdict;
+  if(!S.code){S.code=buildCode(qok);save();}
+  $('#codeval').textContent=S.code;
+  buildLegend(qok);
+  $('#result').classList.add('show');
+}
+function renderQuiz(){
+  quizBox.innerHTML='';quizScore.textContent='';
+  QUIZ.forEach((item,qi)=>{
+    const card=document.createElement('div');
+    card.className='quiz-q';
+    card.innerHTML='<div class="qt">'+item.q+'</div>';
+    const opts=document.createElement('div');opts.className='opts';
+    const feed=document.createElement('div');feed.className='qfeed';
+    item.opts.forEach((o,i)=>{
+      const b=document.createElement('button');
+      b.className='opt'+((DOCENTE&&i===item.ok)?' key':'');
+      b.textContent=o;
+      b.addEventListener('click',()=>{
+        if(S.quiz.ans[qi]>=0)return;
+        S.quiz.ans[qi]=i;save();
+        markQ(opts,item,i,feed);
+        checkQuizDone();
+      });
+      opts.appendChild(b);
+    });
+    card.appendChild(opts);card.appendChild(feed);
+    quizBox.appendChild(card);
+    if(S.quiz.ans[qi]>=0)markQ(opts,item,S.quiz.ans[qi],feed);
+  });
+  checkQuizDone();
+}
+$('#copybtn').addEventListener('click',async()=>{
+  const btn=$('#copybtn'),code=$('#codeval').textContent;
+  try{
+    await navigator.clipboard.writeText(code);
+    btn.textContent='Copiado ✓';
+  }catch(e){
+    const r=document.createRange();
+    r.selectNodeContents($('#codeval'));
+    const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+    btn.textContent='Seleccionado: copiá con Ctrl+C';
+  }
+  setTimeout(()=>{btn.textContent='Copiar código';},2600);
+});
+$('#redoquiz').addEventListener('click',()=>{
+  S.quiz.ans=[-1,-1,-1,-1,-1];S.code=null;save();
+  renderQuiz();
+  $('#quiz').scrollIntoView({behavior:'smooth',block:'center'});
+});
+renderQuiz();
+</script>
+</body>
+</html>

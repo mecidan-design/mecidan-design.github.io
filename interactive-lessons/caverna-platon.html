@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Caverna — Platón [Castlevania]</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  font-family: 'Press Start 2P', monospace;
+  background: #050318;
+  color: #e0d0b0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  z-index: 1;
+}
+
+/* ── PANEL (bottom) ── */
+#panel {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  padding: 0 12px 14px;
+}
+
+#panel-inner {
+  width: min(740px, 98vw);
+  background: rgba(5, 2, 18, 0.93);
+  border: 2px solid #3a2068;
+  border-bottom: none;
+  padding: 14px 20px 12px;
+  position: relative;
+}
+
+/* corner ornaments */
+#panel-inner::before,
+#panel-inner::after {
+  content: '✦';
+  position: absolute;
+  top: 8px;
+  font-size: 8px;
+  color: #5540aa;
+}
+#panel-inner::before { left: 10px; }
+#panel-inner::after  { right: 10px; }
+
+#panel-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+#slide-num  { font-size: 7px; color: #4433aa; letter-spacing: 2px; }
+#concept-tag {
+  font-size: 7px; color: #ffcc44;
+  background: rgba(50,30,0,0.7);
+  border: 1px solid #886600;
+  padding: 2px 7px;
+  letter-spacing: 1px;
+}
+
+#slide-title {
+  font-size: clamp(10px, 2.2vw, 16px);
+  color: #ffeeaa;
+  margin-bottom: 5px;
+  text-shadow: 0 0 14px #ff8800;
+  line-height: 1.4;
+}
+
+#slide-subtitle {
+  font-size: 7px;
+  color: #8877bb;
+  margin-bottom: 10px;
+}
+
+#slide-quote {
+  font-size: 7px;
+  color: #c8b8a8;
+  border-left: 3px solid #5540aa;
+  padding: 4px 0 4px 10px;
+  margin-bottom: 9px;
+  line-height: 1.9;
+}
+
+#slide-quote cite {
+  display: block;
+  margin-top: 4px;
+  color: #5540aa;
+  font-size: 6px;
+}
+
+#slide-body {
+  font-size: 7px;
+  color: #d0c4b0;
+  line-height: 2.0;
+  margin-bottom: 8px;
+}
+
+#slide-example {
+  font-size: 6px;
+  color: #88cc88;
+  border: 1px dashed #336633;
+  padding: 5px 9px;
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+#slide-example::before { content: '▸ '; color: #55aa55; }
+
+/* ── NAV ── */
+#nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-btn {
+  background: none;
+  border: 2px solid #4433aa;
+  color: #8877bb;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+.nav-btn:hover:not(:disabled) { background: #1a1040; color: #ffeeaa; border-color: #ffeeaa; }
+.nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+#dots { display: flex; gap: 5px; align-items: center; }
+.dot {
+  width: 7px; height: 7px;
+  background: #1a1040;
+  border: 1px solid #4433aa;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.dot.active { background: #ffeeaa; border-color: #ffeeaa; box-shadow: 0 0 5px #ffcc44; }
+.dot:hover:not(.active) { background: #2a1860; }
+
+/* key hint */
+#keyhint {
+  position: fixed;
+  bottom: 8px; right: 14px;
+  font-size: 6px;
+  color: #2a1840;
+  z-index: 25;
+  pointer-events: none;
+}
+
+/* ── TRANSITION FLASH ── */
+#trans {
+  position: fixed; inset: 0;
+  background: #000;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+</style>
+</head>
+<body>
+
+<canvas id="cv"></canvas>
+<div id="trans"></div>
+
+<div id="panel">
+  <div id="panel-inner">
+    <div id="panel-top">
+      <span id="slide-num">01 / 11</span>
+      <span id="concept-tag">ALEGORÍA</span>
+    </div>
+    <h1 id="slide-title">LA CAVERNA</h1>
+    <h2 id="slide-subtitle">Platón — República, Libro VII</h2>
+    <blockquote id="slide-quote">
+      "Supongamos hombres que habitan en una caverna subterránea... incapaces de girar la cabeza."
+      <cite>Platón, República 514a</cite>
+    </blockquote>
+    <div id="slide-body">Una de las alegorías más famosas de la filosofía. Platón la usa para mostrar qué es el conocimiento y cuál es la condición del ser humano. La alegoría no es un cuento: es un diagnóstico.</div>
+    <div id="slide-example">Usá ← → o ESPACIO para navegar. Las flechas del teclado también funcionan.</div>
+    <div id="nav">
+      <button class="nav-btn" id="btn-prev" disabled>◀ PREV</button>
+      <div id="dots"></div>
+      <button class="nav-btn" id="btn-next">NEXT ▶</button>
+    </div>
+  </div>
+</div>
+
+<div id="keyhint">← → SPACE</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// SLIDES DATA — basados en Carpio, Principios de Filosofía, Cap. V
+// ══════════════════════════════════════════════════════════════
+const SLIDES = [
+  {
+    num: '01', concept: 'ALEGORÍA',
+    title: 'LA CAVERNA',
+    sub: 'Platón — República, Libro VII',
+    quote: '"Supongamos hombres que habitan en una caverna... incapaces de girar la cabeza."',
+    src: 'Platón, República 514a',
+    body: 'Una de las alegorías más famosas de la filosofía. Platón la construye para mostrar dos cosas a la vez: qué es el conocimiento y cuál es la condición del ser humano. La alegoría no es un cuento: es un diagnóstico.',
+    ex: 'La alegoría está en el Libro VII de la República, puesta en boca de Sócrates. El interlocutor es Glaucon, hermano de Platón.',
+    focus: 'none',
+    soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-low',
+  },
+  {
+    num: '02', concept: 'DOXA / EPISTEME',
+    title: 'DOS MUNDOS',
+    sub: 'El mundo sensible y el mundo inteligible',
+    quote: '"El mundo sensible no es más que copia o imitación del mundo de las ideas."',
+    src: 'Carpio, Cap. V',
+    body: 'Para Platón, hay dos niveles de realidad. El mundo sensible: todo lo que percibimos con los sentidos — cambiante, imperfecto, mortal. El mundo inteligible: las Ideas — eternas, perfectas, inmutables. El conocimiento verdadero (episteme) solo es posible del segundo.',
+    ex: 'Ves un caballo particular, imperfecto, mortal. La Idea de caballo es perfecta, eterna. Lo que percibís con los ojos es doxa: opinión, no conocimiento.',
+    focus: 'full-annot',
+    soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
+  },
+  {
+    num: '03', concept: 'LA ESCENA',
+    title: 'DENTRO DE LA CAVERNA',
+    sub: 'Los prisioneros y las cadenas',
+    quote: '"Hombres encadenados desde niños. Solo pueden ver la pared del fondo, donde se proyectan sombras."',
+    src: 'Platón, República 514a–b',
+    body: 'En el fondo de la caverna: prisioneros encadenados desde la infancia. No pueden girar la cabeza. Solo ven sombras proyectadas en la pared. Para ellos, las sombras SON la realidad. No conocen otra cosa. Eso es lo más inquietante.',
+    ex: '¿Qué conocés solo porque siempre fue así? ¿Qué "verdades" tomás por dadas sin haberlas cuestionado nunca?',
+    focus: 'cave',
+    soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
+  },
+  {
+    num: '04', concept: 'EIKASÍA',
+    title: 'LAS SOMBRAS',
+    sub: 'El nivel más bajo del conocimiento',
+    quote: '"En la medida en que tomásemos la sombra por la realidad, nos encontraríamos en un estado de eikasía."',
+    src: 'Carpio, Cap. V §7',
+    body: 'Eikasía: imaginación, conjetura. El grado más bajo del conocer. Las sombras en la pared son sombras de objetos artificiales — doble copia. Pero para los prisioneros son la única realidad. Carpio: igual que el cine — sombras que nos hacen reír o llorar.',
+    ex: 'Un meme sobre un hecho político no es el hecho, ni siquiera la noticia — es la sombra de una sombra. Eikasía pura.',
+    focus: 'shadow',
+    soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
+  },
+  {
+    num: '05', concept: 'PÍSTIS',
+    title: 'EL FUEGO Y LOS TITIRITEROS',
+    sub: 'Las cosas sensibles: un nivel más arriba',
+    quote: '"Detrás de los prisioneros, una hoguera. Delante de ella, hombres que llevan objetos artificiales cuyas sombras se proyectan."',
+    src: 'Platón, República 514b–515a',
+    body: 'Pístis: creencia. Si el prisionero se diera vuelta y viera los objetos que hacen las sombras, estaría en un nivel superior. Pero seguiría en la caverna. Las cosas sensibles son ya mejores que sus sombras — pero aún imperfectas, aún copias de las Ideas.',
+    ex: 'Ver el debate político en vivo es mejor que ver un meme del debate. Pero ninguno es "la justicia en sí".',
+    focus: 'fire',
+    soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
+  },
+  {
+    num: '06', concept: 'PAIDEIA',
+    title: 'LA LIBERACIÓN',
+    sub: 'El primer paso duele',
+    quote: '"Si a uno de esos cautivos se lo libra de sus cadenas... todos esos movimientos le causarán dolor."',
+    src: 'Platón, República 515c',
+    body: 'El filósofo es liberado por la fuerza — no por elección propia. La filosofía empieza con incomodidad. Cuando comenzás a filosofar, todo lo que creías saber se vuelve incierto. Eso es precisamente la señal de que estás aprendiendo.',
+    ex: 'Clase de filosofía: de repente no sabés qué es el tiempo, qué es justo, qué es real. Eso no es fracaso — es el inicio de la paideia.',
+    focus: 'exit',
+    soc: 'cave-mouth', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
+  },
+  {
+    num: '07', concept: 'DIÁNOIA',
+    title: 'EL CAMINO GRADUAL',
+    sub: 'De las sombras al sol: paso a paso',
+    quote: '"Lo que más fácilmente distinguirá serán las sombras, luego los reflejos en el agua, luego los objetos mismos, después los astros, y por último el sol."',
+    src: 'Platón, República 516a–b',
+    body: 'La verdadera educación (paideia) es gradual. Imposible ir de golpe a la metafísica. Platón prescribe diez años de matemáticas como preparación. La diánoia opera con hipótesis: ya no en imágenes, aún no en ideas puras — el puente necesario.',
+    ex: 'Matemática como escalera: no es el destino, es el entrenamiento para pensar sin cosas sensibles. Por eso la Academia exigía matemática antes de filosofía.',
+    focus: 'path',
+    soc: 'exterior', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-high',
+  },
+  {
+    num: '08', concept: 'NÓESIS — IDEA DEL BIEN',
+    title: 'EL SOL',
+    sub: 'Fundamento gnoseológico, ontológico y teleológico',
+    quote: '"A las ideas no sólo les adviene por obra del Bien su cognoscibilidad, sino también la realidad y el ser; pero el Bien mismo está más allá del ser."',
+    src: 'Platón, República 509b',
+    body: 'El sol simboliza la Idea del Bien — la idea suprema. Triple función: (1) hace posible conocer las demás ideas [gnoseológico], (2) les da ser [ontológico], (3) es el fin al que todo tiende [teleológico]. Heidegger: agathón = "lo que hace apto para". No es moral: es el principio de todo.',
+    ex: 'El Bien está "más allá del ser". Por eso Platón no lo describe directamente — solo por analogía: como el sol ilumina el mundo sensible, el Bien ilumina el inteligible.',
+    focus: 'sun',
+    soc: 'exterior', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sun',
+  },
+  {
+    num: '09', concept: 'MISIÓN DEL FILÓSOFO',
+    title: 'EL REGRESO',
+    sub: 'No puede quedarse afuera',
+    quote: '"El filósofo tiene una misión: la de conducir a los demás hacia la verdad — misión educativa, iluminadora, liberadora."',
+    src: 'Carpio, Cap. V §15',
+    body: 'Una vez que el filósofo ha visto el sol, no le es lícito quedarse fuera. Debe regresar a la caverna. Implica volver a la oscuridad, readaptarse. Pero esa es su misión. Es la misma que Sócrates consideraba recibida del dios: liberar de la ignorancia a sus conciudadanos.',
+    ex: 'El saber que no se devuelve es privilegio, no filosofía. La pregunta socrática como gesto político: bajar al ágora a molestar con preguntas.',
+    focus: 'exit',
+    soc: 'cave-mouth', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-high',
+  },
+  {
+    num: '10', concept: 'CONSECUENCIA POLÍTICA',
+    title: 'LO MATAN',
+    sub: 'La alegoría termina con una muerte',
+    quote: '"Si alguien ensayara libertarlos y ellos pudieran apoderarse de él y matarlo, ¿es que no lo matarían? —Con toda seguridad."',
+    src: 'Platón, República 517a',
+    body: 'Los prisioneros no agradecen al liberador. Lo ven torpe, desorientado. Si intenta liberarlos, lo matan. No hay alusión disfrazada: Platón habla de Sócrates. La filosofía no es decorativa. Pensar puede costar la vida.',
+    ex: '¿Conocés casos donde alguien cuestionó lo obvio y fue castigado socialmente? ¿Qué le decís a alguien que "piensa demasiado"?',
+    focus: 'cave',
+    soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-low',
+  },
+  {
+    num: '11', concept: 'PREGUNTA ABIERTA',
+    title: '¿Y VOS?',
+    sub: '¿En qué caverna estás?',
+    quote: '"El Estado perfecto no existe en ninguna parte de la tierra... pero eso no le quita su valor como modelo."',
+    src: 'Platón, República 592b — Carpio §16',
+    body: 'La caverna no es una fábula antigua. Es la condición humana. Todos vivimos en alguna versión de la caverna. La pregunta filosófica no es "¿existe la verdad?" sino "¿qué sombras estoy tomando por real ahora mismo?"',
+    ex: 'Ejercicio: nombrá tres cosas que "todos saben" y que nunca cuestionaste. ¿Qué pasaría si fuesen sombras?',
+    focus: 'full-annot',
+    soc: 'exterior', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sun',
+  },
+];
+
+// ══════════════════════════════════════════════════════════════
+// CANVAS
+// ══════════════════════════════════════════════════════════════
+const canvas = document.getElementById('cv');
+const ctx    = canvas.getContext('2d');
+let W, H;
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+// ── SPRITE CONSTANTS ──
+const Q  = 3;
+const SW = 12;
+const SH = 28;
+
+function px(x,y,w,h,c){ ctx.fillStyle=c; ctx.fillRect(x*Q,y*Q,w*Q,h*Q); }
+
+function charAt(ox,oy,fn,left){
+  ctx.save();
+  if(left){ ctx.translate(ox+SW*Q,oy); ctx.scale(-1,1); }
+  else     { ctx.translate(ox,oy); }
+  fn();
+  ctx.restore();
+}
+
+// ── SPRITES (reusados de carpio_castlevania) ──
+
+function drawSoc(frame){
+  const K='#111',S='#c08050',SD='#7a3820';
+  const GO='#c09020',GD='#806010',GL='#e8c050';
+  const Wh='#d8d8d0',WD='#a0a098',GR='#888880';
+  px(4,1,4,2,S);
+  px(3,2,6,4,S); px(3,2,1,4,SD); px(8,2,1,4,SD);
+  px(2,2,2,4,GR); px(8,2,2,4,GR);
+  px(4,4,2,1,K); px(7,4,2,1,K);
+  px(5,5,2,1,SD);
+  px(3,6,6,1,Wh); px(3,6,1,1,WD);
+  px(3,7,6,4,Wh); px(3,7,1,4,WD);
+  px(4,10,4,2,Wh); px(5,11,2,2,WD);
+  px(2,11,8,2,GO); px(2,11,1,2,GD); px(9,11,1,2,GD);
+  px(1,13,10,10,GO); px(1,13,1,10,GD); px(10,13,1,10,GD);
+  px(2,13,1,10,GL);
+  px(5,14,1,8,GD); px(8,14,1,8,GD);
+  px(1,23,10,2,GO); px(1,23,1,2,GD); px(10,23,1,2,GD);
+  if(frame===0){ px(3,24,2,3,S); px(7,25,2,3,S); }
+  else          { px(4,24,2,3,S); px(6,25,2,3,S); }
+  px(3,26,2,1,'#9a8060'); px(7,26,2,1,'#9a8060');
+}
+
+function drawLaq(frame){
+  const K='#111',S='#d4956a',SD='#9a5535';
+  const R='#cc3322',RD='#881500',RL='#ee5544';
+  const M='#c0bdb0',MD='#707068',ML='#e0ddd0';
+  const BR='#d09030',BD='#906010';
+  const PL='#ff4422',PD='#cc1100';
+  px(4,0,4,1,PL); px(3,1,6,2,PL); px(4,3,4,1,PD); px(5,4,2,1,BD);
+  px(4,5,4,1,ML); px(3,5,6,3,M);
+  px(3,5,1,4,MD); px(8,5,1,4,MD);
+  px(3,7,2,3,M); px(7,7,2,3,M);
+  px(5,7,2,3,S); px(5,7,1,3,SD);
+  px(5,8,1,1,K); px(7,8,1,1,K);
+  px(5,10,2,2,S);
+  px(2,11,3,2,BR); px(7,11,3,2,BR);
+  px(2,11,1,2,BD); px(9,11,1,2,BD);
+  px(3,12,6,6,R); px(3,12,1,6,RD); px(8,12,1,6,RD);
+  px(5,13,1,4,RD); px(7,13,1,4,RD);
+  px(5,14,2,2,RL);
+  px(3,18,6,2,BR); px(3,18,1,2,BD); px(8,18,1,2,BD);
+  px(3,20,1,4,RD); px(4,20,1,4,R); px(5,20,1,4,RD);
+  px(6,20,1,4,R);  px(7,20,1,4,RD); px(8,20,1,4,R);
+  if(frame===0){ px(3,24,2,4,M); px(7,24,2,4,M); px(3,24,1,4,MD); px(8,24,1,4,MD); }
+  else          { px(4,24,2,4,M); px(6,24,2,4,M); px(4,24,1,4,MD); px(7,24,1,4,MD); }
+  px(3,27,3,1,BR); px(6,27,3,1,BR);
+  px(0,12,2,9,'#aa5522'); px(0,12,1,9,'#663311');
+  px(1,13,1,1,'#dd8844');
+  px(0,17,2,1,'#ffaa44'); px(0,18,2,1,'#ffaa44');
+}
+
+function drawNic(frame){
+  const K='#111',S='#d4956a',SD='#9a5535';
+  const BL='#2255cc',BD='#102288',BLL='#4477ee';
+  const M='#c0bdb0',MD='#707068',ML='#e0ddd0';
+  const GO='#d09030',GD='#906010',GL='#f0c060';
+  const GR='#66aa22',GRD='#337711';
+  px(3,1,1,2,GR); px(4,0,2,2,GR); px(6,0,2,2,GR); px(8,1,1,2,GR);
+  px(4,2,4,1,GRD);
+  px(4,3,4,1,ML); px(3,3,6,3,M);
+  px(3,3,1,4,MD); px(8,3,1,4,MD);
+  px(3,6,2,2,M); px(7,6,2,2,M);
+  px(4,6,4,1,GO);
+  px(4,4,4,4,S); px(4,4,1,4,SD);
+  px(4,5,2,1,K); px(7,5,2,1,K);
+  px(5,7,2,1,SD);
+  px(5,8,2,2,S);
+  px(2,9,3,2,GO); px(7,9,3,2,GO);
+  px(2,9,1,2,GD); px(9,9,1,2,GD);
+  px(3,10,6,7,BL); px(3,10,1,7,BD); px(8,10,1,7,BD);
+  px(5,11,2,2,BLL); px(6,13,1,3,BD);
+  px(3,17,6,2,GO); px(3,17,1,2,GD); px(8,17,1,2,GD);
+  px(3,19,1,4,BD); px(4,19,1,4,BL); px(5,19,1,4,BD);
+  px(6,19,1,4,BL); px(7,19,1,4,BD); px(8,19,1,4,BL);
+  if(frame===0){ px(3,23,2,4,M); px(7,23,2,4,M); px(3,23,1,4,MD); px(8,23,1,4,MD); }
+  else          { px(4,23,2,4,M); px(6,23,2,4,M); px(4,23,1,4,MD); px(7,23,1,4,MD); }
+  px(3,26,3,1,GO); px(6,26,3,1,GO);
+  px(10,0,1,28,'#a09070'); px(10,0,1,2,ML);
+}
+
+function drawPla(frame){
+  const K='#111',S='#d4956a',SD='#9a5535';
+  const Wh='#f0eee8',WD='#c8c6bc',WL='#ffffff';
+  const H_='#2a1808',HD='#150c04';
+  const GO='#d09030',GD='#906010';
+  const wC='#f0eed8',wD2='#c8c6b0';
+  // ala izquierda
+  px(-3,4,3,2,wC); px(-4,5,4,4,wC); px(-4,5,1,4,wD2);
+  px(-4,9,3,4,wD2); px(-3,9,1,4,wC); px(-3,12,2,3,wD2);
+  px(-4,6,1,1,wD2); px(-3,9,1,1,wD2); px(-2,12,1,1,wC); px(-4,13,1,2,wD2);
+  // ala derecha
+  px(12,4,3,2,wC); px(12,5,4,4,wC); px(15,5,1,4,wD2);
+  px(13,9,3,4,wD2); px(13,9,1,4,wC); px(12,12,2,3,wD2);
+  px(15,6,1,1,wD2); px(14,9,1,1,wD2); px(13,12,1,1,wC); px(15,13,1,2,wD2);
+  // cabeza (pelo oscuro)
+  px(4,1,4,2,H_);
+  px(3,2,6,1,H_);
+  px(3,3,6,4,S); px(3,3,1,4,SD); px(8,3,1,4,SD);
+  px(3,2,1,2,HD); px(8,2,1,2,HD);
+  // ojos mirando arriba
+  px(4,5,2,1,K); px(7,5,2,1,K);
+  px(4,4,2,1,'#2255bb'); px(7,4,2,1,'#2255bb');
+  px(5,6,2,1,SD);
+  px(5,7,2,2,S);
+  // himation blanco
+  px(1,9,10,2,Wh);  px(1,9,1,2,WD); px(10,9,1,2,WD);
+  px(1,11,10,11,Wh); px(1,11,1,11,WD); px(10,11,1,11,WD);
+  px(2,11,1,11,WL);
+  px(5,12,1,9,WD); px(8,12,1,9,WD);
+  px(6,10,1,1,GO);
+  px(1,22,10,3,Wh); px(1,22,1,3,WD); px(10,22,1,3,WD);
+  // piernas volando
+  px(4,24,4,5,Wh);
+  px(5,27,2,1,'#9a8060'); px(6,27,2,1,'#9a8060');
+}
+
+// ── SOL ──
+function drawSun(cx,cy){
+  const P=5;
+  ctx.save();
+  ctx.shadowBlur=30; ctx.shadowColor='#ffcc00';
+  const body=[
+    [0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,2,2,1,1,1],[1,1,2,2,2,2,1,1],
+    [1,1,2,2,2,2,1,1],[1,1,1,2,2,1,1,1],[0,1,1,1,1,1,1,0],[0,0,1,1,1,1,0,0],
+  ];
+  body.forEach((row,ry)=>row.forEach((v,rx)=>{
+    if(!v) return;
+    ctx.fillStyle=v===2?'#ffff99':'#ffee22';
+    ctx.fillRect(cx-4*P+rx*P, cy-4*P+ry*P, P, P);
+  }));
+  ctx.shadowBlur=0; ctx.fillStyle='#ffcc00';
+  ctx.fillRect(cx-P/2, cy-5*P-P*2, P, P*2);
+  ctx.fillRect(cx-P/2, cy+5*P,     P, P*2);
+  ctx.fillRect(cx-5*P-P*2, cy-P/2, P*2, P);
+  ctx.fillRect(cx+5*P,     cy-P/2, P*2, P);
+  ctx.fillStyle='#ffaa00';
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([dx,dy])=>{
+    ctx.fillRect(cx+dx*4*P, cy+dy*4*P, P, P);
+    ctx.fillRect(cx+dx*5*P, cy+dy*5*P, P, P);
+  });
+  ctx.restore();
+}
+
+// ══════════════════════════════════════════════════════════════
+// SCENE GEOMETRY (responsive fractions)
+// ══════════════════════════════════════════════════════════════
+function cc(){
+  const panelH = Math.min(260, H * 0.36);
+  const visH   = H - panelH;                // visible height above panel
+  return {
+    panelH,
+    visH,
+    floorY:    visH * 0.82,
+    ceilY:     visH * 0.28,
+    shadowWallX: W * 0.04,
+    shadowWallW: W * 0.08,
+    prisoner1X:  W * 0.16,
+    prisoner2X:  W * 0.27,
+    tapiaX:      W * 0.41,
+    fireX:       W * 0.51,
+    mouthX:      W * 0.61,
+    exteriorX:   W * 0.73,
+    sunX:        W * 0.84,
+    sunY:        visH * 0.11,
+  };
+}
+
+// ══════════════════════════════════════════════════════════════
+// DRAW SCENE
+// ══════════════════════════════════════════════════════════════
+function drawScene(tick, frame){
+  const c = cc();
+
+  // ── SKY ──
+  const skyGr = ctx.createLinearGradient(0,0, W, c.visH*0.6);
+  skyGr.addColorStop(0,   '#020110');
+  skyGr.addColorStop(0.4, '#080430');
+  skyGr.addColorStop(0.7, '#100820');
+  skyGr.addColorStop(1,   '#1a0b10');
+  ctx.fillStyle = skyGr;
+  ctx.fillRect(0, 0, W, c.visH * 0.6);
+
+  // ── STARS ──
+  const starData = [
+    [0.08,0.05],[0.15,0.12],[0.23,0.04],[0.31,0.17],[0.38,0.08],
+    [0.44,0.15],[0.57,0.06],[0.63,0.19],[0.69,0.10],[0.75,0.04],
+    [0.79,0.16],[0.88,0.07],[0.92,0.13],[0.97,0.05],[0.52,0.22],
+    [0.11,0.21],[0.82,0.22],[0.40,0.25],[0.68,0.24],[0.95,0.20],
+  ];
+  starData.forEach(([fx,fy],i)=>{
+    const blink = Math.sin(tick*0.018 + i*1.3) > 0.6;
+    ctx.fillStyle = blink ? 'rgba(255,255,210,0.9)' : 'rgba(180,180,220,0.3)';
+    ctx.fillRect(Math.floor(fx*W), Math.floor(fy*c.visH), 2, 2);
+  });
+
+  // ── SUN ──
+  drawSun(c.sunX, c.sunY);
+
+  // ── GROUND (mountain base) ──
+  ctx.fillStyle = '#100c18';
+  ctx.fillRect(0, c.visH * 0.55, W, c.visH * 0.45);
+
+  // ── MOUNTAIN SILHOUETTE ──
+  // Rocky edges around cave entrance
+  ctx.fillStyle = '#1a1424';
+  // Left mountain face
+  ctx.beginPath();
+  ctx.moveTo(0, c.visH * 0.55);
+  ctx.lineTo(0, c.visH * 0.18);
+  ctx.lineTo(W * 0.04, c.ceilY - 20);
+  ctx.lineTo(W * 0.07, c.ceilY - 10);
+  ctx.lineTo(W * 0.10, c.ceilY - 18);
+  ctx.lineTo(c.mouthX * 0.52, c.ceilY);
+  ctx.lineTo(c.mouthX, c.ceilY - 5);
+  ctx.lineTo(c.mouthX + W*0.06, c.ceilY - 25);
+  ctx.lineTo(c.mouthX + W*0.12, c.visH * 0.35);
+  ctx.lineTo(c.mouthX + W*0.14, c.visH * 0.55);
+  ctx.lineTo(0, c.visH * 0.55);
+  ctx.closePath();
+  ctx.fill();
+
+  // ── CAVE INTERIOR ──
+  // Draw cave arch as clipping region then fill with dark gradient
+  const archL   = c.shadowWallX;
+  const archR   = c.mouthX;
+  const archMid = (archL + archR) * 0.5;
+  const archW   = archR - archL;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(archL, c.floorY);
+  ctx.lineTo(archL, c.ceilY + archW * 0.12);
+  ctx.quadraticCurveTo(archMid, c.ceilY - archW * 0.04, archR, c.ceilY + archW * 0.05);
+  ctx.lineTo(archR, c.floorY);
+  ctx.closePath();
+  ctx.clip();
+
+  // Cave fill — fire-glow radial
+  const flickA = 0.5 + Math.sin(tick*0.14)*0.1 + Math.sin(tick*0.22)*0.06;
+  const caveGr = ctx.createRadialGradient(
+    c.fireX, c.floorY - (c.floorY-c.ceilY)*0.3, 10,
+    c.fireX, c.floorY - (c.floorY-c.ceilY)*0.3, archW * 0.55
+  );
+  caveGr.addColorStop(0,   `rgba(160,70,10,${flickA})`);
+  caveGr.addColorStop(0.25,'rgba(50,18,5,0.98)');
+  caveGr.addColorStop(0.7, 'rgba(12,6,3,1)');
+  caveGr.addColorStop(1,   'rgba(5,2,2,1)');
+  ctx.fillStyle = caveGr;
+  ctx.fillRect(archL, c.ceilY - 20, archW, c.floorY - c.ceilY + 30);
+  ctx.restore();
+
+  // ── SHADOW WALL ──
+  ctx.fillStyle = '#0a0812';
+  ctx.fillRect(c.shadowWallX, c.ceilY, c.shadowWallW * 1.2, c.floorY - c.ceilY);
+
+  // Projected shadows on wall (animated flicker)
+  const shadowGlow = 0.55 + Math.sin(tick * 0.07) * 0.12;
+  ctx.fillStyle = `rgba(0,0,0,${shadowGlow})`;
+  const sw = c.shadowWallX + 6;
+  const stY = c.ceilY + (c.floorY - c.ceilY) * 0.18;
+  const shH = (c.floorY - c.ceilY) * 0.55;
+  // shadow 1 — person silhouette
+  ctx.fillRect(sw+2,  stY,      8,  12);  // head
+  ctx.fillRect(sw,    stY+10,   12, 8);   // shoulders
+  ctx.fillRect(sw+2,  stY+16,   6,  Math.floor(shH*0.45));
+  // shadow 2
+  ctx.fillRect(sw+18, stY+5,    7,  10);
+  ctx.fillRect(sw+16, stY+13,   10, 7);
+  ctx.fillRect(sw+18, stY+18,   5,  Math.floor(shH*0.38));
+
+  // ── FLOOR ──
+  const floorGr = ctx.createLinearGradient(0, c.floorY, 0, H);
+  floorGr.addColorStop(0, '#16101e');
+  floorGr.addColorStop(1, '#0a080c');
+  ctx.fillStyle = floorGr;
+  ctx.fillRect(0, c.floorY, W, H - c.floorY);
+  // floor crack texture
+  for(let fx = 10; fx < W * 0.65; fx += 22){
+    ctx.fillStyle = `rgba(35,25,45,${0.3 + Math.sin(fx*0.08)*0.1})`;
+    ctx.fillRect(fx, c.floorY, 10, 3);
+  }
+  // exterior ground (brighter)
+  const extGr = ctx.createLinearGradient(c.mouthX + W*0.06, 0, W, 0);
+  extGr.addColorStop(0, '#1c1620');
+  extGr.addColorStop(1, '#251c30');
+  ctx.fillStyle = extGr;
+  ctx.fillRect(c.mouthX + W*0.06, c.floorY, W - c.mouthX - W*0.06, H - c.floorY);
+
+  // ── TAPIA (low wall) ──
+  const tapH = (c.floorY - c.ceilY) * 0.5;
+  ctx.fillStyle = '#2a2232';
+  ctx.fillRect(c.tapiaX, c.floorY - tapH, 8, tapH);
+  ctx.fillStyle = '#3e3050';
+  ctx.fillRect(c.tapiaX, c.floorY - tapH, 8, 5);
+  // stone texture on tapia
+  for(let ty = c.floorY - tapH + 8; ty < c.floorY; ty += 10){
+    ctx.fillStyle = '#382840';
+    ctx.fillRect(c.tapiaX + 1, ty, 6, 1);
+  }
+
+  // ── FIRE ──
+  const fY = c.floorY - 12;
+  const fl = Math.floor(tick/5) % 3;
+  const fColors = ['#ff7700','#ff5500','#ffaa00'];
+  const fHts    = [Math.floor((c.floorY-c.ceilY)*0.32), Math.floor((c.floorY-c.ceilY)*0.36), Math.floor((c.floorY-c.ceilY)*0.28)];
+  // coals
+  ctx.fillStyle = '#aa2200';
+  ctx.fillRect(c.fireX - 14, fY, 28, 9);
+  ctx.fillStyle = '#cc3300';
+  ctx.fillRect(c.fireX - 10, fY + 2, 20, 5);
+  // flame
+  ctx.fillStyle = fColors[fl];
+  ctx.fillRect(c.fireX - 9,  fY - fHts[fl],     18, fHts[fl]);
+  ctx.fillStyle = '#ffcc44';
+  ctx.fillRect(c.fireX - 5,  fY - fHts[fl] + 5, 10, Math.floor(fHts[fl]*0.4));
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(c.fireX - 2,  fY - fHts[fl] + 8,  4, Math.floor(fHts[fl]*0.2));
+  // fire glow
+  ctx.save();
+  ctx.globalAlpha = 0.12 + Math.sin(tick*0.18)*0.04;
+  ctx.fillStyle = '#ff8800';
+  ctx.beginPath();
+  ctx.arc(c.fireX, fY - 15, 70, 0, Math.PI*2);
+  ctx.fill();
+  ctx.restore();
+
+  // ── PUPPET HANDLERS (silhouettes behind tapia) ──
+  const hBaseY = c.floorY - tapH - 28;
+  // handler 1
+  ctx.fillStyle = 'rgba(40,16,16,0.75)';
+  ctx.fillRect(c.tapiaX - 30, hBaseY, 8, 10);
+  ctx.fillRect(c.tapiaX - 32, hBaseY+8, 12, 14);
+  ctx.fillRect(c.tapiaX - 35, hBaseY+10, 4, 8);
+  ctx.fillRect(c.tapiaX - 22, hBaseY+10, 4, 8);
+  ctx.fillStyle = 'rgba(60,30,10,0.5)';
+  ctx.fillRect(c.tapiaX - 28, hBaseY - 12, 4, 12);
+  ctx.fillRect(c.tapiaX - 30, hBaseY - 16, 6, 4);
+  // handler 2 (slightly different pose)
+  ctx.fillStyle = 'rgba(30,12,20,0.65)';
+  ctx.fillRect(c.tapiaX + 18, hBaseY+4, 8, 10);
+  ctx.fillRect(c.tapiaX + 16, hBaseY+12, 12, 12);
+  ctx.fillRect(c.tapiaX + 13, hBaseY+13, 4, 8);
+  ctx.fillRect(c.tapiaX + 26, hBaseY+13, 4, 8);
+  ctx.fillStyle = 'rgba(60,30,10,0.4)';
+  ctx.fillRect(c.tapiaX + 20, hBaseY - 8, 4, 12);
+  ctx.fillRect(c.tapiaX + 18, hBaseY - 12, 6, 4);
+
+  // ── CHAIN LINES ──
+  ctx.strokeStyle = 'rgba(90,80,60,0.7)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([4,3]);
+  ctx.beginPath();
+  ctx.moveTo(c.shadowWallX + c.shadowWallW, c.floorY - SH*Q*0.55);
+  ctx.lineTo(c.prisoner1X, c.floorY - SH*Q*0.55);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(c.shadowWallX + c.shadowWallW, c.floorY - SH*Q*0.50);
+  ctx.lineTo(c.prisoner2X, c.floorY - SH*Q*0.50);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // ── PATH (from cave mouth upward to exterior) ──
+  ctx.save();
+  ctx.strokeStyle = '#2a1c38';
+  ctx.lineWidth = W * 0.045;
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(c.mouthX, c.floorY + 4);
+  ctx.quadraticCurveTo(
+    c.mouthX + W*0.07, c.visH * 0.45,
+    c.mouthX + W*0.14, c.visH * 0.32
+  );
+  ctx.stroke();
+  ctx.restore();
+
+  // ── EXTERIOR TREES (simple pixel silhouettes) ──
+  function drawTree(tx, ty){
+    ctx.fillStyle = '#151020';
+    ctx.fillRect(tx+3, ty+16, 4, 20);
+    ctx.fillStyle = '#0e0c18';
+    ctx.fillRect(tx, ty, 10, 18);
+    ctx.fillRect(tx+2, ty-8, 6, 10);
+    ctx.fillRect(tx+3, ty-14, 4, 8);
+  }
+  drawTree(Math.floor(c.mouthX + W*0.15), Math.floor(c.floorY - 36));
+  drawTree(Math.floor(c.mouthX + W*0.22), Math.floor(c.floorY - 28));
+  drawTree(Math.floor(W*0.92),             Math.floor(c.floorY - 32));
+}
+
+// ══════════════════════════════════════════════════════════════
+// ANNOTATIONS (spotlight zone per slide)
+// ══════════════════════════════════════════════════════════════
+function drawAnnotation(focus, tick){
+  if(focus === 'none') return;
+  const c = cc();
+
+  // Zones: [x, y, w, h, label, labelColor]
+  const zones = {
+    'cave':      [c.shadowWallX,        c.ceilY,             c.mouthX - c.shadowWallX, c.floorY - c.ceilY + 10,  'CAVERNA',          '#cc9944'],
+    'shadow':    [c.shadowWallX,        c.ceilY,             c.shadowWallW * 1.5,       c.floorY - c.ceilY + 10,  'EIKASÍA',          '#cc7733'],
+    'fire':      [c.tapiaX - W*0.08,    c.ceilY,             c.fireX - c.tapiaX + W*0.15, c.floorY - c.ceilY + 10, 'PÍSTIS',         '#dd6622'],
+    'exit':      [c.mouthX - W*0.04,    c.ceilY - 20,        W*0.22,                    c.floorY - c.ceilY + 40,  'LIBERACIÓN',       '#aabb44'],
+    'path':      [c.mouthX - W*0.02,    c.visH*0.22,         W*0.25,                    c.floorY - c.visH*0.22 + 10, 'DIÁNOIA',       '#6699cc'],
+    'sun':       [c.sunX - W*0.13,      c.sunY - c.visH*0.1, W*0.24,                    c.visH*0.35,              'IDEA DEL BIEN',    '#ffdd44'],
+    'full-annot':[c.shadowWallX,        c.ceilY - 30,        W - c.shadowWallX - 20,    c.floorY - c.ceilY + 60,  '',                 '#5540aa'],
+  };
+
+  const z = zones[focus];
+  if(!z) return;
+
+  const [zx, zy, zw, zh, label, col] = z;
+  const pulse = 0.7 + Math.sin(tick * 0.06) * 0.25;
+
+  ctx.save();
+  // Subtle dark vignette outside zone
+  ctx.globalAlpha = 0.35;
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, W, H);
+  ctx.globalAlpha = 1;
+
+  // Pulsing border
+  ctx.strokeStyle = col;
+  ctx.lineWidth = 2;
+  ctx.globalAlpha = pulse * 0.6;
+  ctx.setLineDash([6, 4]);
+  ctx.strokeRect(zx, zy, zw, zh);
+  ctx.setLineDash([]);
+
+  // Corner marks
+  const cm = 8;
+  ctx.globalAlpha = pulse;
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = col;
+  [[zx,zy],[zx+zw,zy],[zx,zy+zh],[zx+zw,zy+zh]].forEach(([cx2,cy2],i)=>{
+    ctx.beginPath();
+    const dx = i%2===0 ? 1 : -1;
+    const dy = i<2 ? 1 : -1;
+    ctx.moveTo(cx2, cy2+dy*cm); ctx.lineTo(cx2,cy2); ctx.lineTo(cx2+dx*cm,cy2);
+    ctx.stroke();
+  });
+
+  // Label
+  if(label){
+    ctx.globalAlpha = pulse * 0.9;
+    ctx.fillStyle = col;
+    ctx.font = 'bold 9px "Press Start 2P", monospace';
+    ctx.textAlign = 'left';
+    ctx.shadowBlur = 8; ctx.shadowColor = col;
+    ctx.fillText(label, zx + 4, zy - 7);
+    ctx.shadowBlur = 0;
+  }
+  ctx.restore();
+}
+
+// ══════════════════════════════════════════════════════════════
+// CHARACTER POSITIONS
+// ══════════════════════════════════════════════════════════════
+function drawCharacters(slide, tick, frame){
+  const c   = cc();
+  const SPH = SH * Q;
+  const SPW = SW * Q;
+
+  // Smooth bob for Platón
+  const bob = Math.sin(tick * 0.06) * 5;
+
+  // Platón position per state
+  const plaPos = {
+    'sky-low':  { x: c.mouthX + W*0.10, y: c.floorY - SPH - c.visH*0.08 + bob, flip: false },
+    'sky-mid':  { x: c.mouthX + W*0.16, y: c.visH*0.38 + bob,                  flip: false },
+    'sky-high': { x: c.sunX   - W*0.12, y: c.visH*0.22 + bob,                  flip: false },
+    'sun':      { x: c.sunX   + W*0.04, y: c.sunY + 25 + bob*0.5,              flip: true  },
+  };
+
+  // Sócrates position per state
+  const socPos = {
+    'cave-in':    { x: c.prisoner2X + SPW + W*0.03, y: c.floorY - SPH, flip: true  },
+    'cave-mouth': { x: c.mouthX - SPW*0.5,          y: c.floorY - SPH, flip: false },
+    'exterior':   { x: c.mouthX + W*0.08,            y: c.floorY - SPH, flip: false },
+  };
+
+  // ── Prisoners (Laques + Nicias face left, toward shadow wall) ──
+  ctx.globalAlpha = 0.85;
+  charAt(c.prisoner1X, c.floorY - SPH, ()=> drawLaq(frame), true);
+  charAt(c.prisoner2X, c.floorY - SPH, ()=> drawNic(frame), true);
+  ctx.globalAlpha = 1.0;
+
+  // ── Sócrates ──
+  const sp = socPos[slide.soc] || socPos['cave-in'];
+  charAt(sp.x, sp.y, ()=> drawSoc(frame), sp.flip);
+
+  // ── Platón (sempre in volo) ──
+  const pp = plaPos[slide.pla] || plaPos['sky-low'];
+  ctx.save();
+  // Dotted line from Platón to sun (when in sky)
+  if(slide.pla !== 'sky-low'){
+    const headX = pp.flip ? pp.x + SPW * 0.3 : pp.x + SPW * 0.7;
+    const headY = pp.y + 4*Q;
+    const alpha = Math.min(
+      (slide.pla === 'sun' ? 0.6 : 0.25) + Math.sin(tick*0.04)*0.05,
+      0.7
+    );
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = '#ffee66';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3,6]);
+    ctx.beginPath();
+    ctx.moveTo(headX, headY);
+    ctx.lineTo(c.sunX, c.sunY + 15);
+    ctx.stroke();
+    ctx.restore();
+  }
+  charAt(pp.x, pp.y, ()=> drawPla(frame), pp.flip);
+  ctx.restore();
+
+  // ── Platón label (obsessive) ──
+  if(slide.pla === 'sun'){
+    const a = 0.7 + Math.sin(tick*0.1)*0.25;
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.fillStyle = '#ffff88';
+    ctx.font = '7px "Press Start 2P", monospace';
+    ctx.textAlign = 'center';
+    ctx.shadowBlur = 8; ctx.shadowColor = '#ffcc00';
+    ctx.fillText('EL BIEN', pp.x + SPW/2, pp.y - 10);
+    ctx.restore();
+  } else if(slide.pla === 'sky-high'){
+    const a = 0.5 + Math.sin(tick*0.08)*0.3;
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.fillStyle = '#aaddff';
+    ctx.font = '7px "Press Start 2P", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('LO VEO...', pp.x + SPW/2, pp.y - 10);
+    ctx.restore();
+  }
+
+  // ── Two-worlds annotation (slides 2 and 11) ──
+  if(slide.focus === 'full-annot'){
+    const c2 = cc();
+    // MUNDO SENSIBLE label in cave area
+    const labelA = 0.65 + Math.sin(tick*0.05)*0.2;
+    ctx.save();
+    ctx.globalAlpha = labelA;
+    ctx.font = '7px "Press Start 2P", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#cc9944';
+    ctx.shadowBlur = 4; ctx.shadowColor = '#cc9944';
+    const caveCenter = (c2.shadowWallX + c2.mouthX) / 2;
+    ctx.fillText('MUNDO SENSIBLE', caveCenter, c2.ceilY - 12);
+    ctx.fillStyle = '#5599cc';
+    ctx.shadowColor = '#5599cc';
+    const extCenter  = (c2.mouthX + W) * 0.58;
+    ctx.fillText('MUNDO INTELIGIBLE', extCenter, c2.ceilY - 12);
+    // dividing line at cave mouth
+    ctx.globalAlpha = 0.3;
+    ctx.strokeStyle = '#8866aa';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4,4]);
+    ctx.beginPath();
+    ctx.moveTo(c2.mouthX, c2.ceilY - 30);
+    ctx.lineTo(c2.mouthX, c2.floorY + 10);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MAIN LOOP
+// ══════════════════════════════════════════════════════════════
+let tick = 0;
+
+function animate(){
+  requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, W, H);
+  tick++;
+  const frame = Math.floor(tick/18) % 2;
+  drawScene(tick, frame);
+  drawAnnotation(SLIDES[cur].focus, tick);
+  drawCharacters(SLIDES[cur], tick, frame);
+}
+
+// ══════════════════════════════════════════════════════════════
+// UI / NAVIGATION
+// ══════════════════════════════════════════════════════════════
+let cur = 0;
+
+const elNum     = document.getElementById('slide-num');
+const elConcept = document.getElementById('concept-tag');
+const elTitle   = document.getElementById('slide-title');
+const elSub     = document.getElementById('slide-subtitle');
+const elQuote   = document.getElementById('slide-quote');
+const elBody    = document.getElementById('slide-body');
+const elEx      = document.getElementById('slide-example');
+const elPrev    = document.getElementById('btn-prev');
+const elNext    = document.getElementById('btn-next');
+const elDots    = document.getElementById('dots');
+const elTrans   = document.getElementById('trans');
+
+// Build dots
+SLIDES.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0 ? ' active' : '');
+  d.title = SLIDES[i].title;
+  d.addEventListener('click', ()=> goTo(i));
+  elDots.appendChild(d);
+});
+
+function updatePanel(s){
+  elNum.textContent     = `${s.num} / ${SLIDES.length.toString().padStart(2,'0')}`;
+  elConcept.textContent = s.concept;
+  elTitle.textContent   = s.title;
+  elSub.textContent     = s.sub;
+  // quote: preserve cite
+  elQuote.innerHTML = `${s.quote}<cite>${s.src}</cite>`;
+  elBody.textContent    = s.body;
+  elEx.textContent      = s.ex;
+  elPrev.disabled       = cur === 0;
+  elNext.disabled       = cur === SLIDES.length - 1;
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.classList.toggle('active', i === cur);
+  });
+}
+
+function goTo(n){
+  if(n < 0 || n >= SLIDES.length || n === cur) return;
+  elTrans.style.opacity = '1';
+  setTimeout(()=>{
+    cur = n;
+    updatePanel(SLIDES[cur]);
+    setTimeout(()=>{ elTrans.style.opacity = '0'; }, 60);
+  }, 180);
+}
+
+// Keyboard
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight' || e.key===' ')      { e.preventDefault(); goTo(cur+1); }
+  else if(e.key==='ArrowLeft')                  { e.preventDefault(); goTo(cur-1); }
+  else if(e.key==='Home')                       { goTo(0); }
+  else if(e.key==='End')                        { goTo(SLIDES.length-1); }
+});
+
+// Nav buttons
+elPrev.addEventListener('click', ()=> goTo(cur-1));
+elNext.addEventListener('click', ()=> goTo(cur+1));
+
+// Touch swipe
+let touchStartX = 0;
+document.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend',   e=>{
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50){ goTo(dx < 0 ? cur+1 : cur-1); }
+});
+
+// Init
+updatePanel(SLIDES[0]);
+animate();
+</script>
+</body>
+</html>

@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Del feudalismo a la Modernidad — La línea del tiempo</title>
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:4px}
+
+/* ---------- barra de progreso ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:60;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .15s linear}
+
+/* ---------- riel de navegación ---------- */
+nav.rail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;
+  display:flex;flex-direction:column;gap:12px}
+nav.rail a{display:block;width:10px;height:10px;border-radius:50%;
+  background:transparent;border:1.5px solid var(--faint);position:relative;transition:all .25s}
+nav.rail a.on{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 10px rgba(34,228,255,.6)}
+nav.rail a span{position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  white-space:nowrap;font-size:12px;color:var(--dim);background:var(--card);
+  border:1px solid var(--line);border-radius:6px;padding:3px 9px;opacity:0;
+  pointer-events:none;transition:opacity .2s}
+nav.rail a:hover span,nav.rail a:focus-visible span{opacity:1}
+@media(max-width:820px){nav.rail{display:none}}
+
+/* ---------- capítulos ---------- */
+.chap{max-width:900px;margin:0 auto;padding:12vh 26px 8vh;min-height:52vh}
+.chap .inner{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.chap.vis .inner{opacity:1;transform:none}
+.kicker{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);
+  font-weight:700;margin-bottom:14px}
+.kicker .num{color:var(--faint);margin-right:.8em}
+h1{font-size:clamp(36px,6.6vw,72px);line-height:1.02;font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(28px,4.6vw,48px);line-height:1.06;font-weight:800;letter-spacing:-.015em;margin-bottom:10px}
+h2 .u{color:var(--amber)}
+h3{font-size:clamp(17px,2vw,21px);font-weight:800;margin-bottom:8px}
+p.lead{font-size:clamp(17px,2vw,21px);color:var(--dim);max-width:64ch;margin:14px 0}
+p.body{font-size:clamp(16px,1.85vw,19px);color:var(--ink);max-width:66ch;margin:12px 0}
+p.body b{color:var(--amber)} p.lead b{color:var(--amber)}
+.g{color:var(--green);font-weight:700} .c{color:var(--coral);font-weight:700}
+.v{color:var(--violet);font-weight:700} .cy{color:var(--cyan);font-weight:700}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(18px,2.2vw,26px);line-height:1.45;margin:26px 0 10px;max-width:56ch;
+  border-left:3px solid var(--violet);padding-left:1em}
+.cite{display:block;font-size:13px;color:var(--faint);margin-top:10px;font-style:normal;
+  font-family:"Segoe UI",system-ui,sans-serif}
+.note{font-size:13.5px;color:var(--faint);max-width:64ch;margin-top:10px;line-height:1.45}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent);margin:34px 0}
+
+/* ---------- héroe ---------- */
+#c0{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+#c0::before{content:"";position:absolute;inset:-40%;
+  background:radial-gradient(ellipse 42% 34% at 62% 38%,rgba(87,227,139,.07),transparent 60%),
+             radial-gradient(ellipse 36% 30% at 30% 72%,rgba(201,160,255,.08),transparent 60%);
+  pointer-events:none}
+#c0 .eramark{position:absolute;right:-4vw;bottom:-3vh;font-weight:800;
+  font-size:clamp(80px,15vw,200px);color:rgba(255,255,255,.03);letter-spacing:-.03em;
+  transform:rotate(-4deg);pointer-events:none;user-select:none}
+.scrollcue{margin-top:7vh;color:var(--faint);font-size:14px;letter-spacing:.18em;text-transform:uppercase}
+.scrollcue .arr{display:inline-block;animation:bob 1.8s ease-in-out infinite;margin-left:.5em}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ---------- botones ---------- */
+.btn{appearance:none;border:1px solid var(--line2);background:var(--card);color:var(--ink);
+  font:inherit;font-size:15px;font-weight:600;border-radius:12px;padding:11px 18px;
+  cursor:pointer;transition:all .18s;user-select:none;text-decoration:none;display:inline-block}
+.btn:hover{border-color:var(--cyan);box-shadow:0 0 14px rgba(34,228,255,.18);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn.primary{border-color:var(--cyan);color:var(--cyan)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none;border-color:var(--line)}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* ---------- modo docente ---------- */
+#docbadge{display:none;position:fixed;top:10px;left:12px;z-index:70;
+  background:rgba(255,201,60,.14);border:1px solid var(--amber);color:var(--amber);
+  font-size:11px;letter-spacing:.22em;padding:5px 10px;border-radius:8px;font-weight:700}
+body.docente #docbadge{display:block}
+.tnotes{display:none;margin-top:28px;border:1px dashed rgba(255,201,60,.55);border-radius:14px;
+  padding:16px 18px;background:rgba(255,201,60,.04)}
+body.docente .tnotes{display:block}
+.tnotes .tlabel{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);
+  font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tnotes ul{list-style:none}
+.tnotes li{font-size:13.5px;color:var(--dim);margin:6px 0;padding-left:1.1em;position:relative;line-height:1.5}
+.tnotes li::before{content:"—";position:absolute;left:0;color:var(--amber)}
+.tnotes b{color:var(--ink)} .tnotes i{color:var(--violet)}
+.dkey{display:none;margin-top:10px;font-size:13px;color:var(--amber);
+  border-top:1px dashed rgba(255,201,60,.35);padding-top:8px}
+body.docente .dkey{display:block}
+body.docente .opt.key{border-color:rgba(255,201,60,.6)}
+body.docente .opt.key::after{content:" ✓ respuesta";color:var(--amber);font-size:12px}
+
+/* ---------- tarjetas de hito (patrón .epoch de La Demolición) ---------- */
+.hitos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+@media(max-width:680px){.hitos{grid-template-columns:1fr}}
+button.epoch{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;
+  cursor:pointer;transition:all .22s;position:relative;text-align:left;font:inherit;color:var(--ink);width:100%}
+button.epoch:hover{border-color:var(--line2);transform:translateY(-2px)}
+button.epoch.open{border-color:var(--cyan);box-shadow:0 0 18px rgba(34,228,255,.12)}
+.epoch .tag{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.epoch.open .tag{color:var(--cyan)}
+.epoch h3{margin:6px 0 2px}
+.epoch .yrs{font-size:13px;color:var(--dim)}
+.epoch .more{display:block;max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:14.5px;color:var(--dim);line-height:1.5}
+.epoch.open .more{max-height:460px;margin-top:10px}
+.epoch .more b{color:var(--amber)}
+.epoch .more .wcite{display:block;margin-top:8px;font-size:12.5px;color:var(--faint)}
+.epoch .plus{position:absolute;top:14px;right:16px;color:var(--faint);font-weight:700;transition:transform .25s}
+.epoch.open .plus{transform:rotate(45deg);color:var(--cyan)}
+
+/* ---------- la lente (analogía marcada) ---------- */
+.lente{margin-top:22px;border:1px solid rgba(201,160,255,.4);border-left:3px solid var(--violet);
+  border-radius:12px;padding:14px 16px;background:rgba(201,160,255,.05);max-width:70ch}
+.lente .ltag{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--violet);
+  font-weight:700;margin-bottom:6px}
+.lente p{font-size:14.5px;color:var(--dim);line-height:1.55}
+.lente p b{color:var(--ink)}
+
+/* ---------- aviso de método (Kuhn) ---------- */
+.aviso{margin-top:24px;border:1px solid rgba(255,107,107,.5);border-left:4px solid var(--coral);
+  border-radius:14px;padding:20px;background:rgba(255,107,107,.04)}
+.aviso .atag{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--coral);
+  font-weight:700;margin-bottom:10px}
+.aviso p{font-size:15px;color:var(--ink);line-height:1.55;max-width:70ch;margin:8px 0}
+.aviso p b{color:var(--coral)}
+
+/* ---------- ciclo de Kuhn (máquina) ---------- */
+#kuhnbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:26px}
+#kstack{margin-top:6px}
+.klevel{border-left:2px solid var(--cyan);margin-left:8px;padding:10px 0 2px 16px;animation:slidein .45s ease both}
+.klevel .kq{font-size:15px;color:var(--ink);font-weight:700}
+.klevel .ka{font-size:14.5px;color:var(--dim);margin-top:2px;line-height:1.5}
+@keyframes slidein{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+#kend{display:none;margin-top:18px}
+#kend.show{display:block;animation:slidein .5s ease both}
+
+/* ---------- línea de tiempo SVG ---------- */
+.tl-wrap{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 10px 8px}
+.tl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tl-scroll svg{display:block;min-width:660px;width:100%;height:auto}
+.tl a{outline:none}
+.tl a rect{transition:filter .15s}
+.tl a:hover rect,.tl a:focus-visible rect{filter:brightness(1.7)}
+.tl a:focus-visible rect{stroke-width:2.5}
+.swipehint{display:none;font-size:12px;color:var(--faint);text-align:right;padding:6px 6px 0}
+@media(max-width:760px){.swipehint{display:block}}
+.tl-caption{font-size:12.5px;color:var(--faint);padding:0 6px 10px}
+
+/* ---------- control de tarjetas ---------- */
+.cardctl{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-top:18px;font-size:13px;color:var(--faint)}
+.cardctl .btn{font-size:12.5px;padding:6px 10px}
+.cardctl+.hitos{margin-top:12px}
+
+/* ---------- banda del Sacro Imperio ---------- */
+#sirg{margin-top:30px;border:1px solid rgba(201,160,255,.45);border-radius:16px;overflow:hidden}
+#sirg .bandtop{background:linear-gradient(90deg,rgba(201,160,255,.16),rgba(201,160,255,.05));
+  padding:10px 18px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--violet);
+  font-weight:700;border-bottom:1px solid rgba(201,160,255,.3);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#sirg .bandbody{padding:20px 18px}
+#sirg .bandbody p{font-size:15px;color:var(--dim);line-height:1.55;max-width:70ch;margin:8px 0}
+#sirg .bandbody p b{color:var(--amber)}
+#sirg .bandbody .catnote{margin-top:12px;font-size:13.5px;color:var(--violet);
+  border-top:1px dashed rgba(201,160,255,.35);padding-top:10px;font-family:Georgia,serif;font-style:italic}
+
+/* ---------- juegos ---------- */
+.game{background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:26px}
+.game .glabel{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px}
+.game .gnote{font-size:13px;color:var(--faint);margin:-8px 0 14px;line-height:1.45}
+.qcard{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:18px;
+  font-family:Georgia,serif;font-style:italic;font-size:17.5px;line-height:1.5;min-height:84px}
+.gfeed{margin-top:12px;font-size:14.5px;line-height:1.5;min-height:44px;color:var(--dim)}
+.gfeed.ok{color:var(--green)} .gfeed.bad{color:var(--coral)}
+.gscore{font-size:13px;color:var(--faint);margin-top:10px}
+.gscore b{color:var(--amber)}
+.shake{animation:shk .4s ease}
+@keyframes shk{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+/* orden cronológico */
+#orden-pool{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+@media(max-width:720px){#orden-pool{grid-template-columns:1fr}}
+.rule{border:1px solid var(--line2);background:var(--card);border-radius:12px;padding:14px;
+  cursor:pointer;transition:all .2s;text-align:left;font:inherit;color:var(--ink)}
+.rule:hover{border-color:var(--amber)}
+.rule .rt{font-weight:800;font-size:15.5px}
+.rule .rd{font-size:13px;color:var(--dim);margin-top:4px;line-height:1.4}
+.rule.placed{opacity:.28;cursor:default;border-color:var(--line)}
+#orden-track{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.slot{flex:1;min-width:104px;border:1px dashed var(--line2);border-radius:12px;padding:10px;
+  min-height:58px;font-size:13px;color:var(--faint);transition:all .3s}
+.slot.filled{border-style:solid;border-color:var(--green);color:var(--ink)}
+.slot .sn{font-size:11px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;font-weight:700}
+.slot .st{font-weight:800;font-size:13.5px;margin-top:2px;color:var(--green);line-height:1.25}
+.slot .sy{font-size:12px;color:var(--amber);margin-top:2px}
+#orden-feed{min-height:30px;margin-top:12px;font-size:14.5px;color:var(--dim)}
+
+/* ---------- autoexamen ---------- */
+.quiz-q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:14px}
+.quiz-q .qt{font-weight:700;font-size:16.5px;line-height:1.45}
+.quiz-q .opts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.opt{text-align:left;border:1px solid var(--line2);background:var(--card2);color:var(--ink);
+  font:inherit;font-size:14.5px;border-radius:10px;padding:10px 14px;cursor:pointer;transition:all .18s;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--cyan)}
+.opt.right{border-color:var(--green);color:var(--green);background:rgba(87,227,139,.06)}
+.opt.wrong{border-color:var(--coral);color:var(--coral);background:rgba(255,107,107,.05)}
+.opt:disabled{cursor:default}
+.qfeed{font-size:13.5px;color:var(--dim);margin-top:10px;min-height:18px;line-height:1.45}
+#quiz-score{margin-top:18px;font-size:15px;color:var(--dim)}
+#quiz-score b{color:var(--amber);font-size:19px}
+
+/* ---------- código de resultado ---------- */
+#result{display:none;margin-top:22px;border:1px solid var(--line2);border-left:3px solid var(--amber);
+  border-radius:14px;padding:20px;background:rgba(255,201,60,.03)}
+#result.show{display:block;animation:slidein .5s ease both}
+.codebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.codebox code{font-family:Consolas,Menlo,monospace;font-size:clamp(14px,2.4vw,19px);letter-spacing:.05em;
+  color:var(--amber);background:var(--card);border:1px solid var(--line2);border-radius:10px;
+  padding:10px 14px;user-select:all}
+#codelegend{margin-top:12px;font-size:13px;color:var(--faint);line-height:1.7}
+#codelegend b{color:var(--dim)}
+
+/* ---------- puerta a La Demolición ---------- */
+#gate{margin-top:40px;border:1px solid var(--line2);border-left:4px solid var(--cyan);
+  border-radius:16px;padding:26px;background:rgba(34,228,255,.04)}
+#gate .big{font-size:clamp(26px,4.6vw,44px);font-weight:800;letter-spacing:-.015em;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- aviso de progreso ---------- */
+#resume{display:none;position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:80;
+  background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:14px 16px;
+  box-shadow:0 10px 34px rgba(0,0,0,.55);max-width:min(92vw,560px)}
+#resume.show{display:block}
+#resume p{font-size:14px;color:var(--dim);margin-bottom:10px}
+#resume p b{color:var(--cyan)}
+
+/* ---------- fuentes / footer ---------- */
+.sources{margin-top:30px;font-size:13.5px;color:var(--faint);line-height:1.7;max-width:70ch}
+.sources b{color:var(--dim)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:26px;display:flex;
+  justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--faint)}
+footer .btn{font-size:12.5px;padding:7px 12px}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div id="docbadge">MODO DOCENTE</div>
+<div id="progress"></div>
+
+<nav class="rail" aria-label="Tramos">
+  <a href="#c0" aria-label="Umbral"><span>Umbral</span></a>
+  <a href="#c1" aria-label="El marco: Kuhn"><span>El marco · Kuhn</span></a>
+  <a href="#c2" aria-label="El mapa"><span>El mapa</span></a>
+  <a href="#c3" aria-label="Siglo tercero: la crisis"><span>s. III · La crisis</span></a>
+  <a href="#c4" aria-label="Alta Edad Media"><span>V–X · Alta</span></a>
+  <a href="#c5" aria-label="Plena Edad Media"><span>XI–XIII · Plena</span></a>
+  <a href="#c6" aria-label="Baja Edad Media"><span>XIV–XV · Baja</span></a>
+  <a href="#c7" aria-label="Renacimiento"><span>XV–XVI · Renacimiento</span></a>
+  <a href="#c8" aria-label="Modernidad"><span>XVII · Modernidad</span></a>
+  <a href="#c9" aria-label="La prueba"><span>La prueba</span></a>
+</nav>
+
+<!-- ============ 0 · UMBRAL ============ -->
+<section class="chap" id="c0">
+  <div class="eramark">962</div>
+  <div class="inner">
+    <div class="kicker">Filosofía · versión pública de aula</div>
+    <h1>Del feudalismo a la Modernidad<br><span style="color:var(--cyan)">La línea del tiempo</span></h1>
+    <p class="lead">El mapa de los catorce siglos que preparan <b>La Demolición</b>: cómo se arma, se sostiene, se agrieta y se cae una manera completa de ver el mundo — desde la crisis del siglo III hasta el año en que un francés decide dudar de todo con método.</p>
+    <div class="apho">La historia no avisa cuándo cambia de época. Los que avisan son los historiadores — siglos después, y discutiendo.</div>
+    <p class="note">Tu avance queda guardado en este dispositivo: podés cerrar y retomar donde dejaste. Todo funciona también con teclado (Tab y Enter).</p>
+    <div class="scrollcue">Bajá para empezar <span class="arr">↓</span></div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · uso</span><span>tarea previa o repaso</span></div>
+      <ul>
+        <li>Esta línea de tiempo <b>antecede</b> a la clase Renacimiento→Descartes (y a La Demolición): es el contexto histórico del giro. No la reemplaza.</li>
+        <li>A Kuhn <b>en serio</b> lo ven en Gnoseología (Unidad 3: «Kuhn y el concepto de paradigma»); acá aparece solo como silueta y analogía marcada.</li>
+        <li>Recorrido sugerido: mandarla de tarea antes de la clase del deck, o usarla como repaso integrador después.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ I · EL MARCO: KUHN ============ -->
+<section class="chap" id="c1">
+  <div class="inner">
+    <div class="kicker"><span class="num">I</span>El marco</div>
+    <h2>Una palabra prestada: <span class="u">paradigma</span></h2>
+    <div class="apho">Toda época se cree eterna. Esa convicción es parte del paradigma.</div>
+    <p class="body">Antes de recorrer los siglos, una herramienta. Thomas Kuhn (1922–1996), físico e historiador de la ciencia, publicó en 1962 <i>La estructura de las revoluciones científicas</i>. Ahí define <b>paradigma</b> en sentido estricto: «realizaciones científicas universalmente reconocidas que, durante cierto tiempo, proporcionan modelos de problemas y soluciones a una comunidad científica». Es decir: el conjunto de <b>prácticas, métodos y supuestos que comparte una comunidad científica</b> — qué problemas valen, con qué instrumentos se resuelven, qué cuenta como respuesta.</p>
+    <p class="body">La ciencia, dice Kuhn, no avanza en línea recta. Recorré el ciclo:</p>
+
+    <div id="kuhnbox">
+      <div class="glabel" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px">El ciclo de Kuhn · tocá para avanzar</div>
+      <div id="kstack"></div>
+      <div class="btnrow">
+        <button class="btn primary" id="kbtn">Cliqueá para empezar el ciclo</button>
+        <button class="btn ghost" id="kreset" style="display:none">Reiniciar el ciclo</button>
+      </div>
+      <div id="kend">
+        <div class="apho" style="margin-top:6px">Y el nuevo paradigma empieza a envejecer el mismo día que gana. El ejemplo favorito del propio libro: del cielo de Ptolomeo al de Copérnico.<span class="cite">(Kuhn, La estructura de las revoluciones científicas, 1962)</span></div>
+      </div>
+    </div>
+
+    <div class="aviso">
+      <div class="atag">Aviso de método — esto es una analogía</div>
+      <p>Kuhn definió el paradigma <b>para comunidades científicas</b>, y él mismo restringió el término a las ciencias — aunque desde los años sesenta la palabra se usa, extendida, para cualquier cambio profundo de modelo. Kuhn no escribió una palabra sobre el feudalismo, y nada de lo que sigue está en su obra.</p>
+      <p>Lo que hacemos acá es <b>extender la figura</b>: leer una cosmovisión completa —teocentrismo, señorío, criterio de autoridad— <i>como si</i> funcionara igual que un paradigma: normalidad de siglos, anomalías que se acumulan (una peste sin respuesta, dos papas a la vez, una máquina de multiplicar libros, un Sol que no gira), crisis, y una revolución de sentido. La extensión es una analogía didáctica.</p>
+      <p>Cada vez que veas la etiqueta violeta <b style="color:var(--violet)">ANALOGÍA</b>, estás leyendo esa lente. Todo lo demás es historia, con su fuente citada.</p>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · I</span><span>~8 min</span></div>
+      <ul>
+        <li>Frase para el pizarrón: <i>paradigma = lo que una comunidad científica —y solo ella— comparte</i>.</li>
+        <li>Insistir en la doble vida de la palabra: sentido estricto (Kuhn, 1962) vs. uso extendido post-1960.</li>
+        <li><b>No atribuirle a Kuhn</b> la lectura del feudalismo: es una analogía didáctica.</li>
+        <li>Puente a Unidad 3 (Gnoseología): ahí Kuhn se trabaja en serio, con ciencia normal e inconmensurabilidad.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ II · EL MAPA ============ -->
+<section class="chap" id="c2">
+  <div class="inner">
+    <div class="kicker"><span class="num">II</span>El mapa</div>
+    <h2>Catorce siglos, <span class="u">a escala</span></h2>
+    <div class="apho">El eje está a escala; la memoria, jamás.</div>
+    <p class="body">Tocá cualquier tramo para ir a su capítulo. Dos cosas para mirar antes: los tramos <b>se superponen</b> (el Renacimiento pisa a la Baja Edad Media: las épocas no hacen cola), y por debajo corren los <b>imperios</b>, que son instituciones, no eras: el romano de Occidente muere en 476; el de Oriente —Bizancio— sigue solo hasta 1453; el carolingio dura un suspiro; y el <b>Sacro Imperio Romano Germánico</b> atraviesa casi todo el mapa.</p>
+
+    <div class="tl-wrap">
+      <div class="tl-caption">Cliqueá un tramo para saltar a su capítulo · la banda violeta abre la ficha del Sacro Imperio</div>
+      <div class="tl-scroll">
+        <svg class="tl" viewBox="0 0 720 208" role="img" aria-label="Línea de tiempo del año 235 al 1700: crisis del siglo tercero, Antigüedad tardía, Alta, Plena y Baja Edad Media, Renacimiento superpuesto y Modernidad; debajo, bandas de imperios: romano hasta 476, bizantino de 395 a 1453, carolingio de 800 a 888, y Sacro Imperio Romano Germánico de 962 a 1806." xmlns="http://www.w3.org/2000/svg">
+          <!-- etiqueta crisis (el tramo es angosto) -->
+          <text x="36" y="36" font-size="10" font-weight="700" letter-spacing="1.5" fill="#FF6B6B">CRISIS DEL S. III</text>
+          <line x1="42" y1="40" x2="42" y2="70" stroke="#FF6B6B" stroke-width="1" stroke-dasharray="2 3"/>
+          <!-- fila B: Renacimiento (superpuesto) -->
+          <g aria-hidden="true" stroke="#FFC93C" stroke-width="1" stroke-dasharray="2 3" opacity=".55">
+            <line x1="564" y1="68" x2="564" y2="96"/>
+            <line x1="655" y1="68" x2="655" y2="96"/>
+          </g>
+          <a href="#c7" aria-label="Renacimiento, siglos quince y dieciséis">
+            <rect x="564" y="44" width="91" height="24" rx="5" fill="rgba(255,201,60,.14)" stroke="#FFC93C" stroke-width="1.5"/>
+            <text x="609" y="60" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="1" fill="#F2F5F9">RENACIMIENTO</text>
+          </a>
+          <!-- fila A: eras -->
+          <a href="#c3" aria-label="Crisis del siglo tercero, 235 a 284">
+            <rect x="36" y="72" width="22" height="24" rx="4" fill="rgba(255,107,107,.18)" stroke="#FF6B6B" stroke-width="1.5"/>
+          </a>
+          <g aria-hidden="true">
+            <rect x="58" y="72" width="87" height="24" rx="4" fill="rgba(126,136,152,.08)" stroke="#3A4353" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="101" y="88" text-anchor="middle" font-size="8.5" letter-spacing="1" fill="#7E8898">ANT. TARDÍA</text>
+          </g>
+          <a href="#c4" aria-label="Alta Edad Media, siglos cinco a diez">
+            <rect x="145" y="72" width="238" height="24" rx="4" fill="rgba(87,227,139,.09)" stroke="#2E8757" stroke-width="1.5"/>
+            <text x="264" y="88" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.5" fill="#F2F5F9">ALTA EDAD MEDIA · V–X</text>
+          </a>
+          <a href="#c5" aria-label="Plena Edad Media, siglos once a trece">
+            <rect x="383" y="72" width="136" height="24" rx="4" fill="rgba(87,227,139,.16)" stroke="#57E38B" stroke-width="1.5"/>
+            <text x="451" y="88" text-anchor="middle" font-size="10.5" font-weight="700" letter-spacing="1" fill="#F2F5F9">PLENA · XI–XIII</text>
+          </a>
+          <a href="#c6" aria-label="Baja Edad Media, siglos catorce y quince">
+            <rect x="519" y="72" width="87" height="24" rx="4" fill="rgba(87,227,139,.26)" stroke="#9FF0C0" stroke-width="1.5"/>
+            <text x="562" y="88" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="1" fill="#F2F5F9">BAJA · XIV–XV</text>
+          </a>
+          <a href="#c8" aria-label="Modernidad, desde 1492">
+            <rect x="606" y="72" width="106" height="24" rx="4" fill="rgba(34,228,255,.12)" stroke="#22E4FF" stroke-width="1.5"/>
+            <text x="659" y="88" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="1" fill="#F2F5F9">MODERNIDAD →</text>
+          </a>
+          <!-- eje y ticks -->
+          <line x1="20" y1="104" x2="712" y2="104" stroke="#2E3644" stroke-width="1.5"/>
+          <g stroke="#2E3644" stroke-width="1.5">
+            <line x1="36" y1="100" x2="36" y2="108"/><line x1="145" y1="100" x2="145" y2="108"/>
+            <line x1="292" y1="100" x2="292" y2="108"/><line x1="365" y1="100" x2="365" y2="108"/>
+            <line x1="519" y1="100" x2="519" y2="108"/><line x1="606" y1="100" x2="606" y2="108"/>
+            <line x1="671" y1="100" x2="671" y2="108"/>
+          </g>
+          <g font-size="9.5" fill="#7E8898" text-anchor="middle">
+            <text x="36" y="119">235</text><text x="145" y="119">476</text><text x="292" y="119">800</text>
+            <text x="365" y="119">962</text><text x="519" y="119">1300</text><text x="606" y="119">1492</text>
+            <text x="671" y="119">1637</text>
+          </g>
+          <!-- bandas transversales: los imperios -->
+          <text x="20" y="132" font-size="9" letter-spacing="1.5" font-weight="700" fill="#7E8898">LOS IMPERIOS · BANDAS TRANSVERSALES: INSTITUCIONES, NO ERAS</text>
+          <a href="#c3" aria-label="Imperio romano de Occidente, hasta 476">
+            <rect x="20" y="138" width="125" height="13" rx="3" fill="rgba(255,107,107,.12)" stroke="#FF6B6B" stroke-width="1.2"/>
+            <text x="82" y="148" text-anchor="middle" font-size="8.5" font-weight="700" letter-spacing=".5" fill="#FF6B6B">← IMPERIO ROMANO · –476</text>
+          </a>
+          <g aria-hidden="true">
+            <rect x="108" y="155" width="480" height="13" rx="3" fill="rgba(255,201,60,.10)" stroke="#FFC93C" stroke-width="1.2"/>
+            <text x="348" y="165" text-anchor="middle" font-size="8.5" font-weight="700" letter-spacing=".5" fill="#FFC93C">IMPERIO ROMANO DE ORIENTE (BIZANTINO) · 395–1453</text>
+          </g>
+          <g aria-hidden="true">
+            <rect x="292" y="172" width="40" height="13" rx="3" fill="rgba(87,227,139,.12)" stroke="#57E38B" stroke-width="1.2"/>
+            <text x="288" y="182" text-anchor="end" font-size="8.5" font-weight="700" letter-spacing=".5" fill="#57E38B">CAROLINGIO · 800–888</text>
+          </g>
+          <a href="#sirg" aria-label="Sacro Imperio Romano Germánico, 962 a 1806, banda transversal">
+            <rect x="365" y="172" width="347" height="13" rx="3" fill="rgba(201,160,255,.14)" stroke="#C9A0FF" stroke-width="1.2"/>
+            <text x="538" y="182" text-anchor="middle" font-size="8.5" font-weight="700" letter-spacing=".5" fill="#C9A0FF">SACRO IMPERIO ROM. GERMÁNICO · 962 ⟶</text>
+          </a>
+          <text x="712" y="202" text-anchor="end" font-size="9.5" fill="#7E8898">la banda violeta sigue hasta 1806, fuera del mapa</text>
+        </svg>
+      </div>
+      <div class="swipehint">deslizá el mapa →</div>
+    </div>
+
+    <p class="note" style="margin-top:18px"><b style="color:var(--dim)">Nota historiográfica.</b> La periodización no es un dato: es una decisión. La división vigente de la Edad Media es <b style="color:var(--dim)">tripartita</b> —Alta (V–X), Plena (XI–XIII), Baja (XIV–XV)— y aun así discutida: no hay acuerdo universal sobre los cortes, los límites valen mal para ámbitos amplios, y a toda la serie se la acusa de eurocentrismo. (Wikipedia, «Época histórica»)</p>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · II</span><span>~5 min</span></div>
+      <ul>
+        <li>La periodización como <b>objeto de discusión</b>, no como dato: preguntar quién decide dónde «termina» una época y para quién vale ese corte (eurocentrismo).</li>
+        <li>El solapamiento Renacimiento/Baja dibujado en el mapa es un argumento visual: usarlo. Las épocas no hacen cola.</li>
+        <li>Eje a escala: pedirles que comparen cuánto «dura» la Alta Edad Media contra el Renacimiento. La desproporción sorprende.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ III · CRISIS DEL SIGLO III ============ -->
+<section class="chap" id="c3">
+  <div class="inner">
+    <div class="kicker"><span class="num">III</span>Tramo 1 · 235–284</div>
+    <h2>La crisis del <span class="u">siglo III</span></h2>
+    <div class="apho">Roma no perdió una batalla: perdió la moneda, las rutas y la calma. Todo junto.</div>
+    <p class="body">Para entender cómo empieza la Edad Media hay que mirar el derrumbe anterior. Entre el asesinato de Alejandro Severo (235) y el ascenso de Diocleciano (284), el Imperio romano pasa <b>medio siglo sin piso</b>. Tocá cada tarjeta:</p>
+    <div class="cardctl"><span>Cliqueá cada tarjeta para abrir su detalle.</span><button type="button" class="btn ghost closeall">Cerrar todas las tarjetas</button></div>
+    <div class="hitos">
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">Política</span><h3>La anarquía militar</h3><span class="yrs">235–284</span>
+        <span class="more">Los ejércitos de frontera ponen y sacan emperadores a voluntad, con usurpaciones simultáneas. El Imperio llega a partirse en tres: el Imperio galo se separa en 258; Palmira, en 260, se queda con las provincias orientales.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">Economía</span><h3>La moneda se funde</h3><span class="yrs">s. III</span>
+        <span class="more">El denario pasa de plata pura a bronce: hiperinflación. La red comercial entre provincias desaparece y vuelve el trueque. Las ciudades grandes y abiertas se convierten en urbes chicas y amuralladas.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">Sociedad</span><h3>El germen del feudo</h3><span class="yrs">s. III–IV</span>
+        <span class="more">La población urbana se ruraliza. Plebeyos libres se transforman en <b>colonos</b>: siervos hereditarios atados a latifundios autosuficientes. Ahí está, en miniatura, el mundo señorial que viene.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El cierre</span><h3>Diocleciano y después</h3><span class="yrs">284 →</span>
+        <span class="more">Diocleciano estabiliza y reorganiza; entre él y la caída de Occidente (476) corre la <b>Antigüedad tardía</b> — el tramo punteado del mapa. El mundo antiguo sigue, pero ya no vuelve a ser el de antes.</span>
+      </button>
+    </div>
+    <div class="lente">
+      <div class="ltag">Analogía — no es Kuhn literal</div>
+      <p>Si una cosmovisión funcionara como un paradigma, esto sería una <b>crisis</b>: el mundo antiguo acumula anomalías —militares, monetarias, sociales— que su forma de vida ya no puede absorber ni explicar.</p>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · III</span><span>~6 min</span></div>
+      <ul>
+        <li>Dato que rinde: el Imperio partido en tres a la vez (galo 258, Palmira 260). No fue decadencia suave: fue fractura.</li>
+        <li>Continuidad Roma→feudo: el <b>colono tardorromano</b> como antecesor del siervo de la gleba. El feudalismo no cae del cielo: se incuba en la crisis.</li>
+        <li>Por qué importa para Descartes: primera evidencia de que una manera completa de vivir y pensar <b>puede terminarse</b>. Las cosmovisiones tienen fecha.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ IV · ALTA EDAD MEDIA ============ -->
+<section class="chap" id="c4">
+  <div class="inner">
+    <div class="kicker"><span class="num">IV</span>Tramo 2 · siglos V–X</div>
+    <h2>Alta Edad Media: <span class="u">se instala</span> un mundo</h2>
+    <div class="apho">Cuando las ciudades se apagan, el saber se refugia donde haya un techo y una vela: el monasterio.</div>
+    <div class="cardctl"><span>Cliqueá cada tarjeta para abrir su detalle.</span><button type="button" class="btn ghost closeall">Cerrar todas las tarjetas</button></div>
+    <div class="hitos">
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La caída</span><h3>Reinos sobre las ruinas</h3><span class="yrs">476 →</span>
+        <span class="more">476: deposición de Rómulo Augústulo — cae el Imperio de Occidente. Visigodos, francos y ostrogodos levantan <b>reinos romano-germánicos</b> sobre los pedazos.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La cultura</span><h3>El monasterio como arca</h3><span class="yrs">V–X</span>
+        <span class="more">Declina la población, se apagan los centros urbanos, se retrae el comercio. Los monasterios quedan como <b>transmisores de los restos de la cultura latina</b>: donde hay un scriptorium, sobrevive un libro.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El proyecto</span><h3>Carlomagno, año 800</h3><span class="yrs">800</span>
+        <span class="more">El título de emperador <b>resurge en Occidente</b> con la coronación de Carlomagno: la idea de Roma no murió — se volvió un proyecto. Su imperio carolingio moldea las estructuras que siguen.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El sistema</span><h3>Nace el feudalismo</h3><span class="yrs">IX–X</span>
+        <span class="more">Retorno a la agricultura sistemática bajo forma feudal: <b>vasallaje y señoríos</b>, fidelidades personales a cambio de protección, tierra a cambio de servicio. Europa se organiza sin ciudades — y la cristianización avanza sobre eslavos, magiares y germanos.</span>
+      </button>
+    </div>
+    <div class="lente">
+      <div class="ltag">Analogía — no es Kuhn literal</div>
+      <p>Esto es la <b>instalación de un paradigma</b>: teocéntrico, rural, jerárquico. Durante siglos va a funcionar como lo «normal» — y nadie adentro lo ve como una opción entre otras.</p>
+    </div>
+
+    <div id="sirg">
+      <div class="bandtop"><span>El hilo transversal</span><span>962 ⟶ 1806</span></div>
+      <div class="bandbody">
+        <h3 style="margin-bottom:8px">Sacro Imperio Romano Germánico</h3>
+        <p>En <b>962</b> el papa Juan XII corona emperador a Otón I: la institución imperial renace como <i>translatio imperii</i> — la transferencia de la herencia de Roma, vía Carlomagno, a una nueva estructura política. En su apogeo (siglo XIII) abarca casi toda Europa Central.</p>
+        <p>No es una época: es una <b>institución</b> que atraviesa todo lo que sigue —Plena, Baja, Renacimiento, Modernidad entera— hasta que Francisco II abdica en <b>1806</b>, con Napoleón enfrente. Emperador electivo (siete príncipes electores desde la Bula de Oro, <b>1356</b>), cientos de territorios adentro —los alemanes lo llamaron «alfombra de retales»— y tensión permanente con el papado: en Canossa (<b>1077</b>), un emperador excomulgado hizo penitencia tres días en la nieve para que el papa lo perdonara. Voltaire lo liquidó con una ironía: ni sacro, ni romano, ni imperio.</p>
+        <p class="catnote">Por eso en el mapa corre como banda y no como tramo: confundir una institución con una era es un error de categoría — como poner «la AFA» entre «los años 80» y «los años 90».</p>
+      </div>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · IV</span><span>~8 min</span></div>
+      <ul>
+        <li>El <b>error de categoría</b> del Sacro Imperio es contenido enseñable en sí mismo: eras vs. instituciones. La analogía de la AFA suele destrabarlo.</li>
+        <li>962 y la <i>translatio imperii</i>: Roma como herencia disputada — nadie funda de cero, todos heredan y reinterpretan.</li>
+        <li>Canossa (1077) dramatiza la autoridad bicéfala emperador/papa: dos garantes de sentido que se necesitan y se pelean. Guardarlo para el capítulo del Cisma.</li>
+        <li>El monasterio-arca conecta con el criterio de autoridad que La Demolición derriba: el saber custodiado, no producido.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ V · PLENA EDAD MEDIA ============ -->
+<section class="chap" id="c5">
+  <div class="inner">
+    <div class="kicker"><span class="num">V</span>Tramo 3 · siglos XI–XIII</div>
+    <h2>Plena Edad Media: el paradigma <span class="u">a pleno</span></h2>
+    <div class="apho">El arado pesado hizo más por Europa que diez concilios.</div>
+    <div class="cardctl"><span>Cliqueá cada tarjeta para abrir su detalle.</span><button type="button" class="btn ghost closeall">Cerrar todas las tarjetas</button></div>
+    <div class="hitos">
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El campo</span><h3>La tierra rinde</h3><span class="yrs">XI–XIII</span>
+        <span class="more">Arado de vertedera, herramientas de hierro, molino de agua, <b>rotación trienal</b>: la productividad agraria sube, y con ella la población. Europa vuelve a tener excedente.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La ciudad</span><h3>Vuelven las ciudades</h3><span class="yrs">XI–XIII</span>
+        <span class="more">Renacer urbano: <b>burgueses</b> que prosperan con la artesanía y el comercio a larga distancia; <b>gremios</b> que regulan oficio y calidad. Dentro del mundo feudal crece algo que no es feudal.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El saber</span><h3>Universidades y escolástica</h3><span class="yrs">1088 →</span>
+        <span class="more">Bolonia (<b>1088</b>), París, Oxford, Salamanca. La <b>escolástica</b> llega a su cumbre con Tomás de Aquino; el gótico, a su cielo. El saber medieval en su hora de máxima potencia — el mismo que Descartes va a recibir, ya gastado, en La Flèche.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El poder</span><h3>Cruzadas e investiduras</h3><span class="yrs">1077 · 1095</span>
+        <span class="more">Desde <b>1095</b>, la cristiandad se expande hacia Oriente: las Cruzadas. Y el poder discute consigo mismo: la <b>querella de las investiduras</b> enfrenta a emperador y papa por quién nombra obispos — Canossa (1077) es su escena más famosa.</span>
+      </button>
+    </div>
+    <div class="lente">
+      <div class="ltag">Analogía — no es Kuhn literal</div>
+      <p>Esto sería la <b>ciencia normal</b> del paradigma: resuelve sus problemas con sus propias reglas, y suma catedrales, universidades y sumas teológicas. Su mejor siglo. Y sin embargo: la burguesía ya está adentro, creciendo.</p>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · V</span><span>~6 min</span></div>
+      <ul>
+        <li>Subrayar la paradoja: el momento de máxima potencia del paradigma (Tomás, el gótico) incuba a su enterrador (la burguesía urbana).</li>
+        <li>Bolonia 1088: la universidad nace <b>medieval</b> — corporación de maestros y estudiantes, gremio del saber. No confundirla con la universidad moderna.</li>
+        <li>Puente a La Demolición (cap. IV): la escolástica que Descartes padece en La Flèche es esta, cuatro siglos más tarde y en decadencia.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ VI · BAJA EDAD MEDIA ============ -->
+<section class="chap" id="c6">
+  <div class="inner">
+    <div class="kicker"><span class="num">VI</span>Tramo 4 · siglos XIV–XV</div>
+    <h2>Baja Edad Media: las <span class="u">anomalías</span></h2>
+    <div class="apho">La peste no discutió con la teología: la dejó sin respuestas.</div>
+    <div class="cardctl"><span>Cliqueá cada tarjeta para abrir su detalle.</span><button type="button" class="btn ghost closeall">Cerrar todas las tarjetas</button></div>
+    <div class="hitos">
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La catástrofe</span><h3>La peste</h3><span class="yrs">1347–1353</span>
+        <span class="more">Tras las hambrunas de 1315–1317 (se acabó el óptimo climático medieval), la <b>Peste Negra</b> reduce la población europea <b>a menos de la mitad</b>, con epidemias recurrentes después. Ninguna suma teológica la explica.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La guerra</span><h3>Cien años de guerra</h3><span class="yrs">1337–1453</span>
+        <span class="more">Inglaterra contra Francia, con Castilla metida — leíble también como <b>guerra comercial</b> por la lana. La nobleza feudal se desangra; las monarquías se concentran y profesionalizan.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La grieta</span><h3>Cisma de Occidente</h3><span class="yrs">1378–1417</span>
+        <span class="more">Dos —y hasta tres— <b>papas simultáneos</b>, excomulgándose entre sí: uno en Aviñón, otro en Roma. Si hay dos vicarios de Cristo, ¿quién garantiza la verdad? El Concilio de Constanza lo cierra; la pregunta queda abierta — y reaparece con Lutero.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El desgaste</span><h3>El feudo se agota</h3><span class="yrs">XIV–XV</span>
+        <span class="more">Revueltas campesinas (Wat Tyler, 1381), ascenso de mercaderes y artesanos, declive de la pequeña nobleza, <b>monarquías autoritarias</b> en formación. 1453: cae Constantinopla. 1492: Granada, América. El período se cierra con portazo.</span>
+      </button>
+    </div>
+    <div class="lente">
+      <div class="ltag">Analogía — no es Kuhn literal</div>
+      <p><b>Anomalías en cadena</b>: una peste que la teología no explica, dos papas que se anulan mutuamente, un feudo que ya no rinde. El paradigma deja de absorber los golpes; empieza la crisis.</p>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · VI</span><span>~8 min</span></div>
+      <ul>
+        <li>El <b>Cisma es la joya</b> del capítulo: crisis del criterio de verdad avant la lettre. Puente directo al capítulo II de La Demolición (la máquina de criterios).</li>
+        <li>Cifra que rinde: población europea reducida <b>a menos de la mitad</b>. Dejar que el número trabaje solo.</li>
+        <li>Matiz importante: el paradigma no cae por un argumento sino por acumulación — nadie «refutó» al feudalismo.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ VII · RENACIMIENTO ============ -->
+<section class="chap" id="c7">
+  <div class="inner">
+    <div class="kicker"><span class="num">VII</span>Tramo 5 · siglos XV–XVI</div>
+    <h2>Renacimiento: la <span class="u">revolución</span> de sentido</h2>
+    <div class="apho">Florencia no resucitó a los antiguos: los usó de espejo.</div>
+    <p class="body">Ojo con el mapa: este tramo <b>se superpone</b> con el anterior. Mientras la Baja Edad Media se desangra, en las ciudades italianas ya está pasando otra cosa.</p>
+    <div class="cardctl"><span>Cliqueá cada tarjeta para abrir su detalle.</span><button type="button" class="btn ghost closeall">Cerrar todas las tarjetas</button></div>
+    <div class="hitos">
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El lugar</span><h3>Florencia y los Médici</h3><span class="yrs">Quattrocento · s. XV</span>
+        <span class="more">Ciudades-estado, valoración del mérito personal, y el <b>mecenazgo</b> de banqueros: los Médici financian arte y saber. La palabra la puso Vasari: <i>rinascita</i>, renacer de la cultura clásica — la Antigüedad grecolatina como espejo.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La idea</span><h3>Humanismo</h3><span class="yrs">desde el s. XIV</span>
+        <span class="more">Antecedentes en el siglo XIV con Petrarca. Contra el teocentrismo medieval, <b>antropocentrismo</b>: el ser humano como medida, la experimentación frente a la visión estática del mundo.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La técnica</span><h3>La perspectiva</h3><span class="yrs">1420 →</span>
+        <span class="more">Matemática aplicada al ojo: Brunelleschi (la cúpula de Florencia, 1420), Piero della Francesca, Leonardo, Miguel Ángel. El espacio del cuadro se vuelve <b>calculable</b> — pronto el mundo entero va a serlo.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La máquina</span><h3>La imprenta</h3><span class="yrs">c. 1440</span>
+        <span class="more">Gutenberg, tipos móviles, Maguncia (con antecedentes chinos: Bi Sheng, s. XI). Entre 1400 y 1450 Europa copió a mano unos 20.000 libros; en los cincuenta años siguientes se imprimen <b>entre 12 y 20 millones</b>. Las ideas dejan de pedir permiso.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">La ruptura</span><h3>1517 · La Reforma</h3><span class="yrs">31/10/1517</span>
+        <span class="more">Lutero publica 95 tesis en Wittenberg: contra las indulgencias y el monopolio de la interpretación. <b>Sola scriptura</b>: cada uno lee la Escritura por sí mismo. La imprenta hace el resto; la cristiandad occidental se parte, y vienen las guerras de religión.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El cielo</span><h3>1543 · Copérnico</h3><span class="yrs">1543</span>
+        <span class="more"><i>De revolutionibus orbium coelestium</i>: el Sol al centro, la Tierra en órbita — contra todo el cielo de Ptolomeo. La Iglesia lo manda al Índice de libros prohibidos en 1616. Empieza la <b>revolución copernicana</b>: el ejemplo favorito de Kuhn.</span>
+      </button>
+    </div>
+    <div class="lente">
+      <div class="ltag">Analogía — no es Kuhn literal</div>
+      <p><b>Revolución a la vista</b>: imprenta, libre examen y heliocentrismo son anomalías que el paradigma medieval ya no puede reabsorber. El sentido común de una época entera se queda sin garantes — es exactamente la crisis del criterio con la que abre La Demolición.</p>
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · VII</span><span>~10 min</span></div>
+      <ul>
+        <li>El tridente que rinde: <b>imprenta + Reforma + Copérnico</b>. Tres golpes en cien años, cada uno contra un garante distinto (el copista, el intérprete único, el cielo).</li>
+        <li>Cifra para el pizarrón: de ~20.000 libros a mano a <b>12–20 millones impresos</b> en cincuenta años.</li>
+        <li>El Índice de 1616 reaparece en Carpio VIII §2 (condena de Copérnico citada por el Santo Oficio): conectar con la clase del deck.</li>
+        <li>Recordar el solapamiento con la Baja: Petrarca (s. XIV) es contemporáneo de la peste. Las épocas conviven.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ VIII · MODERNIDAD ============ -->
+<section class="chap" id="c8">
+  <div class="inner">
+    <div class="kicker"><span class="num">VIII</span>Tramo 6 · siglos XVI–XVII</div>
+    <h2>Modernidad temprana: el <span class="u">paradigma nuevo</span></h2>
+    <div class="apho">El siglo XVII no encontró certezas nuevas: encontró que había que fabricarlas.</div>
+    <div class="cardctl"><span>Cliqueá cada tarjeta para abrir su detalle.</span><button type="button" class="btn ghost closeall">Cerrar todas las tarjetas</button></div>
+    <div class="hitos">
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El poder</span><h3>Estados y monarquías</h3><span class="yrs">XV–XVII</span>
+        <span class="more"><b>Estados-nación</b> con monarquías autoritarias y absolutas, capitalismo mercantil, burguesía en ascenso, expansión ultramarina. Westfalia (<b>1648</b>) dibuja el sistema europeo de estados: el poder ya no se hereda de Roma — se negocia entre soberanos.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El saber</span><h3>La revolución científica</h3><span class="yrs">s. XVII</span>
+        <span class="more">Galileo, Kepler, Newton: <b>matemática aplicada a la física</b>, método frente al <i>magister dixit</i> medieval. La naturaleza deja de ser un libro de símbolos y pasa a ser un sistema de leyes. La secularización del pensamiento avanza.</span>
+      </button>
+      <button class="epoch"><span class="plus">+</span>
+        <span class="tag">El umbral</span><h3>1637 · Descartes</h3><span class="yrs">1637 · 1641</span>
+        <span class="more"><i>Discurso del método</i> (1637), <i>Meditaciones metafísicas</i> (1641). Con el criterio de autoridad roto y dos criterios de verdad en guerra, alguien decide empezar de nuevo: <b>dudar de todo, con método</b>, hasta tocar suelo firme. El saber se refunda desde el sujeto.<span class="wcite">(Carpio VIII §3–4)</span></span>
+      </button>
+    </div>
+    <div class="lente">
+      <div class="ltag">Analogía — no es Kuhn literal</div>
+      <p><b>Paradigma nuevo</b>: sujeto, método, evidencia. Y el recordatorio de límites: Kuhn habló de comunidades científicas, no de civilizaciones — esta lente fue nuestra herramienta didáctica, no su teoría.</p>
+    </div>
+    <p class="body" style="margin-top:22px">Acá termina el mapa y empieza la filosofía: lo que sigue —la duda metódica, el genio maligno, el cogito— lo recorrés en <a href="La-Demolicion_v2.html" style="color:var(--cyan);font-weight:700">La Demolición</a>. La puerta grande está al final, después de la prueba.</p>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · VIII</span><span>~6 min</span></div>
+      <ul>
+        <li>Absolutismo ≠ feudalismo: aunque tenga corona, el poder <b>concentrado</b> en un Estado es moderno; el feudal estaba fragmentado en señoríos. (Es la trampa del juego de clasificación.)</li>
+        <li>Cierre de clase sugerido: leer la tarjeta «1637 · Descartes» en voz alta y abrir La-Demolicion_v2.html en el proyector.</li>
+        <li>El Sacro Imperio sigue existiendo durante todo este tramo (hasta 1806): útil para reforzar la banda transversal.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ IX · LA PRUEBA ============ -->
+<section class="chap" id="c9">
+  <div class="inner">
+    <div class="kicker"><span class="num">IX</span>La prueba del tiempo</div>
+    <h2>Tres juegos y un <span class="u">código</span></h2>
+    <div class="apho">Clasificar es fácil con seis siglos de ventaja.</div>
+
+    <div class="game" id="clasif">
+      <div class="glabel">Juego 1 · ¿Paradigma feudal o moderno?</div>
+      <div class="gnote">«Feudal» nombra acá el paradigma medieval completo —señorial y teocéntrico—, no solo el contrato de vasallaje. Cliqueá el botón del paradigma al que pertenece cada ítem.</div>
+      <div class="qcard" id="fq"></div>
+      <div class="btnrow">
+        <button class="btn" id="fF" style="border-color:rgba(87,227,139,.5)">Paradigma feudal</button>
+        <button class="btn" id="fM" style="border-color:rgba(34,228,255,.5)">Paradigma moderno</button>
+        <button class="btn primary" id="fNext" style="display:none">Siguiente →</button>
+        <button class="btn ghost" id="fRestart">Reiniciar el juego</button>
+      </div>
+      <div class="gfeed" id="ffeed" aria-live="polite"></div>
+      <div class="gscore" id="fscore"></div>
+      <div class="dkey" id="fkey"></div>
+    </div>
+
+    <div class="game" id="orden">
+      <div class="glabel">Juego 2 · Poné los hitos en orden</div>
+      <div class="gnote">Cliqueá los hitos en orden, del más antiguo al más reciente: el que sigue se acomoda solo. Sin años a la vista — aparecen cuando acertás.</div>
+      <div id="orden-track">
+        <div class="slot" data-slot="0"><span class="sn">1.º</span></div>
+        <div class="slot" data-slot="1"><span class="sn">2.º</span></div>
+        <div class="slot" data-slot="2"><span class="sn">3.º</span></div>
+        <div class="slot" data-slot="3"><span class="sn">4.º</span></div>
+        <div class="slot" data-slot="4"><span class="sn">5.º</span></div>
+        <div class="slot" data-slot="5"><span class="sn">6.º</span></div>
+        <div class="slot" data-slot="6"><span class="sn">7.º</span></div>
+        <div class="slot" data-slot="7"><span class="sn">8.º</span></div>
+      </div>
+      <div id="orden-pool"></div>
+      <div id="orden-feed" aria-live="polite"></div>
+      <div class="btnrow"><button class="btn ghost" id="oRestart">Reiniciar el orden</button></div>
+      <div class="dkey">Docente · orden: Crisis del s. III (235) → Carlomagno (800) → Otón I (962) → Peste Negra (1347) → Imprenta (c. 1440) → 95 tesis (1517) → De revolutionibus (1543) → Discurso del método (1637).</div>
+    </div>
+
+    <div class="hr"></div>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)">Juego 3 · Autoexamen</h3>
+    <p class="note" style="margin-bottom:6px">Cinco preguntas. Al terminar recibís un código local con tus resultados.</p>
+    <div id="quiz"></div>
+    <div id="quiz-score" aria-live="polite"></div>
+    <div class="btnrow"><button class="btn ghost" id="redoquiz">Reiniciar el autoexamen</button></div>
+
+    <div id="result">
+      <h3>Tu código de resultado</h3>
+      <p class="note">Copialo si querés guardar el recorrido. Lleva la fecha y tus aciertos por sección — nada más, nada menos.</p>
+      <div class="codebox">
+        <code id="codeval"></code>
+        <button class="btn primary" id="copybtn">Copiar código</button>
+      </div>
+      <div id="codelegend"></div>
+    </div>
+
+    <div id="gate">
+      <div class="kicker" style="color:var(--cyan);margin-bottom:8px">El umbral</div>
+      <div class="big">Acá empieza la duda metódica</div>
+      <p class="body" style="margin-top:12px">Catorce siglos para llegar a esto: un criterio de verdad roto, dos herencias sueltas —la duda y el hambre de método— y un hombre dispuesto a demoler el edificio entero del saber para ver qué queda en pie. Seguí por ahí:</p>
+      <div class="btnrow">
+        <a class="btn primary" id="golink" href="La-Demolicion_v2.html">Entrar a La Demolición →</a>
+      </div>
+    </div>
+
+    <div class="sources">
+      <b>Fuentes.</b> Wikipedia en español (consultadas 2026): «Crisis del siglo III», «Alta Edad Media», «Plena Edad Media», «Baja Edad Media», «Sacro Imperio Romano Germánico», «Renacimiento», «Thomas Samuel Kuhn», «La estructura de las revoluciones científicas», «Paradigma científico», «Cambio de paradigma», «Época histórica», «Imprenta», «Nicolás Copérnico», «Reforma protestante», «Edad Moderna». Para el tramo cartesiano: A. P. Carpio, <i>Principios de filosofía</i>, cap. VIII. El marco kuhniano se usa como analogía didáctica declarada, no como aplicación literal de la teoría.
+    </div>
+    <aside class="tnotes">
+      <div class="tlabel"><span>Notas de clase · IX</span></div>
+      <ul>
+        <li><b>Cómo leer el código</b> que mandan: C = clasificación (…/9) · O = errores en el orden cronológico · Q = autoexamen (…/5). Una «x» = sección sin terminar.</li>
+        <li>Las trampas del juego 1 son el <b>absolutismo</b> (parece medieval por el rey, es moderno) y el <b>gremio</b> (parece moderno por urbano, es medieval). Ahí se juega la comprensión fina.</li>
+        <li>El enlace final abre La-Demolicion_v2.html (mismo directorio): verificar que los dos archivos viajen juntos si los distribuís por Classroom.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<footer>
+    <span>La línea del tiempo · Del feudalismo a la Modernidad — versión pública de aula</span>
+  <button class="btn ghost" id="freset">Reiniciar progreso</button>
+  <span>© 2026 Dan Mecikovsky · Todos los derechos reservados</span>
+</footer>
+
+<div id="resume" role="dialog" aria-label="Progreso guardado">
+  <p id="resume-msg"></p>
+  <div class="btnrow" style="margin-top:0">
+    <button class="btn primary" id="resume-go">Llevame ahí</button>
+    <button class="btn ghost" id="resume-reset">Empezar de cero</button>
+    <button class="btn ghost" id="resume-x" aria-label="Cerrar aviso">✕</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ============ utilidades ============ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* ============ modo docente ============ */
+const DOCENTE=new URLSearchParams(location.search).get('modo')==='docente';
+if(DOCENTE)document.body.classList.add('docente');
+
+/* ============ estado persistente ============ */
+const SKEY=DOCENTE?'linea_tiempo_docente':'linea_tiempo';
+function defaultState(){return{v:1,chap:0,
+  cls:{i:0,ok:0,done:false},
+  orden:{next:0,errs:0},
+  quiz:{ans:[-1,-1,-1,-1,-1]},
+  code:null};}
+let savedExisted=false;
+let S=(function(){
+  try{const j=JSON.parse(localStorage.getItem(SKEY));
+    if(j&&j.v===1){savedExisted=true;return j;}}catch(e){}
+  return defaultState();
+})();
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
+function resetProgress(){
+  if(!confirm('¿Borrar todo el progreso guardado y empezar de cero?'))return;
+  try{localStorage.removeItem(SKEY);}catch(e){}
+  location.reload();
+}
+$('#freset').addEventListener('click',resetProgress);
+
+/* ============ progreso + riel + aparición ============ */
+const chaps=$$('.chap'), dots=$$('nav.rail a'), bar=$('#progress');
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:.12});
+chaps.forEach(c=>io.observe(c));
+let curChap=0, chapSaveT=null;
+function onScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(max>0?(scrollY/max)*100:0)+'%';
+  let cur=0;
+  chaps.forEach((c,i)=>{if(c.getBoundingClientRect().top<innerHeight*.45)cur=i;});
+  dots.forEach((d,i)=>d.classList.toggle('on',i===cur));
+  if(cur!==curChap){
+    curChap=cur;
+    clearTimeout(chapSaveT);
+    chapSaveT=setTimeout(()=>{S.chap=curChap;save();},900);
+  }
+}
+addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* ============ aviso: retomar donde dejaste ============ */
+(function(){
+  const any=S.chap>0||S.cls.i>0||S.cls.done||S.orden.next>0||S.quiz.ans.some(a=>a>=0);
+  if(!savedExisted||!any)return;
+  const CH=['el umbral','I · El marco: Kuhn','II · El mapa','III · La crisis del siglo III',
+            'IV · Alta Edad Media','V · Plena Edad Media','VI · Baja Edad Media',
+            'VII · Renacimiento','VIII · Modernidad','IX · La prueba'];
+  const tgt=Math.min(Math.max(S.chap,0),9);
+  $('#resume-msg').innerHTML='Progreso recuperado. Habías llegado a <b>'+CH[tgt]+'</b>.';
+  const box=$('#resume');
+  box.classList.add('show');
+  $('#resume-go').addEventListener('click',()=>{
+    document.getElementById('c'+tgt).scrollIntoView({behavior:'smooth'});
+    box.classList.remove('show');
+  });
+  $('#resume-reset').addEventListener('click',resetProgress);
+  $('#resume-x').addEventListener('click',()=>box.classList.remove('show'));
+})();
+
+/* ============ tarjetas de hito expandibles ============ */
+$$('.epoch').forEach(el=>{
+  el.setAttribute('aria-expanded','false');
+  el.addEventListener('click',()=>{
+    const open=el.classList.toggle('open');
+    el.setAttribute('aria-expanded',open?'true':'false');
+  });
+});
+
+/* ============ I · ciclo de Kuhn ============ */
+const KSTEPS=[
+  {q:'1 · Ciencia normal',a:'La comunidad comparte un paradigma: consenso sobre métodos, problemas legítimos y lo que cuenta como solución. Se investiga sin discutir los cimientos.'},
+  {q:'2 · Anomalías',a:'Aparecen fenómenos que el marco vigente no puede explicar. Al principio se los archiva, se los parcha, se los culpa al instrumento.'},
+  {q:'3 · Crisis',a:'Las anomalías se acumulan y se vuelven graves: la viabilidad del paradigma queda en cuestión. Se ensayan teorías alternativas, incluso las antes rechazadas.'},
+  {q:'4 · Revolución científica',a:'Un marco rival gana la batalla. No es una suma gradual: es un reemplazo — y los dos bandos ni siquiera pueden demostrarse mutuamente que tienen razón (inconmensurabilidad).'},
+  {q:'5 · Nuevo paradigma',a:'El marco vencedor se vuelve el nuevo sentido común de la comunidad. Los libros de texto se reescriben; la ciencia normal recomienza.'}
+];
+let kn=0;
+const kbtn=$('#kbtn'),kstack=$('#kstack'),kend=$('#kend'),kreset=$('#kreset');
+kbtn.addEventListener('click',()=>{
+  if(kn>=KSTEPS.length)return;
+  const L=KSTEPS[kn];
+  const d=document.createElement('div');
+  d.className='klevel';
+  d.innerHTML='<div class="kq">'+L.q+'</div><div class="ka">'+L.a+'</div>';
+  kstack.appendChild(d);
+  kn++;
+  kbtn.textContent='Cliqueá para la fase siguiente →';
+  kreset.style.display='inline-block';
+  if(kn===KSTEPS.length){
+    kend.classList.add('show');
+    kbtn.style.display='none';
+  }
+});
+kreset.addEventListener('click',()=>{
+  kn=0;kstack.innerHTML='';kend.classList.remove('show');
+  kbtn.style.display='inline-block';kbtn.textContent='Cliqueá para empezar el ciclo';
+  kreset.style.display='none';
+});
+
+/* ============ tarjetas: cerrar todas (por tramo) ============ */
+$$('.closeall').forEach(b=>{
+  b.addEventListener('click',()=>{
+    b.closest('.inner').querySelectorAll('.epoch.open').forEach(e=>{
+      e.classList.remove('open');
+      e.setAttribute('aria-expanded','false');
+    });
+  });
+});
+
+/* ============ IX · juego 1: clasificación ============ */
+const fItems=[
+  {t:'«Siervo de la gleba: nacés atado a la tierra que trabajás.»',who:'F',
+   ok:'Feudal. Heredero del colono tardorromano: los latifundios autosuficientes de la crisis del siglo III ya ensayaban esta figura.',
+   bad:'Es feudal: la servidumbre hereditaria es la base del mundo señorial. Lo moderno rompe justamente esa atadura a la tierra.'},
+  {t:'«Banca de los Médici: crédito, letras de cambio, mecenazgo.»',who:'M',
+   ok:'Moderno. Capital mercantil que financia arte y saber: la burguesía comprando el futuro.',
+   bad:'Es moderno: la banca es la anti-gleba — riqueza mueble, prestable, sin raíces. El feudo vive de la tierra y del lazo personal.'},
+  {t:'«Heliocentrismo: la Tierra gira alrededor del Sol.»',who:'M',
+   ok:'Moderno. Copérnico (1543): el cielo del paradigma anterior pierde su centro. Tan moderno que fue al Índice en 1616.',
+   bad:'Es moderno — tanto que la Iglesia lo prohibió en 1616. En el paradigma medieval la Tierra está quieta y al centro, como corresponde a un cosmos ordenado hacia Dios.'},
+  {t:'«Corte real absolutista: todo el poder en la persona del rey.»',who:'M',
+   ok:'Moderno — aunque tenga corona. El feudo repartía el poder entre señores; el absolutismo lo concentra en un Estado.',
+   bad:'Trampa clásica: parece medieval por el rey, pero es moderno. El poder feudal estaba fragmentado en señoríos; el absolutista se concentra en un Estado-nación.'},
+  {t:'«Gremio de artesanos: el oficio regulado por la corporación.»',who:'F',
+   ok:'Del paradigma medieval: nace con el renacer urbano de la Plena Edad Media y regula maestros, precios y calidad. Corporación cerrada, no mercado libre.',
+   bad:'Es medieval — la otra trampa del juego. Parece moderno por urbano, pero el gremio regula el oficio como corporación cerrada; el paradigma moderno lo va a desarmar en nombre del mercado.'},
+  {t:'«Imprenta de tipos móviles.»',who:'M',
+   ok:'Moderno. c. 1440: de 20.000 libros a mano a millones impresos en cincuenta años. Las ideas dejan de pedir permiso.',
+   bad:'Es moderno: multiplica textos y lectores fuera del control del copista monástico. El saber medieval se custodiaba; el moderno se difunde.'},
+  {t:'«Criterio de autoridad: es verdad porque lo dice la Iglesia (o Aristóteles).»',who:'F',
+   ok:'Medieval: la verdad tiene dueño. Contra esto, exactamente, arranca La Demolición.',
+   bad:'Es medieval: la verdad garantizada por la autoridad, no por la evidencia. Lo moderno la va a fundar en el sujeto — de eso se trata Descartes.'},
+  {t:'«Libre examen: cada uno interpreta la Escritura por sí mismo.»',who:'M',
+   ok:'Moderno. Sola scriptura (Lutero, 1517): se rompe el monopolio de la interpretación — y nace el problema del criterio.',
+   bad:'Es moderno: es la Reforma. El paradigma medieval tenía un solo intérprete autorizado; acá aparecen dos criterios de verdad — y el problema que hereda Descartes.'},
+  {t:'«Vasallaje: fidelidad jurada a un señor a cambio de protección.»',who:'F',
+   ok:'Feudal: el lazo personal de fidelidad es el pegamento del sistema — protección por lealtad, tierra por servicio.',
+   bad:'Es feudal: es el contrato-madre del feudo. Lo moderno reemplaza el lazo personal por el Estado y la ley.'}
+];
+let fi=Math.min(S.cls.i,fItems.length-1),fok=S.cls.ok;
+const fq=$('#fq'),ffeed=$('#ffeed'),fscore=$('#fscore'),
+      fF=$('#fF'),fM=$('#fM'),fNext=$('#fNext'),fkey=$('#fkey');
+function fShow(){
+  const it=fItems[fi];
+  fq.textContent=it.t;
+  ffeed.textContent='';ffeed.className='gfeed';
+  fF.style.display=fM.style.display='inline-block';
+  fF.disabled=fM.disabled=false;
+  fNext.style.display='none';
+  fscore.innerHTML='Ítem '+(fi+1)+' de '+fItems.length+' · aciertos: <b>'+fok+'</b>';
+  fkey.textContent='Docente · respuesta: paradigma '+(it.who==='F'?'feudal':'moderno');
+}
+function fAnswer(g){
+  const it=fItems[fi];
+  fF.disabled=fM.disabled=true;
+  if(g===it.who){fok++;ffeed.className='gfeed ok';ffeed.innerHTML='✔ '+it.ok;}
+  else{ffeed.className='gfeed bad';ffeed.innerHTML='✘ '+it.bad;
+       fq.classList.add('shake');setTimeout(()=>fq.classList.remove('shake'),450);}
+  S.cls.ok=fok;save();
+  fscore.innerHTML='Ítem '+(fi+1)+' de '+fItems.length+' · aciertos: <b>'+fok+'</b>';
+  fNext.style.display='inline-block';
+  fNext.textContent=(fi===fItems.length-1)?'Ver el balance →':'Siguiente →';
+}
+function fFinish(){
+  fq.innerHTML='Balance: <b style="font-style:normal;color:var(--amber)">'+fok+' / '+fItems.length+'</b>. Ningún ítem cambió de bando por decreto: cambió el <b style="font-style:normal;color:var(--violet)">paradigma</b> que los hacía posibles. Las trampas eran el absolutismo (moderno con corona) y el gremio (medieval con olor a ciudad).';
+  ffeed.textContent='';fscore.textContent='';fkey.textContent='';
+  fF.style.display=fM.style.display=fNext.style.display='none';
+}
+fF.addEventListener('click',()=>fAnswer('F'));
+fM.addEventListener('click',()=>fAnswer('M'));
+fNext.addEventListener('click',()=>{
+  if(fi<fItems.length-1){fi++;S.cls.i=fi;save();fShow();}
+  else if(!S.cls.done){S.cls.done=true;save();fFinish();}
+});
+$('#fRestart').addEventListener('click',()=>{
+  fi=0;fok=0;S.cls={i:0,ok:0,done:false};save();
+  fShow();
+});
+if(S.cls.done)fFinish();else fShow();
+
+/* ============ IX · juego 2: orden cronológico ============ */
+const HITOS=[
+  {t:'Crisis del siglo III',d:'Medio siglo sin piso: emperadores de cuartel, moneda fundida, imperio partido en tres.',y:'235–284'},
+  {t:'Coronación de Carlomagno',d:'El título imperial resurge en Occidente: Roma como proyecto.',y:'800'},
+  {t:'Otón I: nace el Sacro Imperio',d:'Un papa corona a un rey germano: translatio imperii. La banda violeta arranca acá.',y:'962'},
+  {t:'La Peste Negra',d:'Europa pierde más de la mitad de su población. La teología se queda sin respuestas.',y:'1347–1353'},
+  {t:'La imprenta de Gutenberg',d:'Tipos móviles en Maguncia: las ideas dejan de pedir permiso.',y:'c. 1440'},
+  {t:'Las 95 tesis de Lutero',d:'Wittenberg: se rompe el monopolio de la interpretación.',y:'1517'},
+  {t:'De revolutionibus (Copérnico)',d:'El Sol al centro: el cielo antiguo pierde su trono.',y:'1543'},
+  {t:'Discurso del método (Descartes)',d:'La duda como método: el saber se refunda desde el sujeto.',y:'1637'}
+];
+const ORDEN_DONE='<span style="color:var(--green);font-weight:700">Orden completo.</span> Mirá el ritmo: siete siglos entre los dos primeros hitos, y apenas dos entre la imprenta y Descartes. Cuando un paradigma entra en crisis, el tiempo se acelera — o eso parece desde acá.';
+const ORDEN_HINTS=[
+  'No. Arrancá más atrás: hay un imperio antiguo desangrándose.',
+  'No. Antes va un franco coronado emperador en Roma.',
+  'No. Sigue la refundación imperial: un papa corona a un rey germano.',
+  'No. Falta la catástrofe demográfica del siglo XIV.',
+  'No. Primero la máquina que multiplica libros.',
+  'No. Antes va el monje que rompe el monopolio de la interpretación.',
+  'No. Primero el Sol al centro del cielo.',
+  'No. El cierre es filosófico: la duda hecha método.'
+];
+const poolOrder=[4,1,6,0,3,7,2,5];
+let oNext=Math.min(S.orden.next,8);
+const opool=$('#orden-pool'),oslots=$$('#orden-track .slot'),ofeed=$('#orden-feed');
+const hitoBtns={};
+poolOrder.forEach(idx=>{
+  const h=HITOS[idx];
+  const b=document.createElement('button');
+  b.className='rule';
+  b.innerHTML='<div class="rt">'+h.t+'</div><div class="rd">'+h.d+'</div>';
+  b.addEventListener('click',()=>{
+    if(b.classList.contains('placed'))return;
+    if(oNext>=8)return;
+    if(idx===oNext){
+      placeHito(idx);
+      oNext++;S.orden.next=oNext;save();
+      if(oNext===8)ofeed.innerHTML=ORDEN_DONE;
+      else ofeed.textContent='Bien. '+(8-oNext)+' por acomodar.';
+    }else{
+      S.orden.errs++;save();
+      b.classList.add('shake');
+      setTimeout(()=>b.classList.remove('shake'),450);
+      ofeed.textContent=ORDEN_HINTS[oNext];
+    }
+  });
+  hitoBtns[idx]=b;
+  opool.appendChild(b);
+});
+function placeHito(idx){
+  hitoBtns[idx].classList.add('placed');
+  const s=oslots[idx];
+  s.classList.add('filled');
+  s.innerHTML='<span class="sn">'+(idx+1)+'.º</span><div class="st">'+HITOS[idx].t+'</div><div class="sy">'+HITOS[idx].y+'</div>';
+}
+$('#oRestart').addEventListener('click',()=>{
+  oNext=0;S.orden={next:0,errs:0};save();
+  oslots.forEach((s,i)=>{
+    s.classList.remove('filled');
+    s.innerHTML='<span class="sn">'+(i+1)+'.º</span>';
+  });
+  Object.values(hitoBtns).forEach(b=>b.classList.remove('placed'));
+  ofeed.textContent='';
+});
+for(let k=0;k<oNext;k++)placeHito(k);
+if(oNext===8)ofeed.innerHTML=ORDEN_DONE;
+
+/* ============ IX · juego 3: autoexamen + código ============ */
+const QUIZ=[
+  {q:'1 · La Edad Media, en la periodización vigente, se divide en…',
+   opts:['Alta y Baja, nada más.',
+         'Alta (V–X), Plena (XI–XIII) y Baja (XIV–XV) — y la división misma es una convención discutida.',
+         'Antigua, Media y Moderna.'],
+   ok:1,why:'Tripartita — y convencional: no hay acuerdo universal sobre los cortes, y a la serie entera se la acusa de eurocentrismo.'},
+  {q:'2 · ¿Por qué el Sacro Imperio Romano Germánico va como banda transversal y no como un tramo más?',
+   opts:['Porque duró demasiado poco para ser una era.',
+         'Porque no es una era sino una institución: fundada en 962, atraviesa Plena, Baja, Renacimiento y Modernidad, hasta 1806.',
+         'Porque es una leyenda sin base histórica.'],
+   ok:1,why:'De la coronación de Otón I (962) a la abdicación de Francisco II (1806): una institución que cruza épocas. Ponerla en la fila de las eras es un error de categoría.'},
+  {q:'3 · El «paradigma», en el sentido estricto de Kuhn, es…',
+   opts:['Cualquier cosmovisión de una época histórica.',
+         'Realizaciones científicas reconocidas que, por un tiempo, dan modelos de problemas y soluciones a una comunidad científica.',
+         'Un sinónimo elegante de ideología política.'],
+   ok:1,why:'La extensión a cosmovisiones enteras es una analogía didáctica: Kuhn restringió el término a las ciencias.'},
+  {q:'4 · En la analogía, ¿cuál de estos funciona como «anomalía» que el paradigma medieval no pudo absorber?',
+   opts:['La construcción de catedrales góticas.',
+         'El Cisma de Occidente: dos y hasta tres papas excomulgándose entre sí.',
+         'La rotación trienal de cultivos.'],
+   ok:1,why:'Catedrales y rotación trienal son la «ciencia normal» del paradigma: lo confirman. Dos papas simultáneos dinamitan al garante único de la verdad.'},
+  {q:'5 · ¿Por qué esta línea de tiempo termina en 1637?',
+   opts:['Porque ahí se termina la historia.',
+         'Porque con el criterio de autoridad roto, Descartes funda el comienzo nuevo: la duda metódica. Ahí empieza La Demolición.',
+         'Porque ese año nació Newton.'],
+   ok:1,why:'Discurso del método (1637): el saber se refunda desde el sujeto y la evidencia. La historia sigue; el mapa te deja en la puerta. (Carpio VIII §3–4)'}
+];
+const quizBox=$('#quiz'),quizScore=$('#quiz-score');
+function markQ(opts,item,i,feed){
+  [...opts.children].forEach(x=>x.disabled=true);
+  if(i===item.ok)opts.children[i].classList.add('right');
+  else{opts.children[i].classList.add('wrong');opts.children[item.ok].classList.add('right');}
+  feed.textContent=item.why;
+}
+function quizOkCount(){
+  return QUIZ.reduce((n,item,qi)=>n+(S.quiz.ans[qi]===item.ok?1:0),0);
+}
+function buildCode(qok){
+  const d=new Date();
+  const dd=String(d.getDate()).padStart(2,'0'),
+        mm=String(d.getMonth()+1).padStart(2,'0'),
+        yy=String(d.getFullYear()).slice(-2);
+  const C=S.cls.done?S.cls.ok:'x',
+        O=(S.orden.next===8)?S.orden.errs:'x';
+  const k=((S.cls.ok*7+S.orden.errs*3+qok*11+Number(dd)+Number(mm))%36).toString(36).toUpperCase();
+  return 'LT1-'+dd+mm+yy+'-C'+C+'O'+O+'Q'+qok+'-'+k;
+}
+function buildLegend(qok){
+  const st=(done,v)=>done?('<b>'+v+'</b>'):'<span style="color:var(--coral)">sin terminar</span>';
+  $('#codelegend').innerHTML=
+    'C · clasificación (feudal/moderno): '+st(S.cls.done,S.cls.ok+'/9')+
+    ' &nbsp;·&nbsp; O · errores en el orden cronológico: '+st(S.orden.next===8,S.orden.errs)+
+    ' &nbsp;·&nbsp; Q · autoexamen: <b>'+qok+'/5</b>';
+}
+function checkQuizDone(){
+  if(S.quiz.ans.some(a=>a<0)){$('#result').classList.remove('show');return;}
+  const qok=quizOkCount();
+  const verdict=qok===5?'Mapa completo, brújula firme.'
+    :qok>=3?'Buen mapa, con alguna niebla. Repasá lo que falló.'
+    :'Te perdiste en la Baja Edad Media. Volvé a recorrer los tramos.';
+  quizScore.innerHTML='Resultado: <b>'+qok+' / 5</b> — '+verdict;
+  if(!S.code){S.code=buildCode(qok);save();}
+  $('#codeval').textContent=S.code;
+  buildLegend(qok);
+  $('#result').classList.add('show');
+}
+function renderQuiz(){
+  quizBox.innerHTML='';quizScore.textContent='';
+  QUIZ.forEach((item,qi)=>{
+    const card=document.createElement('div');
+    card.className='quiz-q';
+    card.innerHTML='<div class="qt">'+item.q+'</div>';
+    const opts=document.createElement('div');opts.className='opts';
+    const feed=document.createElement('div');feed.className='qfeed';
+    item.opts.forEach((o,i)=>{
+      const b=document.createElement('button');
+      b.className='opt'+((DOCENTE&&i===item.ok)?' key':'');
+      b.textContent=o;
+      b.addEventListener('click',()=>{
+        if(S.quiz.ans[qi]>=0)return;
+        S.quiz.ans[qi]=i;save();
+        markQ(opts,item,i,feed);
+        checkQuizDone();
+      });
+      opts.appendChild(b);
+    });
+    card.appendChild(opts);card.appendChild(feed);
+    quizBox.appendChild(card);
+    if(S.quiz.ans[qi]>=0)markQ(opts,item,S.quiz.ans[qi],feed);
+  });
+  checkQuizDone();
+}
+$('#copybtn').addEventListener('click',async()=>{
+  const btn=$('#copybtn'),code=$('#codeval').textContent;
+  try{
+    await navigator.clipboard.writeText(code);
+    btn.textContent='Copiado ✓';
+  }catch(e){
+    const r=document.createRange();
+    r.selectNodeContents($('#codeval'));
+    const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+    btn.textContent='Seleccionado: copiá con Ctrl+C';
+  }
+  setTimeout(()=>{btn.textContent='Copiar código';},2600);
+});
+$('#redoquiz').addEventListener('click',()=>{
+  S.quiz.ans=[-1,-1,-1,-1,-1];S.code=null;save();
+  renderQuiz();
+  $('#quiz').scrollIntoView({behavior:'smooth',block:'center'});
+});
+renderQuiz();
+</script>
+</body>
+</html>
