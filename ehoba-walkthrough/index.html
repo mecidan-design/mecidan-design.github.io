@@ -27,21 +27,22 @@
     font-family:Consolas,"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;
     text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px;
   }
-  h1{font-size:clamp(30px,5vw,56px);line-height:1.02;letter-spacing:-.04em;margin-bottom:14px}
-  .lead{max-width:760px;color:var(--muted);font-size:17px;line-height:1.6;margin-bottom:28px}
+  h1{font-size:clamp(30px,5vw,56px);line-height:1.02;letter-spacing:-.035em;margin-bottom:14px}
+  .lead{max-width:800px;color:var(--muted);font-size:17px;line-height:1.6;margin-bottom:28px}
   .notice{
     border:1px solid var(--line);background:#0c1628;border-radius:12px;padding:14px 16px;
     color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:18px;
   }
+  .notice strong{color:var(--ok)}
   .hero{
     border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--panel);
     margin-bottom:18px;
   }
   .hero img{display:block;width:100%;height:auto}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
   .step{
     border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px;
-    min-height:220px;
+    min-height:190px;
   }
   .num{
     width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
@@ -50,46 +51,67 @@
   }
   h2{font-size:22px;line-height:1.2;margin-bottom:10px}
   p{color:var(--muted);font-size:15px;line-height:1.55}
-  .code{
-    margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:12px;
-    color:var(--ok);font-family:Consolas,"JetBrains Mono",monospace;font-size:13px;line-height:1.5;
-    background:#0a1220;
-  }
-  .mask{color:var(--warn)}
-  @media(max-width:820px){
+  .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
+  figure{border:1px solid var(--line);background:var(--panel);border-radius:14px;overflow:hidden}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{padding:12px 14px;color:var(--muted);font-size:13px;line-height:1.4}
+  @media(max-width:920px){
     body{padding:18px}
-    .steps{grid-template-columns:1fr}
+    .steps,.gallery{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
 <main>
-  <div class="eyebrow">AI agent · government data</div>
+  <div class="eyebrow">AI agent - government data</div>
   <h1>EHOBA walkthrough</h1>
-  <p class="lead">A scrubbed walkthrough of a desktop agent for the monthly hotel occupancy survey. It shows the processing flow without exposing hotel names, CUEs, survey values, or operational files.</p>
-  <div class="notice">Privacy note: every visible hotel identifier and survey value in this page is fictional or masked. The live operational app is not deployed publicly.</div>
+  <p class="lead">A scrubbed walkthrough of a desktop agent for the monthly hotel occupancy survey. It shows the flow from synthetic CSV review to processing, correction review, and generated outputs.</p>
+  <div class="notice"><strong>Privacy status:</strong> this page uses a sandbox with fictional hotel names, fictional 99-series identifiers, and no real survey values. The operational app and real government datasets are not deployed publicly.</div>
+
   <div class="hero">
-    <img src="ehoba-preview.svg" alt="Scrubbed EHOBA dashboard preview with anonymized hotel rows and masked CUEs">
+    <img src="ehoba-walkthrough.gif" alt="Animated scrubbed EHOBA walkthrough showing synthetic input review, processing, corrections, and generated outputs">
   </div>
+
   <section class="steps" aria-label="Walkthrough steps">
     <article class="step">
       <div class="num">1</div>
-      <h2>Load</h2>
-      <p>The operator selects the month and imports the exported survey files. The app checks the expected 53-establishment frame before running the processor.</p>
-      <div class="code">$ python ehoba_procesador.py --mes [month] --anio [year]</div>
+      <h2>Review input</h2>
+      <p>A synthetic LimeSurvey-shaped export is checked against a fictional establishment frame before processing.</p>
     </article>
     <article class="step">
       <div class="num">2</div>
-      <h2>Validate</h2>
-      <p>The agent applies fixed consistency checks: occupancy rates, tariff averages, traveler subtotals, incomplete submissions, and special operating states.</p>
-      <div class="code"><span class="mask">Hotel XX</span> · XX-000000-X · correction step 2</div>
+      <h2>Run rules</h2>
+      <p>The processor applies fixed validation rules and writes a repeatable run record.</p>
     </article>
     <article class="step">
       <div class="num">3</div>
-      <h2>Review</h2>
-      <p>Corrections follow a documented eight-step order. The point is repeatability: the agent has to follow the written rule sequence instead of improvising.</p>
-      <div class="code">8-step correction order · PDF/XLSX outputs</div>
+      <h2>Check C4</h2>
+      <p>Correction cases are displayed for review without exposing raw survey values.</p>
     </article>
+    <article class="step">
+      <div class="num">4</div>
+      <h2>Write outputs</h2>
+      <p>The sandbox run creates PDFs, spreadsheets, text summaries, and history files.</p>
+    </article>
+  </section>
+
+  <section class="gallery" aria-label="Walkthrough frame gallery">
+    <figure>
+      <img src="01-input.png" alt="Synthetic EHOBA input review screen">
+      <figcaption>Input review with fictional hotel names and 99-series identifiers.</figcaption>
+    </figure>
+    <figure>
+      <img src="02-run.png" alt="Synthetic EHOBA processing run screen">
+      <figcaption>Processing run from the sandbox: 4 synthetic establishments processed, 2 C4.</figcaption>
+    </figure>
+    <figure>
+      <img src="03-corrections.png" alt="Synthetic EHOBA correction review screen">
+      <figcaption>Correction review shows rule categories, not raw government survey values.</figcaption>
+    </figure>
+    <figure>
+      <img src="04-output.png" alt="Synthetic EHOBA generated outputs screen">
+      <figcaption>Generated outputs are represented with fictional file names and identifiers only.</figcaption>
+    </figure>
   </section>
 </main>
 </body>
