@@ -170,6 +170,21 @@ canvas {
   opacity: 0;
   transition: opacity 0.18s;
 }
+
+/* ── language switch / selector de idioma ── */
+.langtoggle{
+  position: fixed; top: 10px; right: 12px; z-index: 40;
+  display: flex; border: 2px solid #4433aa; background: rgba(5,2,18,0.93);
+}
+.langtoggle button{
+  font-family: 'Press Start 2P', monospace; font-size: 8px;
+  background: none; border: 0; color: #8877bb; padding: 6px 9px; cursor: pointer;
+}
+.langtoggle button.on{ background: #ffeeaa; color: #1a1040; }
+.langtoggle button:not(.on):hover{ color: #ffeeaa; }
+/* por defecto español; body.en muestra inglés */
+body:not(.en) [lang="en"]{ display:none; }
+body.en [lang="es"]{ display:none; }
 </style>
 </head>
 <body>
@@ -201,129 +216,169 @@ canvas {
 
 <div id="keyhint">← → SPACE</div>
 
+<div class="langtoggle" role="group" aria-label="Language / Idioma">
+  <button id="lang-es" class="on" type="button" aria-pressed="true">ES</button>
+  <button id="lang-en" type="button" aria-pressed="false">EN</button>
+</div>
+
 <script>
+// ══════════════════════════════════════════════════════════════
+// IDIOMA / LANGUAGE
+// ══════════════════════════════════════════════════════════════
+const LKEY = 'caverna_lang';
+let LANG = 'es';
+const L = (es,en) => '<span lang="es">'+es+'</span><span lang="en">'+en+'</span>';
+const PICK = (es,en) => LANG==='en' ? en : es;
+function applyLang(l){
+  LANG = (l==='en') ? 'en' : 'es';
+  const en = (LANG==='en');
+  document.body.classList.toggle('en', en);
+  document.documentElement.lang = LANG;
+  const be=document.getElementById('lang-en'), bs=document.getElementById('lang-es');
+  be.classList.toggle('on', en); bs.classList.toggle('on', !en);
+  be.setAttribute('aria-pressed', en?'true':'false');
+  bs.setAttribute('aria-pressed', en?'false':'true');
+  if(window._panelReady){
+    document.querySelectorAll('.dot').forEach((d,i)=>{ d.title = PICK(SLIDES[i].title.es, SLIDES[i].title.en); });
+  }
+  try{ localStorage.setItem(LKEY,l); }catch(e){}
+}
+document.getElementById('lang-es').addEventListener('click', ()=>applyLang('es'));
+document.getElementById('lang-en').addEventListener('click', ()=>applyLang('en'));
+
 // ══════════════════════════════════════════════════════════════
 // SLIDES DATA — basados en Carpio, Principios de Filosofía, Cap. V
 // ══════════════════════════════════════════════════════════════
 const SLIDES = [
   {
-    num: '01', concept: 'ALEGORÍA',
-    title: 'LA CAVERNA',
-    sub: 'Platón — República, Libro VII',
-    quote: '"Supongamos hombres que habitan en una caverna... incapaces de girar la cabeza."',
-    src: 'Platón, República 514a',
-    body: 'Una de las alegorías más famosas de la filosofía. Platón la construye para mostrar dos cosas a la vez: qué es el conocimiento y cuál es la condición del ser humano. La alegoría no es un cuento: es un diagnóstico.',
-    ex: 'La alegoría está en el Libro VII de la República, puesta en boca de Sócrates. El interlocutor es Glaucon, hermano de Platón.',
+    num: '01',
+    concept: {es:'ALEGORÍA',en:'ALLEGORY'},
+    title: {es:'LA CAVERNA',en:'THE CAVE'},
+    sub: {es:'Platón — República, Libro VII',en:'Plato — Republic, Book VII'},
+    quote: {es:'"Supongamos hombres que habitan en una caverna... incapaces de girar la cabeza."',en:'"Imagine men living in an underground cave... unable to turn their heads."'},
+    src: {es:'Platón, República 514a',en:'Plato, Republic 514a'},
+    body: {es:'Una de las alegorías más famosas de la filosofía. Platón la construye para mostrar dos cosas a la vez: qué es el conocimiento y cuál es la condición del ser humano. La alegoría no es un cuento: es un diagnóstico.',en:'One of the most famous allegories in philosophy. Plato builds it to show two things at once: what knowledge is and what the human condition is. The allegory is not a tale: it is a diagnosis.'},
+    ex: {es:'La alegoría está en el Libro VII de la República, puesta en boca de Sócrates. El interlocutor es Glaucon, hermano de Platón.',en:'The allegory is in Book VII of the Republic, spoken by Socrates. His interlocutor is Glaucon, Plato\'s brother.'},
     focus: 'none',
     soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-low',
   },
   {
-    num: '02', concept: 'DOXA / EPISTEME',
-    title: 'DOS MUNDOS',
-    sub: 'El mundo sensible y el mundo inteligible',
-    quote: '"El mundo sensible no es más que copia o imitación del mundo de las ideas."',
-    src: 'Carpio, Cap. V',
-    body: 'Para Platón, hay dos niveles de realidad. El mundo sensible: todo lo que percibimos con los sentidos — cambiante, imperfecto, mortal. El mundo inteligible: las Ideas — eternas, perfectas, inmutables. El conocimiento verdadero (episteme) solo es posible del segundo.',
-    ex: 'Ves un caballo particular, imperfecto, mortal. La Idea de caballo es perfecta, eterna. Lo que percibís con los ojos es doxa: opinión, no conocimiento.',
+    num: '02',
+    concept: {es:'DOXA / EPISTEME',en:'DOXA / EPISTEME'},
+    title: {es:'DOS MUNDOS',en:'TWO WORLDS'},
+    sub: {es:'El mundo sensible y el mundo inteligible',en:'The sensible world and the intelligible world'},
+    quote: {es:'"El mundo sensible no es más que copia o imitación del mundo de las ideas."',en:'"The sensible world is nothing but a copy or imitation of the world of ideas."'},
+    src: {es:'Carpio, Cap. V',en:'Carpio, Ch. V'},
+    body: {es:'Para Platón, hay dos niveles de realidad. El mundo sensible: todo lo que percibimos con los sentidos — cambiante, imperfecto, mortal. El mundo inteligible: las Ideas — eternas, perfectas, inmutables. El conocimiento verdadero (episteme) solo es posible del segundo.',en:'For Plato, there are two levels of reality. The sensible world: everything we perceive with the senses — changing, imperfect, mortal. The intelligible world: the Ideas — eternal, perfect, unchanging. True knowledge (episteme) is possible only of the second.'},
+    ex: {es:'Ves un caballo particular, imperfecto, mortal. La Idea de caballo es perfecta, eterna. Lo que percibís con los ojos es doxa: opinión, no conocimiento.',en:'You see a particular horse, imperfect, mortal. The Idea of horse is perfect, eternal. What you perceive with your eyes is doxa: opinion, not knowledge.'},
     focus: 'full-annot',
     soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
   },
   {
-    num: '03', concept: 'LA ESCENA',
-    title: 'DENTRO DE LA CAVERNA',
-    sub: 'Los prisioneros y las cadenas',
-    quote: '"Hombres encadenados desde niños. Solo pueden ver la pared del fondo, donde se proyectan sombras."',
-    src: 'Platón, República 514a–b',
-    body: 'En el fondo de la caverna: prisioneros encadenados desde la infancia. No pueden girar la cabeza. Solo ven sombras proyectadas en la pared. Para ellos, las sombras SON la realidad. No conocen otra cosa. Eso es lo más inquietante.',
-    ex: '¿Qué conocés solo porque siempre fue así? ¿Qué "verdades" tomás por dadas sin haberlas cuestionado nunca?',
+    num: '03',
+    concept: {es:'LA ESCENA',en:'THE SCENE'},
+    title: {es:'DENTRO DE LA CAVERNA',en:'INSIDE THE CAVE'},
+    sub: {es:'Los prisioneros y las cadenas',en:'The prisoners and the chains'},
+    quote: {es:'"Hombres encadenados desde niños. Solo pueden ver la pared del fondo, donde se proyectan sombras."',en:'"Men chained since childhood. They can only see the back wall, where shadows are projected."'},
+    src: {es:'Platón, República 514a–b',en:'Plato, Republic 514a–b'},
+    body: {es:'En el fondo de la caverna: prisioneros encadenados desde la infancia. No pueden girar la cabeza. Solo ven sombras proyectadas en la pared. Para ellos, las sombras SON la realidad. No conocen otra cosa. Eso es lo más inquietante.',en:'At the back of the cave: prisoners chained since childhood. They cannot turn their heads. They see only shadows projected on the wall. For them, the shadows ARE reality. They know nothing else. That is the most unsettling part.'},
+    ex: {es:'¿Qué conocés solo porque siempre fue así? ¿Qué "verdades" tomás por dadas sin haberlas cuestionado nunca?',en:'What do you know only because it has always been that way? Which "truths" do you take for granted without ever having questioned them?'},
     focus: 'cave',
     soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
   },
   {
-    num: '04', concept: 'EIKASÍA',
-    title: 'LAS SOMBRAS',
-    sub: 'El nivel más bajo del conocimiento',
-    quote: '"En la medida en que tomásemos la sombra por la realidad, nos encontraríamos en un estado de eikasía."',
-    src: 'Carpio, Cap. V §7',
-    body: 'Eikasía: imaginación, conjetura. El grado más bajo del conocer. Las sombras en la pared son sombras de objetos artificiales — doble copia. Pero para los prisioneros son la única realidad. Carpio: igual que el cine — sombras que nos hacen reír o llorar.',
-    ex: 'Un meme sobre un hecho político no es el hecho, ni siquiera la noticia — es la sombra de una sombra. Eikasía pura.',
+    num: '04',
+    concept: {es:'EIKASÍA',en:'EIKASÍA'},
+    title: {es:'LAS SOMBRAS',en:'THE SHADOWS'},
+    sub: {es:'El nivel más bajo del conocimiento',en:'The lowest level of knowledge'},
+    quote: {es:'"En la medida en que tomásemos la sombra por la realidad, nos encontraríamos en un estado de eikasía."',en:'"Insofar as we took the shadow for reality, we would be in a state of eikasía."'},
+    src: {es:'Carpio, Cap. V §7',en:'Carpio, Ch. V §7'},
+    body: {es:'Eikasía: imaginación, conjetura. El grado más bajo del conocer. Las sombras en la pared son sombras de objetos artificiales — doble copia. Pero para los prisioneros son la única realidad. Carpio: igual que el cine — sombras que nos hacen reír o llorar.',en:'Eikasía: imagination, conjecture. The lowest degree of knowing. The shadows on the wall are shadows of artificial objects — a double copy. But for the prisoners they are the only reality. Carpio: just like cinema — shadows that make us laugh or cry.'},
+    ex: {es:'Un meme sobre un hecho político no es el hecho, ni siquiera la noticia — es la sombra de una sombra. Eikasía pura.',en:'A meme about a political event is not the event, not even the news — it is the shadow of a shadow. Pure eikasía.'},
     focus: 'shadow',
     soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
   },
   {
-    num: '05', concept: 'PÍSTIS',
-    title: 'EL FUEGO Y LOS TITIRITEROS',
-    sub: 'Las cosas sensibles: un nivel más arriba',
-    quote: '"Detrás de los prisioneros, una hoguera. Delante de ella, hombres que llevan objetos artificiales cuyas sombras se proyectan."',
-    src: 'Platón, República 514b–515a',
-    body: 'Pístis: creencia. Si el prisionero se diera vuelta y viera los objetos que hacen las sombras, estaría en un nivel superior. Pero seguiría en la caverna. Las cosas sensibles son ya mejores que sus sombras — pero aún imperfectas, aún copias de las Ideas.',
-    ex: 'Ver el debate político en vivo es mejor que ver un meme del debate. Pero ninguno es "la justicia en sí".',
+    num: '05',
+    concept: {es:'PÍSTIS',en:'PÍSTIS'},
+    title: {es:'EL FUEGO Y LOS TITIRITEROS',en:'THE FIRE AND THE PUPPETEERS'},
+    sub: {es:'Las cosas sensibles: un nivel más arriba',en:'Sensible things: one level up'},
+    quote: {es:'"Detrás de los prisioneros, una hoguera. Delante de ella, hombres que llevan objetos artificiales cuyas sombras se proyectan."',en:'"Behind the prisoners, a fire. In front of it, men carrying artificial objects whose shadows are projected."'},
+    src: {es:'Platón, República 514b–515a',en:'Plato, Republic 514b–515a'},
+    body: {es:'Pístis: creencia. Si el prisionero se diera vuelta y viera los objetos que hacen las sombras, estaría en un nivel superior. Pero seguiría en la caverna. Las cosas sensibles son ya mejores que sus sombras — pero aún imperfectas, aún copias de las Ideas.',en:'Pístis: belief. If the prisoner turned around and saw the objects that make the shadows, he would be at a higher level. But he would still be in the cave. Sensible things are already better than their shadows — but still imperfect, still copies of the Ideas.'},
+    ex: {es:'Ver el debate político en vivo es mejor que ver un meme del debate. Pero ninguno es "la justicia en sí".',en:'Watching the political debate live is better than seeing a meme of it. But neither is "justice itself".'},
     focus: 'fire',
     soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
   },
   {
-    num: '06', concept: 'PAIDEIA',
-    title: 'LA LIBERACIÓN',
-    sub: 'El primer paso duele',
-    quote: '"Si a uno de esos cautivos se lo libra de sus cadenas... todos esos movimientos le causarán dolor."',
-    src: 'Platón, República 515c',
-    body: 'El filósofo es liberado por la fuerza — no por elección propia. La filosofía empieza con incomodidad. Cuando comenzás a filosofar, todo lo que creías saber se vuelve incierto. Eso es precisamente la señal de que estás aprendiendo.',
-    ex: 'Clase de filosofía: de repente no sabés qué es el tiempo, qué es justo, qué es real. Eso no es fracaso — es el inicio de la paideia.',
+    num: '06',
+    concept: {es:'PAIDEIA',en:'PAIDEIA'},
+    title: {es:'LA LIBERACIÓN',en:'THE LIBERATION'},
+    sub: {es:'El primer paso duele',en:'The first step hurts'},
+    quote: {es:'"Si a uno de esos cautivos se lo libra de sus cadenas... todos esos movimientos le causarán dolor."',en:'"If one of those captives is freed from his chains... all those movements will cause him pain."'},
+    src: {es:'Platón, República 515c',en:'Plato, Republic 515c'},
+    body: {es:'El filósofo es liberado por la fuerza — no por elección propia. La filosofía empieza con incomodidad. Cuando comenzás a filosofar, todo lo que creías saber se vuelve incierto. Eso es precisamente la señal de que estás aprendiendo.',en:'The philosopher is freed by force — not by his own choice. Philosophy begins with discomfort. When you start to philosophize, everything you thought you knew becomes uncertain. That is precisely the sign that you are learning.'},
+    ex: {es:'Clase de filosofía: de repente no sabés qué es el tiempo, qué es justo, qué es real. Eso no es fracaso — es el inicio de la paideia.',en:'A philosophy class: suddenly you don\'t know what time is, what is just, what is real. That is not failure — it is the beginning of paideia.'},
     focus: 'exit',
     soc: 'cave-mouth', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-mid',
   },
   {
-    num: '07', concept: 'DIÁNOIA',
-    title: 'EL CAMINO GRADUAL',
-    sub: 'De las sombras al sol: paso a paso',
-    quote: '"Lo que más fácilmente distinguirá serán las sombras, luego los reflejos en el agua, luego los objetos mismos, después los astros, y por último el sol."',
-    src: 'Platón, República 516a–b',
-    body: 'La verdadera educación (paideia) es gradual. Imposible ir de golpe a la metafísica. Platón prescribe diez años de matemáticas como preparación. La diánoia opera con hipótesis: ya no en imágenes, aún no en ideas puras — el puente necesario.',
-    ex: 'Matemática como escalera: no es el destino, es el entrenamiento para pensar sin cosas sensibles. Por eso la Academia exigía matemática antes de filosofía.',
+    num: '07',
+    concept: {es:'DIÁNOIA',en:'DIÁNOIA'},
+    title: {es:'EL CAMINO GRADUAL',en:'THE GRADUAL ASCENT'},
+    sub: {es:'De las sombras al sol: paso a paso',en:'From shadows to sun: step by step'},
+    quote: {es:'"Lo que más fácilmente distinguirá serán las sombras, luego los reflejos en el agua, luego los objetos mismos, después los astros, y por último el sol."',en:'"What he will most easily make out are the shadows, then reflections in water, then the objects themselves, then the stars, and last of all the sun."'},
+    src: {es:'Platón, República 516a–b',en:'Plato, Republic 516a–b'},
+    body: {es:'La verdadera educación (paideia) es gradual. Imposible ir de golpe a la metafísica. Platón prescribe diez años de matemáticas como preparación. La diánoia opera con hipótesis: ya no en imágenes, aún no en ideas puras — el puente necesario.',en:'True education (paideia) is gradual. It is impossible to jump straight to metaphysics. Plato prescribes ten years of mathematics as preparation. Diánoia works with hypotheses: no longer in images, not yet in pure ideas — the necessary bridge.'},
+    ex: {es:'Matemática como escalera: no es el destino, es el entrenamiento para pensar sin cosas sensibles. Por eso la Academia exigía matemática antes de filosofía.',en:'Mathematics as a staircase: not the destination, but the training to think without sensible things. That is why the Academy required mathematics before philosophy.'},
     focus: 'path',
     soc: 'exterior', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-high',
   },
   {
-    num: '08', concept: 'NÓESIS — IDEA DEL BIEN',
-    title: 'EL SOL',
-    sub: 'Fundamento gnoseológico, ontológico y teleológico',
-    quote: '"A las ideas no sólo les adviene por obra del Bien su cognoscibilidad, sino también la realidad y el ser; pero el Bien mismo está más allá del ser."',
-    src: 'Platón, República 509b',
-    body: 'El sol simboliza la Idea del Bien — la idea suprema. Triple función: (1) hace posible conocer las demás ideas [gnoseológico], (2) les da ser [ontológico], (3) es el fin al que todo tiende [teleológico]. Heidegger: agathón = "lo que hace apto para". No es moral: es el principio de todo.',
-    ex: 'El Bien está "más allá del ser". Por eso Platón no lo describe directamente — solo por analogía: como el sol ilumina el mundo sensible, el Bien ilumina el inteligible.',
+    num: '08',
+    concept: {es:'NÓESIS — IDEA DEL BIEN',en:'NÓESIS — IDEA OF THE GOOD'},
+    title: {es:'EL SOL',en:'THE SUN'},
+    sub: {es:'Fundamento gnoseológico, ontológico y teleológico',en:'Epistemological, ontological, and teleological foundation'},
+    quote: {es:'"A las ideas no sólo les adviene por obra del Bien su cognoscibilidad, sino también la realidad y el ser; pero el Bien mismo está más allá del ser."',en:'"To the ideas comes, through the Good, not only their knowability but also their reality and being; yet the Good itself is beyond being."'},
+    src: {es:'Platón, República 509b',en:'Plato, Republic 509b'},
+    body: {es:'El sol simboliza la Idea del Bien — la idea suprema. Triple función: (1) hace posible conocer las demás ideas [gnoseológico], (2) les da ser [ontológico], (3) es el fin al que todo tiende [teleológico]. Heidegger: agathón = "lo que hace apto para". No es moral: es el principio de todo.',en:'The sun symbolizes the Idea of the Good — the supreme idea. A triple function: (1) it makes knowing the other ideas possible [epistemological], (2) it gives them being [ontological], (3) it is the end toward which all things tend [teleological]. Heidegger: agathón = "that which makes fit for". It is not moral: it is the principle of everything.'},
+    ex: {es:'El Bien está "más allá del ser". Por eso Platón no lo describe directamente — solo por analogía: como el sol ilumina el mundo sensible, el Bien ilumina el inteligible.',en:'The Good is "beyond being". This is why Plato does not describe it directly — only by analogy: as the sun lights the sensible world, the Good lights the intelligible one.'},
     focus: 'sun',
     soc: 'exterior', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sun',
   },
   {
-    num: '09', concept: 'MISIÓN DEL FILÓSOFO',
-    title: 'EL REGRESO',
-    sub: 'No puede quedarse afuera',
-    quote: '"El filósofo tiene una misión: la de conducir a los demás hacia la verdad — misión educativa, iluminadora, liberadora."',
-    src: 'Carpio, Cap. V §15',
-    body: 'Una vez que el filósofo ha visto el sol, no le es lícito quedarse fuera. Debe regresar a la caverna. Implica volver a la oscuridad, readaptarse. Pero esa es su misión. Es la misma que Sócrates consideraba recibida del dios: liberar de la ignorancia a sus conciudadanos.',
-    ex: 'El saber que no se devuelve es privilegio, no filosofía. La pregunta socrática como gesto político: bajar al ágora a molestar con preguntas.',
+    num: '09',
+    concept: {es:'MISIÓN DEL FILÓSOFO',en:'THE PHILOSOPHER\'S MISSION'},
+    title: {es:'EL REGRESO',en:'THE RETURN'},
+    sub: {es:'No puede quedarse afuera',en:'He cannot stay outside'},
+    quote: {es:'"El filósofo tiene una misión: la de conducir a los demás hacia la verdad — misión educativa, iluminadora, liberadora."',en:'"The philosopher has a mission: to lead others toward the truth — an educative, illuminating, liberating mission."'},
+    src: {es:'Carpio, Cap. V §15',en:'Carpio, Ch. V §15'},
+    body: {es:'Una vez que el filósofo ha visto el sol, no le es lícito quedarse fuera. Debe regresar a la caverna. Implica volver a la oscuridad, readaptarse. Pero esa es su misión. Es la misma que Sócrates consideraba recibida del dios: liberar de la ignorancia a sus conciudadanos.',en:'Once the philosopher has seen the sun, he is not permitted to stay outside. He must return to the cave. It means going back into the darkness, readjusting. But that is his mission. It is the same one Socrates believed he had received from the god: to free his fellow citizens from ignorance.'},
+    ex: {es:'El saber que no se devuelve es privilegio, no filosofía. La pregunta socrática como gesto político: bajar al ágora a molestar con preguntas.',en:'Knowledge that is not given back is privilege, not philosophy. The Socratic question as a political gesture: going down to the agora to pester people with questions.'},
     focus: 'exit',
     soc: 'cave-mouth', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-high',
   },
   {
-    num: '10', concept: 'CONSECUENCIA POLÍTICA',
-    title: 'LO MATAN',
-    sub: 'La alegoría termina con una muerte',
-    quote: '"Si alguien ensayara libertarlos y ellos pudieran apoderarse de él y matarlo, ¿es que no lo matarían? —Con toda seguridad."',
-    src: 'Platón, República 517a',
-    body: 'Los prisioneros no agradecen al liberador. Lo ven torpe, desorientado. Si intenta liberarlos, lo matan. No hay alusión disfrazada: Platón habla de Sócrates. La filosofía no es decorativa. Pensar puede costar la vida.',
-    ex: '¿Conocés casos donde alguien cuestionó lo obvio y fue castigado socialmente? ¿Qué le decís a alguien que "piensa demasiado"?',
+    num: '10',
+    concept: {es:'CONSECUENCIA POLÍTICA',en:'POLITICAL CONSEQUENCE'},
+    title: {es:'LO MATAN',en:'THEY KILL HIM'},
+    sub: {es:'La alegoría termina con una muerte',en:'The allegory ends with a death'},
+    quote: {es:'"Si alguien ensayara libertarlos y ellos pudieran apoderarse de él y matarlo, ¿es que no lo matarían? —Con toda seguridad."',en:'"If someone tried to free them and they could lay hold of him and kill him, would they not kill him? —Most certainly."'},
+    src: {es:'Platón, República 517a',en:'Plato, Republic 517a'},
+    body: {es:'Los prisioneros no agradecen al liberador. Lo ven torpe, desorientado. Si intenta liberarlos, lo matan. No hay alusión disfrazada: Platón habla de Sócrates. La filosofía no es decorativa. Pensar puede costar la vida.',en:'The prisoners do not thank the liberator. They see him as clumsy, disoriented. If he tries to free them, they kill him. There is no disguised allusion: Plato is speaking of Socrates. Philosophy is not decorative. Thinking can cost your life.'},
+    ex: {es:'¿Conocés casos donde alguien cuestionó lo obvio y fue castigado socialmente? ¿Qué le decís a alguien que "piensa demasiado"?',en:'Do you know cases where someone questioned the obvious and was socially punished? What do you say to someone who "thinks too much"?'},
     focus: 'cave',
     soc: 'cave-in', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sky-low',
   },
   {
-    num: '11', concept: 'PREGUNTA ABIERTA',
-    title: '¿Y VOS?',
-    sub: '¿En qué caverna estás?',
-    quote: '"El Estado perfecto no existe en ninguna parte de la tierra... pero eso no le quita su valor como modelo."',
-    src: 'Platón, República 592b — Carpio §16',
-    body: 'La caverna no es una fábula antigua. Es la condición humana. Todos vivimos en alguna versión de la caverna. La pregunta filosófica no es "¿existe la verdad?" sino "¿qué sombras estoy tomando por real ahora mismo?"',
-    ex: 'Ejercicio: nombrá tres cosas que "todos saben" y que nunca cuestionaste. ¿Qué pasaría si fuesen sombras?',
+    num: '11',
+    concept: {es:'PREGUNTA ABIERTA',en:'OPEN QUESTION'},
+    title: {es:'¿Y VOS?',en:'AND YOU?'},
+    sub: {es:'¿En qué caverna estás?',en:'Which cave are you in?'},
+    quote: {es:'"El Estado perfecto no existe en ninguna parte de la tierra... pero eso no le quita su valor como modelo."',en:'"The perfect State exists nowhere on earth... but that does not remove its value as a model."'},
+    src: {es:'Platón, República 592b — Carpio §16',en:'Plato, Republic 592b — Carpio §16'},
+    body: {es:'La caverna no es una fábula antigua. Es la condición humana. Todos vivimos en alguna versión de la caverna. La pregunta filosófica no es "¿existe la verdad?" sino "¿qué sombras estoy tomando por real ahora mismo?"',en:'The cave is not an ancient fable. It is the human condition. We all live in some version of the cave. The philosophical question is not "does truth exist?" but "which shadows am I taking for real right now?"'},
+    ex: {es:'Ejercicio: nombrá tres cosas que "todos saben" y que nunca cuestionaste. ¿Qué pasaría si fuesen sombras?',en:'Exercise: name three things that "everyone knows" and that you have never questioned. What if they were shadows?'},
     focus: 'full-annot',
     soc: 'exterior', laq: 'prisoner-1', nic: 'prisoner-2', pla: 'sun',
   },
@@ -959,20 +1014,20 @@ const elTrans   = document.getElementById('trans');
 SLIDES.forEach((_,i)=>{
   const d = document.createElement('div');
   d.className = 'dot' + (i===0 ? ' active' : '');
-  d.title = SLIDES[i].title;
+  d.title = PICK(SLIDES[i].title.es, SLIDES[i].title.en);
   d.addEventListener('click', ()=> goTo(i));
   elDots.appendChild(d);
 });
 
 function updatePanel(s){
   elNum.textContent     = `${s.num} / ${SLIDES.length.toString().padStart(2,'0')}`;
-  elConcept.textContent = s.concept;
-  elTitle.textContent   = s.title;
-  elSub.textContent     = s.sub;
+  elConcept.innerHTML   = L(s.concept.es, s.concept.en);
+  elTitle.innerHTML     = L(s.title.es, s.title.en);
+  elSub.innerHTML       = L(s.sub.es, s.sub.en);
   // quote: preserve cite
-  elQuote.innerHTML = `${s.quote}<cite>${s.src}</cite>`;
-  elBody.textContent    = s.body;
-  elEx.textContent      = s.ex;
+  elQuote.innerHTML = L(`${s.quote.es}<cite>${s.src.es}</cite>`, `${s.quote.en}<cite>${s.src.en}</cite>`);
+  elBody.innerHTML      = L(s.body.es, s.body.en);
+  elEx.innerHTML        = L(s.ex.es, s.ex.en);
   elPrev.disabled       = cur === 0;
   elNext.disabled       = cur === SLIDES.length - 1;
   document.querySelectorAll('.dot').forEach((d,i)=>{
@@ -1013,6 +1068,8 @@ document.addEventListener('touchend',   e=>{
 // Init
 updatePanel(SLIDES[0]);
 animate();
+window._panelReady = true;
+applyLang((()=>{try{return localStorage.getItem(LKEY)==='en'?'en':'es';}catch(e){return 'es';}})());
 </script>
 </body>
 </html>

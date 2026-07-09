@@ -347,34 +347,56 @@ footer .btn{font-size:12.5px;padding:7px 12px}
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
   html{scroll-behavior:auto}
 }
+
+/* ---------- selector de idioma / language switch ---------- */
+.langtoggle{position:fixed;top:10px;right:14px;z-index:72;display:flex;
+  border:1px solid var(--line2);border-radius:10px;overflow:hidden;background:var(--card);
+  box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.langtoggle button{appearance:none;border:0;background:transparent;color:var(--faint);
+  font:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;padding:6px 11px;
+  cursor:pointer;transition:color .15s,background .15s}
+.langtoggle button.on{background:var(--cyan);color:#04121a}
+.langtoggle button:not(.on):hover{color:var(--ink)}
+/* por defecto se muestra el español; body.en muestra el inglés */
+body:not(.en) [lang="en"]{display:none}
+body.en [lang="es"]{display:none}
 </style>
 </head>
 <body>
 <div id="docbadge">MODO DOCENTE</div>
 <div id="progress"></div>
 
-<nav class="rail" aria-label="Capítulos">
-  <a href="#c0" aria-label="Umbral"><span>Umbral</span></a>
-  <a href="#c1" aria-label="Capítulo I: El umbral roto"><span>I · El umbral roto</span></a>
-  <a href="#c2" aria-label="Capítulo II: La máquina de criterios"><span>II · La máquina de criterios</span></a>
-  <a href="#c3" aria-label="Capítulo III: Dos herencias"><span>III · Dos herencias</span></a>
-  <a href="#c4" aria-label="Capítulo IV: La demolición"><span>IV · La demolición</span></a>
-  <a href="#c5" aria-label="Capítulo V: La primera certeza"><span>V · La primera certeza</span></a>
-  <a href="#c6" aria-label="Capítulo VI: Duda contra duda"><span>VI · Duda contra duda</span></a>
-  <a href="#c7" aria-label="Capítulo VII: Las cuatro reglas"><span>VII · Las cuatro reglas</span></a>
-  <a href="#c8" aria-label="Capítulo VIII: El umbral, cruzado"><span>VIII · El umbral, cruzado</span></a>
+<div class="langtoggle" role="group" aria-label="Language / Idioma">
+  <button id="lang-es" class="on" type="button" aria-pressed="true">ES</button>
+  <button id="lang-en" type="button" aria-pressed="false">EN</button>
+</div>
+
+<nav class="rail" aria-label="Capítulos / Chapters">
+  <a href="#c0"><span lang="es">Umbral</span><span lang="en">Threshold</span></a>
+  <a href="#c1"><span lang="es">I · El umbral roto</span><span lang="en">I · The broken threshold</span></a>
+  <a href="#c2"><span lang="es">II · La máquina de criterios</span><span lang="en">II · The criterion machine</span></a>
+  <a href="#c3"><span lang="es">III · Dos herencias</span><span lang="en">III · Two inheritances</span></a>
+  <a href="#c4"><span lang="es">IV · La demolición</span><span lang="en">IV · The demolition</span></a>
+  <a href="#c5"><span lang="es">V · La primera certeza</span><span lang="en">V · The first certainty</span></a>
+  <a href="#c6"><span lang="es">VI · Duda contra duda</span><span lang="en">VI · Doubt against doubt</span></a>
+  <a href="#c7"><span lang="es">VII · Las cuatro reglas</span><span lang="en">VII · The four rules</span></a>
+  <a href="#c8"><span lang="es">VIII · El umbral, cruzado</span><span lang="en">VIII · The threshold, crossed</span></a>
 </nav>
 
 <!-- ============ 0 · UMBRAL ============ -->
 <section class="chap" id="c0">
   <div class="cogitomark">COGITO</div>
   <div class="inner">
-    <div class="kicker">Filosofía · versión pública de aula</div>
-    <h1>Del Renacimiento a Descartes<br><span style="color:var(--cyan)">La demolición</span></h1>
-    <p class="lead">Un recorrido interactivo: vas a ver caer un criterio de verdad, vas a heredar una duda y un método, y vas a demoler —con tus propias manos— el edificio entero del saber. Para ver qué queda en pie.</p>
-    <div class="apho">Toda certeza heredada es una deuda. Tarde o temprano, alguien la cobra.</div>
-    <p class="note">Tu avance queda guardado en este dispositivo: podés cerrar y retomar donde dejaste. Todo funciona también con teclado (Tab y Enter).</p>
-    <div class="scrollcue">Bajá para empezar <span class="arr">↓</span></div>
+    <div class="kicker"><span lang="es">Filosofía · versión pública de aula</span><span lang="en">Philosophy · public classroom version</span></div>
+    <h1 lang="es">Del Renacimiento a Descartes<br><span style="color:var(--cyan)">La demolición</span></h1>
+    <h1 lang="en">From the Renaissance to Descartes<br><span style="color:var(--cyan)">The demolition</span></h1>
+    <p class="lead" lang="es">Un recorrido interactivo: vas a ver caer un criterio de verdad, vas a heredar una duda y un método, y vas a demoler —con tus propias manos— el edificio entero del saber. Para ver qué queda en pie.</p>
+    <p class="lead" lang="en">An interactive walkthrough: you will watch a criterion of truth collapse, inherit a doubt and a method, and demolish — with your own hands — the entire edifice of knowledge. To see what remains standing.</p>
+    <div class="apho" lang="es">Toda certeza heredada es una deuda. Tarde o temprano, alguien la cobra.</div>
+    <div class="apho" lang="en">Every inherited certainty is a debt. Sooner or later, someone comes to collect.</div>
+    <p class="note" lang="es">Tu avance queda guardado en este dispositivo: podés cerrar y retomar donde dejaste. Todo funciona también con teclado (Tab y Enter).</p>
+    <p class="note" lang="en">Your progress is saved on this device: you can close the page and pick up where you left off. Everything also works with the keyboard (Tab and Enter).</p>
+    <div class="scrollcue"><span lang="es">Bajá para empezar</span><span lang="en">Scroll to begin</span> <span class="arr">↓</span></div>
     <aside class="tnotes">
       <div class="tlabel"><span>Notas de clase · plan de vuelo</span><span>~90 min totales</span></div>
       <ul>
@@ -389,36 +411,44 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ I · EL UMBRAL ROTO ============ -->
 <section class="chap" id="c1">
   <div class="inner">
-    <div class="kicker"><span class="num">I</span>El umbral roto</div>
-    <h2>El Renacimiento es <span class="u">transición</span>, no comienzo</h2>
-    <div class="apho">Toda época cree despertar de la anterior. El Renacimiento, al menos, sospechó que seguía soñando.</div>
-    <p class="body">Un dato incómodo: al "padre de la filosofía moderna" lo encontramos recién en el <b>siglo XVII</b> —<i>Discurso del método</i> (1637), <i>Meditaciones metafísicas</i> (1641)—. Si la Edad Moderna empieza a mediados del siglo XV, el padre llega tarde a su propio nacimiento. ¿Qué pasó en el medio?</p>
-    <p class="body">Pasó el Renacimiento: dos siglos que <b>critican lo medieval</b> pero todavía no definen lo nuevo. Un período de ensayo y tanteo, filosóficamente "casi estéril" —dice Carpio—, pero que prepara el terreno. Tocá cada época:</p>
+    <div class="kicker"><span class="num">I</span><span lang="es">El umbral roto</span><span lang="en">The broken threshold</span></div>
+    <h2 lang="es">El Renacimiento es <span class="u">transición</span>, no comienzo</h2>
+    <h2 lang="en">The Renaissance is <span class="u">transition</span>, not beginning</h2>
+    <div class="apho" lang="es">Toda época cree despertar de la anterior. El Renacimiento, al menos, sospechó que seguía soñando.</div>
+    <div class="apho" lang="en">Every age believes it is waking from the one before. The Renaissance, at least, suspected it was still dreaming.</div>
+    <p class="body" lang="es">Un dato incómodo: al "padre de la filosofía moderna" lo encontramos recién en el <b>siglo XVII</b> —<i>Discurso del método</i> (1637), <i>Meditaciones metafísicas</i> (1641)—. Si la Edad Moderna empieza a mediados del siglo XV, el padre llega tarde a su propio nacimiento. ¿Qué pasó en el medio?</p>
+    <p class="body" lang="en">An awkward fact: we find the "father of modern philosophy" only in the <b>17th century</b> —<i>Discourse on the Method</i> (1637), <i>Meditations on First Philosophy</i> (1641)—. If the modern age begins in the mid-15th century, the father arrives late to his own birth. What happened in between?</p>
+    <p class="body" lang="es">Pasó el Renacimiento: dos siglos que <b>critican lo medieval</b> pero todavía no definen lo nuevo. Un período de ensayo y tanteo, filosóficamente "casi estéril" —dice Carpio—, pero que prepara el terreno. Tocá cada época:</p>
+    <p class="body" lang="en">The Renaissance happened: two centuries that <b>criticize the medieval world</b> but do not yet define what is new. A period of trial and groping, philosophically "almost sterile" —as Carpio puts it— but one that prepares the ground. Tap each era:</p>
 
     <div class="epochs">
       <button class="epoch" aria-expanded="false">
         <span class="plus">+</span>
-        <span class="tag">Lo que se deja</span>
-        <h3>Medioevo</h3>
-        <span class="yrs">Escolástica · s. V–XV</span>
-        <span class="more">La verdad tiene dueño: la <b>autoridad</b>. La Iglesia interpreta las Escrituras; Aristóteles, filtrado por la escolástica, explica la naturaleza mediante formas sustanciales. Conocer es, en buena medida, comentar lo ya sabido.</span>
+        <span class="tag" lang="es">Lo que se deja</span><span class="tag" lang="en">What is left behind</span>
+        <h3 lang="es">Medioevo</h3><h3 lang="en">The Middle Ages</h3>
+        <span class="yrs" lang="es">Escolástica · s. V–XV</span><span class="yrs" lang="en">Scholasticism · 5th–15th c.</span>
+        <span class="more" lang="es">La verdad tiene dueño: la <b>autoridad</b>. La Iglesia interpreta las Escrituras; Aristóteles, filtrado por la escolástica, explica la naturaleza mediante formas sustanciales. Conocer es, en buena medida, comentar lo ya sabido.</span>
+        <span class="more" lang="en">Truth has an owner: <b>authority</b>. The Church interprets Scripture; Aristotle, filtered through Scholasticism, explains nature through substantial forms. To know is, largely, to comment on what is already known.</span>
       </button>
       <button class="epoch" aria-expanded="false">
         <span class="plus">+</span>
-        <span class="tag">El umbral</span>
-        <h3>Renacimiento</h3>
-        <span class="yrs">Transición · s. XV–XVI</span>
-        <span class="more">Se redescubre la Antigüedad grecolatina: platonismo, neoplatonismo, tradición hermética. Surge una <b>filosofía de la naturaleza</b> que la concibe como organismo vivo, con un componente todavía <b>mágico</b>. Época de crítica y de crisis: derriba, pero no funda. <span style="color:var(--faint)">(Carpio VIII §1; Jáuregui, T1)</span></span>
+        <span class="tag" lang="es">El umbral</span><span class="tag" lang="en">The threshold</span>
+        <h3 lang="es">Renacimiento</h3><h3 lang="en">The Renaissance</h3>
+        <span class="yrs" lang="es">Transición · s. XV–XVI</span><span class="yrs" lang="en">Transition · 15th–16th c.</span>
+        <span class="more" lang="es">Se redescubre la Antigüedad grecolatina: platonismo, neoplatonismo, tradición hermética. Surge una <b>filosofía de la naturaleza</b> que la concibe como organismo vivo, con un componente todavía <b>mágico</b>. Época de crítica y de crisis: derriba, pero no funda. <span style="color:var(--faint)">(Carpio VIII §1; Jáuregui, T1)</span></span>
+        <span class="more" lang="en">Greco-Roman antiquity is rediscovered: Platonism, Neoplatonism, the hermetic tradition. A <b>philosophy of nature</b> arises that conceives it as a living organism, still with a <b>magical</b> component. An age of criticism and crisis: it tears down, but does not found. <span style="color:var(--faint)">(Carpio VIII §1; Jáuregui, T1)</span></span>
       </button>
       <button class="epoch" aria-expanded="false">
         <span class="plus">+</span>
-        <span class="tag">Lo que empieza</span>
-        <h3>Modernidad</h3>
-        <span class="yrs">Descartes · s. XVII</span>
-        <span class="more">La revolución científica (Galileo, luego Newton) aplica la <b>matemática a la física</b>. Y Descartes coloca un pilar nuevo bajo todo el edificio: la <b>subjetividad</b>. Ya no se empieza por el mundo ni por Dios: se empieza por el <b>yo</b> que conoce.</span>
+        <span class="tag" lang="es">Lo que empieza</span><span class="tag" lang="en">What begins</span>
+        <h3 lang="es">Modernidad</h3><h3 lang="en">Modernity</h3>
+        <span class="yrs" lang="es">Descartes · s. XVII</span><span class="yrs" lang="en">Descartes · 17th c.</span>
+        <span class="more" lang="es">La revolución científica (Galileo, luego Newton) aplica la <b>matemática a la física</b>. Y Descartes coloca un pilar nuevo bajo todo el edificio: la <b>subjetividad</b>. Ya no se empieza por el mundo ni por Dios: se empieza por el <b>yo</b> que conoce.</span>
+        <span class="more" lang="en">The scientific revolution (Galileo, later Newton) applies <b>mathematics to physics</b>. And Descartes places a new pillar beneath the whole edifice: <b>subjectivity</b>. One no longer begins with the world or with God: one begins with the <b>I</b> that knows.</span>
       </button>
     </div>
-    <p class="note">Discutible, como todo en filosofía: hay quien hace comenzar la modernidad con Bacon, o con Nicolás de Cusa. Seguimos aquí la lectura de Carpio y de Jáuregui: rasgos nuevos aparecen en el Renacimiento, pero la <i>manera</i> moderna de filosofar empieza con Descartes.</p>
+    <p class="note" lang="es">Discutible, como todo en filosofía: hay quien hace comenzar la modernidad con Bacon, o con Nicolás de Cusa. Seguimos aquí la lectura de Carpio y de Jáuregui: rasgos nuevos aparecen en el Renacimiento, pero la <i>manera</i> moderna de filosofar empieza con Descartes.</p>
+    <p class="note" lang="en">Debatable, like everything in philosophy: some date modernity from Bacon, or from Nicholas of Cusa. Here we follow Carpio's and Jáuregui's reading: new features appear in the Renaissance, but the modern <i>way</i> of philosophizing begins with Descartes.</p>
     <aside class="tnotes">
       <div class="tlabel"><span>Notas de clase · I</span><span>~10 min</span></div>
       <ul>
@@ -433,64 +463,76 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ II · LA MÁQUINA DE CRITERIOS ============ -->
 <section class="chap" id="c2">
   <div class="inner">
-    <div class="kicker"><span class="num">II</span>La crisis de la autoridad</div>
-    <h2>Se rompe el <span class="u">criterio</span> de verdad</h2>
-    <div class="apho">Quien necesita un criterio para elegir su criterio ya empezó a caer.</div>
-    <p class="body">Dos incendios <b>sin relación entre sí</b> se declaran en el siglo XVI, confluyen y se potencian. Ninguno es causa del otro; juntos, queman el criterio medieval de verdad:</p>
+    <div class="kicker"><span class="num">II</span><span lang="es">La crisis de la autoridad</span><span lang="en">The crisis of authority</span></div>
+    <h2 lang="es">Se rompe el <span class="u">criterio</span> de verdad</h2>
+    <h2 lang="en">The <span class="u">criterion</span> of truth breaks down</h2>
+    <div class="apho" lang="es">Quien necesita un criterio para elegir su criterio ya empezó a caer.</div>
+    <div class="apho" lang="en">Whoever needs a criterion to choose their criterion has already begun to fall.</div>
+    <p class="body" lang="es">Dos incendios <b>sin relación entre sí</b> se declaran en el siglo XVI, confluyen y se potencian. Ninguno es causa del otro; juntos, queman el criterio medieval de verdad:</p>
+    <p class="body" lang="en">Two fires <b>with no connection to each other</b> break out in the 16th century, converge, and amplify one another. Neither causes the other; together, they burn down the medieval criterion of truth:</p>
 
     <div class="fires">
       <div class="fire rel">
-        <h3><span>Fuego religioso</span>La Reforma</h3>
-        <p>Lutero niega que la Iglesia tenga la autoridad exclusiva para interpretar las Escrituras: <b>cada uno puede interpretarlas</b>. De golpe hay <b>dos criterios</b> de verdad donde había uno.</p>
+        <h3 lang="es"><span>Fuego religioso</span>La Reforma</h3><h3 lang="en"><span>Religious fire</span>The Reformation</h3>
+        <p lang="es">Lutero niega que la Iglesia tenga la autoridad exclusiva para interpretar las Escrituras: <b>cada uno puede interpretarlas</b>. De golpe hay <b>dos criterios</b> de verdad donde había uno.</p>
+        <p lang="en">Luther denies that the Church holds exclusive authority to interpret Scripture: <b>each person can interpret it</b>. Suddenly there are <b>two criteria</b> of truth where there was one.</p>
       </div>
       <div class="fire epi">
-        <h3><span>Fuego epistémico</span>El escepticismo que vuelve</h3>
-        <p>Se traducen en el s. XVI las obras de <b>Sexto Empírico</b>, que recogen el escepticismo <b>pirrónico</b> (Pirrón de Elis, c. 360–270 a.C.). El académico decía "no se puede conocer nada" —pero eso ya es afirmar algo—. El pirrónico es más radical: <b>suspende el juicio</b>. No afirma ni niega.</p>
+        <h3 lang="es"><span>Fuego epistémico</span>El escepticismo que vuelve</h3><h3 lang="en"><span>Epistemic fire</span>Skepticism returns</h3>
+        <p lang="es">Se traducen en el s. XVI las obras de <b>Sexto Empírico</b>, que recogen el escepticismo <b>pirrónico</b> (Pirrón de Elis, c. 360–270 a.C.). El académico decía "no se puede conocer nada" —pero eso ya es afirmar algo—. El pirrónico es más radical: <b>suspende el juicio</b>. No afirma ni niega.</p>
+        <p lang="en">In the 16th century the works of <b>Sextus Empiricus</b> are translated, gathering <b>Pyrrhonian</b> skepticism (Pyrrho of Elis, c. 360–270 BC). The Academic said "nothing can be known" —but that is already to affirm something—. The Pyrrhonist is more radical: he <b>suspends judgment</b>. He neither affirms nor denies.</p>
       </div>
     </div>
 
     <div id="regress">
-      <div class="glabel" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px">Probá la máquina · ¿con qué criterio elijo el criterio?</div>
-      <div class="claim">«La verdad está en las Escrituras. ¿Quién las interpreta correctamente?»</div>
+      <div class="glabel" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px"><span lang="es">Probá la máquina · ¿con qué criterio elijo el criterio?</span><span lang="en">Try the machine · by what criterion do I choose the criterion?</span></div>
+      <div class="claim" lang="es">«La verdad está en las Escrituras. ¿Quién las interpreta correctamente?»</div>
+      <div class="claim" lang="en">"Truth is in Scripture. Who interprets it correctly?"</div>
       <div id="rstack"></div>
       <div class="btnrow">
-        <button class="btn primary" id="rbtn">Necesito un criterio para decidir</button>
-        <button class="btn ghost" id="rreset" style="display:none">Reiniciar</button>
+        <button class="btn primary" id="rbtn"><span lang="es">Necesito un criterio para decidir</span><span lang="en">I need a criterion to decide</span></button>
+        <button class="btn ghost" id="rreset" style="display:none"><span lang="es">Reiniciar</span><span lang="en">Reset</span></button>
       </div>
       <div id="rend">
-        <div class="apho" style="margin-top:6px">…y así al infinito. Si hay más de un criterio, hace falta un criterio para elegir criterio. La escalera no termina: por eso el problema deja de ser teológico y se vuelve <b style="font-style:normal">gnoseológico</b> —un problema del conocimiento.<span class="cite">(Carpio VIII §2 · Jáuregui, T1)</span></div>
+        <div class="apho" style="margin-top:6px" lang="es">…y así al infinito. Si hay más de un criterio, hace falta un criterio para elegir criterio. La escalera no termina: por eso el problema deja de ser teológico y se vuelve <b style="font-style:normal">gnoseológico</b> —un problema del conocimiento.<span class="cite">(Carpio VIII §2 · Jáuregui, T1)</span></div>
+        <div class="apho" style="margin-top:6px" lang="en">…and so on to infinity. If there is more than one criterion, you need a criterion to choose the criterion. The staircase never ends: this is why the problem stops being theological and becomes <b style="font-style:normal">epistemological</b> —a problem of knowledge.<span class="cite">(Carpio VIII §2 · Jáuregui, T1)</span></div>
       </div>
     </div>
 
     <div class="hr"></div>
-    <h3 style="font-size:clamp(20px,2.6vw,28px)">El círculo del que nadie sale</h3>
-    <p class="body">Cada bando intentó fundar su criterio. Los dos terminaron girando. Recorré cada círculo y contá las vueltas:</p>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)" lang="es">El círculo del que nadie sale</h3>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)" lang="en">The circle no one escapes</h3>
+    <p class="body" lang="es">Cada bando intentó fundar su criterio. Los dos terminaron girando. Recorré cada círculo y contá las vueltas:</p>
+    <p class="body" lang="en">Each side tried to found its criterion. Both ended up spinning. Walk each circle and count the laps:</p>
 
     <div class="circles">
       <div class="circle" data-circle="p">
-        <h3><span>Calvino · la doble iluminación</span>Círculo protestante</h3>
-        <div class="cstep"><span class="dot">1</span><span>Una iluminación divina me asegura que la verdad está en la Escritura.</span></div>
-        <div class="cstep"><span class="dot">2</span><span>Otra iluminación me dice cuál es la interpretación correcta.</span></div>
-        <div class="cstep"><span class="dot">3</span><span>¿Y cómo sé que esas iluminaciones vienen de Dios? …Por otra iluminación.</span></div>
+        <h3 lang="es"><span>Calvino · la doble iluminación</span>Círculo protestante</h3><h3 lang="en"><span>Calvin · the double illumination</span>Protestant circle</h3>
+        <div class="cstep"><span class="dot">1</span><span lang="es">Una iluminación divina me asegura que la verdad está en la Escritura.</span><span lang="en">A divine illumination assures me that truth is in Scripture.</span></div>
+        <div class="cstep"><span class="dot">2</span><span lang="es">Otra iluminación me dice cuál es la interpretación correcta.</span><span lang="en">Another illumination tells me which interpretation is correct.</span></div>
+        <div class="cstep"><span class="dot">3</span><span lang="es">¿Y cómo sé que esas iluminaciones vienen de Dios? …Por otra iluminación.</span><span lang="en">And how do I know those illuminations come from God? …By yet another illumination.</span></div>
         <div class="cfoot">
-          <button class="btn" data-go>Recorrer el círculo</button>
-          <span class="laps">Vueltas: <b data-laps>0</b></span>
+          <button class="btn" data-go><span lang="es">Recorrer el círculo</span><span lang="en">Walk the circle</span></button>
+          <span class="laps"><span lang="es">Vueltas:</span><span lang="en">Laps:</span> <b data-laps>0</b></span>
         </div>
-        <div class="cverdict">La luz que garantiza a la luz que garantiza a la luz. Nunca se toca el suelo.</div>
+        <div class="cverdict" lang="es">La luz que garantiza a la luz que garantiza a la luz. Nunca se toca el suelo.</div>
+        <div class="cverdict" lang="en">The light that guarantees the light that guarantees the light. It never touches the ground.</div>
       </div>
       <div class="circle" data-circle="c">
-        <h3><span>Roma · la autoridad se cita a sí misma</span>Círculo católico</h3>
-        <div class="cstep"><span class="dot">1</span><span>La Iglesia tiene autoridad para interpretar la Escritura.</span></div>
-        <div class="cstep"><span class="dot">2</span><span>¿En qué se funda esa autoridad? En pasajes de la Escritura.</span></div>
-        <div class="cstep"><span class="dot">3</span><span>¿Y quién interpreta esos pasajes? …La Iglesia.</span></div>
+        <h3 lang="es"><span>Roma · la autoridad se cita a sí misma</span>Círculo católico</h3><h3 lang="en"><span>Rome · authority cites itself</span>Catholic circle</h3>
+        <div class="cstep"><span class="dot">1</span><span lang="es">La Iglesia tiene autoridad para interpretar la Escritura.</span><span lang="en">The Church has authority to interpret Scripture.</span></div>
+        <div class="cstep"><span class="dot">2</span><span lang="es">¿En qué se funda esa autoridad? En pasajes de la Escritura.</span><span lang="en">On what is that authority founded? On passages of Scripture.</span></div>
+        <div class="cstep"><span class="dot">3</span><span lang="es">¿Y quién interpreta esos pasajes? …La Iglesia.</span><span lang="en">And who interprets those passages? …The Church.</span></div>
         <div class="cfoot">
-          <button class="btn" data-go>Recorrer el círculo</button>
-          <span class="laps">Vueltas: <b data-laps>0</b></span>
+          <button class="btn" data-go><span lang="es">Recorrer el círculo</span><span lang="en">Walk the circle</span></button>
+          <span class="laps"><span lang="es">Vueltas:</span><span lang="en">Laps:</span> <b data-laps>0</b></span>
         </div>
-        <div class="cverdict">El sello certifica al documento que certifica al sello.</div>
+        <div class="cverdict" lang="es">El sello certifica al documento que certifica al sello.</div>
+        <div class="cverdict" lang="en">The seal certifies the document that certifies the seal.</div>
       </div>
     </div>
-    <p class="note">Curiosidad histórica: el escepticismo se usó primero <i>para defender a la Iglesia</i> —si la razón es tan débil, mejor la sumisión a la fe (Erasmo, y sobre todo Montaigne). El arma que la defendía terminó abriendo la puerta de la modernidad.</p>
+    <p class="note" lang="es">Curiosidad histórica: el escepticismo se usó primero <i>para defender a la Iglesia</i> —si la razón es tan débil, mejor la sumisión a la fe (Erasmo, y sobre todo Montaigne). El arma que la defendía terminó abriendo la puerta de la modernidad.</p>
+    <p class="note" lang="en">A historical curiosity: skepticism was first used <i>to defend the Church</i> —if reason is so weak, better to submit to faith (Erasmus, and above all Montaigne). The weapon that defended it ended up opening the door to modernity.</p>
     <aside class="tnotes">
       <div class="tlabel"><span>Notas de clase · II</span><span>~10 min</span></div>
       <ul>
@@ -506,39 +548,41 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ III · DOS HERENCIAS ============ -->
 <section class="chap" id="c3">
   <div class="inner">
-    <div class="kicker"><span class="num">III</span>Los predecesores</div>
-    <h2>Montaigne para <span class="c">dudar</span>, Bacon para el <span class="g">método</span></h2>
-    <div class="apho">De Montaigne, la duda; de Bacon, el hambre de método; de Descartes, la audacia de juntarlos.</div>
+    <div class="kicker"><span class="num">III</span><span lang="es">Los predecesores</span><span lang="en">The predecessors</span></div>
+    <h2 lang="es">Montaigne para <span class="c">dudar</span>, Bacon para el <span class="g">método</span></h2>
+    <h2 lang="en">Montaigne for <span class="c">doubt</span>, Bacon for <span class="g">method</span></h2>
+    <div class="apho" lang="es">De Montaigne, la duda; de Bacon, el hambre de método; de Descartes, la audacia de juntarlos.</div>
+    <div class="apho" lang="en">From Montaigne, doubt; from Bacon, the hunger for method; from Descartes, the audacity to join them.</div>
 
     <div class="duo">
       <div class="who m">
-        <div class="role">Primer predecesor · la duda</div>
+        <div class="role" lang="es">Primer predecesor · la duda</div><div class="role" lang="en">First predecessor · doubt</div>
         <h3>Michel de Montaigne</h3>
-        <div class="yrs">1533–1592 · Francia en guerra de religión</div>
+        <div class="yrs" lang="es">1533–1592 · Francia en guerra de religión</div><div class="yrs" lang="en">1533–1592 · France in the wars of religion</div>
         <ul>
-          <li>Inventa un género: el <b>ensayo</b>. Se ensaya a sí mismo.</li>
-          <li>Lee a Sexto Empírico: por él, el <b>pirronismo</b> antiguo llega hasta Descartes.</li>
-          <li>En la <b>Apología de Raimundo Sabunde</b> finge defender al teólogo y lo hunde: acusan a Sabunde de argumentos débiles, y Montaigne responde que es cierto… porque <b>toda</b> razón humana es débil.</li>
-          <li>Deja argumentos que Descartes retomará: el sueño, los sentidos que engañan, las cualidades que no están en las cosas.</li>
-          <li>Su desenlace: humildad, sumisión, <b>quedarse en la duda</b>.</li>
+          <li lang="es">Inventa un género: el <b>ensayo</b>. Se ensaya a sí mismo.</li><li lang="en">He invents a genre: the <b>essay</b>. He essays himself.</li>
+          <li lang="es">Lee a Sexto Empírico: por él, el <b>pirronismo</b> antiguo llega hasta Descartes.</li><li lang="en">He reads Sextus Empiricus: through him, ancient <b>Pyrrhonism</b> reaches Descartes.</li>
+          <li lang="es">En la <b>Apología de Raimundo Sabunde</b> finge defender al teólogo y lo hunde: acusan a Sabunde de argumentos débiles, y Montaigne responde que es cierto… porque <b>toda</b> razón humana es débil.</li><li lang="en">In the <b>Apology for Raymond Sebond</b> he pretends to defend the theologian and sinks him: Sebond is charged with weak arguments, and Montaigne answers that it is true… because <b>all</b> human reason is weak.</li>
+          <li lang="es">Deja argumentos que Descartes retomará: el sueño, los sentidos que engañan, las cualidades que no están en las cosas.</li><li lang="en">He leaves arguments Descartes will take up: the dream, the deceiving senses, the qualities that are not in things.</li>
+          <li lang="es">Su desenlace: humildad, sumisión, <b>quedarse en la duda</b>.</li><li lang="en">His conclusion: humility, submission, <b>staying in doubt</b>.</li>
         </ul>
       </div>
       <div class="who b">
-        <div class="role">Segundo predecesor · el método</div>
+        <div class="role" lang="es">Segundo predecesor · el método</div><div class="role" lang="en">Second predecessor · method</div>
         <h3>Francis Bacon</h3>
         <div class="yrs">1561–1626 · Novum Organum (1620)</div>
         <ul>
-          <li>Planteada la crisis del criterio, hace la otra pregunta: ¿con qué <b>método</b> se descubre la verdad?</li>
-          <li>Rechaza el <b>silogismo</b>: sólo transmite lo que ya se sabía; no descubre nada y arrastra errores viejos.</li>
-          <li>Momento destructivo: derribar los <b>ídolos</b> — tribu, caverna, foro, teatro.</li>
-          <li>Momento constructivo: el método <b>inductivo</b> — de casos observados y registrados, subir a leyes.</li>
-          <li>Su talón de Aquiles: la inducción es <b>inválida</b> — la conclusión afirma más que las premisas.</li>
+          <li lang="es">Planteada la crisis del criterio, hace la otra pregunta: ¿con qué <b>método</b> se descubre la verdad?</li><li lang="en">With the crisis of the criterion in place, he asks the other question: by what <b>method</b> is truth discovered?</li>
+          <li lang="es">Rechaza el <b>silogismo</b>: sólo transmite lo que ya se sabía; no descubre nada y arrastra errores viejos.</li><li lang="en">He rejects the <b>syllogism</b>: it only transmits what was already known; it discovers nothing and drags along old errors.</li>
+          <li lang="es">Momento destructivo: derribar los <b>ídolos</b> — tribu, caverna, foro, teatro.</li><li lang="en">Destructive moment: tearing down the <b>idols</b> — tribe, cave, marketplace, theater.</li>
+          <li lang="es">Momento constructivo: el método <b>inductivo</b> — de casos observados y registrados, subir a leyes.</li><li lang="en">Constructive moment: the <b>inductive</b> method — from observed and recorded cases, rising to laws.</li>
+          <li lang="es">Su talón de Aquiles: la inducción es <b>inválida</b> — la conclusión afirma más que las premisas.</li><li lang="en">His Achilles' heel: induction is <b>invalid</b> — the conclusion asserts more than the premises.</li>
         </ul>
       </div>
     </div>
 
     <div class="game" id="attrib">
-      <div class="glabel">Juego · ¿Quién firma esto?</div>
+      <div class="glabel"><span lang="es">Juego · ¿Quién firma esto?</span><span lang="en">Game · Who signs this?</span></div>
       <div class="qcard" id="aq"></div>
       <div class="btnrow">
         <button class="btn" id="aM" style="border-color:rgba(255,107,107,.5)">Montaigne</button>
@@ -564,16 +608,21 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ IV · LA DEMOLICIÓN ============ -->
 <section class="chap" id="c4">
   <div class="inner">
-    <div class="kicker"><span class="num">IV</span>La duda metódica en obra</div>
-    <h2>La <span class="u">demolición</span></h2>
-    <div class="apho">No se derriba el edificio opinión por opinión: se dinamitan los cimientos.</div>
-    <p class="body">René Descartes (1596–1650). Formado por jesuitas en La Flèche, sale insatisfecho de todo lo aprendido salvo de la <b>matemática</b>, cuyo modelo de certeza adopta para todo saber. La noche del <b>10 de noviembre de 1619</b>, un sueño le revela —así lo interpreta él— la unidad de todas las ciencias y su método. Hegel dirá: <i>"Descartes es un héroe porque tomó las cosas por el comienzo"</i>.</p>
-    <p class="body">Su plan es de un radicalismo total: ir a la <b>raíz</b>, dar por falso todo aquello de lo que se pueda dudar aunque sea mínimamente, y ver si algo sobrevive. Las opiniones son infinitas: no se las examina una por una. Se atacan sus <b>fundamentos</b>: las facultades que las produjeron —los sentidos y la razón—. Caen los cimientos, cae el edificio. La duda es <b>universal</b> (todo), <b>radical</b> (la raíz) e <b>hiperbólica</b> (exagerada al extremo: basta la sospecha). <span style="color:var(--faint)">(Carpio VIII §4)</span></p>
-    <p class="body">Ahora demolé vos. Enfrente está el <b>edificio del saber</b> —cuatro pisos, y algo más que todavía no se ve— y el genio, esperando su turno. Tenés <b>cuatro instrumentos de duda</b>, de menor a mayor potencia. Regla del juego —y de Descartes—: usá el <b>argumento mínimo que baste</b> para volver dudosa cada creencia.</p>
+    <div class="kicker"><span class="num">IV</span><span lang="es">La duda metódica en obra</span><span lang="en">Methodical doubt at work</span></div>
+    <h2 lang="es">La <span class="u">demolición</span></h2>
+    <h2 lang="en">The <span class="u">demolition</span></h2>
+    <div class="apho" lang="es">No se derriba el edificio opinión por opinión: se dinamitan los cimientos.</div>
+    <div class="apho" lang="en">You do not demolish the edifice opinion by opinion: you dynamite the foundations.</div>
+    <p class="body" lang="es">René Descartes (1596–1650). Formado por jesuitas en La Flèche, sale insatisfecho de todo lo aprendido salvo de la <b>matemática</b>, cuyo modelo de certeza adopta para todo saber. La noche del <b>10 de noviembre de 1619</b>, un sueño le revela —así lo interpreta él— la unidad de todas las ciencias y su método. Hegel dirá: <i>"Descartes es un héroe porque tomó las cosas por el comienzo"</i>.</p>
+    <p class="body" lang="en">René Descartes (1596–1650). Trained by the Jesuits at La Flèche, he comes away dissatisfied with everything he learned except <b>mathematics</b>, whose model of certainty he adopts for all knowledge. On the night of <b>10 November 1619</b>, a dream reveals to him —as he reads it— the unity of all the sciences and their method. Hegel will say: <i>"Descartes is a hero because he took things from the beginning"</i>.</p>
+    <p class="body" lang="es">Su plan es de un radicalismo total: ir a la <b>raíz</b>, dar por falso todo aquello de lo que se pueda dudar aunque sea mínimamente, y ver si algo sobrevive. Las opiniones son infinitas: no se las examina una por una. Se atacan sus <b>fundamentos</b>: las facultades que las produjeron —los sentidos y la razón—. Caen los cimientos, cae el edificio. La duda es <b>universal</b> (todo), <b>radical</b> (la raíz) e <b>hiperbólica</b> (exagerada al extremo: basta la sospecha). <span style="color:var(--faint)">(Carpio VIII §4)</span></p>
+    <p class="body" lang="en">His plan is one of total radicalism: go to the <b>root</b>, treat as false anything one can doubt even minimally, and see whether anything survives. Opinions are infinite: they are not examined one by one. Their <b>foundations</b> are attacked: the faculties that produced them —the senses and reason—. The foundations fall, the edifice falls. The doubt is <b>universal</b> (everything), <b>radical</b> (the root), and <b>hyperbolic</b> (exaggerated to the extreme: mere suspicion is enough). <span style="color:var(--faint)">(Carpio VIII §4)</span></p>
+    <p class="body" lang="es">Ahora demolé vos. Enfrente está el <b>edificio del saber</b> —cuatro pisos, y algo más que todavía no se ve— y el genio, esperando su turno. Tenés <b>cuatro instrumentos de duda</b>, de menor a mayor potencia. Regla del juego —y de Descartes—: usá el <b>argumento mínimo que baste</b> para volver dudosa cada creencia.</p>
+    <p class="body" lang="en">Now you demolish. Before you stands the <b>edifice of knowledge</b> —four floors, and something more not yet visible— and the demon, waiting his turn. You have <b>four instruments of doubt</b>, from weakest to strongest. Rule of the game —and of Descartes—: use the <b>minimal argument that suffices</b> to make each belief doubtful.</p>
 
     <div id="demo-stage">
       <div class="demo-viz">
-        <div class="gbar"><span class="who">El genio maligno</span><span id="gbubble-t" aria-live="polite"></span></div>
+        <div class="gbar"><span class="who"><span lang="es">El genio maligno</span><span lang="en">The evil demon</span></span><span id="gbubble-t" aria-live="polite"></span></div>
         <svg id="bsvg" viewBox="0 40 720 360" role="img" aria-label="El edificio del saber, de cuatro pisos sobre un pilar central, y el genio maligno observando desde la derecha." xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="gviol" x1="0" y1="1" x2="0" y2="0">
@@ -634,24 +683,24 @@ footer .btn{font-size:12.5px;padding:7px 12px}
       <div class="demo-progress" id="dprog">Edificio del saber · creencia <b>1</b> de 5</div>
       <div class="tools" id="dtools">
         <button class="tool" data-tool="0">
-          <span class="tn">Instrumento 1 · sentidos</span>
-          <span class="tt">Las ilusiones</span>
-          <span class="td">Los sentidos a veces yerran; es prudente no fiarse de quien nos engañó alguna vez.</span>
+          <span class="tn"><span lang="es">Instrumento 1 · sentidos</span><span lang="en">Instrument 1 · senses</span></span>
+          <span class="tt"><span lang="es">Las ilusiones</span><span lang="en">Illusions</span></span>
+          <span class="td"><span lang="es">Los sentidos a veces yerran; es prudente no fiarse de quien nos engañó alguna vez.</span><span lang="en">The senses sometimes err; it is prudent not to trust what has deceived us even once.</span></span>
         </button>
         <button class="tool" data-tool="1">
-          <span class="tn">Instrumento 2 · sentidos</span>
-          <span class="tt">El sueño</span>
-          <span class="td">No hay indicio cierto para distinguir el sueño de la vigilia.</span>
+          <span class="tn"><span lang="es">Instrumento 2 · sentidos</span><span lang="en">Instrument 2 · senses</span></span>
+          <span class="tt"><span lang="es">El sueño</span><span lang="en">The dream</span></span>
+          <span class="td"><span lang="es">No hay indicio cierto para distinguir el sueño de la vigilia.</span><span lang="en">There is no certain sign to tell dreaming from waking.</span></span>
         </button>
         <button class="tool" data-tool="2">
-          <span class="tn">Instrumento 3 · razón</span>
-          <span class="tt">Los paralogismos</span>
-          <span class="td">Hay hombres que yerran al razonar aun en la más simple geometría.</span>
+          <span class="tn"><span lang="es">Instrumento 3 · razón</span><span lang="en">Instrument 3 · reason</span></span>
+          <span class="tt"><span lang="es">Los paralogismos</span><span lang="en">Fallacious reasoning</span></span>
+          <span class="td"><span lang="es">Hay hombres que yerran al razonar aun en la más simple geometría.</span><span lang="en">Some men reason wrongly even in the simplest geometry.</span></span>
         </button>
         <button class="tool" data-tool="3">
-          <span class="tn">Instrumento 4 · razón</span>
-          <span class="tt">El genio maligno</span>
-          <span class="td">Un espíritu tan poderoso como astuto y burlador, dedicado por entero a engañarme.</span>
+          <span class="tn"><span lang="es">Instrumento 4 · razón</span><span lang="en">Instrument 4 · reason</span></span>
+          <span class="tt"><span lang="es">El genio maligno</span><span lang="en">The evil demon</span></span>
+          <span class="td"><span lang="es">Un espíritu tan poderoso como astuto y burlador, dedicado por entero a engañarme.</span><span lang="en">A spirit as powerful as it is cunning and deceiving, wholly devoted to deceiving me.</span></span>
         </button>
       </div>
       <div class="dkey" id="dkey"></div>
@@ -662,17 +711,22 @@ footer .btn{font-size:12.5px;padding:7px 12px}
       <div id="demo-feed" aria-live="polite"></div>
 
       <div id="deep">
-        <div class="apho" style="border-color:var(--cyan);color:var(--ink);margin-top:0">«Como si de pronto hubiese caído en unas aguas profundísimas, quédome tan sorprendido, que no puedo afirmar los pies en el fondo, ni nadar para mantenerme sobre la superficie.»<span class="cite">Descartes, Meditaciones — citado en Carpio VIII §6</span></div>
-        <p class="body" style="font-size:15px;color:var(--dim)">La superficie: el saber vulgar, la vida cotidiana. El fondo: el fundamento firme que se busca. El filósofo quedó suspendido entre ambos. Todo es dudoso. Sentidos y razón, demolidos. Del edificio no queda casi nada… salvo esa columna que asoma entre los escombros. Queda una creencia más. La última.</p>
-        <div class="btnrow"><button class="btn primary" id="dlast">Ir a la última creencia →</button></div>
+        <div class="apho" style="border-color:var(--cyan);color:var(--ink);margin-top:0" lang="es">«Como si de pronto hubiese caído en unas aguas profundísimas, quédome tan sorprendido, que no puedo afirmar los pies en el fondo, ni nadar para mantenerme sobre la superficie.»<span class="cite">Descartes, Meditaciones — citado en Carpio VIII §6</span></div>
+        <div class="apho" style="border-color:var(--cyan);color:var(--ink);margin-top:0" lang="en">"It is as if I had suddenly fallen into very deep water, so taken by surprise that I can neither plant my feet on the bottom nor swim to keep myself on the surface."<span class="cite">Descartes, Meditations — cited in Carpio VIII §6</span></div>
+        <p class="body" style="font-size:15px;color:var(--dim)" lang="es">La superficie: el saber vulgar, la vida cotidiana. El fondo: el fundamento firme que se busca. El filósofo quedó suspendido entre ambos. Todo es dudoso. Sentidos y razón, demolidos. Del edificio no queda casi nada… salvo esa columna que asoma entre los escombros. Queda una creencia más. La última.</p>
+        <p class="body" style="font-size:15px;color:var(--dim)" lang="en">The surface: common knowledge, everyday life. The bottom: the firm foundation being sought. The philosopher hangs suspended between the two. Everything is doubtful. Senses and reason, demolished. Almost nothing of the edifice remains… except that column rising among the rubble. One more belief remains. The last one.</p>
+        <div class="btnrow"><button class="btn primary" id="dlast"><span lang="es">Ir a la última creencia →</span><span lang="en">Go to the last belief →</span></button></div>
       </div>
 
       <div id="cogito-reveal">
-        <div class="kicker" style="color:var(--violet)">En el extremo de la duda</div>
+        <div class="kicker" style="color:var(--violet)"><span lang="es">En el extremo de la duda</span><span lang="en">At the extreme of doubt</span></div>
         <div class="big">Cogito, ergo sum</div>
-        <p class="body">En el preciso momento en que la duda llega al extremo, <b>se convierte en su opuesto</b>: conocimiento absolutamente cierto. Para dudar tengo que pensar; para pensar tengo que ser. El genio maligno puede falsear todo el contenido de mis pensamientos —el mundo, mi cuerpo, la matemática—, pero no puede hacer que yo no sea <i>mientras pienso que soy algo</i>. El engaño perfecto exige una víctima real.</p>
-        <div class="apho">La duda, llevada al fondo, rebota. Descartes no salió del pozo: encontró que el pozo tenía suelo.</div>
-        <p class="note">La primera verdad indubitable —y el <b>primer principio</b> de la filosofía: primero no porque explique todo, sino porque es el punto de partida cierto sobre el que se edificará lo demás. (Carpio VIII §7)</p>
+        <p class="body" lang="es">En el preciso momento en que la duda llega al extremo, <b>se convierte en su opuesto</b>: conocimiento absolutamente cierto. Para dudar tengo que pensar; para pensar tengo que ser. El genio maligno puede falsear todo el contenido de mis pensamientos —el mundo, mi cuerpo, la matemática—, pero no puede hacer que yo no sea <i>mientras pienso que soy algo</i>. El engaño perfecto exige una víctima real.</p>
+        <p class="body" lang="en">At the precise moment doubt reaches its extreme, <b>it turns into its opposite</b>: absolutely certain knowledge. To doubt I must think; to think I must be. The evil demon can falsify the entire content of my thoughts —the world, my body, mathematics—, but he cannot make it so that I am not <i>while I think that I am something</i>. Perfect deception requires a real victim.</p>
+        <div class="apho" lang="es">La duda, llevada al fondo, rebota. Descartes no salió del pozo: encontró que el pozo tenía suelo.</div>
+        <div class="apho" lang="en">Doubt, carried to the bottom, rebounds. Descartes did not climb out of the well: he found that the well had a floor.</div>
+        <p class="note" lang="es">La primera verdad indubitable —y el <b>primer principio</b> de la filosofía: primero no porque explique todo, sino porque es el punto de partida cierto sobre el que se edificará lo demás. (Carpio VIII §7)</p>
+        <p class="note" lang="en">The first indubitable truth —and the <b>first principle</b> of philosophy: first not because it explains everything, but because it is the certain starting point on which the rest will be built. (Carpio VIII §7)</p>
       </div>
     </div>
     <aside class="tnotes">
@@ -690,13 +744,19 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ V · LA PRIMERA CERTEZA ============ -->
 <section class="chap" id="c5">
   <div class="inner">
-    <div class="kicker"><span class="num">V</span>Del cogito al criterio</div>
-    <h2>Por qué <span class="u">«pienso, soy»</span> y no un silogismo</h2>
-    <div class="apho">Nadie deduce que existe: se sorprende existiendo.</div>
-    <p class="body">Cuidado con el «ergo». Si el cogito fuera un razonamiento («todo lo que piensa existe; yo pienso; luego existo»), dependería de una premisa general que la duda ya volvió sospechosa —el genio puede falsear mis deducciones—. Pero no es un razonamiento: es una <b>intuición</b>, una captación inmediata, de un solo golpe de vista, en el acto mismo de pensar. Por eso Descartes prefiere formularlo sin «luego»: <b>«pienso, soy»</b>. (Carpio VIII §7)</p>
-    <p class="body">El intelecto —facultad superior de conocimiento para este <b>racionalismo</b>— opera de dos maneras: la <span class="g">intuición</span>, que capta ideas de modo inmediato por la "luz natural", y la <span class="g">deducción</span>, que infiere verdades a partir de lo intuido (y pierde inmediatez: interviene la memoria). La sensibilidad, en cambio, sirve más para conservar el cuerpo que para conocer. (Jáuregui, T1)</p>
-    <p class="body">Y del cogito, Descartes extrae la <b>regla general</b> de todo lo verdadero. ¿Qué hace indubitable al cogito? Que lo concibo con total <b>claridad y distinción</b>. Entonces: todo lo que conciba así de claro y distinto, será verdadero. <span class="cy">Clara</span>: la idea presente y manifiesta a un espíritu atento. <span class="cy">Distinta</span>: tan precisa y separada de las demás que sólo contiene lo que le pertenece. Todo lo distinto es claro; no todo lo claro es distinto —un dolor es claro, pero rara vez distinto—.</p>
-    <p class="note">El criterio de verdad ya no es la autoridad de nadie: es la <b>evidencia</b>, que se da en el interior del sujeto. Ahí está el giro moderno completo: el pilar del saber es la subjetividad. (Carpio VIII §6–8)</p>
+    <div class="kicker"><span class="num">V</span><span lang="es">Del cogito al criterio</span><span lang="en">From the cogito to the criterion</span></div>
+    <h2 lang="es">Por qué <span class="u">«pienso, soy»</span> y no un silogismo</h2>
+    <h2 lang="en">Why <span class="u">"I think, I am"</span> and not a syllogism</h2>
+    <div class="apho" lang="es">Nadie deduce que existe: se sorprende existiendo.</div>
+    <div class="apho" lang="en">No one deduces that they exist: they are surprised to find themselves existing.</div>
+    <p class="body" lang="es">Cuidado con el «ergo». Si el cogito fuera un razonamiento («todo lo que piensa existe; yo pienso; luego existo»), dependería de una premisa general que la duda ya volvió sospechosa —el genio puede falsear mis deducciones—. Pero no es un razonamiento: es una <b>intuición</b>, una captación inmediata, de un solo golpe de vista, en el acto mismo de pensar. Por eso Descartes prefiere formularlo sin «luego»: <b>«pienso, soy»</b>. (Carpio VIII §7)</p>
+    <p class="body" lang="en">Beware the "ergo". If the cogito were a piece of reasoning ("everything that thinks exists; I think; therefore I exist"), it would depend on a general premise that doubt has already made suspect —the demon can falsify my deductions—. But it is not reasoning: it is an <b>intuition</b>, an immediate grasp, at a single glance, in the very act of thinking. This is why Descartes prefers to state it without "therefore": <b>"I think, I am"</b>. (Carpio VIII §7)</p>
+    <p class="body" lang="es">El intelecto —facultad superior de conocimiento para este <b>racionalismo</b>— opera de dos maneras: la <span class="g">intuición</span>, que capta ideas de modo inmediato por la "luz natural", y la <span class="g">deducción</span>, que infiere verdades a partir de lo intuido (y pierde inmediatez: interviene la memoria). La sensibilidad, en cambio, sirve más para conservar el cuerpo que para conocer. (Jáuregui, T1)</p>
+    <p class="body" lang="en">The intellect —the higher faculty of knowledge for this <b>rationalism</b>— works in two ways: <span class="g">intuition</span>, which grasps ideas immediately by the "natural light", and <span class="g">deduction</span>, which infers truths from what is intuited (and loses immediacy: memory comes into play). Sensibility, by contrast, serves more to preserve the body than to know. (Jáuregui, T1)</p>
+    <p class="body" lang="es">Y del cogito, Descartes extrae la <b>regla general</b> de todo lo verdadero. ¿Qué hace indubitable al cogito? Que lo concibo con total <b>claridad y distinción</b>. Entonces: todo lo que conciba así de claro y distinto, será verdadero. <span class="cy">Clara</span>: la idea presente y manifiesta a un espíritu atento. <span class="cy">Distinta</span>: tan precisa y separada de las demás que sólo contiene lo que le pertenece. Todo lo distinto es claro; no todo lo claro es distinto —un dolor es claro, pero rara vez distinto—.</p>
+    <p class="body" lang="en">And from the cogito, Descartes draws the <b>general rule</b> of all that is true. What makes the cogito indubitable? That I conceive it with complete <b>clarity and distinctness</b>. So: everything I conceive as clearly and distinctly will be true. <span class="cy">Clear</span>: the idea present and manifest to an attentive mind. <span class="cy">Distinct</span>: so precise and separated from the rest that it contains only what belongs to it. Everything distinct is clear; not everything clear is distinct —a pain is clear, but rarely distinct—.</p>
+    <p class="note" lang="es">El criterio de verdad ya no es la autoridad de nadie: es la <b>evidencia</b>, que se da en el interior del sujeto. Ahí está el giro moderno completo: el pilar del saber es la subjetividad. (Carpio VIII §6–8)</p>
+    <p class="note" lang="en">The criterion of truth is no longer anyone's authority: it is <b>evidence</b>, which occurs within the subject. There is the complete modern turn: the pillar of knowledge is subjectivity. (Carpio VIII §6–8)</p>
     <aside class="tnotes">
       <div class="tlabel"><span>Notas de clase · V</span></div>
       <ul>
@@ -711,27 +771,31 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ VI · DUDA CONTRA DUDA ============ -->
 <section class="chap" id="c6">
   <div class="inner">
-    <div class="kicker"><span class="num">VI</span>La distinción clave</div>
-    <h2>Duda <span class="c">pirrónica</span>, duda <span class="g">metódica</span></h2>
-    <div class="apho">Dos hombres dudan ante la misma puerta: uno se queda a vivir en el umbral; el otro la usa para entrar.</div>
+    <div class="kicker"><span class="num">VI</span><span lang="es">La distinción clave</span><span lang="en">The key distinction</span></div>
+    <h2 lang="es">Duda <span class="c">pirrónica</span>, duda <span class="g">metódica</span></h2>
+    <h2 lang="en"><span class="c">Pyrrhonian</span> doubt, <span class="g">methodical</span> doubt</h2>
+    <div class="apho" lang="es">Dos hombres dudan ante la misma puerta: uno se queda a vivir en el umbral; el otro la usa para entrar.</div>
+    <div class="apho" lang="en">Two men doubt before the same door: one stays to live on the threshold; the other uses it to enter.</div>
     <div class="duel">
       <div class="dcol p">
-        <h3><span>Pirrón · Sexto Empírico · Montaigne</span>Pirrónica / sistemática</h3>
-        <p>Se duda por la duda misma. Es una <b>posición</b>, un punto de llegada. Destructiva: exhibe la debilidad de la razón y desemboca en la suspensión del juicio.</p>
+        <h3 lang="es"><span>Pirrón · Sexto Empírico · Montaigne</span>Pirrónica / sistemática</h3><h3 lang="en"><span>Pyrrho · Sextus Empiricus · Montaigne</span>Pyrrhonian / systematic</h3>
+        <p lang="es">Se duda por la duda misma. Es una <b>posición</b>, un punto de llegada. Destructiva: exhibe la debilidad de la razón y desemboca en la suspensión del juicio.</p>
+        <p lang="en">One doubts for the sake of doubt itself. It is a <b>position</b>, a point of arrival. Destructive: it exhibits the weakness of reason and ends in the suspension of judgment.</p>
       </div>
       <div class="dcol m">
-        <h3><span>Descartes</span>Metódica / cartesiana</h3>
-        <p>Se duda como <b>instrumento</b>, etapa momentánea de un camino. Constructiva: busca una verdad indubitable que sirva de cimiento. Apuesta a que, superada la duda, la razón alcanza la verdad.</p>
+        <h3 lang="es"><span>Descartes</span>Metódica / cartesiana</h3><h3 lang="en"><span>Descartes</span>Methodical / Cartesian</h3>
+        <p lang="es">Se duda como <b>instrumento</b>, etapa momentánea de un camino. Constructiva: busca una verdad indubitable que sirva de cimiento. Apuesta a que, superada la duda, la razón alcanza la verdad.</p>
+        <p lang="en">One doubts as an <b>instrument</b>, a momentary stage on a path. Constructive: it seeks an indubitable truth to serve as a foundation. It wagers that, once doubt is overcome, reason attains truth.</p>
       </div>
     </div>
 
     <div class="game" id="classify">
-      <div class="glabel">Clasificá · ¿quién habla: el pirrónico o Descartes?</div>
+      <div class="glabel"><span lang="es">Clasificá · ¿quién habla: el pirrónico o Descartes?</span><span lang="en">Classify · who is speaking: the Pyrrhonist or Descartes?</span></div>
       <div class="qcard" id="cq"></div>
       <div class="btnrow">
-        <button class="btn" id="cP" style="border-color:rgba(255,107,107,.5)">Duda pirrónica</button>
-        <button class="btn" id="cM" style="border-color:rgba(87,227,139,.5)">Duda metódica</button>
-        <button class="btn primary" id="cNext" style="display:none">Siguiente →</button>
+        <button class="btn" id="cP" style="border-color:rgba(255,107,107,.5)"><span lang="es">Duda pirrónica</span><span lang="en">Pyrrhonian doubt</span></button>
+        <button class="btn" id="cM" style="border-color:rgba(87,227,139,.5)"><span lang="es">Duda metódica</span><span lang="en">Methodical doubt</span></button>
+        <button class="btn primary" id="cNext" style="display:none"><span lang="es">Siguiente →</span><span lang="en">Next →</span></button>
       </div>
       <div class="gfeed" id="cfeed" aria-live="polite"></div>
       <div class="gscore" id="cscore"></div>
@@ -751,16 +815,19 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ VII · LAS CUATRO REGLAS ============ -->
 <section class="chap" id="c7">
   <div class="inner">
-    <div class="kicker"><span class="num">VII</span>Discurso del método · segunda parte</div>
-    <h2>Las cuatro <span class="u">reglas</span></h2>
-    <div class="apho">El método no regala verdades: impide tomar lo falso por verdadero.</div>
-    <p class="body">«Por método entiendo un conjunto de <b>reglas ciertas y fáciles</b>», escribe Descartes en las <i>Reglas para la dirección del espíritu</i>. Cuatro preceptos, con un orden interno preciso. Están desordenados: tocálos en el orden correcto.</p>
+    <div class="kicker"><span class="num">VII</span><span lang="es">Discurso del método · segunda parte</span><span lang="en">Discourse on the Method · part two</span></div>
+    <h2 lang="es">Las cuatro <span class="u">reglas</span></h2>
+    <h2 lang="en">The four <span class="u">rules</span></h2>
+    <div class="apho" lang="es">El método no regala verdades: impide tomar lo falso por verdadero.</div>
+    <div class="apho" lang="en">Method does not hand out truths: it prevents taking the false for the true.</div>
+    <p class="body" lang="es">«Por método entiendo un conjunto de <b>reglas ciertas y fáciles</b>», escribe Descartes en las <i>Reglas para la dirección del espíritu</i>. Cuatro preceptos, con un orden interno preciso. Están desordenados: tocálos en el orden correcto.</p>
+    <p class="body" lang="en">"By method I mean a set of <b>certain and easy rules</b>", Descartes writes in the <i>Rules for the Direction of the Mind</i>. Four precepts, with a precise internal order. They are out of order: tap them in the correct order.</p>
 
     <div id="rules-track">
-      <div class="slot" data-slot="0"><span class="sn">Paso 1</span></div>
-      <div class="slot" data-slot="1"><span class="sn">Paso 2</span></div>
-      <div class="slot" data-slot="2"><span class="sn">Paso 3</span></div>
-      <div class="slot" data-slot="3"><span class="sn">Paso 4</span></div>
+      <div class="slot" data-slot="0"><span class="sn"><span lang="es">Paso 1</span><span lang="en">Step 1</span></span></div>
+      <div class="slot" data-slot="1"><span class="sn"><span lang="es">Paso 2</span><span lang="en">Step 2</span></span></div>
+      <div class="slot" data-slot="2"><span class="sn"><span lang="es">Paso 3</span><span lang="en">Step 3</span></span></div>
+      <div class="slot" data-slot="3"><span class="sn"><span lang="es">Paso 4</span><span lang="en">Step 4</span></span></div>
     </div>
     <div id="rules-pool"></div>
     <div id="rules-feed" aria-live="polite"></div>
@@ -780,35 +847,47 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 <!-- ============ VIII · EL UMBRAL, CRUZADO ============ -->
 <section class="chap" id="c8">
   <div class="inner">
-    <div class="kicker"><span class="num">VIII</span>Cierre</div>
-    <h2>El umbral, <span class="u">cruzado</span></h2>
-    <div class="apho">Descartes no encontró más verdades: encontró un suelo. Dudó de todo para no volver a apoyarse en nada prestado.</div>
-    <p class="body">Recapitulá el arco entero: un criterio de verdad que se rompe (Reforma + pirronismo), dos herencias que no se conocían entre sí (la duda de Montaigne, el hambre de método de Bacon), y un hombre que las junta y las radicaliza hasta que la duda misma entrega la primera certeza. De ahí en más, el saber moderno se edifica sobre la <b>subjetividad</b>.</p>
+    <div class="kicker"><span class="num">VIII</span><span lang="es">Cierre</span><span lang="en">Closing</span></div>
+    <h2 lang="es">El umbral, <span class="u">cruzado</span></h2>
+    <h2 lang="en">The threshold, <span class="u">crossed</span></h2>
+    <div class="apho" lang="es">Descartes no encontró más verdades: encontró un suelo. Dudó de todo para no volver a apoyarse en nada prestado.</div>
+    <div class="apho" lang="en">Descartes found no further truths: he found a floor. He doubted everything so as never again to lean on anything borrowed.</div>
+    <p class="body" lang="es">Recapitulá el arco entero: un criterio de verdad que se rompe (Reforma + pirronismo), dos herencias que no se conocían entre sí (la duda de Montaigne, el hambre de método de Bacon), y un hombre que las junta y las radicaliza hasta que la duda misma entrega la primera certeza. De ahí en más, el saber moderno se edifica sobre la <b>subjetividad</b>.</p>
+    <p class="body" lang="en">Recap the whole arc: a criterion of truth that breaks (Reformation + Pyrrhonism), two inheritances that did not know each other (Montaigne's doubt, Bacon's hunger for method), and a man who joins and radicalizes them until doubt itself yields the first certainty. From then on, modern knowledge is built on <b>subjectivity</b>.</p>
 
     <div class="hr"></div>
-    <h3 style="font-size:clamp(20px,2.6vw,28px)">Autoexamen · cinco preguntas</h3>
-    <p class="note" style="margin-bottom:6px">Al terminar vas a recibir un código local con tus resultados. El resto queda entre vos y el genio maligno.</p>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)" lang="es">Autoexamen · cinco preguntas</h3>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)" lang="en">Self-test · five questions</h3>
+    <p class="note" style="margin-bottom:6px" lang="es">Al terminar vas a recibir un código local con tus resultados. El resto queda entre vos y el genio maligno.</p>
+    <p class="note" style="margin-bottom:6px" lang="en">When you finish you will receive a local code with your results. The rest stays between you and the evil demon.</p>
     <div id="quiz"></div>
     <div id="quiz-score" aria-live="polite"></div>
 
     <div id="result">
-      <h3>Tu código de resultado</h3>
-      <p class="note">Copialo si querés guardar el recorrido. Lleva la fecha y tus aciertos por sección — nada más, nada menos.</p>
+      <h3 lang="es">Tu código de resultado</h3><h3 lang="en">Your result code</h3>
+      <p class="note" lang="es">Copialo si querés guardar el recorrido. Lleva la fecha y tus aciertos por sección — nada más, nada menos.</p>
+      <p class="note" lang="en">Copy it if you want to keep a record. It carries the date and your score by section — nothing more, nothing less.</p>
       <div class="codebox">
         <code id="codeval"></code>
-        <button class="btn primary" id="copybtn">Copiar código</button>
+        <button class="btn primary" id="copybtn"><span lang="es">Copiar código</span><span lang="en">Copy code</span></button>
       </div>
       <div id="codelegend"></div>
-      <div class="btnrow"><button class="btn ghost" id="redoquiz">Rehacer el autoexamen</button></div>
+      <div class="btnrow"><button class="btn ghost" id="redoquiz"><span lang="es">Rehacer el autoexamen</span><span lang="en">Retake the self-test</span></button></div>
     </div>
 
     <div class="hr"></div>
-    <h3 style="font-size:clamp(20px,2.6vw,28px)">Para discutir en clase</h3>
-    <p class="body">¿Es <b>sensato</b> dudar de que estás despierto, o de que 2 + 2 = 4? ¿Dónde termina una duda razonable y empieza una duda hiperbólica —y qué se gana al cruzar esa frontera a propósito?</p>
-    <p class="body">Si el criterio de verdad es la <b>evidencia</b>, que se da dentro de cada sujeto… ¿lo evidente para uno es evidente para todos? ¿No reaparece, dentro del yo, el mismo problema del criterio que hundió a católicos y protestantes?</p>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)" lang="es">Para discutir en clase</h3>
+    <h3 style="font-size:clamp(20px,2.6vw,28px)" lang="en">For class discussion</h3>
+    <p class="body" lang="es">¿Es <b>sensato</b> dudar de que estás despierto, o de que 2 + 2 = 4? ¿Dónde termina una duda razonable y empieza una duda hiperbólica —y qué se gana al cruzar esa frontera a propósito?</p>
+    <p class="body" lang="en">Is it <b>reasonable</b> to doubt that you are awake, or that 2 + 2 = 4? Where does reasonable doubt end and hyperbolic doubt begin —and what is gained by crossing that border on purpose?</p>
+    <p class="body" lang="es">Si el criterio de verdad es la <b>evidencia</b>, que se da dentro de cada sujeto… ¿lo evidente para uno es evidente para todos? ¿No reaparece, dentro del yo, el mismo problema del criterio que hundió a católicos y protestantes?</p>
+    <p class="body" lang="en">If the criterion of truth is <b>evidence</b>, which occurs within each subject… is what is evident to one evident to all? Does the very problem of the criterion that sank Catholics and Protestants not reappear inside the I?</p>
 
-    <div class="sources">
+    <div class="sources" lang="es">
       <b>Fuentes.</b> A. P. Carpio, <i>Principios de filosofía</i>, cap. I §6 (la duda como origen; escepticismos) y cap. VIII (del Renacimiento a Descartes, §1–9). C. Jáuregui, <i>Historia de la Filosofía Moderna</i>, Teórico N.º 1 (UBA, 2007). R. Descartes, <i>Discurso del método</i> (1637), partes II y IV; <i>Meditaciones metafísicas</i> (1641), I y II — citados según Carpio.
+    </div>
+    <div class="sources" lang="en">
+      <b>Sources.</b> A. P. Carpio, <i>Principios de filosofía</i>, ch. I §6 (doubt as origin; skepticisms) and ch. VIII (from the Renaissance to Descartes, §1–9). C. Jáuregui, <i>Historia de la Filosofía Moderna</i>, Lecture No. 1 (UBA, 2007). R. Descartes, <i>Discourse on the Method</i> (1637), parts II and IV; <i>Meditations on First Philosophy</i> (1641), I and II — cited after Carpio.
     </div>
     <aside class="tnotes">
       <div class="tlabel"><span>Notas de clase · VIII</span><span>~10 min · preguntar y callar</span></div>
@@ -821,17 +900,18 @@ footer .btn{font-size:12.5px;padding:7px 12px}
 </section>
 
 <footer>
-    <span>La demolición · Del Renacimiento a Descartes — versión pública de aula</span>
-  <button class="btn ghost" id="freset">Reiniciar progreso</button>
-  <span>© 2026 Dan Mecikovsky · Todos los derechos reservados</span>
+    <span lang="es">La demolición · Del Renacimiento a Descartes — versión pública de aula</span>
+    <span lang="en">The demolition · From the Renaissance to Descartes — public classroom version</span>
+  <button class="btn ghost" id="freset"><span lang="es">Reiniciar progreso</span><span lang="en">Reset progress</span></button>
+  <span>© 2026 Dan Mecikovsky · <span lang="es">Todos los derechos reservados</span><span lang="en">All rights reserved</span></span>
 </footer>
 
 <div id="resume" role="dialog" aria-label="Progreso guardado">
   <p id="resume-msg"></p>
   <div class="btnrow" style="margin-top:0">
-    <button class="btn primary" id="resume-go">Llevame ahí</button>
-    <button class="btn ghost" id="resume-reset">Empezar de cero</button>
-    <button class="btn ghost" id="resume-x" aria-label="Cerrar aviso">✕</button>
+    <button class="btn primary" id="resume-go"><span lang="es">Llevame ahí</span><span lang="en">Take me there</span></button>
+    <button class="btn ghost" id="resume-reset"><span lang="es">Empezar de cero</span><span lang="en">Start over</span></button>
+    <button class="btn ghost" id="resume-x" aria-label="Cerrar aviso / Close">✕</button>
   </div>
 </div>
 
@@ -846,6 +926,29 @@ function rnd(n){const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x
 /* ============ modo docente ============ */
 const DOCENTE=new URLSearchParams(location.search).get('modo')==='docente';
 if(DOCENTE)document.body.classList.add('docente');
+
+/* ============ idioma / language ============ */
+const LKEY='demolicion_lang';
+let LANG='es';
+/* L(): emite ambos idiomas en <span lang>; el CSS muestra el activo. Para HTML. */
+const L=(es,en)=>'<span lang="es">'+es+'</span><span lang="en">'+en+'</span>';
+/* PICK(): elige un idioma ahora (para contextos sin HTML: confirm, texto SVG). */
+const PICK=(es,en)=>LANG==='en'?en:es;
+function applyLang(l){
+  LANG=(l==='en')?'en':'es';
+  const en=(LANG==='en');
+  document.body.classList.toggle('en',en);
+  document.documentElement.lang=LANG;
+  const be=$('#lang-en'),bs=$('#lang-es');
+  be.classList.toggle('on',en);bs.classList.toggle('on',!en);
+  be.setAttribute('aria-pressed',en?'true':'false');
+  bs.setAttribute('aria-pressed',en?'false':'true');
+  if(window._floorsReady)updateFloorLabels();
+  try{localStorage.setItem(LKEY,l);}catch(e){}
+}
+$('#lang-es').addEventListener('click',()=>applyLang('es'));
+$('#lang-en').addEventListener('click',()=>applyLang('en'));
+applyLang((()=>{try{return localStorage.getItem(LKEY)==='en'?'en':'es';}catch(e){return 'es';}})());
 
 /* ============ estado persistente ============ */
 const SKEY=DOCENTE?'demolicion_v2_docente':'demolicion_v2';
@@ -864,7 +967,7 @@ let S=(function(){
 })();
 function save(){try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
 function resetProgress(){
-  if(!confirm('¿Borrar todo el progreso guardado y empezar de cero?'))return;
+  if(!confirm(PICK('¿Borrar todo el progreso guardado y empezar de cero?','Erase all saved progress and start over?')))return;
   try{localStorage.removeItem(SKEY);}catch(e){}
   location.reload();
 }
@@ -897,11 +1000,14 @@ onScroll();
   const any=S.chap>0||S.demo.done>0||S.demo.phase!=='floors'||S.attrib.done||S.attrib.i>0||
             S.cls.done||S.cls.i>0||S.rules.next>0||S.quiz.ans.some(a=>a>=0);
   if(!savedExisted||!any)return;
-  const CH=['el umbral','I · El umbral roto','II · La máquina de criterios','III · Dos herencias',
+  const CH_ES=['el umbral','I · El umbral roto','II · La máquina de criterios','III · Dos herencias',
             'IV · La demolición','V · La primera certeza','VI · Duda contra duda',
             'VII · Las cuatro reglas','VIII · El umbral, cruzado'];
+  const CH_EN=['the threshold','I · The broken threshold','II · The criterion machine','III · Two inheritances',
+            'IV · The demolition','V · The first certainty','VI · Doubt against doubt',
+            'VII · The four rules','VIII · The threshold, crossed'];
   const tgt=Math.min(Math.max(S.chap,0),8);
-  $('#resume-msg').innerHTML='Progreso recuperado. Habías llegado a <b>'+CH[tgt]+'</b>.';
+  $('#resume-msg').innerHTML=L('Progreso recuperado. Habías llegado a <b>'+CH_ES[tgt]+'</b>.','Progress restored. You had reached <b>'+CH_EN[tgt]+'</b>.');
   const box=$('#resume');
   box.classList.add('show');
   $('#resume-go').addEventListener('click',()=>{
@@ -922,20 +1028,20 @@ $$('.epoch').forEach(el=>{
 
 /* ============ II · máquina de criterios ============ */
 const rlevels=[
-  {q:'¿Quién interpreta correctamente?',a:'<b>Criterio 1</b> — "La Iglesia tiene la autoridad." / "Cada uno por sí mismo."'},
-  {q:'¿Y con qué criterio elijo entre esos dos criterios?',a:'<b>Criterio 2</b> — necesito un criterio que valide al criterio.'},
-  {q:'¿Y quién valida al validador?',a:'<b>Criterio 3</b> — un criterio para el criterio del criterio.'},
-  {q:'¿Y a ese, quién?',a:'<b>Criterio 4</b> — esto ya es un espejo frente a otro espejo.'},
-  {q:'¿Cuántos escalones más pensás subir?',a:'<b>Criterio 5</b> — …'}
+  {q:{es:'¿Quién interpreta correctamente?',en:'Who interprets correctly?'},a:{es:'<b>Criterio 1</b> — "La Iglesia tiene la autoridad." / "Cada uno por sí mismo."',en:'<b>Criterion 1</b> — "The Church holds the authority." / "Each person for themselves."'}},
+  {q:{es:'¿Y con qué criterio elijo entre esos dos criterios?',en:'And by what criterion do I choose between those two criteria?'},a:{es:'<b>Criterio 2</b> — necesito un criterio que valide al criterio.',en:'<b>Criterion 2</b> — I need a criterion that validates the criterion.'}},
+  {q:{es:'¿Y quién valida al validador?',en:'And who validates the validator?'},a:{es:'<b>Criterio 3</b> — un criterio para el criterio del criterio.',en:'<b>Criterion 3</b> — a criterion for the criterion of the criterion.'}},
+  {q:{es:'¿Y a ese, quién?',en:'And that one, who?'},a:{es:'<b>Criterio 4</b> — esto ya es un espejo frente a otro espejo.',en:'<b>Criterion 4</b> — this is now a mirror facing another mirror.'}},
+  {q:{es:'¿Cuántos escalones más pensás subir?',en:'How many more steps do you think you can climb?'},a:{es:'<b>Criterio 5</b> — …',en:'<b>Criterion 5</b> — …'}}
 ];
 let rn=0;
 const rbtn=$('#rbtn'),rstack=$('#rstack'),rend=$('#rend'),rreset=$('#rreset');
 rbtn.addEventListener('click',()=>{
   if(rn>=rlevels.length)return;
-  const L=rlevels[rn];
+  const lv=rlevels[rn];
   const d=document.createElement('div');
   d.className='rlevel';
-  d.innerHTML='<div class="rq"><b>?</b> '+L.q+'</div><div class="ra">'+L.a+'</div>';
+  d.innerHTML='<div class="rq"><b>?</b> '+L(lv.q.es,lv.q.en)+'</div><div class="ra">'+L(lv.a.es,lv.a.en)+'</div>';
   rstack.appendChild(d);
   rn++;
   if(rn===rlevels.length){
@@ -968,7 +1074,7 @@ $$('[data-circle]').forEach(box=>{
         steps.forEach(s=>s.classList.remove('hot'));
         laps++;
         lapsEl.textContent=laps;
-        if(laps>=2){verdict.classList.add('show');btn.textContent='Seguir girando';}
+        if(laps>=2){verdict.classList.add('show');btn.innerHTML=L('Seguir girando','Keep spinning');}
         running=false;btn.disabled=false;
       }
     },650);
@@ -977,51 +1083,58 @@ $$('[data-circle]').forEach(box=>{
 
 /* ============ III · ¿quién firma? ============ */
 const aItems=[
-  {t:'«La razón humana es de suyo tan corta y tan ciega, que lo que conviene es la humildad y la sumisión.»',who:'M',
-   ok:'Montaigne, en la Apología de Raimundo Sabunde: finge defender al teólogo y hunde a la razón entera.',
-   bad:'Es Montaigne. Bacon desconfía de la herencia, no de la razón: quiere dirigirla con un método.'},
-  {t:'«El silogismo no descubre nada nuevo: sólo transmite una verdad que ya se poseía — y arrastra los errores viejos.»',who:'B',
-   ok:'Bacon, momento destructivo del Novum Organum: la lógica heredada no sirve para descubrir.',
-   bad:'Es Bacon. Montaigne no propone reformar la lógica: propone bajarle el precio a la razón.'},
-  {t:'«¿Que sé algo? Ni siquiera eso afirmo: suspendo el juicio.»',who:'M',
-   ok:'Montaigne, respirando pirronismo puro: lo toma de Sexto Empírico, y por esa vía llegará a Descartes.',
-   bad:'Es Montaigne — el eco de Pirrón vía Sexto Empírico. Bacon nunca suspende el juicio: quiere leyes de la naturaleza.'},
-  {t:'«No se injerta lo nuevo en el tronco viejo: hay que empezar todo de nuevo.»',who:'B',
-   ok:'Bacon: rechazo de los saberes heredados. Ojo — Descartes va a radicalizar exactamente este gesto.',
-   bad:'Es Bacon. Aunque suene cartesiano: Descartes hereda de él este empezar-de-cero.'},
-  {t:'«De casos particulares, observados y registrados según un plan, se asciende a leyes cada vez más generales.»',who:'B',
-   ok:'Bacon, momento constructivo: la inducción. Su problema: es un razonamiento inválido — la conclusión afirma más que las premisas.',
-   bad:'Es Bacon: la inducción. Montaigne no busca leyes; se busca a sí mismo en el ensayo.'},
-  {t:'«Cuando dormimos creemos tan firmemente como despiertos. ¿Qué nos asegura que ahora no soñamos?»',who:'M',
-   ok:'Montaigne. Guardá este argumento: Descartes lo va a levantar del ensayo y lo va a convertir en dinamita.',
-   bad:'Es Montaigne. El argumento del sueño nace escéptico; Descartes lo vuelve metódico.'}
+  {who:'M',
+   t:{es:'«La razón humana es de suyo tan corta y tan ciega, que lo que conviene es la humildad y la sumisión.»',en:'"Human reason is in itself so short and so blind that what is fitting is humility and submission."'},
+   ok:{es:'Montaigne, en la Apología de Raimundo Sabunde: finge defender al teólogo y hunde a la razón entera.',en:'Montaigne, in the Apology for Raymond Sebond: he pretends to defend the theologian and sinks reason entirely.'},
+   bad:{es:'Es Montaigne. Bacon desconfía de la herencia, no de la razón: quiere dirigirla con un método.',en:'It is Montaigne. Bacon distrusts the inheritance, not reason: he wants to direct it with a method.'}},
+  {who:'B',
+   t:{es:'«El silogismo no descubre nada nuevo: sólo transmite una verdad que ya se poseía — y arrastra los errores viejos.»',en:'"The syllogism discovers nothing new: it only transmits a truth already possessed — and drags along the old errors."'},
+   ok:{es:'Bacon, momento destructivo del Novum Organum: la lógica heredada no sirve para descubrir.',en:'Bacon, the destructive moment of the Novum Organum: inherited logic is no use for discovery.'},
+   bad:{es:'Es Bacon. Montaigne no propone reformar la lógica: propone bajarle el precio a la razón.',en:'It is Bacon. Montaigne does not propose to reform logic: he proposes to lower the price of reason.'}},
+  {who:'M',
+   t:{es:'«¿Que sé algo? Ni siquiera eso afirmo: suspendo el juicio.»',en:'"That I know something? I do not even affirm that: I suspend judgment."'},
+   ok:{es:'Montaigne, respirando pirronismo puro: lo toma de Sexto Empírico, y por esa vía llegará a Descartes.',en:'Montaigne, breathing pure Pyrrhonism: he takes it from Sextus Empiricus, and by that route it will reach Descartes.'},
+   bad:{es:'Es Montaigne — el eco de Pirrón vía Sexto Empírico. Bacon nunca suspende el juicio: quiere leyes de la naturaleza.',en:'It is Montaigne — the echo of Pyrrho via Sextus Empiricus. Bacon never suspends judgment: he wants laws of nature.'}},
+  {who:'B',
+   t:{es:'«No se injerta lo nuevo en el tronco viejo: hay que empezar todo de nuevo.»',en:'"You do not graft the new onto the old trunk: you must begin everything anew."'},
+   ok:{es:'Bacon: rechazo de los saberes heredados. Ojo — Descartes va a radicalizar exactamente este gesto.',en:'Bacon: rejection of inherited knowledge. Note — Descartes will radicalize exactly this gesture.'},
+   bad:{es:'Es Bacon. Aunque suene cartesiano: Descartes hereda de él este empezar-de-cero.',en:'It is Bacon. Even if it sounds Cartesian: Descartes inherits this starting-from-scratch from him.'}},
+  {who:'B',
+   t:{es:'«De casos particulares, observados y registrados según un plan, se asciende a leyes cada vez más generales.»',en:'"From particular cases, observed and recorded according to a plan, one ascends to ever more general laws."'},
+   ok:{es:'Bacon, momento constructivo: la inducción. Su problema: es un razonamiento inválido — la conclusión afirma más que las premisas.',en:'Bacon, the constructive moment: induction. Its problem: it is invalid reasoning — the conclusion asserts more than the premises.'},
+   bad:{es:'Es Bacon: la inducción. Montaigne no busca leyes; se busca a sí mismo en el ensayo.',en:'It is Bacon: induction. Montaigne does not seek laws; he seeks himself in the essay.'}},
+  {who:'M',
+   t:{es:'«Cuando dormimos creemos tan firmemente como despiertos. ¿Qué nos asegura que ahora no soñamos?»',en:'"When we sleep we believe as firmly as when awake. What assures us that we are not dreaming right now?"'},
+   ok:{es:'Montaigne. Guardá este argumento: Descartes lo va a levantar del ensayo y lo va a convertir en dinamita.',en:'Montaigne. Keep this argument: Descartes will lift it from the essay and turn it into dynamite.'},
+   bad:{es:'Es Montaigne. El argumento del sueño nace escéptico; Descartes lo vuelve metódico.',en:'It is Montaigne. The dream argument is born skeptical; Descartes makes it methodical.'}}
 ];
 let ai=Math.min(S.attrib.i,aItems.length-1),aok=S.attrib.ok;
 const aq=$('#aq'),afeed=$('#afeed'),ascore=$('#ascore'),
       aM=$('#aM'),aB=$('#aB'),aNext=$('#aNext'),akey=$('#akey');
+function aScoreTxt(){return L('Cita '+(ai+1)+' de '+aItems.length+' · aciertos: <b>'+aok+'</b>','Quote '+(ai+1)+' of '+aItems.length+' · correct: <b>'+aok+'</b>');}
 function aShow(){
   const it=aItems[ai];
-  aq.textContent=it.t;
+  aq.innerHTML=L(it.t.es,it.t.en);
   afeed.textContent='';afeed.className='gfeed';
   aM.style.display=aB.style.display='inline-block';
   aM.disabled=aB.disabled=false;
   aNext.style.display='none';
-  ascore.innerHTML='Cita '+(ai+1)+' de '+aItems.length+' · aciertos: <b>'+aok+'</b>';
+  ascore.innerHTML=aScoreTxt();
   akey.textContent='Docente · firma: '+(it.who==='M'?'Montaigne':'Bacon');
 }
 function aAnswer(g){
   const it=aItems[ai];
   aM.disabled=aB.disabled=true;
-  if(g===it.who){aok++;afeed.className='gfeed ok';afeed.innerHTML='✔ '+it.ok;}
-  else{afeed.className='gfeed bad';afeed.innerHTML='✘ '+it.bad;
+  if(g===it.who){aok++;afeed.className='gfeed ok';afeed.innerHTML='✔ '+L(it.ok.es,it.ok.en);}
+  else{afeed.className='gfeed bad';afeed.innerHTML='✘ '+L(it.bad.es,it.bad.en);
        aq.classList.add('shake');setTimeout(()=>aq.classList.remove('shake'),450);}
   S.attrib.ok=aok;save();
-  ascore.innerHTML='Cita '+(ai+1)+' de '+aItems.length+' · aciertos: <b>'+aok+'</b>';
+  ascore.innerHTML=aScoreTxt();
   aNext.style.display='inline-block';
-  aNext.textContent=(ai===aItems.length-1)?'Ver el balance →':'Siguiente →';
+  aNext.innerHTML=(ai===aItems.length-1)?L('Ver el balance →','See the summary →'):L('Siguiente →','Next →');
 }
 function aFinish(){
-  aq.innerHTML='Balance: <b style="font-style:normal;color:var(--amber)">'+aok+' / '+aItems.length+'</b>. Montaigne aporta la <b style="font-style:normal;color:var(--coral)">duda</b>; Bacon, la exigencia de un <b style="font-style:normal;color:var(--green)">método de descubrimiento</b>. Descartes no elige entre los dos: funde la duda <i>dentro</i> del método.';
+  aq.innerHTML=L('Balance: <b style="font-style:normal;color:var(--amber)">'+aok+' / '+aItems.length+'</b>. Montaigne aporta la <b style="font-style:normal;color:var(--coral)">duda</b>; Bacon, la exigencia de un <b style="font-style:normal;color:var(--green)">método de descubrimiento</b>. Descartes no elige entre los dos: funde la duda <i>dentro</i> del método.','Summary: <b style="font-style:normal;color:var(--amber)">'+aok+' / '+aItems.length+'</b>. Montaigne supplies <b style="font-style:normal;color:var(--coral)">doubt</b>; Bacon, the demand for a <b style="font-style:normal;color:var(--green)">method of discovery</b>. Descartes does not choose between the two: he fuses doubt <i>within</i> the method.');
   afeed.textContent='';ascore.textContent='';akey.textContent='';
   aM.style.display=aB.style.display=aNext.style.display='none';
 }
@@ -1035,48 +1148,64 @@ if(S.attrib.done)aFinish();else aShow();
 
 /* ============ IV · demolición: datos ============ */
 const BELIEFS=[
-  {label:'Creencia 1 · lo lejano',text:'«Aquella torre, a lo lejos, es redonda.»',correct:0,
+  {correct:0,
+   label:{es:'Creencia 1 · lo lejano',en:'Belief 1 · the distant'},
+   text:{es:'«Aquella torre, a lo lejos, es redonda.»',en:'"That tower, far off, is round."'},
    feed:[
-    '✔ Demolida. De cerca la torre resulta cuadrada; el remo en el agua se quiebra y al sacarlo se endereza. Los sentidos ya nos engañaron alguna vez: es propio de la prudencia no confiar jamás demasiado en quien nos engañó. (Carpio VIII §5)',
-    '✘ Alcanza con menos. Para lo lejano y lo difícil de percibir bastan las ilusiones conocidas. La duda es económica: usá el argumento mínimo que baste.',
-    '✘ Instrumento equivocado: acá no hay razonamiento que pueda descarrilar — hay una percepción. Atacá a los sentidos.',
-    '✘ ¿El genio maligno para una torre? Dinamita para un castillo de arena. Guardalo: lo vas a necesitar de verdad.'
+    {es:'✔ Demolida. De cerca la torre resulta cuadrada; el remo en el agua se quiebra y al sacarlo se endereza. Los sentidos ya nos engañaron alguna vez: es propio de la prudencia no confiar jamás demasiado en quien nos engañó. (Carpio VIII §5)',en:'✔ Demolished. Up close the tower turns out square; the oar in the water looks bent and straightens when pulled out. The senses have deceived us before: it is prudent never to trust too much what has once deceived us. (Carpio VIII §5)'},
+    {es:'✘ Alcanza con menos. Para lo lejano y lo difícil de percibir bastan las ilusiones conocidas. La duda es económica: usá el argumento mínimo que baste.',en:'✘ Less is enough. For the distant and the hard-to-perceive, the known illusions suffice. Doubt is economical: use the minimal argument that suffices.'},
+    {es:'✘ Instrumento equivocado: acá no hay razonamiento que pueda descarrilar — hay una percepción. Atacá a los sentidos.',en:'✘ Wrong instrument: here there is no reasoning that can derail — there is a perception. Attack the senses.'},
+    {es:'✘ ¿El genio maligno para una torre? Dinamita para un castillo de arena. Guardalo: lo vas a necesitar de verdad.',en:'✘ The evil demon for a tower? Dynamite for a sandcastle. Save it: you will really need it.'}
    ],
-   genio:'¿Ves qué fácil? Seguí.'},
-  {label:'Creencia 2 · lo patente',text:'«Estoy acá, en el aula, sentado, con esta hoja en las manos.»',correct:1,
+   genio:{es:'¿Ves qué fácil? Seguí.',en:'See how easy? Keep going.'}},
+  {correct:1,
+   label:{es:'Creencia 2 · lo patente',en:'Belief 2 · the obvious'},
+   text:{es:'«Estoy acá, en el aula, sentado, con esta hoja en las manos.»',en:'"I am here, in the classroom, seated, with this sheet in my hands."'},
    feed:[
-    '✘ No alcanza. Descartes lo concede: dudar de lo tan patente y cercano parecería cosa de insensatos. Las ilusiones valen para lo lejano y lo diminuto. Hace falta algo más profundo.',
-    '✔ Demolida. Muchas veces soñé estar exactamente así — despierto, escribiendo — y estaba dormido y acostado. «No hay indicios ciertos para distinguir el sueño de la vigilia.» Ni pellizcarse sirve: ¿y si el pellizco es soñado? Todo lo sensible cae, hasta lo más patente. (Carpio VIII §5)',
-    '✘ Instrumento equivocado: no estoy razonando, estoy percibiendo. El golpe tiene que entrar por los sentidos.',
-    '✘ Alcanza con menos. Todavía no hace falta el monstruo: hay un argumento más doméstico que voltea esto.'
+    {es:'✘ No alcanza. Descartes lo concede: dudar de lo tan patente y cercano parecería cosa de insensatos. Las ilusiones valen para lo lejano y lo diminuto. Hace falta algo más profundo.',en:'✘ Not enough. Descartes concedes it: to doubt something so obvious and near would seem the act of madmen. Illusions work for the distant and the tiny. Something deeper is needed.'},
+    {es:'✔ Demolida. Muchas veces soñé estar exactamente así — despierto, escribiendo — y estaba dormido y acostado. «No hay indicios ciertos para distinguir el sueño de la vigilia.» Ni pellizcarse sirve: ¿y si el pellizco es soñado? Todo lo sensible cae, hasta lo más patente. (Carpio VIII §5)',en:'✔ Demolished. Many times I dreamed I was exactly like this — awake, writing — and I was asleep in bed. "There are no certain signs to tell dreaming from waking." Not even pinching yourself helps: what if the pinch is dreamed? Everything sensory falls, even the most obvious. (Carpio VIII §5)'},
+    {es:'✘ Instrumento equivocado: no estoy razonando, estoy percibiendo. El golpe tiene que entrar por los sentidos.',en:'✘ Wrong instrument: I am not reasoning, I am perceiving. The blow has to come through the senses.'},
+    {es:'✘ Alcanza con menos. Todavía no hace falta el monstruo: hay un argumento más doméstico que voltea esto.',en:'✘ Less is enough. The monster is not needed yet: there is a more domestic argument that topples this.'}
    ],
-   genio:'Ni tu propio cuerpo te queda.'},
-  {label:'Creencia 3 · el cálculo',text:'«Hice esta suma larga tres veces: tiene que estar bien.»',correct:2,
+   genio:{es:'Ni tu propio cuerpo te queda.',en:'Not even your own body remains to you.'}},
+  {correct:2,
+   label:{es:'Creencia 3 · el cálculo',en:'Belief 3 · the calculation'},
+   text:{es:'«Hice esta suma larga tres veces: tiene que estar bien.»',en:'"I did this long sum three times: it must be right."'},
    feed:[
-    '✘ Los sentidos no son el blanco: la suma es un proceso del pensamiento, no una percepción.',
-    '✘ No alcanza: aun soñando, la matemática parece seguir valiendo dentro del sueño. El ataque tiene que ir contra la razón misma.',
-    '✔ Demolida. «Hay hombres que yerran al razonar aun acerca de los más simples asuntos de geometría.» Todo proceso discursivo — con pasos, con memoria — puede descarrilar; y si pudo fallar una vez, la sospecha lo cubre todo. (Carpio VIII §6)',
-    '✘ Alcanza con menos: contra un razonamiento con pasos basta recordar los paralogismos. El genio, todavía no.'
+    {es:'✘ Los sentidos no son el blanco: la suma es un proceso del pensamiento, no una percepción.',en:'✘ The senses are not the target: the sum is a process of thought, not a perception.'},
+    {es:'✘ No alcanza: aun soñando, la matemática parece seguir valiendo dentro del sueño. El ataque tiene que ir contra la razón misma.',en:'✘ Not enough: even in a dream, mathematics seems to hold within the dream. The attack has to go against reason itself.'},
+    {es:'✔ Demolida. «Hay hombres que yerran al razonar aun acerca de los más simples asuntos de geometría.» Todo proceso discursivo — con pasos, con memoria — puede descarrilar; y si pudo fallar una vez, la sospecha lo cubre todo. (Carpio VIII §6)',en:'✔ Demolished. "Some men reason wrongly even about the simplest matters of geometry." Every discursive process — with steps, with memory — can derail; and if it could fail once, suspicion covers it all. (Carpio VIII §6)'},
+    {es:'✘ Alcanza con menos: contra un razonamiento con pasos basta recordar los paralogismos. El genio, todavía no.',en:'✘ Less is enough: against step-by-step reasoning it is enough to recall fallacious reasoning. The demon, not yet.'}
    ],
-   genio:'También tu razón es mía.'},
-  {label:'Creencia 4 · el principio',text:'«2 + 2 = 4.»',correct:3,
+   genio:{es:'También tu razón es mía.',en:'Your reason too is mine.'}},
+  {correct:3,
+   label:{es:'Creencia 4 · el principio',en:'Belief 4 · the principle'},
+   text:{es:'«2 + 2 = 4.»',en:'"2 + 2 = 4."'},
    feed:[
-    '✘ Esto no se ve ni se toca: se intuye. Los sentidos no tienen jurisdicción.',
-    '✘ Aun dormido, 2 + 2 = 4 parece valer. El sueño no muerde acá.',
-    '✘ No alcanza — y esta es la distinción fina: los paralogismos atañen a <b>razonamientos</b>, procesos con pasos. Pero esto no es discursivo: se capta de un solo golpe, por simple inspección del espíritu. Contra una <b>intuición</b>, el error de cálculo no tiene agarre.',
-    '✔ Demolida. Sólo una hipótesis extrema alcanza: un genio «no menos astuto y burlador que poderoso», dedicado por entero a engañarme — incluso cuando intuyo. Descartes no afirma que exista; señala que no tenemos razón para descartar que exista. Y para esta duda, la mera posibilidad basta. Punto máximo. (Carpio VIII §6)'
+    {es:'✘ Esto no se ve ni se toca: se intuye. Los sentidos no tienen jurisdicción.',en:'✘ This is neither seen nor touched: it is intuited. The senses have no jurisdiction.'},
+    {es:'✘ Aun dormido, 2 + 2 = 4 parece valer. El sueño no muerde acá.',en:'✘ Even asleep, 2 + 2 = 4 seems to hold. The dream does not bite here.'},
+    {es:'✘ No alcanza — y esta es la distinción fina: los paralogismos atañen a <b>razonamientos</b>, procesos con pasos. Pero esto no es discursivo: se capta de un solo golpe, por simple inspección del espíritu. Contra una <b>intuición</b>, el error de cálculo no tiene agarre.',en:'✘ Not enough — and this is the fine distinction: fallacious reasoning concerns <b>reasonings</b>, processes with steps. But this is not discursive: it is grasped at a single stroke, by simple inspection of the mind. Against an <b>intuition</b>, a calculation error has no grip.'},
+    {es:'✔ Demolida. Sólo una hipótesis extrema alcanza: un genio «no menos astuto y burlador que poderoso», dedicado por entero a engañarme — incluso cuando intuyo. Descartes no afirma que exista; señala que no tenemos razón para descartar que exista. Y para esta duda, la mera posibilidad basta. Punto máximo. (Carpio VIII §6)',en:'✔ Demolished. Only an extreme hypothesis suffices: a demon "no less cunning and deceiving than powerful", wholly devoted to deceiving me — even when I intuit. Descartes does not affirm that it exists; he notes that we have no reason to rule out that it exists. And for this doubt, the mere possibility is enough. Maximum point. (Carpio VIII §6)'}
    ],
-   genio:'Ahora todo es mío.'},
-  {label:'Creencia 5 · la última',text:'«Ahora mismo, estoy dudando.»',correct:-1,
+   genio:{es:'Ahora todo es mío.',en:'Now everything is mine.'}},
+  {correct:-1,
+   label:{es:'Creencia 5 · la última',en:'Belief 5 · the last'},
+   text:{es:'«Ahora mismo, estoy dudando.»',en:'"Right now, I am doubting."'},
    feed:[
-    '✘ Falló. La duda no se ve ni se toca: los sentidos no tienen nada que decir acá.',
-    '✘ Falló. ¿Y si sueño que dudo? Entonces sueño… y pienso. Sigo pensando: sigo siendo.',
-    '✘ Falló. No es un razonamiento con pasos: es una captación inmediata, en el acto mismo de dudar. No hay dónde descarrilar.',
-    '✘ Falló. Que me engañe en todo lo que quiera: <b>para engañarme, necesita que yo sea</b>. No puede hacer que yo no sea nada mientras yo piense que soy algo.'
+    {es:'✘ Falló. La duda no se ve ni se toca: los sentidos no tienen nada que decir acá.',en:'✘ It failed. Doubt is neither seen nor touched: the senses have nothing to say here.'},
+    {es:'✘ Falló. ¿Y si sueño que dudo? Entonces sueño… y pienso. Sigo pensando: sigo siendo.',en:'✘ It failed. And what if I dream that I doubt? Then I dream… and I think. I go on thinking: I go on being.'},
+    {es:'✘ Falló. No es un razonamiento con pasos: es una captación inmediata, en el acto mismo de dudar. No hay dónde descarrilar.',en:'✘ It failed. It is not step-by-step reasoning: it is an immediate grasp, in the very act of doubting. There is nowhere to derail.'},
+    {es:'✘ Falló. Que me engañe en todo lo que quiera: <b>para engañarme, necesita que yo sea</b>. No puede hacer que yo no sea nada mientras yo piense que soy algo.',en:'✘ It failed. Let it deceive me in all it wants: <b>to deceive me, it needs me to be</b>. It cannot make me be nothing while I think that I am something.'}
    ]}
 ];
-const GENIO_FAILS=['Esto también va a caer.','Dame un momento…','Tiene que haber una grieta.','…Para engañarte, necesito que seas. Perdí.'];
+const GENIO_FAILS=[
+  {es:'Esto también va a caer.',en:'This too will fall.'},
+  {es:'Dame un momento…',en:'Give me a moment…'},
+  {es:'Tiene que haber una grieta.',en:'There must be a crack.'},
+  {es:'…Para engañarte, necesito que seas. Perdí.',en:'…To deceive you, I need you to be. I lost.'}
+];
 const TOOL_MIN=['las ilusiones (instrumento 1)','el sueño (instrumento 2)','los paralogismos (instrumento 3)','el genio maligno (instrumento 4)','ninguno alcanza — la creencia resiste: es el cogito'];
+const FLOORLABELS_I18N={es:['1 · LO LEJANO','2 · LO PATENTE','3 · EL CÁLCULO','4 · LOS PRINCIPIOS'],en:['1 · THE DISTANT','2 · THE OBVIOUS','3 · THE CALCULATION','4 · THE PRINCIPLES']};
 
 /* ============ IV · edificio SVG ============ */
 const svg=$('#bsvg');
@@ -1084,8 +1213,15 @@ const floorsLayer=$('#floorsLayer'),shardLayer=$('#shardLayer'),dustLayer=$('#du
 const genioEl=$('#genio'),gCracks=$('#g-cracks'),gEyes=$('#g-eyes');
 const gbubbleT=$('#gbubble-t');
 const BX=64,BW=300,TOPY=114,FH=62,GROUND=362;
-const FLOORLABELS=['1 · LO LEJANO','2 · LO PATENTE','3 · EL CÁLCULO','4 · LOS PRINCIPIOS'];
 const floorEls=[];
+function updateFloorLabels(){
+  if(!window._floorsReady)return;
+  floorEls.forEach((g,f)=>{
+    if(g.style.display==='none')return;
+    const t=g.querySelector('text');
+    if(t)t.textContent=FLOORLABELS_I18N[LANG][f];
+  });
+}
 (function buildFloors(){
   for(let f=0;f<4;f++){
     const y=TOPY+f*FH;
@@ -1118,11 +1254,12 @@ const floorEls=[];
     t.setAttribute('x',BX+16);t.setAttribute('y',y+FH-12);
     t.setAttribute('font-size','14');t.setAttribute('font-weight','700');
     t.setAttribute('letter-spacing','2');t.setAttribute('fill','#8B95A5');
-    t.textContent=FLOORLABELS[f];
+    t.textContent=FLOORLABELS_I18N[LANG][f];
     g.appendChild(t);
     floorsLayer.appendChild(g);
     floorEls.push(g);
   }
+  window._floorsReady=true;
 })();
 function fly(el,dx,dy,rot,dur,anim){
   el.style.transformBox='fill-box';el.style.transformOrigin='center';
@@ -1171,7 +1308,7 @@ function collapseFloor(f,anim){
   lb.setAttribute('x',BX+16);lb.setAttribute('y',y+FH-12);
   lb.setAttribute('font-size','14');lb.setAttribute('font-weight','700');
   lb.setAttribute('letter-spacing','2');lb.setAttribute('fill','#6E7888');
-  lb.textContent=FLOORLABELS[f];
+  lb.textContent=FLOORLABELS_I18N[LANG][f];
   shardLayer.appendChild(lb);
   shards.push({el:lb,cx:BX+70,cy:y+FH-16,i:12,label:true});
   shards.forEach(s=>{
@@ -1208,7 +1345,7 @@ function setGenio(n){
   svg.style.setProperty('--gs',(0.78+n*0.14).toFixed(2));
   gEyes.style.filter='drop-shadow(0 0 '+(3+n*2.4)+'px rgba(255,201,60,.95))';
 }
-function speak(t){gbubbleT.textContent='«'+t+'»';}
+function speak(o){gbubbleT.innerHTML=L('«'+o.es+'»','«'+o.en+'»');}
 function flinch(){
   genioEl.classList.remove('flinch');
   void svg.getBoundingClientRect();
@@ -1234,18 +1371,20 @@ const dbelief=$('#dbelief'),dblabel=$('#dblabel'),dbtext=$('#dbtext'),dfeed=$('#
       dkey=$('#dkey'),toolBtns=$$('#dtools .tool');
 let demoLocked=false;
 function setTools(on){toolBtns.forEach(b=>{b.disabled=!on;});}
+const DEMO_TRY=()=>L('Cuatro instrumentos, una creencia. Probalos.','Four instruments, one belief. Try them.');
+const GENIO_START={es:'Demolé tranquilo. Todo lo que caiga es mío.',en:'Demolish away. Everything that falls is mine.'};
 function updateProg(){
   const ph=S.demo.phase;
-  if(ph==='floors')dprog.innerHTML='Edificio del saber · creencia <b>'+(S.demo.done+1)+'</b> de 5 · errores: <b>'+S.demo.errs+'</b>';
-  else if(ph==='deep')dprog.innerHTML='Cuatro creencias demolidas · <b>queda una</b>';
-  else if(ph==='last')dprog.innerHTML='Edificio del saber · creencia <b>5</b> de 5 — la última';
-  else dprog.innerHTML='Demolición detenida · <b>algo quedó en pie</b>';
+  if(ph==='floors')dprog.innerHTML=L('Edificio del saber · creencia <b>'+(S.demo.done+1)+'</b> de 5 · errores: <b>'+S.demo.errs+'</b>','Edifice of knowledge · belief <b>'+(S.demo.done+1)+'</b> of 5 · errors: <b>'+S.demo.errs+'</b>');
+  else if(ph==='deep')dprog.innerHTML=L('Cuatro creencias demolidas · <b>queda una</b>','Four beliefs demolished · <b>one remains</b>');
+  else if(ph==='last')dprog.innerHTML=L('Edificio del saber · creencia <b>5</b> de 5 — la última','Edifice of knowledge · belief <b>5</b> of 5 — the last');
+  else dprog.innerHTML=L('Demolición detenida · <b>algo quedó en pie</b>','Demolition halted · <b>something remained standing</b>');
   dkey.textContent='Docente · argumento mínimo: '+TOOL_MIN[ph==='floors'?S.demo.done:4];
 }
 function dShowBelief(n){
   const b=BELIEFS[n];
-  dblabel.textContent=b.label;
-  dbtext.textContent=b.text;
+  dblabel.innerHTML=L(b.label.es,b.label.en);
+  dbtext.innerHTML=L(b.text.es,b.text.en);
   dfeed.innerHTML='';dfeed.className='';
   dbelief.classList.remove('fall','fallen','hold');
   updateProg();
@@ -1258,7 +1397,7 @@ function toolClick(t){
   const b=BELIEFS[S.demo.done];
   if(t===b.correct){
     demoLocked=true;
-    dfeed.className='ok';dfeed.innerHTML=b.feed[t];
+    dfeed.className='ok';dfeed.innerHTML=L(b.feed[t].es,b.feed[t].en);
     dbelief.classList.add('fall');
     collapseFloor(S.demo.done,true);
     setGenio(S.demo.done+1);
@@ -1278,7 +1417,7 @@ function toolClick(t){
     },1150);
   }else{
     S.demo.errs++;save();
-    dfeed.className='bad';dfeed.innerHTML=b.feed[t];
+    dfeed.className='bad';dfeed.innerHTML=L(b.feed[t].es,b.feed[t].en);
     dbelief.classList.add('shake');
     setTimeout(()=>dbelief.classList.remove('shake'),450);
     updateProg();
@@ -1292,7 +1431,7 @@ function lastBelief(t){
   pillarFlash();
   dfeed.className='bad';
   if(t===3){
-    dfeed.innerHTML=b.feed[3];
+    dfeed.innerHTML=L(b.feed[3].es,b.feed[3].en);
     speak(GENIO_FAILS[3]);
     genioBreak(true);
     S.demo.phase='won';save();
@@ -1302,7 +1441,7 @@ function lastBelief(t){
     setTimeout(()=>{
       const btn=document.createElement('button');
       btn.className='btn primary';btn.style.marginTop='14px';
-      btn.textContent='Algo quedó en pie →';
+      btn.innerHTML=L('Algo quedó en pie →','Something remained standing →');
       btn.addEventListener('click',()=>{
         cogito.classList.add('show');
         cogito.scrollIntoView({behavior:'smooth',block:'center'});
@@ -1317,8 +1456,8 @@ function lastBelief(t){
     speak(GENIO_FAILS[Math.min(Math.max(nong-1,0),2)]);
     flinch();
     let extra='';
-    if(nong>=2)extra='<span class="hintline">Un solo instrumento queda a la altura de esta creencia: el genio. Usalo.</span>';
-    dfeed.innerHTML=b.feed[t]+extra;
+    if(nong>=2)extra='<span class="hintline">'+L('Un solo instrumento queda a la altura de esta creencia: el genio. Usalo.','Only one instrument matches this belief: the demon. Use it.')+'</span>';
+    dfeed.innerHTML=L(b.feed[t].es,b.feed[t].en)+extra;
     save();
   }
 }
@@ -1329,7 +1468,7 @@ dlast.addEventListener('click',()=>{
   toolBtns.forEach(b=>b.classList.remove('used'));
   dShowBelief(4);
   dfeed.className='';
-  dfeed.innerHTML='Cuatro instrumentos, una creencia. Probalos.';
+  dfeed.innerHTML=DEMO_TRY();
   dbelief.scrollIntoView({behavior:'smooth',block:'center'});
 });
 
@@ -1342,7 +1481,7 @@ dlast.addEventListener('click',()=>{
   setGenio(ph==='won'?4:fallen);
   if(ph==='floors'){
     dShowBelief(S.demo.done);
-    speak(S.demo.done===0?'Demolé tranquilo. Todo lo que caiga es mío.':BELIEFS[S.demo.done-1].genio);
+    speak(S.demo.done===0?GENIO_START:BELIEFS[S.demo.done-1].genio);
   }else if(ph==='deep'){
     setTools(false);
     deep.classList.add('show');
@@ -1357,11 +1496,11 @@ dlast.addEventListener('click',()=>{
     if(S.demo.tried.length){
       dbelief.classList.add('hold');
       const lastT=S.demo.tried[S.demo.tried.length-1];
-      dfeed.className='bad';dfeed.innerHTML=BELIEFS[4].feed[lastT];
+      dfeed.className='bad';dfeed.innerHTML=L(BELIEFS[4].feed[lastT].es,BELIEFS[4].feed[lastT].en);
       const nong=S.demo.tried.filter(x=>x!==3).length;
       speak(GENIO_FAILS[Math.min(Math.max(nong-1,0),2)]);
     }else{
-      dfeed.innerHTML='Cuatro instrumentos, una creencia. Probalos.';
+      dfeed.innerHTML=DEMO_TRY();
       speak(BELIEFS[3].genio);
     }
   }else{ /* won */
@@ -1370,7 +1509,7 @@ dlast.addEventListener('click',()=>{
     dbelief.classList.add('hold');
     setTools(false);
     S.demo.tried.forEach(t=>toolBtns[t].classList.add('used'));
-    dfeed.className='bad';dfeed.innerHTML=BELIEFS[4].feed[3];
+    dfeed.className='bad';dfeed.innerHTML=L(BELIEFS[4].feed[3].es,BELIEFS[4].feed[3].en);
     speak(GENIO_FAILS[3]);
     genioBreak(false);
     svg.classList.add('won');
@@ -1382,51 +1521,58 @@ dlast.addEventListener('click',()=>{
 
 /* ============ VI · clasificador ============ */
 const cItems=[
-  {t:'«Suspendo el juicio: ni afirmo ni niego.»',who:'P',
-   ok:'Pirrónica: la epojé, más radical que decir "no se puede conocer nada" — que ya es afirmar algo.',
-   bad:'Es la pirrónica: la suspensión del juicio es su firma. Descartes nunca suspende: da por falso lo dudoso, que es otra cosa.'},
-  {t:'«Dudo de todo para encontrar algo de lo que no pueda dudar.»',who:'M',
-   ok:'Metódica: la duda como camino hacia un cimiento. Duda con dirección.',
-   bad:'Es metódica: hay un "para". El pirrónico no busca cimiento; descansa en la duda.'},
-  {t:'«La duda es mi casa: me quedo a vivir en ella.»',who:'P',
-   ok:'Pirrónica: punto de llegada, posición filosófica. Ahí se queda Montaigne.',
-   bad:'Es pirrónica. Para Descartes la duda es campamento de una noche, jamás una casa.'},
-  {t:'«Doy por falso — provisoriamente — todo lo dudoso, para ver qué queda en pie.»',who:'M',
-   ok:'Metódica, y notá el matiz: dar por falso lo dudoso es más violento que suspender el juicio. Violencia con propósito.',
-   bad:'Es metódica: ese "provisoriamente" delata el instrumento. El pirrónico no da por falso: no juzga.'},
-  {t:'«La razón es tan corta y tan ciega que sólo cabe la humildad y la sumisión.»',who:'P',
-   ok:'Pirrónica — es Montaigne. La debilidad de la razón como conclusión final.',
-   bad:'Es la pirrónica de Montaigne. Descartes jamás diría "sumisión": su apuesta es que la razón, bien dirigida, alcanza la verdad.'},
-  {t:'«La duda es una etapa momentánea; el destino es la certeza.»',who:'M',
-   ok:'Metódica: constructiva, transitoria, al servicio del edificio nuevo.',
-   bad:'Es metódica: etapa, camino, destino. El vocabulario del método, no el de la suspensión.'}
+  {who:'P',
+   t:{es:'«Suspendo el juicio: ni afirmo ni niego.»',en:'"I suspend judgment: I neither affirm nor deny."'},
+   ok:{es:'Pirrónica: la epojé, más radical que decir "no se puede conocer nada" — que ya es afirmar algo.',en:'Pyrrhonian: the epoché, more radical than saying "nothing can be known" — which is already to affirm something.'},
+   bad:{es:'Es la pirrónica: la suspensión del juicio es su firma. Descartes nunca suspende: da por falso lo dudoso, que es otra cosa.',en:'It is Pyrrhonian: the suspension of judgment is its signature. Descartes never suspends: he treats the doubtful as false, which is another thing.'}},
+  {who:'M',
+   t:{es:'«Dudo de todo para encontrar algo de lo que no pueda dudar.»',en:'"I doubt everything to find something I cannot doubt."'},
+   ok:{es:'Metódica: la duda como camino hacia un cimiento. Duda con dirección.',en:'Methodical: doubt as a path toward a foundation. Doubt with direction.'},
+   bad:{es:'Es metódica: hay un "para". El pirrónico no busca cimiento; descansa en la duda.',en:'It is methodical: there is a "to". The Pyrrhonist seeks no foundation; he rests in doubt.'}},
+  {who:'P',
+   t:{es:'«La duda es mi casa: me quedo a vivir en ella.»',en:'"Doubt is my home: I stay to live in it."'},
+   ok:{es:'Pirrónica: punto de llegada, posición filosófica. Ahí se queda Montaigne.',en:'Pyrrhonian: a point of arrival, a philosophical position. That is where Montaigne stays.'},
+   bad:{es:'Es pirrónica. Para Descartes la duda es campamento de una noche, jamás una casa.',en:'It is Pyrrhonian. For Descartes doubt is a one-night camp, never a home.'}},
+  {who:'M',
+   t:{es:'«Doy por falso — provisoriamente — todo lo dudoso, para ver qué queda en pie.»',en:'"I treat as false — provisionally — everything doubtful, to see what remains standing."'},
+   ok:{es:'Metódica, y notá el matiz: dar por falso lo dudoso es más violento que suspender el juicio. Violencia con propósito.',en:'Methodical, and note the nuance: treating the doubtful as false is more violent than suspending judgment. Violence with a purpose.'},
+   bad:{es:'Es metódica: ese "provisoriamente" delata el instrumento. El pirrónico no da por falso: no juzga.',en:'It is methodical: that "provisionally" gives away the instrument. The Pyrrhonist does not treat as false: he does not judge.'}},
+  {who:'P',
+   t:{es:'«La razón es tan corta y tan ciega que sólo cabe la humildad y la sumisión.»',en:'"Reason is so short and so blind that only humility and submission are left."'},
+   ok:{es:'Pirrónica — es Montaigne. La debilidad de la razón como conclusión final.',en:'Pyrrhonian — it is Montaigne. The weakness of reason as the final conclusion.'},
+   bad:{es:'Es la pirrónica de Montaigne. Descartes jamás diría "sumisión": su apuesta es que la razón, bien dirigida, alcanza la verdad.',en:'It is Montaigne\'s Pyrrhonism. Descartes would never say "submission": his wager is that reason, well directed, attains truth.'}},
+  {who:'M',
+   t:{es:'«La duda es una etapa momentánea; el destino es la certeza.»',en:'"Doubt is a momentary stage; the destination is certainty."'},
+   ok:{es:'Metódica: constructiva, transitoria, al servicio del edificio nuevo.',en:'Methodical: constructive, transitory, in the service of the new edifice.'},
+   bad:{es:'Es metódica: etapa, camino, destino. El vocabulario del método, no el de la suspensión.',en:'It is methodical: stage, path, destination. The vocabulary of method, not of suspension.'}}
 ];
 let ci=Math.min(S.cls.i,cItems.length-1),cok=S.cls.ok;
 const cq=$('#cq'),cfeed=$('#cfeed'),cscore=$('#cscore'),
       cP=$('#cP'),cM=$('#cM'),cNext=$('#cNext'),ckey=$('#ckey');
+function cScoreTxt(){return L('Frase '+(ci+1)+' de '+cItems.length+' · aciertos: <b>'+cok+'</b>','Phrase '+(ci+1)+' of '+cItems.length+' · correct: <b>'+cok+'</b>');}
 function cShow(){
   const it=cItems[ci];
-  cq.textContent=it.t;
+  cq.innerHTML=L(it.t.es,it.t.en);
   cfeed.textContent='';cfeed.className='gfeed';
   cP.style.display=cM.style.display='inline-block';
   cP.disabled=cM.disabled=false;
   cNext.style.display='none';
-  cscore.innerHTML='Frase '+(ci+1)+' de '+cItems.length+' · aciertos: <b>'+cok+'</b>';
+  cscore.innerHTML=cScoreTxt();
   ckey.textContent='Docente · respuesta: duda '+(it.who==='P'?'pirrónica':'metódica');
 }
 function cAnswer(g){
   const it=cItems[ci];
   cP.disabled=cM.disabled=true;
-  if(g===it.who){cok++;cfeed.className='gfeed ok';cfeed.innerHTML='✔ '+it.ok;}
-  else{cfeed.className='gfeed bad';cfeed.innerHTML='✘ '+it.bad;
+  if(g===it.who){cok++;cfeed.className='gfeed ok';cfeed.innerHTML='✔ '+L(it.ok.es,it.ok.en);}
+  else{cfeed.className='gfeed bad';cfeed.innerHTML='✘ '+L(it.bad.es,it.bad.en);
        cq.classList.add('shake');setTimeout(()=>cq.classList.remove('shake'),450);}
   S.cls.ok=cok;save();
-  cscore.innerHTML='Frase '+(ci+1)+' de '+cItems.length+' · aciertos: <b>'+cok+'</b>';
+  cscore.innerHTML=cScoreTxt();
   cNext.style.display='inline-block';
-  cNext.textContent=(ci===cItems.length-1)?'Ver el balance →':'Siguiente →';
+  cNext.innerHTML=(ci===cItems.length-1)?L('Ver el balance →','See the summary →'):L('Siguiente →','Next →');
 }
 function cFinish(){
-  cq.innerHTML='Balance: <b style="font-style:normal;color:var(--amber)">'+cok+' / '+cItems.length+'</b>. Misma herramienta, distinto uso: para el pirrónico la duda es una <b style="font-style:normal;color:var(--coral)">posición</b>; para Descartes, un <b style="font-style:normal;color:var(--green)">instrumento</b>. (Carpio I §6 · VIII §4)';
+  cq.innerHTML=L('Balance: <b style="font-style:normal;color:var(--amber)">'+cok+' / '+cItems.length+'</b>. Misma herramienta, distinto uso: para el pirrónico la duda es una <b style="font-style:normal;color:var(--coral)">posición</b>; para Descartes, un <b style="font-style:normal;color:var(--green)">instrumento</b>. (Carpio I §6 · VIII §4)','Summary: <b style="font-style:normal;color:var(--amber)">'+cok+' / '+cItems.length+'</b>. Same tool, different use: for the Pyrrhonist doubt is a <b style="font-style:normal;color:var(--coral)">position</b>; for Descartes, an <b style="font-style:normal;color:var(--green)">instrument</b>. (Carpio I §6 · VIII §4)');
   cfeed.textContent='';cscore.textContent='';ckey.textContent='';
   cP.style.display=cM.style.display=cNext.style.display='none';
 }
@@ -1440,17 +1586,17 @@ if(S.cls.done)cFinish();else cShow();
 
 /* ============ VII · las cuatro reglas ============ */
 const RULES=[
-  {t:'Evidencia',d:'No admitir jamás nada que no se presente con claridad y distinción; evitar la precipitación y la prevención.'},
-  {t:'Análisis',d:'Dividir cada dificultad en tantas partes como sea posible, hasta llegar a lo simple.'},
-  {t:'Síntesis',d:'Conducir con orden los pensamientos: de lo más simple a lo más compuesto.'},
-  {t:'Enumeración',d:'Hacer recuentos tan completos y revisiones tan generales que se esté seguro de no omitir nada.'}
+  {t:{es:'Evidencia',en:'Evidence'},d:{es:'No admitir jamás nada que no se presente con claridad y distinción; evitar la precipitación y la prevención.',en:'Never accept anything that does not present itself with clarity and distinctness; avoid haste and prejudice.'}},
+  {t:{es:'Análisis',en:'Analysis'},d:{es:'Dividir cada dificultad en tantas partes como sea posible, hasta llegar a lo simple.',en:'Divide each difficulty into as many parts as possible, down to the simple.'}},
+  {t:{es:'Síntesis',en:'Synthesis'},d:{es:'Conducir con orden los pensamientos: de lo más simple a lo más compuesto.',en:'Conduct thoughts in order: from the simplest to the most composite.'}},
+  {t:{es:'Enumeración',en:'Enumeration'},d:{es:'Hacer recuentos tan completos y revisiones tan generales que se esté seguro de no omitir nada.',en:'Make counts so complete and reviews so general as to be sure of omitting nothing.'}}
 ];
-const RULES_DONE='<span style="color:var(--green);font-weight:700">Orden completo.</span> Notá el diseño: la regla 1 fija el <b style="color:var(--amber)">criterio de verdad</b> — sólo lo evidente, lo claro y distinto. Dar por falso lo dudoso (la duda metódica) es la contracara exacta de admitir sólo lo evidente. Las otras tres dicen cómo llegar hasta ahí: descomponer, recomponer en orden, revisar. (Carpio VIII §9)';
+const RULES_DONE=()=>L('<span style="color:var(--green);font-weight:700">Orden completo.</span> Notá el diseño: la regla 1 fija el <b style="color:var(--amber)">criterio de verdad</b> — sólo lo evidente, lo claro y distinto. Dar por falso lo dudoso (la duda metódica) es la contracara exacta de admitir sólo lo evidente. Las otras tres dicen cómo llegar hasta ahí: descomponer, recomponer en orden, revisar. (Carpio VIII §9)','<span style="color:var(--green);font-weight:700">Order complete.</span> Note the design: rule 1 sets the <b style="color:var(--amber)">criterion of truth</b> — only the evident, the clear and distinct. Treating the doubtful as false (methodical doubt) is the exact counterpart of accepting only the evident. The other three say how to get there: decompose, recompose in order, review. (Carpio VIII §9)');
 const RULE_HINTS=[
-  'No. Primero viene la regla que fija qué se admite como verdadero: sin criterio, no hay método.',
-  'No. Después del criterio, lo primero es romper el problema en partes simples.',
-  'No. Antes de recomponer hay que haber descompuesto.',
-  'No. La revisión general va al final: es el control de todo lo anterior.'
+  {es:'No. Primero viene la regla que fija qué se admite como verdadero: sin criterio, no hay método.',en:'No. First comes the rule that sets what is accepted as true: without a criterion, there is no method.'},
+  {es:'No. Después del criterio, lo primero es romper el problema en partes simples.',en:'No. After the criterion, the first thing is to break the problem into simple parts.'},
+  {es:'No. Antes de recomponer hay que haber descompuesto.',en:'No. Before recomposing you must have decomposed.'},
+  {es:'No. La revisión general va al final: es el control de todo lo anterior.',en:'No. The general review comes last: it is the check on everything before it.'}
 ];
 const poolOrder=[2,0,3,1];
 let nextSlot=Math.min(S.rules.next,4);
@@ -1460,20 +1606,20 @@ poolOrder.forEach(idx=>{
   const r=RULES[idx];
   const b=document.createElement('button');
   b.className='rule';
-  b.innerHTML='<div class="rn">Regla</div><div class="rt">'+r.t+'</div><div class="rd">'+r.d+'</div>';
+  b.innerHTML='<div class="rn">'+L('Regla','Rule')+'</div><div class="rt">'+L(r.t.es,r.t.en)+'</div><div class="rd">'+L(r.d.es,r.d.en)+'</div>';
   b.addEventListener('click',()=>{
     if(b.classList.contains('placed'))return;
     if(nextSlot>=4)return;
     if(idx===nextSlot){
       placeRule(idx);
       nextSlot++;S.rules.next=nextSlot;save();
-      if(nextSlot===4)rfeed.innerHTML=RULES_DONE;
-      else rfeed.textContent='Bien. '+(4-nextSlot)+' por acomodar.';
+      if(nextSlot===4)rfeed.innerHTML=RULES_DONE();
+      else rfeed.innerHTML=L('Bien. '+(4-nextSlot)+' por acomodar.','Good. '+(4-nextSlot)+' to place.');
     }else{
       S.rules.errs++;save();
       b.classList.add('shake');
       setTimeout(()=>b.classList.remove('shake'),450);
-      rfeed.textContent=RULE_HINTS[nextSlot];
+      rfeed.innerHTML=L(RULE_HINTS[nextSlot].es,RULE_HINTS[nextSlot].en);
     }
   });
   ruleBtns[idx]=b;
@@ -1483,45 +1629,50 @@ function placeRule(idx){
   ruleBtns[idx].classList.add('placed');
   const s=slots[idx];
   s.classList.add('filled');
-  s.innerHTML='<span class="sn">Paso '+(idx+1)+'</span><div class="st">'+RULES[idx].t+'</div>';
+  s.innerHTML='<span class="sn">'+L('Paso '+(idx+1),'Step '+(idx+1))+'</span><div class="st">'+L(RULES[idx].t.es,RULES[idx].t.en)+'</div>';
 }
 for(let k=0;k<nextSlot;k++)placeRule(k);
-if(nextSlot===4)rfeed.innerHTML=RULES_DONE;
+if(nextSlot===4)rfeed.innerHTML=RULES_DONE();
 
 /* ============ VIII · autoexamen + código ============ */
 const QUIZ=[
-  {q:'1 · ¿Por qué la filosofía moderna no comienza en el Renacimiento?',
-   opts:['Porque en el Renacimiento no se escribió filosofía.',
-         'Porque el Renacimiento critica lo medieval pero todavía no define la nueva manera de filosofar: es transición.',
-         'Porque la Iglesia prohibió filosofar hasta el siglo XVII.'],
-   ok:1,why:'Época de crítica y crisis, "casi estéril": derriba sin fundar. La manera moderna de filosofar empieza con Descartes. (Carpio VIII §1)'},
-  {q:'2 · Las dos situaciones sin relación entre sí que confluyen en la crisis del criterio de verdad son…',
-   opts:['La Reforma protestante y la redescubierta obra de Sexto Empírico.',
-         'La caída de Constantinopla y la invención de la imprenta.',
-         'La condena de Galileo y la Apología de Raimundo Sabunde.'],
-   ok:0,why:'Dos fuegos independientes que se potencian: ninguno causa al otro. (Carpio VIII §1–2; Jáuregui T1)'},
-  {q:'3 · De sus predecesores, Descartes toma…',
-   opts:['De Montaigne, el método inductivo; de Bacon, el ensayo.',
-         'De ambos, la suspensión del juicio.',
-         'De Montaigne, la duda; de Bacon, la exigencia de un método de descubrimiento.'],
-   ok:2,why:'Y su síntesis es la duda metódica: la duda puesta a trabajar dentro de un método.'},
-  {q:'4 · ¿Por qué contra «2 + 2 = 4» hace falta el genio maligno y no bastan los paralogismos?',
-   opts:['Porque los principios no se conocen discursivamente sino por intuición: el error de razonamiento no los alcanza.',
-         'Porque la matemática es un saber sensible.',
-         'Porque el genio maligno existe y los paralogismos no.'],
-   ok:0,why:'Los paralogismos atañen a procesos con pasos. Lo intuido se capta de un golpe: para volverlo dudoso hay que suponer una mente fabricada para errar. (Carpio VIII §6)'},
-  {q:'5 · El cogito no es un silogismo porque…',
-   opts:['Le falta la premisa menor.',
-         'Es una intuición: se capta de modo inmediato en el acto mismo de pensar — por eso Descartes prefiere «pienso, soy».',
-         'Descartes desconfiaba de toda lógica por ser aristotélica.'],
-   ok:1,why:'Si dependiera de premisas generales, la duda ya las habría contaminado. Basta reflexionar sobre el cogito para reconocer, en él mismo, su verdad. (Carpio VIII §7)'}
+  {ok:1,
+   q:{es:'1 · ¿Por qué la filosofía moderna no comienza en el Renacimiento?',en:'1 · Why does modern philosophy not begin in the Renaissance?'},
+   opts:[{es:'Porque en el Renacimiento no se escribió filosofía.',en:'Because no philosophy was written in the Renaissance.'},
+         {es:'Porque el Renacimiento critica lo medieval pero todavía no define la nueva manera de filosofar: es transición.',en:'Because the Renaissance criticizes the medieval world but does not yet define the new way of philosophizing: it is transition.'},
+         {es:'Porque la Iglesia prohibió filosofar hasta el siglo XVII.',en:'Because the Church forbade philosophizing until the 17th century.'}],
+   why:{es:'Época de crítica y crisis, "casi estéril": derriba sin fundar. La manera moderna de filosofar empieza con Descartes. (Carpio VIII §1)',en:'An age of criticism and crisis, "almost sterile": it tears down without founding. The modern way of philosophizing begins with Descartes. (Carpio VIII §1)'}},
+  {ok:0,
+   q:{es:'2 · Las dos situaciones sin relación entre sí que confluyen en la crisis del criterio de verdad son…',en:'2 · The two unrelated situations that converge in the crisis of the criterion of truth are…'},
+   opts:[{es:'La Reforma protestante y la redescubierta obra de Sexto Empírico.',en:'The Protestant Reformation and the rediscovered work of Sextus Empiricus.'},
+         {es:'La caída de Constantinopla y la invención de la imprenta.',en:'The fall of Constantinople and the invention of the printing press.'},
+         {es:'La condena de Galileo y la Apología de Raimundo Sabunde.',en:'The condemnation of Galileo and the Apology for Raymond Sebond.'}],
+   why:{es:'Dos fuegos independientes que se potencian: ninguno causa al otro. (Carpio VIII §1–2; Jáuregui T1)',en:'Two independent fires that amplify one another: neither causes the other. (Carpio VIII §1–2; Jáuregui T1)'}},
+  {ok:2,
+   q:{es:'3 · De sus predecesores, Descartes toma…',en:'3 · From his predecessors, Descartes takes…'},
+   opts:[{es:'De Montaigne, el método inductivo; de Bacon, el ensayo.',en:'From Montaigne, the inductive method; from Bacon, the essay.'},
+         {es:'De ambos, la suspensión del juicio.',en:'From both, the suspension of judgment.'},
+         {es:'De Montaigne, la duda; de Bacon, la exigencia de un método de descubrimiento.',en:'From Montaigne, doubt; from Bacon, the demand for a method of discovery.'}],
+   why:{es:'Y su síntesis es la duda metódica: la duda puesta a trabajar dentro de un método.',en:'And his synthesis is methodical doubt: doubt put to work within a method.'}},
+  {ok:0,
+   q:{es:'4 · ¿Por qué contra «2 + 2 = 4» hace falta el genio maligno y no bastan los paralogismos?',en:'4 · Why, against "2 + 2 = 4", is the evil demon needed and fallacious reasoning not enough?'},
+   opts:[{es:'Porque los principios no se conocen discursivamente sino por intuición: el error de razonamiento no los alcanza.',en:'Because principles are not known discursively but by intuition: an error of reasoning does not reach them.'},
+         {es:'Porque la matemática es un saber sensible.',en:'Because mathematics is a sensory kind of knowledge.'},
+         {es:'Porque el genio maligno existe y los paralogismos no.',en:'Because the evil demon exists and fallacious reasoning does not.'}],
+   why:{es:'Los paralogismos atañen a procesos con pasos. Lo intuido se capta de un golpe: para volverlo dudoso hay que suponer una mente fabricada para errar. (Carpio VIII §6)',en:'Fallacious reasoning concerns processes with steps. What is intuited is grasped at a stroke: to make it doubtful one must suppose a mind built to err. (Carpio VIII §6)'}},
+  {ok:1,
+   q:{es:'5 · El cogito no es un silogismo porque…',en:'5 · The cogito is not a syllogism because…'},
+   opts:[{es:'Le falta la premisa menor.',en:'It lacks the minor premise.'},
+         {es:'Es una intuición: se capta de modo inmediato en el acto mismo de pensar — por eso Descartes prefiere «pienso, soy».',en:'It is an intuition: grasped immediately in the very act of thinking — this is why Descartes prefers "I think, I am".'},
+         {es:'Descartes desconfiaba de toda lógica por ser aristotélica.',en:'Descartes distrusted all logic for being Aristotelian.'}],
+   why:{es:'Si dependiera de premisas generales, la duda ya las habría contaminado. Basta reflexionar sobre el cogito para reconocer, en él mismo, su verdad. (Carpio VIII §7)',en:'If it depended on general premises, doubt would already have contaminated them. It is enough to reflect on the cogito to recognize, in it, its own truth. (Carpio VIII §7)'}}
 ];
 const quizBox=$('#quiz'),quizScore=$('#quiz-score');
 function markQ(opts,item,i,feed){
   [...opts.children].forEach(x=>x.disabled=true);
   if(i===item.ok)opts.children[i].classList.add('right');
   else{opts.children[i].classList.add('wrong');opts.children[item.ok].classList.add('right');}
-  feed.textContent=item.why;
+  feed.innerHTML=L(item.why.es,item.why.en);
 }
 function quizOkCount(){
   return QUIZ.reduce((n,item,qi)=>n+(S.quiz.ans[qi]===item.ok?1:0),0);
@@ -1539,21 +1690,29 @@ function buildCode(qok){
   return 'LD2-'+dd+mm+yy+'-A'+A+'C'+C+'D'+D+'R'+R+'Q'+qok+'-'+k;
 }
 function buildLegend(qok){
-  const st=(done,v)=>done?('<b>'+v+'</b>'):'<span style="color:var(--coral)">sin terminar</span>';
-  $('#codelegend').innerHTML=
-    'A · atribución (Montaigne/Bacon): '+st(S.attrib.done,S.attrib.ok+'/6')+
-    ' &nbsp;·&nbsp; C · clasificación de dudas: '+st(S.cls.done,S.cls.ok+'/6')+
-    ' &nbsp;·&nbsp; D · errores en la demolición: '+st(S.demo.phase==='won',S.demo.errs)+
-    ' &nbsp;·&nbsp; R · errores en las reglas: '+st(S.rules.next===4,S.rules.errs)+
+  const st=(done,v,un)=>done?('<b>'+v+'</b>'):'<span style="color:var(--coral)">'+un+'</span>';
+  const es='A · atribución (Montaigne/Bacon): '+st(S.attrib.done,S.attrib.ok+'/6','sin terminar')+
+    ' &nbsp;·&nbsp; C · clasificación de dudas: '+st(S.cls.done,S.cls.ok+'/6','sin terminar')+
+    ' &nbsp;·&nbsp; D · errores en la demolición: '+st(S.demo.phase==='won',S.demo.errs,'sin terminar')+
+    ' &nbsp;·&nbsp; R · errores en las reglas: '+st(S.rules.next===4,S.rules.errs,'sin terminar')+
     ' &nbsp;·&nbsp; Q · autoexamen: <b>'+qok+'/5</b>';
+  const en='A · attribution (Montaigne/Bacon): '+st(S.attrib.done,S.attrib.ok+'/6','unfinished')+
+    ' &nbsp;·&nbsp; C · doubt classification: '+st(S.cls.done,S.cls.ok+'/6','unfinished')+
+    ' &nbsp;·&nbsp; D · demolition errors: '+st(S.demo.phase==='won',S.demo.errs,'unfinished')+
+    ' &nbsp;·&nbsp; R · rule errors: '+st(S.rules.next===4,S.rules.errs,'unfinished')+
+    ' &nbsp;·&nbsp; Q · self-test: <b>'+qok+'/5</b>';
+  $('#codelegend').innerHTML=L(es,en);
 }
 function checkQuizDone(){
   if(S.quiz.ans.some(a=>a<0)){$('#result').classList.remove('show');return;}
   const qok=quizOkCount();
-  const verdict=qok===5?'Claro y distinto.'
+  const vES=qok===5?'Claro y distinto.'
     :qok>=3?'Claro, pero todavía no distinto. Repasá lo que falló.'
     :'El genio maligno anda cerca. Releé Carpio, cap. VIII.';
-  quizScore.innerHTML='Resultado: <b>'+qok+' / 5</b> — '+verdict;
+  const vEN=qok===5?'Clear and distinct.'
+    :qok>=3?'Clear, but not yet distinct. Review what you missed.'
+    :'The evil demon is near. Reread Carpio, ch. VIII.';
+  quizScore.innerHTML=L('Resultado: <b>'+qok+' / 5</b> — '+vES,'Result: <b>'+qok+' / 5</b> — '+vEN);
   if(!S.code){S.code=buildCode(qok);save();}
   $('#codeval').textContent=S.code;
   buildLegend(qok);
@@ -1564,13 +1723,13 @@ function renderQuiz(){
   QUIZ.forEach((item,qi)=>{
     const card=document.createElement('div');
     card.className='quiz-q';
-    card.innerHTML='<div class="qt">'+item.q+'</div>';
+    card.innerHTML='<div class="qt">'+L(item.q.es,item.q.en)+'</div>';
     const opts=document.createElement('div');opts.className='opts';
     const feed=document.createElement('div');feed.className='qfeed';
     item.opts.forEach((o,i)=>{
       const b=document.createElement('button');
       b.className='opt'+((DOCENTE&&i===item.ok)?' key':'');
-      b.textContent=o;
+      b.innerHTML=L(o.es,o.en);
       b.addEventListener('click',()=>{
         if(S.quiz.ans[qi]>=0)return;
         S.quiz.ans[qi]=i;save();
@@ -1589,14 +1748,14 @@ $('#copybtn').addEventListener('click',async()=>{
   const btn=$('#copybtn'),code=$('#codeval').textContent;
   try{
     await navigator.clipboard.writeText(code);
-    btn.textContent='Copiado ✓';
+    btn.innerHTML=L('Copiado ✓','Copied ✓');
   }catch(e){
     const r=document.createRange();
     r.selectNodeContents($('#codeval'));
     const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
-    btn.textContent='Seleccionado: copiá con Ctrl+C';
+    btn.innerHTML=L('Seleccionado: copiá con Ctrl+C','Selected: copy with Ctrl+C');
   }
-  setTimeout(()=>{btn.textContent='Copiar código';},2600);
+  setTimeout(()=>{btn.innerHTML=L('Copiar código','Copy code');},2600);
 });
 $('#redoquiz').addEventListener('click',()=>{
   S.quiz.ans=[-1,-1,-1,-1,-1];S.code=null;save();
