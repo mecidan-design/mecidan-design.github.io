@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
 <title>Dan Martín Mecikovsky — Philosophy & AI</title>
+<meta name="description" content="Philosophy professor (University of Buenos Aires) building classroom tools and AI agents: a Descartes unit with an escape room, self-correcting English practice, and EHOBA, a rule-bound processing agent for government survey data.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -71,6 +71,7 @@
   /* ---- section heading ---- */
   .sec-head{padding:56px 0 8px}
   .sec-head .eyebrow{display:block;margin-bottom:6px}
+  .sec-head .sec-note{color:var(--muted);max-width:56ch;margin-top:10px;font-size:16px}
 
   /* ---- project ---- */
   .project{
@@ -130,6 +131,8 @@
     transition:opacity .18s,transform .18s;
   }
   .btn:hover,.btn:focus-visible{opacity:.9;transform:translateY(-1px)}
+  .btn + .btn{margin-left:10px}
+  @media(max-width:520px){.btn{display:block;text-align:center}.btn + .btn{margin-left:0;margin-top:10px}}
   .btn.ghost{
     background:transparent;color:var(--accent);
     border:1px solid var(--accent);
@@ -196,77 +199,49 @@
 
   <div class="sec-head">
     <span class="eyebrow">Selected work</span>
+    <p class="sec-note">Two subjects I teach and one agent I shipped. The classroom collections are the same argument twice over — a tool should make someone do the thinking, and it should be honest about what it does with their data. EHOBA is that habit applied where the stakes are higher.</p>
   </div>
 
-  <!-- PROJECT 1 -->
+  <!-- COLLECTION 1 -->
   <section class="project">
-    <span class="eyebrow">TEACHING TOOLS · CLASSROOM-TESTED</span>
-    <h2 class="p-title">Interactive lessons</h2>
-    <p class="claim">Philosophy you scroll through; exercises that correct themselves.</p>
-    <p class="desc">A set of self-contained HTML/JS tools I build for my own classes: a Descartes scrollytelling lesson, a feudalism-to-modernity timeline, and a guided Plato cave sequence. They are used as classroom material: students scroll, answer, retry, and get immediate feedback without accounts or student data.</p>
-    <div class="tags">
-      <span class="tag">HTML/JS</span>
-      <span class="tag">Prompt-built</span>
-      <span class="tag">Ed-tech</span>
-      <span class="tag">Self-correcting</span>
-    </div>
-    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/interactive-lessons/" title="Interactive lesson demo" loading="lazy"></iframe></div>
-    <a class="btn" href="https://mecidan-design.github.io/interactive-lessons/">Open the live demo</a>
-  </section>
-
-  <!-- PROJECT 2 -->
-  <section class="project">
-    <span class="eyebrow">CREATIVE WRITING · CLASSROOM APP</span>
-    <h2 class="p-title">The Imaginarium Machine</h2>
-    <p class="claim">A classroom machine for starting stories and leaving the writing to students.</p>
-    <p class="desc">A local-first creative writing app for A2 English learners. It organizes prompt cards, characters, constraints, and play modes; students use them to write, draw, speak, or act their own stories.</p>
-    <div class="tags">
-      <span class="tag">Classroom app</span>
-      <span class="tag">Prompt design</span>
-      <span class="tag">Creative writing</span>
-    </div>
-    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/imaginarium-demo/" title="The Imaginarium Machine live demo" loading="lazy"></iframe></div>
-    <a class="btn" href="https://mecidan-design.github.io/imaginarium-demo/">Open the live demo</a>
-  </section>
-
-  <!-- PROJECT 3 -->
-  <section class="project">
-    <span class="eyebrow">ESCAPE ROOM · PHILOSOPHY CLASSROOM</span>
-    <h2 class="p-title">El Edificio — a Cartesian escape room</h2>
-    <p class="claim">Descartes' methodical doubt, played instead of summarised.</p>
-    <p class="desc">A browser escape room on the <em>Meditations</em>. Students descend through the building Descartes demolishes — the senses, the dream argument, the evil demon — and can only open each door by using the argument itself, not by remembering a definition. Art, voice-over and every puzzle ship inside one HTML file: it runs from a school machine with no network, no installs and no accounts. Spanish-language, written for fifth-year secondary philosophy and played in class.</p>
+    <span class="eyebrow">TEACHING TOOLS · PHILOSOPHY · SPANISH</span>
+    <h2 class="p-title">Philosophy, made walkable</h2>
+    <p class="claim">An argument is something a student should have to use, not something to memorise.</p>
+    <p class="desc">A complete unit on Descartes' <em>Meditations</em> in four forms of the same text: five scrollytelling lessons, a 3D simulation of the wax experiment, an argument game where the evil demon prosecutes the cogito, and <em>El Edificio</em> — a six-floor escape room whose doors only open if you use the argument rather than recall it. Plus standalone lessons on Plato's cave and the road from feudalism to modernity. Art, voice-over and puzzles ship inside the files, so a school machine with no network still runs them.</p>
     <div class="tags">
       <span class="tag">Game design</span>
       <span class="tag">Claude Code</span>
-      <span class="tag">Single-file app</span>
+      <span class="tag">Single-file apps</span>
       <span class="tag">Offline-first</span>
     </div>
-    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/escape-cartesiano/" title="El Edificio — Cartesian escape room live demo" loading="lazy"></iframe></div>
-    <a class="btn" href="https://mecidan-design.github.io/escape-cartesiano/">Play the escape room</a>
+    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/philosophy/" title="Philosophy collection" loading="lazy"></iframe></div>
+    <a class="btn" href="https://mecidan-design.github.io/philosophy/">Open the collection</a>
+    <a class="btn ghost" href="https://mecidan-design.github.io/escape-cartesiano/">Play the escape room</a>
   </section>
 
-  <!-- PROJECT 4 -->
+  <!-- COLLECTION 2 -->
   <section class="project">
-    <span class="eyebrow">LANGUAGE PRACTICE · SELF-CORRECTING</span>
-    <h2 class="p-title">English practice quests</h2>
-    <p class="claim">Grammar drills that mark themselves, so the feedback arrives while the student still cares.</p>
-    <p class="desc">Two quests for secondary-school English — one on the irregular past simple, one on the present perfect. Eleven pages of games and exercises that check every answer in the browser, explain the miss, and let the student retry. No accounts, no logins, nothing about the student leaves the page.</p>
+    <span class="eyebrow">TEACHING TOOLS · ENGLISH · B1–B1+</span>
+    <h2 class="p-title">English that marks itself</h2>
+    <p class="claim">Feedback that arrives while the student still cares about it.</p>
+    <p class="desc">Around thirty pages of practice, all built on one rule: the page checks every answer on the spot, says what went wrong, and lets the student retry. Two multi-stop grammar quests (irregular past simple, present perfect), exam-format Use of English sessions, classroom games and the tests that mark the same content, a reading trivia round, and The Imaginarium Machine — a creative-writing app that deals out prompts and then gets out of the way. No accounts, no logins, nothing about the student leaves the browser.</p>
     <div class="tags">
       <span class="tag">HTML/JS</span>
       <span class="tag">Ed-tech</span>
       <span class="tag">Self-correcting</span>
       <span class="tag">No student data</span>
     </div>
-    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/english-practice/" title="English practice quests live demo" loading="lazy"></iframe></div>
-    <a class="btn" href="https://mecidan-design.github.io/english-practice/">Open the live demo</a>
+    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/english-practice/" title="English practice collection" loading="lazy"></iframe></div>
+    <a class="btn" href="https://mecidan-design.github.io/english-practice/">Open the collection</a>
+    <a class="btn ghost" href="https://mecidan-design.github.io/imaginarium-demo/">Open the writing app</a>
   </section>
 
-  <!-- PROJECT 5 -->
+  <!-- COLLECTION 3 -->
   <section class="project">
     <span class="eyebrow">AI AGENT · GOVERNMENT DATA</span>
     <h2 class="p-title">EHOBA</h2>
     <p class="claim">A monthly 53-hotel survey turned into a rule-bound processing agent.</p>
-    <p class="desc">EHOBA processes Buenos Aires's monthly hotel occupancy survey for IDECBA, validates submissions against fixed consistency rules, and follows a documented eight-step correction order. I built it end to end with Claude Code, including the desktop UI, processing pipeline, and design system.</p>
+    <p class="desc">EHOBA processes Buenos Aires's monthly hotel occupancy survey for IDECBA, validates submissions against fixed consistency rules, and follows a documented eight-step correction order. I built it end to end with Claude Code, including the desktop UI, processing pipeline, and design system. The same habit as the classroom work, on higher stakes: the rules are written down first, and the tool is held to them.</p>
     <div class="tags">
       <span class="tag">Claude Code</span>
       <span class="tag">Agent design</span>

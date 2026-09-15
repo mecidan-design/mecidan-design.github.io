@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 4 · Exposición — Cuarta y Quinta Meditación</title>
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--ink); overflow:hidden;
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:80;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .25s ease}
+
+#stage{position:relative;height:100vh;width:100%}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:5.5vh clamp(28px,6vw,90px) 11vh;overflow-y:auto;overflow-x:hidden}
+.slide.on{display:flex;animation:enter .5s ease both}
+@keyframes enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.wrap{width:100%;max-width:1180px;margin:0 auto}
+
+.kicker{font-size:clamp(12px,1.15vw,15px);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cyan);font-weight:700;margin-bottom:16px}
+.kicker .num{color:var(--faint);margin-right:.9em}
+.kicker.iv{color:var(--amber)} .kicker.v{color:var(--violet)}
+h1{font-size:clamp(40px,6.6vw,92px);line-height:1.02;font-weight:800;letter-spacing:-.025em}
+h1 .sub{display:block;color:var(--cyan);font-size:clamp(18px,2.5vw,36px);margin-top:.25em;letter-spacing:-.01em}
+h2{font-size:clamp(26px,4vw,54px);line-height:1.06;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+h2 .u{color:var(--amber)} h2 .cyu{color:var(--cyan)} h2 .vu{color:var(--violet)} h2 .cou{color:var(--coral)}
+h3{font-size:clamp(17px,1.8vw,25px);font-weight:800;margin:0 0 8px;color:var(--ink)}
+p.lead{font-size:clamp(16.5px,1.7vw,25px);color:var(--dim);max-width:62ch;margin:13px 0}
+p.body{font-size:clamp(15px,1.45vw,20px);color:var(--ink);max-width:64ch;margin:11px 0}
+p.body b,p.lead b{color:var(--amber)}
+.dim{color:var(--dim)} .faint{color:var(--faint)}
+.g{color:var(--green);font-weight:700} .c{color:var(--coral);font-weight:700}
+.v{color:var(--violet);font-weight:700} .cy{color:var(--cyan);font-weight:700}
+.am{color:var(--amber);font-weight:700}
+ul.plain{list-style:none;max-width:64ch;margin:12px 0}
+ul.plain li{font-size:clamp(15px,1.45vw,20px);color:var(--ink);padding-left:1.4em;
+  position:relative;margin:10px 0;line-height:1.45}
+ul.plain li::before{content:"—";position:absolute;left:0;color:var(--cyan);font-weight:700}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(17px,1.9vw,28px);line-height:1.4;margin:22px 0 6px;max-width:54ch;
+  border-left:3px solid var(--violet);padding-left:1em}
+.note{font-size:clamp(12.5px,1.02vw,16px);color:var(--faint);max-width:76ch;margin-top:14px;line-height:1.5}
+.note b{color:var(--dim)}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent);margin:24px 0}
+
+blockquote{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--ink);
+  font-size:clamp(16px,1.6vw,23px);line-height:1.42;margin:18px 0 8px;max-width:58ch;
+  border-left:3px solid var(--cyan);padding:10px 0 10px 1em;background:rgba(34,228,255,.04)}
+blockquote .ref{display:block;font-size:clamp(12px,1vw,15px);color:var(--faint);margin-top:9px;
+  font-style:normal;font-family:"Segoe UI",system-ui,sans-serif;letter-spacing:.06em}
+
+#s0{justify-content:center}
+#s0::before{content:"";position:absolute;inset:-30%;pointer-events:none;
+  background:radial-gradient(ellipse 42% 34% at 64% 36%,rgba(34,228,255,.10),transparent 60%),
+             radial-gradient(ellipse 38% 30% at 28% 74%,rgba(201,160,255,.09),transparent 60%)}
+.dudamark{position:absolute;right:-2vw;bottom:-4vh;font-weight:800;
+  font-size:clamp(100px,15vw,240px);color:rgba(255,255,255,.035);letter-spacing:-.04em;
+  transform:rotate(-4deg);pointer-events:none;user-select:none;line-height:.9}
+
+.parte{text-align:left}
+.parte .rot{font-size:clamp(13px,1.2vw,17px);letter-spacing:.36em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;margin-bottom:20px}
+.parte .big{font-size:clamp(34px,5.4vw,74px);font-weight:800;line-height:1.05;letter-spacing:-.025em;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;
+  background-clip:text;color:transparent;max-width:17ch}
+
+.grid{display:grid;gap:14px;margin-top:18px}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+.grid.g3{grid-template-columns:repeat(3,1fr)}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){.grid.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.grid.g3,.grid.g2,.grid.g4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 19px}
+.card .tag{font-size:clamp(11px,.95vw,13px);letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan);margin-bottom:8px}
+.card.am .tag{color:var(--amber)} .card.co .tag{color:var(--coral)}
+.card.vi .tag{color:var(--violet)} .card.gr .tag{color:var(--green)}
+.card h4{font-size:clamp(16.5px,1.55vw,23px);font-weight:800;margin-bottom:7px;letter-spacing:-.01em}
+.card p{font-size:clamp(13.8px,1.18vw,17px);color:var(--dim);line-height:1.45}
+.card p+p{margin-top:7px}
+.card p b{color:var(--ink)}
+
+.ficha{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+@media(max-width:900px){.ficha{grid-template-columns:1fr}}
+.paso{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.paso .pl{font-size:clamp(11px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;margin-bottom:7px}
+.paso p{font-size:clamp(14px,1.25vw,18.5px);color:var(--ink);line-height:1.45}
+.paso p b{color:var(--amber)}
+.paso.ok{border-color:rgba(87,227,139,.35)} .paso.ok .pl{color:var(--green)}
+.paso.no{border-color:rgba(255,107,107,.35)} .paso.no .pl{color:var(--coral)}
+.paso.cy{border-color:rgba(34,228,255,.35)} .paso.cy .pl{color:var(--cyan)}
+.paso.vi{border-color:rgba(201,160,255,.35)} .paso.vi .pl{color:var(--violet)}
+
+.premisas{margin-top:18px;max-width:74ch}
+.prem{display:flex;gap:16px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:9px 0}
+.prem .pn{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--cyan);
+  color:var(--cyan);display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;margin-top:1px}
+.prem .pt{font-size:clamp(14.5px,1.3vw,19px);line-height:1.45}
+.prem .pt b{color:var(--amber)}
+.prem.concl{border-color:rgba(87,227,139,.5);background:rgba(87,227,139,.06)}
+.prem.concl .pn{border-color:var(--green);color:var(--green)}
+.prem.concl .pt{font-weight:800;color:var(--green)}
+
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.pill{padding:6px 15px;border-radius:22px;font-size:clamp(12.5px,1.08vw,16px);font-weight:700;
+  border:1px solid var(--line2);color:var(--dim);background:var(--card)}
+.pill.cae{color:var(--coral);border-color:rgba(255,107,107,.45);background:rgba(255,107,107,.07)}
+.pill.queda{color:var(--green);border-color:rgba(87,227,139,.45);background:rgba(87,227,139,.07)}
+.pill.cyp{color:var(--cyan);border-color:rgba(34,228,255,.45);background:rgba(34,228,255,.07)}
+
+table.res{width:100%;border-collapse:collapse;margin-top:16px;font-size:clamp(13.5px,1.2vw,18px)}
+table.res th,table.res td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+table.res th{font-size:clamp(11px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;border-bottom-color:var(--line2)}
+table.res td.lbl{font-weight:800;color:var(--faint);width:22%;font-size:.92em}
+table.res td.a{color:var(--cyan)} table.res td.b{color:var(--amber)}
+table.res td.co{color:var(--coral)} table.res td.gr{color:var(--green)}
+table.res td b{color:var(--ink)}
+
+figure{margin:14px 0 4px}
+figure svg{width:100%;height:auto;display:block;max-height:44vh}
+figcaption{font-size:clamp(12.5px,1.02vw,16px);color:var(--faint);margin-top:9px;line-height:1.5;max-width:80ch}
+figcaption b{color:var(--dim)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.sv-t{fill:var(--ink)} .sv-d{fill:var(--dim)} .sv-f{fill:var(--faint)}
+.sv-cy{fill:var(--cyan)} .sv-co{fill:var(--coral)} .sv-am{fill:var(--amber)}
+.sv-vi{fill:var(--violet)} .sv-gr{fill:var(--green)}
+
+.big{font-size:clamp(32px,5.2vw,72px);font-weight:800;line-height:1.06;letter-spacing:-.025em;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;
+  background-clip:text;color:transparent;max-width:17ch}
+
+#bar{position:fixed;bottom:0;left:0;right:0;height:52px;z-index:70;display:flex;align-items:center;
+  gap:14px;padding:0 clamp(18px,3vw,40px);
+  background:linear-gradient(180deg,transparent,rgba(5,6,8,.9) 45%);
+  font-size:13px;color:var(--faint);letter-spacing:.1em}
+#bar .titulo{flex:1;text-transform:uppercase;font-weight:700;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis;color:var(--dim)}
+#bar .cont{font-variant-numeric:tabular-nums;font-weight:700;color:var(--dim)}
+#bar button{background:var(--card);border:1px solid var(--line2);color:var(--dim);border-radius:9px;
+  width:34px;height:32px;cursor:pointer;font-family:inherit;font-size:15px;transition:.16s}
+#bar button:hover{border-color:var(--cyan);color:var(--cyan)}
+#bar .ayuda{color:var(--faint);font-size:12px}
+#bar .copy{color:var(--faint);font-size:12px;letter-spacing:.06em;white-space:nowrap}
+@media(max-width:760px){#bar .ayuda{display:none}}
+@media(max-width:520px){#bar .copy{display:none}}
+
+#indice{position:fixed;inset:0;z-index:90;background:rgba(5,6,8,.97);display:none;
+  padding:4vh clamp(24px,5vw,70px);overflow-y:auto}
+#indice.on{display:block}
+#indice h3{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+#indice ol{list-style:none;max-width:960px}
+#indice li{padding:7px 12px;border-radius:9px;cursor:pointer;font-size:clamp(14px,1.25vw,18px);
+  color:var(--dim);display:flex;gap:16px;transition:.14s}
+#indice li:hover{background:var(--card);color:var(--ink)}
+#indice li .ix{color:var(--faint);font-variant-numeric:tabular-nums;font-weight:700;width:2.2em}
+#indice li.actual{color:var(--cyan)} #indice li.actual .ix{color:var(--cyan)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="stage">
+
+<!-- ============ PORTADA ============ -->
+<section class="slide" data-t="Portada" id="s0">
+  <div class="dudamark">MÉTODO</div>
+  <div class="wrap">
+    <div class="kicker">Clase 4 · Descartes</div>
+    <h1>Por qué erramos<span class="sub">Cuarta Meditación — «De lo verdadero y lo falso» · Quinta Meditación — «De la esencia de las cosas materiales, y otra vez de la existencia de Dios»</span></h1>
+    <p class="lead" style="margin-top:24px">Primero repasamos qué es el criterio, qué es la duda y en qué peldaño estamos. Después: de dónde sale el error, y por qué la respuesta es el método. Y al final, la segunda prueba de Dios — la que no necesita ninguna causa.</p>
+    <div class="apho">Equivocarse no es una desgracia: es una decisión apurada.</div>
+  </div>
+</section>
+
+<!-- ============ A · EL CRITERIO ============ -->
+<section class="slide" data-t="El criterio de verdad: la evidencia">
+  <div class="wrap">
+    <div class="kicker"><span class="num">A·1</span>Repaso · Lo primero que hay que tener claro</div>
+    <h2>El criterio de verdad es <span class="cyu">la evidencia</span></h2>
+    <p class="lead">No «lo que parece razonable», no «lo que casi todos aceptan». Descartes es tajante con esto y conviene decirlo con todas las letras.</p>
+    <div class="grid g2">
+      <div class="card co"><div class="tag">Contra qué se define</div><h4>Ni probable, ni verosímil</h4>
+        <p>La evidencia <b>se opone</b> a la probabilidad y a la verosimilitud.</p>
+        <p>Descartes <b>no admite ningún valor intermedio</b> entre la certidumbre absoluta y la ignorancia. O es evidente, o no cuenta.</p></div>
+      <div class="card gr"><div class="tag">Qué clase de acto es</div><h4>Una intuición</h4>
+        <p>El conocimiento evidente es <b>indudable, inmediato y no admite grados</b>. No hay «medio evidente».</p>
+        <p>Por eso la evidencia alcanza sola: es criterio <b>suficiente</b> de verdad.</p></div>
+    </div>
+    <blockquote>Que todas las cosas que concebimos muy clara y distintamente son verdaderas.<span class="ref">— Tercera Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ A · CRITERIO ≠ DUDA ============ -->
+<section class="slide" data-t="Criterio y duda no son lo mismo">
+  <div class="wrap">
+    <div class="kicker"><span class="num">A·2</span>Repaso · La confusión más frecuente</div>
+    <h2>La duda es el <span class="u">camino</span>. La evidencia es <span class="cyu">la meta.</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 220" role="img" aria-label="La duda es el procedimiento, la evidencia es el criterio de verdad al que se llega">
+        <rect x="30" y="48" width="300" height="88" rx="14" fill="rgba(255,107,107,.07)" stroke="var(--coral)" stroke-width="2.2"/>
+        <text x="180" y="82" text-anchor="middle" font-size="20" font-weight="800" class="sv-co">LA DUDA</text>
+        <text x="180" y="108" text-anchor="middle" font-size="16" class="sv-d">es un procedimiento</text>
+        <text x="180" y="162" text-anchor="middle" font-size="15" class="sv-f">lo que hago para llegar</text>
+
+        <line x1="352" y1="92" x2="618" y2="92" stroke="var(--faint)" stroke-width="2.4"/>
+        <polygon points="618,92 602,84 602,100" fill="var(--faint)"/>
+        <text x="485" y="76" text-anchor="middle" font-size="15" font-weight="700" class="sv-f">saca todo lo que no resiste</text>
+
+        <rect x="640" y="48" width="320" height="88" rx="14" fill="rgba(34,228,255,.09)" stroke="var(--cyan)" stroke-width="2.4"/>
+        <text x="800" y="82" text-anchor="middle" font-size="20" font-weight="800" class="sv-cy">LA EVIDENCIA</text>
+        <text x="800" y="108" text-anchor="middle" font-size="16" class="sv-d">es el criterio de verdad</text>
+        <text x="800" y="162" text-anchor="middle" font-size="15" class="sv-f">aquello a lo que quiero llegar</text>
+
+        <text x="500" y="206" text-anchor="middle" font-size="17" font-weight="800" class="sv-t">No están al mismo nivel. Una es medio, la otra es fin.</text>
+      </svg>
+    </figure>
+    <p class="body">Si alguien dice «el criterio de Descartes es la duda», invirtió las cosas. Se duda <b>para</b> encontrar algo evidente. Sin la evidencia como meta, la duda sería escepticismo — y Descartes no es escéptico.</p>
+  </div>
+</section>
+
+<!-- ============ A · LA DUDA ============ -->
+<section class="slide" data-t="El carácter de la duda">
+  <div class="wrap">
+    <div class="kicker"><span class="num">A·3</span>Repaso · Las tres características</div>
+    <h2>Metódica · <span class="cyu">Hiperbólica</span> · Universal</h2>
+    <div class="grid g3">
+      <div class="card"><div class="tag">Metódica</div><h4>Es un instrumento</h4>
+        <p>Deliberada, voluntaria y <b>provisoria</b>. Se duda para encontrar, no para quedarse sin nada.</p>
+        <p>Por eso no es escepticismo: el escéptico se queda en la duda, Descartes la atraviesa.</p></div>
+      <div class="card am"><div class="tag">Hiperbólica</div><h4>Es exagerada</h4>
+        <p>Basta <b>poder</b> dudar de algo para tratarlo como falso. No hace falta probar que es falso.</p>
+        <p>Es el filtro más fino posible, puesto a propósito.</p></div>
+      <div class="card co"><div class="tag">Universal</div><h4>No perdona nada</h4>
+        <p>No se revisa opinión por opinión: <b>se atacan los cimientos</b>, las dos fuentes del conocimiento.</p>
+        <p>Alcanza a los sentidos, al mundo, al cuerpo y hasta a la razón.</p></div>
+    </div>
+    <blockquote>No es necesario que las examine a cada una en particular, lo que sería un trabajo infinito; sino que, dado que la ruina de los fundamentos arrastra consigo necesariamente el resto del edificio, atacaré en primer lugar los principios sobre los cuales se apoyaban todas mis viejas opiniones.<span class="ref">— Primera Meditación</span></blockquote>
+    <p class="note">Fijate que la cita justifica <b>la universalidad</b>: no es capricho ni exageración gratuita, es economía. Revisar una por una sería infinito.</p>
+  </div>
+</section>
+
+<!-- ============ A · LOS CUATRO PRECEPTOS ============ -->
+<section class="slide" data-t="Los cuatro preceptos del método">
+  <div class="wrap">
+    <div class="kicker"><span class="num">A·4</span>Repaso · Las reglas</div>
+    <h2>Los cuatro preceptos <span class="u">del método</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 190" role="img" aria-label="Los cuatro preceptos del método encadenados: evidencia, división, orden y enumeración">
+        <g>
+          <rect x="20" y="40" width="216" height="96" rx="14" fill="rgba(34,228,255,.10)" stroke="var(--cyan)" stroke-width="2.2"/>
+          <text x="128" y="70" text-anchor="middle" font-size="15" font-weight="800" class="sv-cy">1 · EVIDENCIA</text>
+          <text x="128" y="96" text-anchor="middle" font-size="14" class="sv-d">no admitir nada</text>
+          <text x="128" y="116" text-anchor="middle" font-size="14" class="sv-d">que no sea evidente</text>
+
+          <rect x="262" y="40" width="216" height="96" rx="14" fill="rgba(255,201,60,.08)" stroke="var(--amber)" stroke-width="2"/>
+          <text x="370" y="70" text-anchor="middle" font-size="15" font-weight="800" class="sv-am">2 · DIVISIÓN</text>
+          <text x="370" y="96" text-anchor="middle" font-size="14" class="sv-d">bajar por análisis</text>
+          <text x="370" y="116" text-anchor="middle" font-size="14" class="sv-d">a las ideas simples</text>
+
+          <rect x="504" y="40" width="216" height="96" rx="14" fill="rgba(255,201,60,.08)" stroke="var(--amber)" stroke-width="2"/>
+          <text x="612" y="70" text-anchor="middle" font-size="15" font-weight="800" class="sv-am">3 · ORDEN</text>
+          <text x="612" y="96" text-anchor="middle" font-size="14" class="sv-d">subir por grados</text>
+          <text x="612" y="116" text-anchor="middle" font-size="14" class="sv-d">de simple a compuesto</text>
+
+          <rect x="746" y="40" width="216" height="96" rx="14" fill="rgba(201,160,255,.08)" stroke="var(--violet)" stroke-width="2"/>
+          <text x="854" y="70" text-anchor="middle" font-size="15" font-weight="800" class="sv-vi">4 · ENUMERACIÓN</text>
+          <text x="854" y="96" text-anchor="middle" font-size="14" class="sv-d">revisar todo</text>
+          <text x="854" y="116" text-anchor="middle" font-size="14" class="sv-d">para no omitir nada</text>
+        </g>
+        <g stroke="var(--faint)" stroke-width="2">
+          <line x1="238" y1="88" x2="258" y2="88"/><line x1="480" y1="88" x2="500" y2="88"/>
+          <line x1="722" y1="88" x2="742" y2="88"/>
+        </g>
+        <text x="128" y="172" text-anchor="middle" font-size="14" font-weight="700" class="sv-cy">el criterio</text>
+        <text x="491" y="172" text-anchor="middle" font-size="14" font-weight="700" class="sv-am">el procedimiento</text>
+        <text x="854" y="172" text-anchor="middle" font-size="14" font-weight="700" class="sv-vi">el control</text>
+      </svg>
+      <figcaption>El primero fija <b>qué</b> vale como verdadero. Los otros tres dicen <b>cómo</b> llegar hasta ahí: bajar hasta lo simple, volver a subir ordenadamente, y revisar que no falte nada.</figcaption>
+    </figure>
+    <blockquote>Conducir mis pensamientos ordenadamente, comenzando por los objetos más simples y más fáciles de conocer, para ascender poco a poco, como por grados, al conocimiento de los más compuestos.<span class="ref">— Discurso del método, tercer precepto</span></blockquote>
+    <p class="note">El orden del tercer precepto es <b>deductivo, no causal</b>: no dice cómo dependen las cosas unas de otras en la realidad, sino cómo unos conocimientos dependen de otros. Es una ordenación epistemológica.</p>
+  </div>
+</section>
+
+<!-- ============ A · PRECIPITACIÓN Y PREVENCIÓN ============ -->
+<section class="slide" data-t="Precipitación y prevención">
+  <div class="wrap">
+    <div class="kicker"><span class="num">A·5</span>Repaso · Los dos enemigos del juicio</div>
+    <h2>Precipitación y prevención <span class="u">no son lo mismo</span></h2>
+    <p class="lead">El primer precepto manda evitar las dos. Son dos maneras distintas de perder el gobierno del propio juicio, y conviene poder distinguirlas.</p>
+    <div class="ficha">
+      <div class="paso no"><div class="pl">Precipitación · un problema de tiempo</div>
+        <p>Juzgar <b>a destiempo</b>, de manera atolondrada, sobre la base de un conocimiento insuficiente.</p>
+        <p>No adecuar las razones que fundan el juicio con el grado de certeza de lo que se afirma. <b>Voy más rápido de lo que sé.</b></p></div>
+      <div class="paso no"><div class="pl">Prevención · un problema de origen</div>
+        <p>Una decisión de la voluntad <b>indiferente</b> al conocimiento claro y distinto de aquello sobre lo que decide.</p>
+        <p>Es el <b>prejuicio</b>: el terreno donde no soy libre y estoy preso de las «verdades» heredadas de instituciones y costumbres. <b>No juzgo yo: juzga lo que me enseñaron.</b></p></div>
+    </div>
+    <blockquote>No admitir nunca como verdadera cosa alguna, que yo no conozca con evidencia ser tal; es decir, evitar cuidadosamente la precipitación y la prevención.<span class="ref">— Discurso del método, primer precepto</span></blockquote>
+    <p class="note">Guardá la precipitación: dentro de un rato va a ser <b>la definición misma del error</b> en la Cuarta Meditación.</p>
+  </div>
+</section>
+
+<!-- ============ A · LA ESCALERA ============ -->
+<section class="slide" data-t="La escalera: qué cayó y qué volvió">
+  <div class="wrap">
+    <div class="kicker"><span class="num">A·6</span>Repaso · Dónde estamos parados</div>
+    <h2>Lo que cayó y lo que <span class="u">ya recuperamos</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 250" role="img" aria-label="La escalera de la duda: lo que cayó en la Primera Meditación y lo que se recuperó después">
+        <text x="30" y="30" font-size="15" font-weight="800" class="sv-co">CAYÓ · Primera Meditación</text>
+        <g stroke="var(--coral)" stroke-width="2" fill="rgba(255,107,107,.07)">
+          <rect x="30" y="44" width="400" height="40" rx="9"/>
+          <rect x="30" y="92" width="400" height="40" rx="9"/>
+          <rect x="30" y="140" width="400" height="40" rx="9"/>
+        </g>
+        <text x="50" y="70" font-size="16" font-weight="700" class="sv-t">los sentidos</text>
+        <text x="50" y="118" font-size="16" font-weight="700" class="sv-t">el mundo y las ciencias fácticas</text>
+        <text x="50" y="166" font-size="16" font-weight="700" class="sv-t">la matemática y la razón</text>
+
+        <text x="560" y="30" font-size="15" font-weight="800" class="sv-gr">SE RECUPERÓ</text>
+        <g stroke="var(--green)" stroke-width="2" fill="rgba(87,227,139,.07)">
+          <rect x="560" y="140" width="410" height="40" rx="9"/>
+          <rect x="560" y="188" width="410" height="40" rx="9"/>
+        </g>
+        <text x="580" y="166" font-size="16" font-weight="700" class="sv-t">Med. III · la razón, con Dios de garante</text>
+        <text x="580" y="214" font-size="16" font-weight="700" class="sv-t">Med. II · existo, soy cosa que piensa</text>
+
+        <g stroke="var(--faint)" stroke-width="1.6" stroke-dasharray="6 5">
+          <line x1="434" y1="160" x2="556" y2="160"/>
+        </g>
+        <text x="495" y="148" text-anchor="middle" font-size="13" class="sv-f">vuelve</text>
+
+        <text x="30" y="212" font-size="16" font-weight="800" class="sv-co">Todavía en el piso:</text>
+        <text x="30" y="238" font-size="16" font-weight="700" class="sv-t">el mundo exterior y mi cuerpo.</text>
+      </svg>
+      <figcaption>La duda bajó de lo particular a lo general. La reconstrucción sube en <b>orden inverso</b>: primero volvió lo último que había caído.</figcaption>
+    </figure>
+    <p class="body">Hoy tengo el cogito, tengo a Dios y tengo la razón legitimada. Falta el mundo. <b>Y sin embargo me sigo equivocando</b> — que es exactamente el problema con el que abre la Cuarta Meditación.</p>
+  </div>
+</section>
+
+<!-- ============ A · EL CÍRCULO, RETOMADO ============ -->
+<section class="slide" data-t="Lo que quedó abierto: el círculo cartesiano">
+  <div class="wrap">
+    <div class="kicker"><span class="num">A·7</span>Retomamos la discusión de la clase pasada</div>
+    <h2>El círculo: <span class="cou">¿probó a Dios con lo que Dios tenía que garantizar?</span></h2>
+    <div class="ficha">
+      <div class="paso no"><div class="pl">El problema</div>
+        <p>Necesito a Dios para confiar en mis ideas claras y distintas. Pero <b>probé a Dios usando ideas claras y distintas</b>. Parece que el argumento se muerde la cola.</p></div>
+      <div class="paso ok"><div class="pl">La respuesta de Descartes</div>
+        <p>Distingue dos momentos cuyo <b>orden no se puede invertir</b>. Lo que estoy <b>intuyendo ahora</b> se sostiene solo: no necesita garantía. Dios garantiza lo que <b>recuerdo</b> haber demostrado — las cadenas de razonamiento que ya no tengo presentes.</p></div>
+    </div>
+    <p class="body">Dicho corto: <b>Dios no garantiza la intuición, garantiza la memoria del razonamiento.</b> Garantiza las mediaciones, no lo inmediato.</p>
+    <div class="grid g2">
+      <div class="card co"><div class="tag">Lo que queda para discutir</div><h4>¿Alcanza esa distinción?</h4><p>La prueba de Dios no es una sola intuición instantánea: tiene pasos. Y si tiene pasos, hay memoria en el medio. Descartes responde que sus axiomas e ideas simples pueden entenderse <b>en conjunto como una única intuición</b>. Ahí está el nudo.</p></div>
+      <div class="card vi"><div class="tag">Por qué vuelve hoy</div><h4>La Quinta lo reabre</h4><p>El argumento que vamos a ver al final de la clase <b>vuelve a apoyarse en lo claro y distinto</b> para probar que Dios existe. Si el círculo no está cerrado, esa prueba tampoco lo está. Tenganlo a mano.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEPARADOR · MED IV ============ -->
+<section class="slide parte" data-t="— Cuarta Meditación —">
+  <div class="wrap">
+    <div class="rot">Primera parte</div>
+    <div class="big">Reglas para el correcto uso de la razón</div>
+    <p class="lead" style="margin-top:22px">o, dicho de otro modo: <span class="am">por qué erramos</span>.</p>
+    <p class="lead">Cuarta Meditación — <span class="faint">«De lo verdadero y lo falso»</span></p>
+  </div>
+</section>
+
+<!-- ============ B1 · ENTRE DIOS Y LA NADA ============ -->
+<section class="slide" data-t="El hombre, entre Dios y la nada">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">1</span>El punto de partida</div>
+    <h2>Un ser <span class="u">entre Dios y la nada</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 170" role="img" aria-label="El hombre como término medio entre el ser pleno y la nada">
+        <rect x="30" y="52" width="250" height="66" rx="12" fill="rgba(34,228,255,.12)" stroke="var(--cyan)" stroke-width="2.2"/>
+        <text x="155" y="82" text-anchor="middle" font-size="19" font-weight="800" class="sv-cy">DIOS</text>
+        <text x="155" y="104" text-anchor="middle" font-size="14" class="sv-d">el ser pleno</text>
+
+        <rect x="376" y="52" width="248" height="66" rx="12" fill="rgba(255,201,60,.10)" stroke="var(--amber)" stroke-width="2.4"/>
+        <text x="500" y="82" text-anchor="middle" font-size="19" font-weight="800" class="sv-am">YO</text>
+        <text x="500" y="104" text-anchor="middle" font-size="14" class="sv-d">un término medio</text>
+
+        <rect x="720" y="52" width="250" height="66" rx="12" fill="rgba(126,136,152,.07)" stroke="var(--faint)" stroke-width="2"/>
+        <text x="845" y="82" text-anchor="middle" font-size="19" font-weight="800" class="sv-f">LA NADA</text>
+        <text x="845" y="104" text-anchor="middle" font-size="14" class="sv-d">el no ser</text>
+
+        <g stroke="var(--line2)" stroke-width="2"><line x1="284" y1="85" x2="372" y2="85"/><line x1="628" y1="85" x2="716" y2="85"/></g>
+        <text x="500" y="150" text-anchor="middle" font-size="16" font-weight="700" class="sv-t">Participo del ser, pero no del todo. De ahí sale el error.</text>
+      </svg>
+    </figure>
+    <p class="body">Si me engaño, es porque <b>mi facultad de discernir lo verdadero de lo falso no es infinita</b>. No soy Dios, y tampoco soy nada: estoy en el medio, y en ese medio hay lugar para equivocarse.</p>
+  </div>
+</section>
+
+<!-- ============ B2 · LA PREGUNTA ============ -->
+<section class="slide" data-t="¿De dónde proviene el error?">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">2</span>La pregunta que ordena la Meditación</div>
+    <h2>Entonces, <span class="u">¿de dónde proviene el error?</span></h2>
+    <p class="lead">Descartes la formula como una sospecha: ¿provendrá de una falta de perfección? ¿De una privación del conocimiento? Y la pregunta no es inocente — porque cualquier respuesta parece acusar a Dios.</p>
+    <div class="ficha">
+      <div class="paso ok"><div class="pl">Lo que ya está establecido</div>
+        <p>Dios existe, es perfecto y <b>no puede ser engañador</b>: engañar supone un defecto. El error sistemático quedó descartado.</p></div>
+      <div class="paso no"><div class="pl">Lo que no cierra</div>
+        <p>Pero <b>me equivoco</b>. Eso es un hecho. Y si Dios me hizo, y me hizo bien, mi error tiene que explicarse sin cargárselo a Él.</p></div>
+    </div>
+    <div class="apho">El error dejó de ser un accidente sin importancia: ahora es una acusación que hay que desactivar.</div>
+  </div>
+</section>
+
+<!-- ============ B3 · LAS DOS FACULTADES ============ -->
+<section class="slide" data-t="Entendimiento y voluntad">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">3</span>La distinción central de la Meditación</div>
+    <h2>Dos facultades <span class="u">que hay que separar bien</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 250" role="img" aria-label="El entendimiento concibe ideas y es finito; la voluntad elige y es infinita">
+        <rect x="24" y="30" width="452" height="196" rx="16" fill="rgba(34,228,255,.07)" stroke="var(--cyan)" stroke-width="2.4"/>
+        <text x="250" y="66" text-anchor="middle" font-size="21" font-weight="800" class="sv-cy">ENTENDIMIENTO</text>
+        <text x="250" y="94" text-anchor="middle" font-size="16" class="sv-d">la facultad de conocer</text>
+        <text x="250" y="132" text-anchor="middle" font-size="16" class="sv-t">Sólo concibe ideas.</text>
+        <text x="250" y="156" text-anchor="middle" font-size="16" class="sv-t">Las concibe clara y distintamente,</text>
+        <text x="250" y="178" text-anchor="middle" font-size="16" class="sv-t">o no las concibe.</text>
+        <text x="250" y="208" text-anchor="middle" font-size="16" font-weight="800" class="sv-gr">Acá no hay error posible</text>
+
+        <rect x="524" y="30" width="452" height="196" rx="16" fill="rgba(255,201,60,.07)" stroke="var(--amber)" stroke-width="2.4"/>
+        <text x="750" y="66" text-anchor="middle" font-size="21" font-weight="800" class="sv-am">VOLUNTAD</text>
+        <text x="750" y="94" text-anchor="middle" font-size="16" class="sv-d">la facultad de elegir · libre albedrío</text>
+        <text x="750" y="132" text-anchor="middle" font-size="16" class="sv-t">Afirma o niega.</text>
+        <text x="750" y="156" text-anchor="middle" font-size="16" class="sv-t">Persigue o rechaza.</text>
+        <text x="750" y="178" text-anchor="middle" font-size="16" class="sv-t">Puede pronunciarse sobre cualquier cosa.</text>
+        <text x="750" y="208" text-anchor="middle" font-size="16" font-weight="800" class="sv-co">Acá se cuela el error</text>
+      </svg>
+    </figure>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">El entendimiento es finito</div>
+        <p>Hay cosas que no concibo, y punto. <b>Esto no es una queja contra Dios:</b> Dios me hizo así. Ser finito no es un defecto de fábrica, es ser una criatura.</p></div>
+      <div class="paso vi"><div class="pl">La voluntad es infinita</div>
+        <p>Puedo afirmar o negar <b>cualquier cosa</b>, incluso lo que no entiendo. Descartes dice que es «más amplia y extensa» que el entendimiento — <b>de mayor alcance</b>, no ocupando más espacio.</p></div>
+    </div>
+    <p class="note"><b>Ojo con la palabra:</b> «extensa» acá significa de mayor alcance. No tiene nada que ver con la <em>res extensa</em>, la sustancia corpórea que vimos antes. Son dos usos distintos de la misma palabra.</p>
+  </div>
+</section>
+
+<!-- ============ B4 · NINGUNA ES CULPABLE ============ -->
+<section class="slide" data-t="Ninguna de las dos facultades es la culpable">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">4</span>Descartando sospechosos</div>
+    <h2>Ni una ni otra: <span class="u">las dos son perfectas</span></h2>
+    <p class="lead">La tentación sería decir que el entendimiento es defectuoso por ser finito, o que la voluntad es peligrosa por ser infinita. Descartes cierra las dos puertas con el mismo argumento.</p>
+    <div class="grid g2">
+      <div class="card cy"><div class="tag">¿El entendimiento?</div><h4>No</h4>
+        <p>Es una <b>creación divina</b> y como tal es perfecto en lo suyo. Que sea finito no lo vuelve defectuoso: hace exactamente lo que puede hacer, que es concebir. Y cuando concibe, concibe bien.</p></div>
+      <div class="card am"><div class="tag">¿La voluntad?</div><h4>Tampoco</h4>
+        <p>También es creación divina, y es <b>lo más perfecto que tengo</b>. Es justamente en ella donde Descartes reconoce estar hecho a imagen y semejanza de Dios.</p></div>
+    </div>
+    <blockquote>Sólo la voluntad o libertad del albedrío la siento en mí tan grande, que no concibo idea de otra más amplia y extensa: de suerte que es ella principalmente la que me hace saber que estoy hecho a imagen y semejanza de Dios.<span class="ref">— Cuarta Meditación</span></blockquote>
+    <p class="body">Si ninguna de las dos facultades es la culpable, entonces el error <b>no está en ninguna de ellas</b>. Está en otro lado. ¿Dónde?</p>
+  </div>
+</section>
+
+<!-- ============ B5 · EL EXCESO ============ -->
+<section class="slide" data-t="El error es un exceso de voluntad">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">5</span>La respuesta</div>
+    <h2>El error está en <span class="cou">el exceso</span>, no en las facultades</h2>
+    <figure>
+      <svg viewBox="0 0 1000 200" role="img" aria-label="El error aparece en la franja donde la voluntad se extiende más allá del entendimiento">
+        <text x="30" y="36" font-size="16" font-weight="700" class="sv-cy">ENTENDIMIENTO · lo que concibo clara y distintamente</text>
+        <rect x="30" y="50" width="320" height="42" rx="9" fill="rgba(34,228,255,.14)" stroke="var(--cyan)" stroke-width="2"/>
+        <text x="366" y="77" font-size="15" class="sv-f">hasta acá veo</text>
+
+        <text x="30" y="132" font-size="16" font-weight="700" class="sv-am">VOLUNTAD · sobre lo que puedo pronunciarme</text>
+        <rect x="30" y="146" width="900" height="42" rx="9" fill="rgba(255,201,60,.12)" stroke="var(--amber)" stroke-width="2"/>
+        <text x="944" y="175" font-size="26" font-weight="800" class="sv-am">∞</text>
+
+        <rect x="350" y="44" width="580" height="150" rx="10" fill="rgba(255,107,107,.07)"
+              stroke="var(--coral)" stroke-width="1.8" stroke-dasharray="7 5"/>
+        <text x="640" y="118" text-anchor="middle" font-size="19" font-weight="800" class="sv-co">acá vive el error</text>
+      </svg>
+      <figcaption>Toda la franja donde <b>afirmo más de lo que veo</b> es terreno disponible para equivocarse. El error no es una facultad: es una desproporción entre dos.</figcaption>
+    </figure>
+    <p class="body">Y esa desproporción tiene nombre: <b>precipitación</b>. Afirmar o negar una idea sin habérsela presentado antes de forma clara, distinta e indubitable.</p>
+    <div class="apho">Errar no es no saber. Errar es hablar de lo que no se sabe.</div>
+  </div>
+</section>
+
+<!-- ============ B6 · LA LUZ NATURAL ============ -->
+<section class="slide" data-t="El orden correcto: entendimiento antes que voluntad">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">6</span>La regla de oro</div>
+    <h2>Primero <span class="cyu">ver</span>, después <span class="u">afirmar</span></h2>
+    <blockquote>La luz natural nos enseña que el conocimiento del entendimiento debe siempre preceder a la determinación de la voluntad.<span class="ref">— Cuarta Meditación</span></blockquote>
+    <figure>
+      <svg viewBox="0 0 1000 200" role="img" aria-label="El orden correcto es entender y después afirmar; el orden invertido produce el error">
+        <text x="30" y="36" font-size="15" font-weight="800" class="sv-gr">ORDEN CORRECTO</text>
+        <rect x="30" y="48" width="230" height="46" rx="10" fill="rgba(34,228,255,.10)" stroke="var(--cyan)" stroke-width="2"/>
+        <text x="145" y="77" text-anchor="middle" font-size="16" font-weight="700" class="sv-cy">entiendo claro</text>
+        <line x1="266" y1="71" x2="326" y2="71" stroke="var(--green)" stroke-width="2.2"/>
+        <polygon points="326,71 312,64 312,78" fill="var(--green)"/>
+        <rect x="336" y="48" width="230" height="46" rx="10" fill="rgba(255,201,60,.10)" stroke="var(--amber)" stroke-width="2"/>
+        <text x="451" y="77" text-anchor="middle" font-size="16" font-weight="700" class="sv-am">después afirmo</text>
+        <line x1="572" y1="71" x2="632" y2="71" stroke="var(--green)" stroke-width="2.2"/>
+        <polygon points="632,71 618,64 618,78" fill="var(--green)"/>
+        <rect x="642" y="48" width="220" height="46" rx="10" fill="rgba(87,227,139,.10)" stroke="var(--green)" stroke-width="2"/>
+        <text x="752" y="77" text-anchor="middle" font-size="16" font-weight="800" class="sv-gr">verdad</text>
+
+        <text x="30" y="140" font-size="15" font-weight="800" class="sv-co">ORDEN INVERTIDO</text>
+        <rect x="30" y="152" width="230" height="46" rx="10" fill="rgba(255,201,60,.10)" stroke="var(--amber)" stroke-width="2"/>
+        <text x="145" y="181" text-anchor="middle" font-size="16" font-weight="700" class="sv-am">afirmo primero</text>
+        <line x1="266" y1="175" x2="326" y2="175" stroke="var(--coral)" stroke-width="2.2"/>
+        <polygon points="326,175 312,168 312,182" fill="var(--coral)"/>
+        <rect x="336" y="152" width="230" height="46" rx="10" fill="rgba(126,136,152,.07)" stroke="var(--faint)" stroke-width="2"/>
+        <text x="451" y="181" text-anchor="middle" font-size="16" font-weight="700" class="sv-f">sin haber visto claro</text>
+        <line x1="572" y1="175" x2="632" y2="175" stroke="var(--coral)" stroke-width="2.2"/>
+        <polygon points="632,175 618,168 618,182" fill="var(--coral)"/>
+        <rect x="642" y="152" width="220" height="46" rx="10" fill="rgba(255,107,107,.10)" stroke="var(--coral)" stroke-width="2"/>
+        <text x="752" y="181" text-anchor="middle" font-size="16" font-weight="800" class="sv-co">error</text>
+      </svg>
+    </figure>
+    <p class="body">Errar es, entonces, <b>un mal uso del libre albedrío</b>. La privación es mía: no vive en Dios. Dios me dio dos facultades buenas; el desorden entre ellas lo pongo yo.</p>
+  </div>
+</section>
+
+<!-- ============ B7 · LO TEMERARIO ============ -->
+<section class="slide" data-t="Lo temerario">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">7</span>El nombre de la falta</div>
+    <h2>El que se precipita es <span class="cou">un temerario</span></h2>
+    <p class="lead">Vale la pena detenerse en la palabra. Temerario no es el que no sabe: es el que <b>no se toma el trabajo</b> de distinguir lo claro y distinto, y aun así se pronuncia.</p>
+    <div class="grid g2">
+      <div class="card co"><div class="tag">La falta</div><h4>Afirmar de apurado</h4><p>Dar por verdadero o falso lo que apenas se le presenta, sin haberlo descompuesto ni examinado. Es una <b>forma temeraria</b> de afirmar y de negar.</p></div>
+      <div class="card gr"><div class="tag">La solución</div><h4>Callarse a tiempo</h4><p><b>No opinar sobre aquello que no se me presenta clara y distintamente.</b> Suspender el juicio no es cobardía intelectual: es la única manera de no errar.</p></div>
+    </div>
+    <p class="body">Y esto es más grave de lo que suena, porque el error acá <b>no es sólo epistémico: es moral</b>. Al extralimitar mi voluntad más allá de mi saber, yerro y peco. Es una falta, no un accidente.</p>
+    <div class="apho">Hay una honestidad en decir «no sé» que ninguna opinión rápida puede comprar.</div>
+  </div>
+</section>
+
+<!-- ============ B8 · NEGACIÓN Y PRIVACIÓN ============ -->
+<section class="slide" data-t="Error como negación y como privación">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">8</span>Dos cosas que se llaman error</div>
+    <h2>Adentro o afuera <span class="u">de mis límites</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 300" role="img" aria-label="Dentro de los límites del conocimiento el error es privación; fuera de ellos es simple negación">
+        <rect x="24" y="22" width="452" height="256" rx="20" fill="none" stroke="var(--faint)"
+              stroke-width="1.8" stroke-dasharray="8 6"/>
+        <text x="44" y="50" font-size="14" font-weight="700" class="sv-f">TODO LO QUE HAY PARA CONOCER</text>
+        <circle cx="250" cy="172" r="92" fill="rgba(34,228,255,.09)" stroke="var(--cyan)" stroke-width="2.6"/>
+        <text x="250" y="162" text-anchor="middle" font-size="15" font-weight="800" class="sv-cy">LO QUE PUEDO</text>
+        <text x="250" y="184" text-anchor="middle" font-size="15" font-weight="800" class="sv-cy">CONCEBIR CLARO</text>
+        <text x="250" y="208" text-anchor="middle" font-size="13" class="sv-f">mi entendimiento finito</text>
+        <circle cx="250" cy="234" r="7" fill="var(--coral)"/>
+        <line x1="257" y1="234" x2="516" y2="116" stroke="var(--coral)" stroke-width="1.8"/>
+        <circle cx="404" cy="70" r="7" fill="var(--faint)"/>
+        <line x1="411" y1="70" x2="516" y2="220" stroke="var(--faint)" stroke-width="1.8"/>
+
+        <rect x="524" y="40" width="452" height="104" rx="14" fill="rgba(255,107,107,.07)"
+              stroke="var(--coral)" stroke-width="2"/>
+        <text x="546" y="70" font-size="17" font-weight="800" class="sv-co">PRIVACIÓN · dentro</text>
+        <text x="546" y="96" font-size="15" class="sv-t">Podía verlo claro y afirmé sin mirar.</text>
+        <text x="546" y="120" font-size="15" class="sv-t">Es error. Es evitable. Es mío.</text>
+
+        <rect x="524" y="168" width="452" height="104" rx="14" fill="rgba(126,136,152,.07)"
+              stroke="var(--faint)" stroke-width="2"/>
+        <text x="546" y="198" font-size="17" font-weight="800" class="sv-f">NEGACIÓN · fuera</text>
+        <text x="546" y="224" font-size="15" class="sv-t">No puedo conocerlo: es mi finitud.</text>
+        <text x="546" y="248" font-size="15" class="sv-t">No es error mientras no juzgue.</text>
+      </svg>
+    </figure>
+    <p class="body">La negación no acusa a nadie: no sabemos por qué Dios nos hizo finitos, y esa limitación bien podría <b>contribuir a la perfección del conjunto</b>. La privación sí acusa — y me acusa a mí.</p>
+  </div>
+</section>
+
+<!-- ============ B9 · POR QUÉ EL TÍTULO ============ -->
+<section class="slide" data-t="Por qué «reglas para el correcto uso de la razón»">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">9</span>El título, explicado</div>
+    <h2>Si el error es el mal uso, <span class="u">la regla es el método</span></h2>
+    <p class="lead">Por eso esta Meditación se puede leer como el capítulo de las reglas para el correcto uso de la razón. La receta es corta y ya la conocemos.</p>
+    <div class="ficha">
+      <div class="paso ok"><div class="pl">Regla 1</div>
+        <p><b>No aceptar como verdadera</b> ninguna idea que no se me presente clara y distinta.</p></div>
+      <div class="paso ok"><div class="pl">Regla 2</div>
+        <p><b>No precipitarme</b> a afirmar ni a negar, a aceptar ni a rechazar, aquello que no cumpla esa condición.</p></div>
+    </div>
+    <p class="body">Es el primer precepto del método, otra vez — pero ahora <b>fundamentado</b>. En el <em>Discurso</em> era un consejo de buen procedimiento. Acá quedó demostrado por qué funciona: porque el error es exactamente la desproporción que la regla impide.</p>
+    <div class="pills">
+      <span class="pill queda">Toda verdad: correcta aplicación del método</span>
+      <span class="pill cae">Todo error: incorrecta aplicación del método</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B10 · CIERRE MED IV ============ -->
+<section class="slide" data-t="Balance de la Cuarta Meditación">
+  <div class="wrap">
+    <div class="kicker iv"><span class="num">10</span>Qué deja establecido</div>
+    <h2>Dos cosas quedan <span class="u">firmes</span></h2>
+    <div class="grid g2">
+      <div class="card gr"><div class="tag">Primera</div><h4>Dios, garante epistémico</h4><p>Queda explicado el origen del error <b>sin cargárselo a Dios</b>. Dios sigue siendo el garante de las ideas claras y distintas: si me equivoco, es por mi mal uso, no por un defecto que Él me haya puesto.</p></div>
+      <div class="card cy"><div class="tag">Segunda</div><h4>El método, justificado</h4><p>El método deja de ser una recomendación práctica y pasa a tener <b>fundamento metafísico</b>. Sabemos por qué evita el error: porque impide que la voluntad se adelante al entendimiento.</p></div>
+    </div>
+    <div class="apho">La Cuarta no descubre una verdad nueva. Explica por qué el procedimiento entero era correcto.</div>
+    <p class="body">Con eso podemos volver a las cosas. Y la pregunta que sigue es: de las cosas materiales, <b>¿qué es lo que puedo concebir clara y distintamente?</b></p>
+  </div>
+</section>
+
+<!-- ============ SEPARADOR · MED V ============ -->
+<section class="slide parte" data-t="— Quinta Meditación —">
+  <div class="wrap">
+    <div class="rot">Segunda parte</div>
+    <div class="big">El argumento ontológico</div>
+    <p class="lead" style="margin-top:22px">Quinta Meditación — <span class="faint">«De la esencia de las cosas materiales, y otra vez de la existencia de Dios»</span></p>
+    <p class="note"><b>Atención al título:</b> dice <em>esencia</em> de las cosas materiales, no existencia. Que existan los cuerpos es asunto de la Sexta. Acá se pregunta qué son, no si están.</p>
+  </div>
+</section>
+
+<!-- ============ C1 · PUNTO DE PARTIDA ============ -->
+<section class="slide" data-t="El punto de partida de la Quinta">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">1</span>Con qué cuenta ahora</div>
+    <h2>Tengo en mí <span class="vu">una infinidad de ideas</span></h2>
+    <p class="lead">Y ya no estoy indefenso frente a ellas. Vengo de tres Meditaciones que me dejaron una herramienta.</p>
+    <div class="premisas">
+      <div class="prem"><div class="pn">1</div><div class="pt">Tengo en mí <b>una infinidad de ideas</b>.</div></div>
+      <div class="prem"><div class="pn">2</div><div class="pt">Si una idea se me presenta <b>clara y distinta</b>, es verdadera.</div></div>
+      <div class="prem"><div class="pn">3</div><div class="pt">El método me aproxima a la verdad, y <b>Dios es el garante</b> de lo claro y distinto.</div></div>
+      <div class="prem concl"><div class="pn">∴</div><div class="pt">Puedo confiar en lo que concibo con claridad. Ahora la pregunta es hasta dónde llega ese permiso.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ C2 · LA PREGUNTA ============ -->
+<section class="slide" data-t="La pregunta que abre el argumento">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">2</span>El giro</div>
+    <h2>¿Y si uso <span class="u">ese mismo camino</span> para probar que Dios existe?</h2>
+    <p class="lead">Descartes se hace la pregunta en voz alta: si del mero hecho de que una idea se me presente clara y distinta puedo concluir algo sobre lo que representa, <b>¿por qué no aplicarlo a la idea de Dios?</b></p>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">Lo que ya hizo en la Med. III</div>
+        <p>Una prueba <b>causal</b>: partió de un efecto —la idea de infinito, y su propia existencia— y remontó hasta la causa que hacía falta para producirlo.</p></div>
+      <div class="paso vi"><div class="pl">Lo que va a hacer ahora</div>
+        <p>Una prueba <b>ontológica</b>: no parte de ningún efecto. Parte de la <b>esencia</b> misma, del solo análisis de qué es Dios.</p></div>
+    </div>
+    <p class="note">Son dos pruebas distintas de la misma conclusión, con estructuras distintas. La primera necesita el principio causal y los grados de realidad; ésta no necesita nada de eso.</p>
+  </div>
+</section>
+
+<!-- ============ C3 · LAS ESENCIAS ============ -->
+<section class="slide" data-t="Las naturalezas verdaderas e inmutables">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">3</span>Primero, las cosas materiales</div>
+    <h2>Hay ideas que <span class="u">no puedo alterar</span></h2>
+    <p class="lead">De las cosas materiales puedo concebir con claridad ciertas propiedades: <b>extensión, figura, movimiento, duración, número</b>. Todo lo matematizable. Descartes llama a esas esencias <span class="v">naturalezas verdaderas e inmutables</span>.</p>
+    <div class="grid g3">
+      <div class="card gr"><div class="tag">No las inventé</div><h4>Se me imponen</h4><p>No son producto de un consenso ni de una fantasía. <b>No puedo alterarlas</b>: su contenido se me impone, tenga yo ganas o no.</p></div>
+      <div class="card cy"><div class="tag">Son necesarias</div><h4>Estructura fija</h4><p>Tienen una estructura fija, <b>independiente de la voluntad</b> de quien las piensa. No dependen de mí.</p></div>
+      <div class="card vi"><div class="tag">Por eso</div><h4>Son innatas</h4><p>No vienen de la sensibilidad ni de la imaginación. Entonces no son <b>ni adventicias ni facticias</b>: sólo queda que sean innatas.</p></div>
+    </div>
+    <p class="body">Y acá viene la jugada: si hay esencias que se me imponen y que no puedo tocar, entonces <b>una esencia puede obligarme a admitir algo</b>. Guardá eso.</p>
+  </div>
+</section>
+
+<!-- ============ C4 · EL TRIÁNGULO ============ -->
+<section class="slide" data-t="El triángulo: la esencia manda">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">4</span>El ejemplo que prepara todo</div>
+    <h2>No puedo pensar un triángulo <span class="u">y sacarle lo que lo hace triángulo</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 260" role="img" aria-label="Los tres ángulos de un triángulo suman dos rectos, y esa propiedad no se le puede quitar">
+        <polygon points="180,50 60,206 300,206" fill="rgba(34,228,255,.08)" stroke="var(--cyan)" stroke-width="2.6"/>
+        <path d="M180 78 q-13 10 -8 22" fill="none" stroke="var(--amber)" stroke-width="2"/>
+        <path d="M88 206 q6 -16 22 -20" fill="none" stroke="var(--amber)" stroke-width="2"/>
+        <path d="M272 206 q-6 -16 -22 -20" fill="none" stroke="var(--amber)" stroke-width="2"/>
+        <text x="180" y="118" text-anchor="middle" font-size="17" font-weight="800" class="sv-am">α</text>
+        <text x="104" y="196" text-anchor="middle" font-size="17" font-weight="800" class="sv-am">β</text>
+        <text x="256" y="196" text-anchor="middle" font-size="17" font-weight="800" class="sv-am">γ</text>
+        <text x="180" y="240" text-anchor="middle" font-size="17" font-weight="800" class="sv-cy">α + β + γ = dos rectos</text>
+
+        <line x1="368" y1="40" x2="368" y2="230" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="5 7"/>
+
+        <text x="402" y="76" font-size="19" font-weight="800" class="sv-t">Esa propiedad no se la puse yo.</text>
+        <text x="402" y="106" font-size="17" class="sv-d">La encuentro cuando pienso el triángulo,</text>
+        <text x="402" y="130" font-size="17" class="sv-d">y no puedo pensarlo sin ella.</text>
+        <rect x="402" y="156" width="558" height="66" rx="12" fill="rgba(255,107,107,.07)" stroke="var(--coral)" stroke-width="2"/>
+        <text x="424" y="184" font-size="17" font-weight="800" class="sv-co">Si se la quito, no me queda un triángulo raro:</text>
+        <text x="424" y="210" font-size="17" font-weight="800" class="sv-co">no me queda ningún triángulo.</text>
+      </svg>
+      <figcaption>La esencia de una cosa <b>manda sobre lo que puedo pensar de ella</b>. No es que yo decida qué propiedades tiene el triángulo: las descubro, y me obligan.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ C5 · EL PASO A DIOS ============ -->
+<section class="slide" data-t="El paso a Dios: esencia y existencia">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">5</span>La aplicación</div>
+    <h2>A la esencia de Dios <span class="u">le pertenece existir</span></h2>
+    <p class="lead">El movimiento es exactamente el mismo. Así como no puedo separar del triángulo sus propiedades esenciales, <b>no puedo separar de la esencia de Dios su existencia</b>.</p>
+    <blockquote>La existencia no puede separarse de la esencia de Dios, como… del triángulo la magnitud de sus tres ángulos igual a dos rectos.<span class="ref">— Quinta Meditación</span></blockquote>
+    <table class="res">
+      <tr><th></th><th style="color:var(--cyan)">El triángulo</th><th style="color:var(--violet)">Dios</th></tr>
+      <tr><td class="lbl">Su esencia incluye</td><td class="a">que sus tres ángulos sumen dos rectos</td><td class="b" style="color:var(--violet)">la existencia</td></tr>
+      <tr><td class="lbl">Si se lo quito</td><td class="a">deja de ser un triángulo</td><td class="b" style="color:var(--violet)">deja de ser Dios</td></tr>
+      <tr><td class="lbl">Quién lo decide</td><td class="a">la esencia, no yo</td><td class="b" style="color:var(--violet)">la esencia, no yo</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ C6 · MONTAÑA Y VALLE ============ -->
+<section class="slide" data-t="La montaña y el valle">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">6</span>El segundo ejemplo · y su límite</div>
+    <h2>No se puede concebir <span class="u">una montaña sin un valle</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 190" role="img" aria-label="La montaña y el valle son inseparables en el concepto">
+        <path d="M60 156 L170 46 L280 156 L390 66 L500 156 Z" fill="rgba(34,228,255,.08)"
+              stroke="var(--cyan)" stroke-width="2.4"/>
+        <text x="170" y="36" text-anchor="middle" font-size="15" font-weight="700" class="sv-cy">montaña</text>
+        <text x="280" y="180" text-anchor="middle" font-size="15" font-weight="700" class="sv-am">valle</text>
+        <line x1="280" y1="158" x2="280" y2="168" stroke="var(--amber)" stroke-width="2"/>
+        <line x1="530" y1="26" x2="530" y2="170" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="5 7"/>
+        <text x="560" y="62" font-size="18" font-weight="800" class="sv-t">Van juntos en el concepto.</text>
+        <text x="560" y="92" font-size="16" class="sv-d">Igual que la esencia de Dios y su existencia.</text>
+        <rect x="560" y="112" width="416" height="62" rx="12" fill="rgba(255,107,107,.07)" stroke="var(--coral)" stroke-width="2"/>
+        <text x="580" y="138" font-size="14" font-weight="800" class="sv-co">Pero cuidado: que no pueda pensar</text>
+        <text x="580" y="160" font-size="14" font-weight="800" class="sv-co">una sin la otra no prueba que haya montañas.</text>
+      </svg>
+    </figure>
+    <p class="body"><b>Marcá el límite del ejemplo, o te lo voltean.</b> La montaña y el valle muestran <b>inseparabilidad</b>, no existencia. Descartes usa la analogía para el vínculo, no para concluir que algo exista. Lo que hace la diferencia en el caso de Dios es otra cosa — y es lo que viene ahora.</p>
+  </div>
+</section>
+
+<!-- ============ C7 · NECESARIO ============ -->
+<section class="slide" data-t="Necesario, no contingente">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">7</span>La palabra clave de toda la Meditación</div>
+    <h2><span class="vu">Necesario</span>, no contingente</h2>
+    <p class="lead">Acá está la diferencia con la montaña. La necesidad de la existencia de Dios <b>la determina la idea misma de Dios</b>. No puede ser que yo tenga la esencia de Dios y que su existencia vaya por otro lado.</p>
+    <div class="ficha">
+      <div class="paso no"><div class="pl">Contingente</div>
+        <p>Lo que <b>puede ser o no ser</b>. Una montaña puede existir o no existir sin que su concepto se rompa. Yo mismo soy contingente.</p></div>
+      <div class="paso ok"><div class="pl">Necesario</div>
+        <p>Lo que <b>no puede no ser</b>. En el único caso de Dios, la existencia está inscripta en la esencia. Si tengo esta idea, es porque Dios existe.</p></div>
+    </div>
+    <div class="apho">De todo lo demás puedo preguntar si existe. De esto no: preguntarlo ya es no haber entendido qué estoy pensando.</div>
+  </div>
+</section>
+
+<!-- ============ C8 · LA EXISTENCIA ES PERFECCIÓN ============ -->
+<section class="slide" data-t="La existencia es una perfección">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">8</span>Por qué la existencia no puede faltar</div>
+    <h2>Quitarle la existencia <span class="cou">lo deja incompleto</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 250" role="img" aria-label="La idea de Dios completa incluye la existencia; sin ella queda incompleta y ya no es Dios">
+        <rect x="30" y="34" width="420" height="188" rx="16" fill="rgba(201,160,255,.07)" stroke="var(--violet)" stroke-width="2.4"/>
+        <text x="240" y="66" text-anchor="middle" font-size="17" font-weight="800" class="sv-vi">LA IDEA DE DIOS</text>
+        <g stroke="var(--violet)" stroke-width="1.8" fill="rgba(201,160,255,.10)">
+          <rect x="58" y="86" width="170" height="34" rx="8"/>
+          <rect x="252" y="86" width="170" height="34" rx="8"/>
+          <rect x="58" y="132" width="170" height="34" rx="8"/>
+          <rect x="252" y="132" width="170" height="34" rx="8"/>
+        </g>
+        <text x="143" y="109" text-anchor="middle" font-size="15" class="sv-t">omnisciencia</text>
+        <text x="337" y="109" text-anchor="middle" font-size="15" class="sv-t">omnipotencia</text>
+        <text x="143" y="155" text-anchor="middle" font-size="15" class="sv-t">bondad</text>
+        <text x="337" y="155" text-anchor="middle" font-size="15" font-weight="800" class="sv-gr">existencia</text>
+        <text x="240" y="200" text-anchor="middle" font-size="15" font-weight="700" class="sv-gr">completa · esto sí es Dios</text>
+
+        <rect x="550" y="34" width="420" height="188" rx="16" fill="rgba(255,107,107,.05)" stroke="var(--coral)" stroke-width="2.4"/>
+        <text x="760" y="66" text-anchor="middle" font-size="17" font-weight="800" class="sv-co">LA MISMA IDEA, SIN LA EXISTENCIA</text>
+        <g stroke="var(--violet)" stroke-width="1.8" fill="rgba(201,160,255,.10)">
+          <rect x="578" y="86" width="170" height="34" rx="8"/>
+          <rect x="772" y="86" width="170" height="34" rx="8"/>
+          <rect x="578" y="132" width="170" height="34" rx="8"/>
+        </g>
+        <rect x="772" y="132" width="170" height="34" rx="8" fill="none" stroke="var(--coral)"
+              stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="663" y="109" text-anchor="middle" font-size="15" class="sv-t">omnisciencia</text>
+        <text x="857" y="109" text-anchor="middle" font-size="15" class="sv-t">omnipotencia</text>
+        <text x="663" y="155" text-anchor="middle" font-size="15" class="sv-t">bondad</text>
+        <text x="857" y="155" text-anchor="middle" font-size="15" font-weight="800" class="sv-co">falta algo</text>
+        <text x="760" y="200" text-anchor="middle" font-size="15" font-weight="700" class="sv-co">incompleta · esto ya no es Dios</text>
+      </svg>
+    </figure>
+    <p class="body">La existencia es <b>una perfección</b>. Y a Dios, por definición, no le falta ninguna. Si a la idea de Dios le saco la existencia, no obtengo un dios más modesto: obtengo <b>otra cosa</b>, algo a lo que le falta algo — y eso no puede ser Dios.</p>
+  </div>
+</section>
+
+<!-- ============ C9 · LAS DOS PRUEBAS ============ -->
+<section class="slide" data-t="Las dos pruebas de Dios, comparadas">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">9</span>Para no confundirlas nunca más</div>
+    <h2>Prueba <span class="cyu">causal</span> y prueba <span class="vu">ontológica</span></h2>
+    <table class="res">
+      <tr><th></th><th style="color:var(--cyan)">Med. III · causal</th><th style="color:var(--violet)">Med. V · ontológica</th></tr>
+      <tr><td class="lbl">De dónde parte</td><td class="a">De un <b>efecto</b>: la idea de infinito que tengo, y mi propia existencia.</td><td class="b" style="color:var(--violet)">De la <b>esencia</b>: del solo análisis de qué es un ser sumamente perfecto.</td></tr>
+      <tr><td class="lbl">Qué necesita</td><td class="a">El principio causal y los grados de realidad.</td><td class="b" style="color:var(--violet)">Nada más que el concepto. No necesita ningún efecto.</td></tr>
+      <tr><td class="lbl">Cómo procede</td><td class="a">Remonta del efecto a la causa que hace falta para producirlo.</td><td class="b" style="color:var(--violet)">Muestra que la existencia es inseparable de esa esencia.</td></tr>
+      <tr><td class="lbl">Conclusión</td><td class="a">Dios existe, y <b>no estoy solo en el mundo</b>.</td><td class="b" style="color:var(--violet)">Dios existe, y existe <b>necesariamente</b>.</td></tr>
+    </table>
+    <p class="note"><b>Y acá vuelve lo de hoy temprano.</b> Esta segunda prueba se apoya en que la idea de Dios se me presenta clara y distinta. Es decir: vuelve a apoyarse en el criterio que Dios tenía que garantizar. El círculo que discutimos al principio <b>reaparece acá</b>, y es una objeción legítima para dejar planteada.</p>
+  </div>
+</section>
+
+<!-- ============ C10 · LO QUE SE GANA ============ -->
+<section class="slide" data-t="Lo que se gana al cerrar la Quinta">
+  <div class="wrap">
+    <div class="kicker v"><span class="num">10</span>Balance</div>
+    <h2>Qué queda en la mano <span class="u">al terminar</span></h2>
+    <div class="pills" style="margin:12px 0 4px">
+      <span class="pill queda">La idea de Dios es clara, distinta y verdadera</span>
+      <span class="pill queda">Dios existe, y necesariamente</span>
+      <span class="pill queda">Quedan justificadas las ideas innatas</span>
+      <span class="pill queda">Las esencias matemáticas están garantizadas</span>
+    </div>
+    <div class="pills" style="margin:4px 0 16px">
+      <span class="pill cae">Todavía no: que existan los cuerpos</span>
+      <span class="pill cae">Todavía no: que mi cuerpo exista</span>
+    </div>
+    <p class="lead">De las ideas innatas, la de Dios es <b>la primera y soberana</b>: es la que sostiene a todas las demás. Y con las esencias garantizadas gané algo que no tenía: una estructura que <b>no depende de mí</b> y sobre la cual puedo trabajar con seguridad.</p>
+    <p class="note"><b>Precisión importante:</b> todavía no probamos que existan los cuerpos. Lo que se recuperó es que las naturalezas verdaderas e inmutables tienen una estructura necesaria, y que puedo confiar en ella. La existencia de las cosas materiales es el asunto de la Sexta.</p>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="slide parte" data-t="Cierre">
+  <div class="wrap">
+    <div class="rot">Para la próxima</div>
+    <div class="big">Puedo empezar a medir el mundo. Falta saber si el mundo está.</div>
+    <p class="lead" style="margin-top:24px">Sexta Meditación — <span class="faint">«De la existencia de las cosas materiales y de la distinción real entre el alma y el cuerpo».</span></p>
+    <p class="note">Citas en traducción estándar, marcadas por Meditación. Reconstrucciones según el resumen de cátedra de Filosofía Moderna (Mendoza Hurtado–Jáuregui, UBA) y los teóricos de C. Jáuregui (UBA, 2016). El material de cátedra disponible no cubre el argumento ontológico: ese bloque se apoya en el texto de Descartes.</p>
+  </div>
+</section>
+
+</div>
+
+<div id="bar">
+  <button id="prev" title="Anterior (←)" aria-label="Diapositiva anterior">‹</button>
+  <button id="next" title="Siguiente (→)" aria-label="Diapositiva siguiente">›</button>
+  <div class="titulo" id="titulo"></div>
+  <div class="ayuda">← → navegar · M índice · F pantalla completa</div>
+  <div class="copy">© Prof. Dan M. Mecikovsky</div>
+  <div class="cont"><span id="ahora">1</span>/<span id="total">1</span></div>
+</div>
+
+<div id="indice" role="dialog" aria-label="Índice de diapositivas">
+  <h3>Índice — tocá para saltar (M o Esc para cerrar)</h3>
+  <ol id="indiceLista"></ol>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var barra = document.getElementById('progress');
+  var titulo = document.getElementById('titulo');
+  var ahora = document.getElementById('ahora');
+  var indice = document.getElementById('indice');
+  var lista = document.getElementById('indiceLista');
+
+  document.getElementById('total').textContent = slides.length;
+
+  slides.forEach(function(s, n){
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="ix">' + (n + 1) + '</span><span>' + (s.getAttribute('data-t') || '') + '</span>';
+    li.addEventListener('click', function(){ ir(n); cerrarIndice(); });
+    lista.appendChild(li);
+  });
+  var items = Array.prototype.slice.call(lista.children);
+
+  function ir(n){
+    if (n < 0) n = 0;
+    if (n > slides.length - 1) n = slides.length - 1;
+    slides[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('on');
+    slides[i].scrollTop = 0;
+    barra.style.width = (i / (slides.length - 1) * 100) + '%';
+    titulo.textContent = slides[i].getAttribute('data-t') || '';
+    ahora.textContent = i + 1;
+    items.forEach(function(li, k){ li.classList.toggle('actual', k === i); });
+  }
+
+  function cerrarIndice(){ indice.classList.remove('on'); }
+  function toggleIndice(){ indice.classList.toggle('on'); }
+
+  document.getElementById('next').addEventListener('click', function(){ ir(i + 1); });
+  document.getElementById('prev').addEventListener('click', function(){ ir(i - 1); });
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'Escape'){ cerrarIndice(); return; }
+    if (k === 'm' || k === 'M'){ toggleIndice(); return; }
+    if (indice.classList.contains('on')) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter'){ e.preventDefault(); ir(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); ir(i - 1); }
+    else if (k === 'Home'){ ir(0); }
+    else if (k === 'End'){ ir(slides.length - 1); }
+    else if (k === 'f' || k === 'F'){
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+      else if (document.exitFullscreen) document.exitFullscreen();
+    }
+  });
+
+  var x0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.changedTouches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var d = e.changedTouches[0].clientX - x0;
+    if (Math.abs(d) > 60) ir(d < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+
+  ir(0);
+})();
+</script>
+</body>
+</html>

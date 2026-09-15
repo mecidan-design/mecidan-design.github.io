@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 8 Test · What is in a Number?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 70px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+/* ---------- header ---------- */
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+/* ---------- cards ---------- */
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+
+/* ---------- inputs ---------- */
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:7px 11px;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- passage + gaps ---------- */
+.passage{font-size:1.06rem;line-height:3.05;margin:0}
+.gapwrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px}
+.gline{display:flex;align-items:center;gap:5px}
+.gnum{
+  font-family:var(--head);font-size:.72rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.gapwrap input{width:132px;text-align:center}
+.cue{font-family:var(--head);font-size:.74rem;font-weight:700;color:var(--violet);line-height:1.1;margin-top:1px}
+
+/* ---------- explanation blocks ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 12px}
+.pitem{border-left:8px solid var(--violet);padding-left:12px;margin-bottom:16px}
+.pitem .ptop{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:2px}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+/* ---------- items (mcq / kwt) ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 17px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+.kwt .lead{font-size:1.04rem;margin:0 0 9px;line-height:1.5}
+.keyw{
+  font-family:var(--head);font-weight:800;letter-spacing:1.6px;background:var(--yellow);
+  border:3px solid #000;border-radius:8px;padding:2px 12px;display:inline-block;margin:0 0 10px;
+}
+.kwt .target{font-size:1.04rem;line-height:2.5}
+.kwt input{width:290px;max-width:100%}
+.wc{font-family:var(--head);font-size:.76rem;font-weight:700;color:#5b5b5b;margin-top:6px}
+.wc.bad{color:#c2004c}
+
+/* ---------- word formation (raiz debajo del hueco, en el propio texto) ---------- */
+.cue.root{
+  font-family:var(--head);font-weight:800;font-size:.7rem;letter-spacing:1.1px;
+  color:#000;background:var(--cyan);border:2px solid #000;border-radius:6px;
+  padding:0 7px;margin-top:2px;
+}
+#wfText .gapwrap input{width:150px}
+
+/* ---------- multiple-choice cloze ---------- */
+.mcgap{
+  display:inline-flex;align-items:center;gap:5px;vertical-align:middle;margin:0 3px;
+  border:3px solid #000;border-radius:11px;padding:3px 9px;background:#fffdf2;min-width:118px;
+}
+.mcgap.ok{background:#e4ffc4;border-color:#1c7a00}
+.mcgap.no{background:#ffe0ec;border-color:#c2004c}
+.mcpick{font-weight:600;font-size:.97rem}
+.mcpick.empty{color:#9a9a9a;letter-spacing:2px}
+.mcrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.mcrow .rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.mcrow .opt{font-size:.9rem;padding:5px 13px;box-shadow:2px 2px 0 #000}
+.mcrow .letter{font-family:var(--head);font-weight:800;margin-right:5px}
+
+/* ---------- warm-up ---------- */
+.card.warm{background:var(--ink);border-color:#000;box-shadow:10px 10px 0 var(--yellow)}
+.warm h2,.warm .sub{color:#fff}
+.warm .sub{color:#c9c9c9}
+.dots{display:flex;gap:7px;margin:14px 0 18px}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.warm .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px;margin-top:6px}
+.final{text-align:center;padding:14px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3.3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.25rem;margin-bottom:14px}
+.hidden{display:none}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem;margin-top:14px}
+
+/* ---------- test: cabecera de ejercicio ---------- */
+.card.ex{padding-top:18px}
+.exhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.exnum{
+  font-family:var(--head);font-weight:800;font-size:1.1rem;color:#fff;background:var(--violet);
+  border:3px solid #000;border-radius:50%;width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.expts{
+  font-family:var(--head);font-weight:800;font-size:.78rem;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:2px 13px;text-transform:uppercase;letter-spacing:.8px;
+}
+.rubric{font-weight:600;font-size:1.02rem;margin:0 0 12px;line-height:1.45}
+.intro{
+  font-size:1rem;line-height:1.55;margin:0 0 16px;background:#fffdf2;
+  border:3px solid #000;border-radius:14px;padding:12px 14px;
+}
+.situation{
+  font-size:1rem;line-height:1.55;margin:0 0 14px;background:#f4efff;
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;
+}
+
+/* ---------- matching ---------- */
+.mline{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px}
+.mtext{font-size:1.01rem;line-height:1.45;font-weight:500}
+.rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;margin-top:2px;
+}
+select.pick{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:7px 11px;
+  border:3px solid #000;border-radius:11px;background:#fff;cursor:pointer;max-width:100%;
+}
+select.pick.ok{background:#e4ffc4;border-color:#1c7a00}
+select.pick.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- transform / gapsentences ---------- */
+.item .lead{font-size:1.02rem;margin:0 0 9px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.item .target{font-size:1.02rem;line-height:2.6}
+.item input{width:210px}
+.item input.wide{width:100%;max-width:520px;text-align:left}
+
+/* ---------- caja de gramatica previa, al estilo "explore grammar" ---------- */
+.gnote{
+  border:4px solid #000;border-radius:16px;padding:13px 16px;margin:0 0 16px;
+  background:#fff7e0;box-shadow:5px 5px 0 var(--yellow);font-size:.96rem;line-height:1.55;
+}
+.gnotetitle{font-family:var(--head);font-size:1.05rem;display:block;margin-bottom:6px}
+.gnote ul{margin:0;padding-left:19px}
+.gnote li{margin-bottom:5px}
+.gform{
+  font-family:var(--head);font-weight:800;background:var(--cyan);
+  border:2px solid #000;border-radius:6px;padding:0 7px;display:inline-block;
+}
+.gwarn{margin:9px 0 0;background:#ffe0ec;border:2px solid #000;border-radius:10px;padding:7px 11px}
+
+/* ---------- writing ---------- */
+.wline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.wlab{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.wform{
+  font-family:var(--head);font-weight:800;font-size:.8rem;background:var(--lime);
+  border:2px solid #000;border-radius:999px;padding:2px 11px;white-space:nowrap;
+}
+.wline input{flex:1 1 300px;min-width:220px}
+textarea{
+  font-family:var(--body);font-size:1rem;font-weight:500;width:100%;padding:11px 13px;
+  border:3px solid #000;border-radius:14px;background:#fffdf2;outline:none;resize:vertical;
+}
+textarea:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+.needlist{
+  margin-top:13px;border:3px solid #000;border-radius:14px;padding:11px 14px;background:#f0ffe0;
+  font-size:.93rem;line-height:1.5;
+}
+.needlist ul{margin:6px 0 0;padding-left:20px}
+.needtitle{font-family:var(--head);font-size:.9rem;display:block;margin-bottom:2px}
+.modelbox{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;background:#fffdf2;
+  font-size:.93rem;line-height:1.55;margin-top:6px;
+}
+.modelbox p{margin:6px 0 0}
+.selfnote{font-style:italic;color:#5b5b5b;font-size:.86rem}
+
+/* ---------- marcador global ---------- */
+.totalcard{
+  background:var(--ink);border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 var(--lime);
+  padding:16px 20px;margin-bottom:34px;position:sticky;top:8px;z-index:5;
+}
+.totalcard .lbl{font-family:var(--head);font-weight:800;color:var(--yellow);font-size:.8rem;
+  text-transform:uppercase;letter-spacing:1.2px}
+.totalcard .val{font-family:var(--head);font-weight:800;color:#fff;font-size:1.5rem;line-height:1.2}
+.track{height:14px;border:3px solid #fff;border-radius:999px;margin-top:9px;overflow:hidden;background:transparent}
+.track span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .25s}
+
+/* ================= WARM-UP GAMES ================= */
+.gamecard{
+  background:var(--ink); border:5px solid #000; border-radius:22px; padding:22px 22px 24px;
+  margin-bottom:34px; box-shadow:10px 10px 0 var(--yellow); transform:rotate(-.35deg);
+}
+.gamecard:nth-of-type(even){box-shadow:10px 10px 0 var(--lime); transform:rotate(.3deg)}
+.gamecard h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;color:#fff}
+.gamecard .sub{color:#d3d3d3;margin:0 0 16px;font-size:.93rem;line-height:1.5}
+.gamecard .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.chip.left{background:var(--yellow)}
+.dots{display:flex;gap:7px;margin:0 0 14px;flex-wrap:wrap}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.gq{font-size:1.1rem;font-weight:500;line-height:1.7;margin:0 0 13px}
+.blank{
+  font-family:var(--head);font-weight:800;letter-spacing:2px;background:var(--yellow);
+  border:2px solid #000;border-radius:7px;padding:0 12px;
+}
+.final{text-align:center;padding:10px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.2rem;margin-bottom:6px}
+.hidden{display:none}
+
+/* pieces / builder */
+.prompt{font-size:1.02rem;font-weight:500;margin:0 0 12px;line-height:1.5}
+.bank,.slot{
+  display:flex;flex-wrap:wrap;gap:9px;padding:13px;border:3px dashed #000;border-radius:14px;
+  min-height:58px;margin-bottom:12px;background:#f7f2ff;align-items:flex-start;
+}
+.slot{background:#e9fbff;border-style:solid}
+.boxlab{font-family:var(--head);font-weight:800;font-size:.74rem;text-transform:uppercase;
+  letter-spacing:1px;color:#5b5b5b;margin:0 0 4px}
+.piece{
+  font-family:var(--body);font-weight:600;font-size:.97rem;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 #000;
+  user-select:none;transition:transform .07s,box-shadow .07s;
+}
+.piece:hover{background:var(--yellow)}
+.piece:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.slot .piece{background:var(--cyan)}
+.piece.good{background:var(--lime);border-color:#1c7a00}
+.piece.bad{background:#ffc2d8;border-color:#c2004c}
+
+/* match columns */
+.match{display:flex;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:10px;flex:1 1 240px}
+.mi{
+  font-family:var(--body);font-weight:600;font-size:.95rem;cursor:pointer;text-align:center;
+  background:#fff;border:3px solid #000;border-radius:14px;padding:11px 12px;box-shadow:4px 4px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.mi:hover{background:#fff9c9}
+.mi.sel{background:var(--cyan);transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.mi.done{background:var(--lime);border-color:#1c7a00;cursor:default;box-shadow:0 0 0 #000;
+  transform:translate(4px,4px);opacity:.85}
+.mi.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.score{font-family:var(--head);font-weight:800;font-size:.95rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:4px 15px}
+
+/* separador entre calentamiento y test */
+.divider{
+  background:#fff;border:4px solid #000;border-radius:18px;box-shadow:8px 8px 0 var(--violet);
+  padding:14px 20px;margin-bottom:34px;text-align:center;
+}
+.divider b{font-family:var(--head);font-size:1.25rem;display:block}
+.divider span{font-size:.92rem;color:#4a4a4a}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:34px;font-size:.95rem;
+}
+.piece.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="testTitle">UNIT 8 TEST &middot; WHAT IS IN A NUMBER?</h1>
+    <p id="testSub">The passive voice &middot; have and get something done &middot; 100 marks</p>
+  </div>
+
+  <!-- ============ WARM-UP GAME 1 ============ -->
+  <section class="gamecard" id="game1">
+    <span class="tag">Warm-up 1</span>
+    <h2>Passive Builder</h2>
+    <p class="sub">Click the pieces in the right order to build the passive sentence. Click a piece in the blue box to send it back. Six sentences, six different tenses: build them before the test and the forms will already be in your head.</p>
+    <div class="hud">
+      <span class="chip" id="b1score">0 / 6</span>
+      <span class="chip left" id="b1which">sentence 1 of 6</span>
+    </div>
+    <div class="qbox">
+      <p class="prompt" id="b1prompt"></p>
+      <p class="boxlab">Your sentence</p>
+      <div class="slot" id="b1slot"></div>
+      <p class="boxlab">Pieces</p>
+      <div class="bank" id="b1bank"></div>
+      <div id="b1exp"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" id="b1check" type="button">Check</button>
+      <button class="btn ghost" id="b1clear" type="button">Clear</button>
+      <button class="btn ghost" id="b1next" type="button" disabled>Next sentence</button>
+      <button class="btn ghost" id="b1again" type="button">Play again</button>
+    </div>
+  </section>
+
+  <!-- ============ WARM-UP GAME 2 ============ -->
+  <section class="gamecard" id="game2">
+    <span class="tag">Warm-up 2</span>
+    <h2>Tense Detective</h2>
+    <p class="sub">Click a sentence on the left, then the name of its tense on the right. Look at the auxiliary first: <b>is / are</b>, <b>is being</b>, <b>has been</b>, <b>was / were</b>, <b>had been</b>, <b>will be</b>, <b>going to be</b>. The third form never changes.</p>
+    <div class="hud">
+      <span class="chip" id="b2score">0 pairs</span>
+      <span class="chip streak" id="b2tries">0 tries</span>
+    </div>
+    <div class="qbox">
+      <div class="match">
+        <div class="col" id="b2left"></div>
+        <div class="col" id="b2right"></div>
+      </div>
+      <div id="b2exp"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn ghost" id="b2again" type="button">Play again</button>
+      <span class="score" id="b2msg"></span>
+    </div>
+  </section>
+
+  <div class="divider">
+    <b>Warm-up finished &mdash; now the test</b>
+    <span>Eight exercises, 100 marks. Check each exercise when you finish it and read every Why and Exam tip, even the ones you got right.</span>
+  </div>
+
+  <div class="totalcard">
+    <div class="lbl">Running total</div>
+    <div class="val" id="total"></div>
+    <div class="track"><span id="totalBar"></span></div>
+  </div>
+
+  <div id="exercises"></div>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="games-block">
+(function(){
+"use strict";
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+function shuffle(a){
+  var i, j, t;
+  for(i = a.length - 1; i > 0; i--){ j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+function expBox(ok, answer, why, tip){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answer){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", "Answer: " + answer));
+    box.appendChild(p0);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+/* ================= GAME 1: PASSIVE BUILDER ================= */
+var BUILD = [
+  { prompt: "Somebody will upload the results to the website tomorrow.",
+    pieces: ["The results","will be","uploaded","to the website","tomorrow."],
+    why: "The future passive is will be plus the third form, and will never changes for the person.",
+    tip: "After will there is always be, never is or are." },
+  { prompt: "Two students have discovered a new formula.",
+    pieces: ["A new formula","has been","discovered","by two students."],
+    why: "The present perfect passive is has or have been plus the third form, and the new information goes after by.",
+    tip: "The auxiliary agrees with the new subject: formula is singular, so has been." },
+  { prompt: "Scientists are testing the theory at the moment.",
+    pieces: ["The theory","is being","tested","at the moment."],
+    why: "The present continuous passive needs two auxiliaries: is plus being plus the third form.",
+    tip: "At the moment and right now are the signals for the continuous." },
+  { prompt: "The interviewer did not mention the salary.",
+    pieces: ["The salary","was not","mentioned","by the interviewer."],
+    why: "The past simple passive is was or were plus the third form, and the negative goes on the auxiliary.",
+    tip: "The main verb never changes for the negative: was not mentioned, not was not mentioning." },
+  { prompt: "Somebody had already solved this problem in 1997.",
+    pieces: ["This problem","had","already been","solved","in 1997."],
+    why: "The past perfect passive is had been plus the third form, and already sits between had and been.",
+    tip: "Adverbs like already, just and never go in front of been." },
+  { prompt: "The school is going to test the children next week.",
+    pieces: ["The children","are going to be","tested","next week."],
+    why: "With be going to the passive is going to be plus the third form.",
+    tip: "Do not forget be: are going to tested is one of the commonest mistakes in this exam." }
+];
+
+(function(){
+  var promptEl = document.getElementById("b1prompt");
+  var slot = document.getElementById("b1slot");
+  var bank = document.getElementById("b1bank");
+  var expArea = document.getElementById("b1exp");
+  var scoreEl = document.getElementById("b1score");
+  var whichEl = document.getElementById("b1which");
+  var checkBtn = document.getElementById("b1check");
+  var clearBtn = document.getElementById("b1clear");
+  var nextBtn = document.getElementById("b1next");
+  var againBtn = document.getElementById("b1again");
+  var idx = 0, right = 0, done = false;
+
+  function makePiece(text, where){
+    var p = el("div", "piece", text);
+    p.onclick = function(){
+      if(done) return;
+      if(p.parentNode === bank) slot.appendChild(p);
+      else bank.appendChild(p);
+      expArea.innerHTML = "";
+    };
+    (where === "slot" ? slot : bank).appendChild(p);
+    return p;
+  }
+
+  function load(){
+    var q = BUILD[idx];
+    promptEl.textContent = "Active: " + q.prompt;
+    slot.innerHTML = ""; bank.innerHTML = ""; expArea.innerHTML = "";
+    done = false;
+    nextBtn.disabled = true;
+    checkBtn.disabled = false;
+    whichEl.textContent = "sentence " + (idx + 1) + " of " + BUILD.length;
+    var order = shuffle(q.pieces.slice());
+    for(var i = 0; i < order.length; i++){ makePiece(order[i], "bank"); }
+  }
+
+  checkBtn.addEventListener("click", function(){
+    if(done) return;
+    var q = BUILD[idx];
+    var got = [], nodes = slot.querySelectorAll(".piece");
+    for(var i = 0; i < nodes.length; i++){ got.push(nodes[i].textContent); }
+    if(got.length !== q.pieces.length){
+      expArea.innerHTML = "";
+      expArea.appendChild(expBox(false, null, "You have not used every piece yet, so the sentence is not complete.",
+        "In the exam, always read your sentence back from the beginning before you move on."));
+      return;
+    }
+    var ok = got.join(" ") === q.pieces.join(" ");
+    for(var k = 0; k < nodes.length; k++){
+      nodes[k].className = "piece " + (ok || nodes[k].textContent === q.pieces[k] ? "good" : "bad");
+    }
+    done = true;
+    checkBtn.disabled = true;
+    nextBtn.disabled = (idx >= BUILD.length - 1);
+    if(ok) right++;
+    scoreEl.textContent = right + " / " + BUILD.length;
+    expArea.innerHTML = "";
+    expArea.appendChild(expBox(ok, q.pieces.join(" "), q.why, q.tip));
+    if(idx === BUILD.length - 1){
+      expArea.appendChild(el("p", "score", "Warm-up finished: " + right + " / " + BUILD.length));
+    }
+  });
+  clearBtn.addEventListener("click", function(){
+    if(done) return;
+    var nodes = slot.querySelectorAll(".piece");
+    for(var i = 0; i < nodes.length; i++){ bank.appendChild(nodes[i]); }
+    expArea.innerHTML = "";
+  });
+  nextBtn.addEventListener("click", function(){ if(idx < BUILD.length - 1){ idx++; load(); } });
+  againBtn.addEventListener("click", function(){ idx = 0; right = 0; scoreEl.textContent = "0 / " + BUILD.length; load(); });
+
+  scoreEl.textContent = "0 / " + BUILD.length;
+  load();
+})();
+
+/* ================= GAME 2: TENSE DETECTIVE ================= */
+var PAIRS = [
+  { s: "The bikes are repaired every Monday.", t: "Present simple passive",
+    why: "Are plus the third form, with a routine expression, is the present simple passive.",
+    tip: "Every Monday, usually and always point to the present simple." },
+  { s: "The bridge is being rebuilt right now.", t: "Present continuous passive",
+    why: "Is being plus the third form describes an action in progress at this moment.",
+    tip: "Being only appears in the continuous passive. If you see it, the action is in progress." },
+  { s: "A cure has been found at last.", t: "Present perfect passive",
+    why: "Has been plus the third form gives recent news with a result in the present.",
+    tip: "At last, already, just and yet are typical present perfect signals." },
+  { s: "The photo was taken in 1998.", t: "Past simple passive",
+    why: "Was plus the third form with a finished time expression is the past simple passive.",
+    tip: "A date always finishes the action, so never use the present perfect with it." },
+  { s: "The data had been lost before we arrived.", t: "Past perfect passive",
+    why: "Had been plus the third form shows the first of two past actions.",
+    tip: "Before and after a past verb are the signals for the past perfect." },
+  { s: "The winners will be announced on Friday.", t: "Future passive with will",
+    why: "Will be plus the third form is the future passive.",
+    tip: "Will be, never will is. Be is the infinitive and it never changes." },
+  { s: "The children are going to be tested next month.", t: "Future passive with be going to",
+    why: "Going to be plus the third form is used for plans that are already decided.",
+    tip: "Both future passives keep be in front of the third form." },
+  { s: "She had her bag stolen on the bus.", t: "Causative: have something done",
+    why: "Subject plus had plus the object plus the third form: she did not arrange it, it happened to her.",
+    tip: "Bad news always takes have, never get." }
+];
+
+(function(){
+  var leftBox = document.getElementById("b2left");
+  var rightBox = document.getElementById("b2right");
+  var expArea = document.getElementById("b2exp");
+  var scoreEl = document.getElementById("b2score");
+  var triesEl = document.getElementById("b2tries");
+  var msgEl = document.getElementById("b2msg");
+  var againBtn = document.getElementById("b2again");
+  var picked = null, pairs = 0, tries = 0;
+
+  function clearSel(){
+    var all = document.querySelectorAll("#b2left .mi, #b2right .mi");
+    for(var i = 0; i < all.length; i++){
+      if(all[i].className.indexOf("done") < 0) all[i].className = "mi";
+    }
+  }
+
+  function tryPair(node){
+    if(node.className.indexOf("done") >= 0) return;
+    if(!picked){ clearSel(); node.className = "mi sel"; picked = node; return; }
+    if(picked === node){ node.className = "mi"; picked = null; return; }
+    if(picked.getAttribute("data-side") === node.getAttribute("data-side")){
+      clearSel(); node.className = "mi sel"; picked = node; return;
+    }
+    tries++;
+    triesEl.textContent = tries + " tries";
+    var d = PAIRS[parseInt(picked.getAttribute("data-i"), 10)];
+    var ok = picked.getAttribute("data-i") === node.getAttribute("data-i");
+    expArea.innerHTML = "";
+    if(ok){
+      picked.className = "mi done"; node.className = "mi done";
+      pairs++;
+      scoreEl.textContent = pairs + (pairs === 1 ? " pair" : " pairs");
+      expArea.appendChild(expBox(true, d.t, d.why, d.tip));
+      if(pairs === PAIRS.length){
+        msgEl.textContent = "All " + PAIRS.length + " pairs in " + tries + " tries";
+      }
+    } else {
+      var a = picked, b = node;
+      a.className = "mi shake"; b.className = "mi shake";
+      var wrong = PAIRS[parseInt(node.getAttribute("data-i"), 10)];
+      var sentence = (picked.getAttribute("data-side") === "L") ? d : wrong;
+      expArea.appendChild(expBox(false, null,
+        "Not that one. Look again at the auxiliary in: " + sentence.s,
+        "Name the auxiliary out loud before you choose: is, is being, has been, was, had been, will be, going to be."));
+      setTimeout(function(){ a.className = "mi"; b.className = "mi"; }, 320);
+    }
+    picked = null;
+  }
+
+  function start(){
+    leftBox.innerHTML = ""; rightBox.innerHTML = ""; expArea.innerHTML = ""; msgEl.textContent = "";
+    picked = null; pairs = 0; tries = 0;
+    scoreEl.textContent = "0 pairs";
+    triesEl.textContent = "0 tries";
+    var l = shuffle(PAIRS.map(function(_, i){ return i; }));
+    var r = shuffle(PAIRS.map(function(_, i){ return i; }));
+    l.forEach(function(n){
+      var d = el("div", "mi", PAIRS[n].s);
+      d.setAttribute("data-i", String(n));
+      d.setAttribute("data-side", "L");
+      d.onclick = function(){ tryPair(d); };
+      leftBox.appendChild(d);
+    });
+    r.forEach(function(n){
+      var d = el("div", "mi", PAIRS[n].t);
+      d.setAttribute("data-i", String(n));
+      d.setAttribute("data-side", "R");
+      d.onclick = function(){ tryPair(d); };
+      rightBox.appendChild(d);
+    });
+  }
+
+  againBtn.addEventListener("click", start);
+  start();
+})();
+
+})();
+</script>
+<script id="data-block">
+/* ====== UNIT 8 MOCK TEST · passive voice + causative · 8 ejercicios · 100 marcas
+   12 + 14 + 12 + 12 + 10 + 12 + 14 + 14 = 100
+   Todo el contenido, en ingles. ====== */
+var DATA = {
+
+title: "UNIT 8 TEST · WHAT IS IN A NUMBER?",
+subtitle: "The passive voice · have and get something done · 100 marks",
+
+exercises: [
+
+/* ---------- 1 ---------- 12 marks ---------- */
+{ n: 1, points: 12, type: "matching",
+  rubric: "Read sentences 1-10 and match each one to its form.",
+  labels: ["Present simple passive","Present continuous passive","Present perfect passive","Past simple passive","Past perfect passive","Future passive with will","Future passive with be going to","Causative: have or get something done"],
+  items: [
+    { text: "Calculators are used in every maths class.", correct: "Present simple passive",
+      why: "Are plus the third form, with no time expression, describes a general fact in the present.",
+      tip: "No agent appears because everybody knows who uses calculators. That is normal in the passive." },
+
+    { text: "The new formula is being tested at the moment.", correct: "Present continuous passive",
+      why: "Is being plus the third form shows an action in progress right now.",
+      tip: "Being is the mark of the continuous passive. Nothing else uses it." },
+
+    { text: "Three mistakes have been found in the calculation.", correct: "Present perfect passive",
+      why: "Have been plus the third form gives news whose result matters now.",
+      tip: "The auxiliary agrees with the subject: mistakes is plural, so have been." },
+
+    { text: "The salary was not mentioned by the interviewer.", correct: "Past simple passive",
+      why: "Was plus the third form places a finished action in the past.",
+      tip: "The negative goes on the auxiliary: was not mentioned." },
+
+    { text: "The problem had been solved long before we were born.", correct: "Past perfect passive",
+      why: "Had been plus the third form shows which of two past actions happened first.",
+      tip: "Before and after with another past verb point to the past perfect." },
+
+    { text: "The results will be uploaded on Friday.", correct: "Future passive with will",
+      why: "Will be plus the third form is the future passive.",
+      tip: "Always will be, never will is or will are." },
+
+    { text: "The children are going to be tested next month.", correct: "Future passive with be going to",
+      why: "Going to be plus the third form is used for a plan that has already been decided.",
+      tip: "Do not lose the be: are going to be tested." },
+
+    { text: "We are having the computers repaired this week.", correct: "Causative: have or get something done",
+      why: "Have plus the object plus the third form says that somebody else does the job for us.",
+      tip: "The tense is carried by have: are having, had, will have." },
+
+    { text: "She had her bag stolen on the bus.", correct: "Causative: have or get something done",
+      why: "The structure is the same, but here it is bad news that happened to her.",
+      tip: "When the news is bad and nobody arranged it, only have is possible, never get." },
+
+    { text: "Our printing credits are given to us every month.", correct: "Present simple passive",
+      why: "Are plus the third form with a routine expression is the present simple passive.",
+      tip: "Give has two objects, so both We are given credits and Credits are given to us are correct." }
+  ]
+},
+
+/* ---------- 2 ---------- 14 marks ---------- */
+{ n: 2, points: 14, type: "transform",
+  rubric: "Read the facts about a city bike-sharing scheme and rewrite each sentence in the passive. Write only the missing words.",
+  note: {
+    title: "Building a passive",
+    lines: [
+      "step 1 -> the object of the active sentence becomes the new subject.",
+      "step 2 -> put be in the same tense as the original verb.",
+      "step 3 -> add the third form, which never changes.",
+      "by + agent -> keep it only when the person or thing is important or new information."
+    ],
+    warning: "The auxiliary agrees with the new subject, not with the old one: The bikes are repaired, The bike is repaired."
+  },
+  items: [
+    { lead: "The council repairs the machines every Monday.",
+      before: "The machines", after: "every Monday.",
+      answers: ["are repaired","are repaired by the council"],
+      why: "Machines is plural and the routine is present simple, so the passive is are plus the third form.",
+      tip: "The council is not new information, so by the council can disappear." },
+
+    { lead: "A student discovered the mistake last week.",
+      before: "The mistake", after: "last week.",
+      answers: ["was discovered by a student"],
+      why: "The action is finished, so was plus the third form, and the student is surprising news, so by stays.",
+      tip: "Keep by when the agent is interesting. Drop it when it adds nothing." },
+
+    { lead: "They are testing the new app at the moment.",
+      before: "The new app", after: "at the moment.",
+      answers: ["is being tested"],
+      why: "The action is in progress, so the passive needs is plus being plus the third form.",
+      tip: "They is a vague subject, so by them is not worth writing." },
+
+    { lead: "Somebody has translated the report into Spanish.",
+      before: "The report", after: "into Spanish.",
+      answers: ["has been translated"],
+      why: "The present perfect passive is has been plus the third form, and the subject report is singular.",
+      tip: "Somebody, people and they always disappear in the passive." },
+
+    { lead: "The city will measure the playground in June.",
+      before: "The playground", after: "in June.",
+      answers: ["will be measured","will be measured by the city"],
+      why: "The future passive is will be plus the third form.",
+      tip: "Nothing ever comes between will and be." },
+
+    { lead: "They are going to upload the photos tonight.",
+      before: "The photos", after: "tonight.",
+      answers: ["are going to be uploaded"],
+      why: "With be going to, the passive is going to be plus the third form, and photos is plural.",
+      tip: "Build it in blocks: are going to + be + uploaded." },
+
+    { lead: "Somebody had already solved the problem before the lesson started.",
+      before: "The problem", after: "before the lesson started.",
+      answers: ["had already been solved","had been solved"],
+      why: "The past perfect passive is had been plus the third form, and already goes in front of been.",
+      tip: "Adverbs sit between the auxiliaries: had already been, has just been." },
+
+    { lead: "Teachers improve the software every year.",
+      before: "The software", after: "every year.",
+      answers: ["is improved","is improved by teachers"],
+      why: "Software is uncountable and works as a singular, so the auxiliary is is, not are.",
+      tip: "Uncountable nouns take a singular verb: the information is, the homework is." }
+  ]
+},
+
+/* ---------- 3 ---------- 12 marks ---------- */
+{ n: 3, points: 12, type: "gapsentences",
+  rubric: "Complete each sentence with the passive of the verb given, in the tense given.",
+  items: [
+    { lead: "measure · past simple passive",
+      before: "The room", after: "twice before the new carpet arrived.",
+      answers: ["was measured"],
+      why: "The action finished in the past, so the auxiliary is was and the third form is measured.",
+      tip: "Regular verbs take -ed in the third form, exactly like the past simple." },
+
+    { lead: "solve · present perfect passive",
+      before: "The equation", after: "at last.",
+      answers: ["has been solved"],
+      why: "At last shows a result in the present, so the tense is the present perfect passive.",
+      tip: "Has been plus third form: three words, always in that order." },
+
+    { lead: "upload · future passive with will",
+      before: "Your marks", after: "on Monday morning.",
+      answers: ["will be uploaded"],
+      why: "The future passive is will be plus the third form, and will never changes for the subject.",
+      tip: "Marks is plural, but will be stays the same. Will has no plural." },
+
+    { lead: "test · present continuous passive",
+      before: "The new theory", after: "in three countries at the moment.",
+      answers: ["is being tested"],
+      why: "At the moment shows an action in progress, so the passive needs is being.",
+      tip: "Two auxiliaries here: is plus being. Forgetting being is the classic mistake." },
+
+    { lead: "discover · past perfect passive",
+      before: "The formula", after: "years before anybody used it.",
+      answers: ["had been discovered"],
+      why: "The discovery happened before the other past action, so the tense is the past perfect passive.",
+      tip: "Had been works for every subject, singular and plural." },
+
+    { lead: "improve · present simple passive",
+      before: "The software", after: "every summer.",
+      answers: ["is improved"],
+      why: "Every summer signals a routine, and software is uncountable, so the auxiliary is is.",
+      tip: "Check the subject before you choose is or are. It is the only thing that decides." },
+
+    { lead: "calculate · passive with be going to",
+      before: "The final score", after: "by a computer, not by the judges.",
+      answers: ["is going to be calculated"],
+      why: "The plan is already decided, and score is singular, so the passive is is going to be plus the third form.",
+      tip: "Here by matters, because the contrast with the judges is the whole point of the sentence." },
+
+    { lead: "not mention · past simple passive",
+      before: "The price of the trip", after: "in the email.",
+      answers: ["was not mentioned","wasn't mentioned"],
+      why: "The negative goes on the auxiliary was, and the third form stays exactly as it is.",
+      tip: "Price is singular, so was, not were." }
+  ]
+},
+
+/* ---------- 4 ---------- 12 marks ---------- */
+{ n: 4, points: 12, type: "transform",
+  rubric: "Rewrite each sentence with the causative. Read the grammar box first: two of these sentences can only take have.",
+  note: {
+    title: "have or get something done",
+    lines: [
+      "have + thing + third form -> you arrange for somebody else to do the job. We had the kitchen painted.",
+      "get + thing + third form -> the same meaning, but it sounds more informal and more spoken.",
+      "the tense goes on have or get -> I am having it repaired. I had it repaired. I will have it repaired."
+    ],
+    warning: "When something bad happens to you and you did not ask for it, use have and never get. She had her bag stolen. Nobody arranges that."
+  },
+  items: [
+    { lead: "A hairdresser cuts Mia's hair every month.",
+      before: "Mia", after: "every month.",
+      answers: ["has her hair cut","gets her hair cut"],
+      why: "Mia arranges the appointment, so both verbs work, and the present simple goes on has or gets.",
+      tip: "The third form of cut is cut. Do not write cutted." },
+
+    { lead: "Somebody stole Luis's phone at the station.",
+      before: "Luis", after: "at the station.",
+      answers: ["had his phone stolen"],
+      why: "Luis did not arrange this and the news is bad, so only have is possible.",
+      tip: "Somebody stole, somebody broke, somebody took: bad news means have." },
+
+    { lead: "A mechanic is repairing our car right now.",
+      before: "We", after: "right now.",
+      answers: ["are having our car repaired","are getting our car repaired"],
+      why: "We arranged the repair, so both verbs work, and the continuous goes on having or getting.",
+      tip: "Build the tense first, then the object, then the third form." },
+
+    { lead: "A dentist is going to take out my tooth on Friday.",
+      before: "I", after: "on Friday.",
+      answers: ["am going to have my tooth taken out","am going to get my tooth taken out"],
+      why: "The appointment is arranged, and with be going to the causative verb stays in the infinitive.",
+      tip: "Taken out is the third form of a phrasal verb: both words stay together." },
+
+    { lead: "You should ask an optician to test your eyes as soon as possible.",
+      before: "You should", after: "as soon as possible.",
+      answers: ["have your eyes tested","get your eyes tested"],
+      why: "After a modal, have and get stay in the infinitive with no to.",
+      tip: "Should have your eyes tested is advice, not the past. Do not confuse it with should have gone." },
+
+    { lead: "Somebody broke our window during the storm.",
+      before: "We", after: "during the storm.",
+      answers: ["had our window broken"],
+      why: "Nobody arranges a broken window, so this is the bad news case and only have works.",
+      tip: "Ask one question: did the person want this? If the answer is no, use have." }
+  ]
+},
+
+/* ---------- 5 ---------- 10 marks ---------- */
+{ n: 5, points: 10, type: "gapsentences",
+  rubric: "Complete each sentence with the causative in the tense given. Both have and get are possible here.",
+  items: [
+    { lead: "paint the house · present continuous",
+      before: "They", after: "at the moment.",
+      answers: ["are having the house painted","are getting the house painted"],
+      why: "The tense sits on the first verb, so the continuous is are having or are getting.",
+      tip: "The object always goes between the two verbs: having the house painted." },
+
+    { lead: "deliver the order · past simple",
+      before: "We", after: "yesterday.",
+      answers: ["had the order delivered","got the order delivered"],
+      why: "Yesterday is a finished time, so the past simple of have or get is enough.",
+      tip: "Had the order delivered, not had delivered the order. The word order changes the meaning." },
+
+    { lead: "fit new locks · present perfect",
+      before: "She", after: "after the burglary.",
+      answers: ["has had new locks fitted","has got new locks fitted"],
+      why: "The present perfect of have is has had, and the second have is the causative one.",
+      tip: "Two forms of have in a row look strange, but has had new locks fitted is correct." },
+
+    { lead: "repair the computer · be going to",
+      before: "I", after: "next week.",
+      answers: ["am going to have my computer repaired","am going to get my computer repaired"],
+      why: "With be going to, have and get stay in the infinitive after to.",
+      tip: "Going to have it repaired, never going to have repaired it." },
+
+    { lead: "clean the house · modal should",
+      before: "You", after: "before your parents get back.",
+      answers: ["should have the house cleaned","should get the house cleaned"],
+      why: "After a modal there is no to and no -s, so have and get stay bare.",
+      tip: "Modals are followed by the infinitive without to: should have, must get, will have." },
+
+    { lead: "take the photo · will",
+      before: "The team", after: "on Friday.",
+      answers: ["will have the photo taken","will get the photo taken"],
+      why: "Will is followed by the bare infinitive, so will have or will get plus the object plus the third form.",
+      tip: "Taken, not took. The last verb in a causative is always the third form." }
+  ]
+},
+
+/* ---------- 6 ---------- 12 marks ---------- */
+{ n: 6, points: 12, type: "kwt",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the key word and write between two and five words.",
+  items: [
+    { lead: "Somebody stole Ana's bike yesterday.", key: "HAD",
+      before: "Ana", after: "yesterday.",
+      answers: ["had her bike stolen"],
+      why: "This is bad news that Ana did not arrange, so the causative with have is the only option.",
+      tip: "Had her bike stolen is four words. Count them before you write." },
+
+    { lead: "A company cleans our office every Friday.", key: "CLEANED",
+      before: "We", after: "every Friday.",
+      answers: ["have our office cleaned","get our office cleaned"],
+      why: "We pay somebody else to do the job, so the causative is the natural structure.",
+      tip: "The key word cleaned is already the third form, so it never changes." },
+
+    { lead: "They are testing the theory now.", key: "BEING",
+      before: "The theory", after: "now.",
+      answers: ["is being tested"],
+      why: "The key word being forces the present continuous passive.",
+      tip: "The key word is a clue about the tense. Read it before you start writing." },
+
+    { lead: "Nobody has mentioned the price yet.", key: "BEEN",
+      before: "The price", after: "yet.",
+      answers: ["has not been mentioned","hasn't been mentioned"],
+      why: "Nobody becomes a negative in the passive, so the answer is has not been plus the third form.",
+      tip: "Short forms count as two words: hasn't is has plus not." },
+
+    { lead: "The school is going to improve the website.", key: "IMPROVED",
+      before: "The website", after: "by the school.",
+      answers: ["is going to be improved"],
+      why: "The plan is decided, so the passive is going to be plus the third form.",
+      tip: "Is going to be improved is exactly five words, the maximum allowed." },
+
+    { lead: "Somebody will announce the results on Friday.", key: "ANNOUNCED",
+      before: "The results", after: "on Friday.",
+      answers: ["will be announced"],
+      why: "Somebody disappears in the passive, and the future passive is will be plus the third form.",
+      tip: "Never write will been. Be is the only form that goes after will." }
+  ]
+},
+
+/* ---------- 7 ---------- 14 marks ---------- */
+{ n: 7, points: 14, type: "wordform",
+  rubric: "Read the text and write the correct form of the word in the box under each gap.",
+  text: "Nobody enjoys long {1} any more, because a phone does them in a second. But the {2} to trust a machine is not always a good one. Last term our physics teacher gave us a problem with no obvious {3}, and half the class got a different answer. The {4} lasted for twenty minutes. In the end she gave us a short {5} and one simple rule: check your {6} first, then the maths. The {7} in our marks was enormous, and the {8} of that rule into everyday life is easy: slow down.",
+  items: [
+    { root: "CALCULATE", answers: ["calculations"],
+      why: "Long tells you the noun is countable here, and the verb says them, so the plural is needed.",
+      tip: "Verbs ending in -ate take -ion: calculate, translate, concentrate." },
+    { root: "DECIDE", answers: ["decision"],
+      why: "The article the announces a noun, and decide becomes decision.",
+      tip: "Make a decision, never do a decision." },
+    { root: "SOLVE", answers: ["solution"],
+      why: "Solve becomes solution, not solvation, so this one has to be learnt.",
+      tip: "The solution to a problem, never the solution of a problem." },
+    { root: "CONFUSE", answers: ["confusion"],
+      why: "Verbs ending in -se take -sion, so confuse becomes confusion.",
+      tip: "Confusion is uncountable: a lot of confusion, never a confusion." },
+    { root: "EXPLAIN", answers: ["explanation"],
+      why: "Explain becomes explanation, and the spelling changes: the i disappears.",
+      tip: "Explanation is one of the words Cambridge tests most often. Learn the spelling." },
+    { root: "MEASURE", answers: ["measurements","measurement"],
+      why: "Measure becomes measurement, and the plural fits better because the rule talks about several numbers.",
+      tip: "The -ment ending adds nothing to the spelling of the verb: measure plus ment." },
+    { root: "IMPROVE", answers: ["improvement"],
+      why: "The article the announces a noun, and improve becomes improvement.",
+      tip: "An improvement in your marks, not an improvement of your marks." },
+    { root: "TRANSLATE", answers: ["translation"],
+      why: "Translate ends in -ate, so the noun ends in -ation.",
+      tip: "Here translation is used in a figurative way: taking a rule into another situation." }
+  ]
+},
+
+/* ---------- 8 ---------- 14 marks ---------- */
+{ n: 8, points: 14, type: "writing", mode: "lines",
+  rubric: "Write one sentence for each structure. Every sentence must be about the house in the situation below.",
+  situation: "Your family has just moved into a very old house. The roof leaks, the kitchen has not been painted since 1990 and the front door does not lock properly. Your school newspaper has asked you for four sentences about it.",
+  required: [
+    { form: "past simple passive", label: "one sentence in the past simple passive (was or were + third form)",
+      starter: "The house was built in ...",
+      patterns: ["was","were"],
+      why: "The past simple passive places a finished action in the past, with no interest in who did it.",
+      tip: "The third form never changes, whatever the subject is." },
+
+    { form: "present perfect passive", label: "one sentence in the present perfect passive (has been or have been + third form)",
+      starter: "Nothing has been repaired since ...",
+      patterns: ["has been","have been"],
+      why: "The present perfect passive connects a past action with the situation you are in now.",
+      tip: "Since and for are the natural partners of the present perfect." },
+
+    { form: "have something done", label: "one sentence with have something done (a job you arranged, or bad news)",
+      starter: "Last week we had the roof ...",
+      patterns: ["had","have","having","has"],
+      why: "The causative says that somebody else did the work for you.",
+      tip: "Object first, third form second: had the roof mended." },
+
+    { form: "get something done", label: "one sentence with get something done (a job you are arranging)",
+      starter: "Next month we are getting the kitchen ...",
+      patterns: ["get","getting","got","gets"],
+      why: "Get something done means exactly the same as have something done, but it sounds more informal.",
+      tip: "Never use get for bad news you did not arrange. That case takes have." }
+  ],
+  model: "The house was built in 1921 by a Belgian engineer. Nothing has been repaired since my grandparents lived here. Last week we had the roof mended, because the rain was coming into my bedroom. Next month we are getting the kitchen painted and the front door changed."
+}
+
+]};
+</script>
+<script id="engine-block">
+(function(){
+"use strict";
+
+/* Registry: el DOM guarda solo indices numericos, nunca JSON serializado. */
+var REG = [];
+
+function normalize(s){
+  return String(s).toLowerCase()
+    .replace(/[‘’ʼ]/g, "'")
+    .replace(/[^a-z0-9' ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function countWords(s){
+  s = String(s).replace(/\bcannot\b/gi, "can not");
+  var t = String(s).toLowerCase().replace(/[‘’ʼ]/g, "'");
+  t = t.replace(/n't\b/g, " not")
+       .replace(/'ll\b/g, " will")
+       .replace(/'re\b/g, " are")
+       .replace(/'ve\b/g, " have")
+       .replace(/'m\b/g, " am")
+       .replace(/'d\b/g, " would");
+  t = t.replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  return t === "" ? 0 : t.split(" ").length;
+}
+
+function matches(given, list){
+  var g = normalize(given);
+  if(g === "") return false;
+  for(var i = 0; i < list.length; i++){ if(normalize(list[i]) === g) return true; }
+  return false;
+}
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+
+function explainBox(ok, answerText, why, tip, note){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answerText){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", "Answer: " + answerText));
+    box.appendChild(p0);
+  }
+  if(note){
+    var pn = el("p");
+    pn.appendChild(el("b", "lab tip", "Length"));
+    pn.appendChild(document.createTextNode(note));
+    box.appendChild(pn);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+function clearExp(scope){
+  var old = scope.querySelectorAll(".exp");
+  for(var i = 0; i < old.length; i++){ old[i].parentNode.removeChild(old[i]); }
+}
+
+function buildGappedText(container, text, makeGap){
+  container.innerHTML = "";
+  var chunks = String(text).split(/\{(\d+)\}/);
+  for(var i = 0; i < chunks.length; i++){
+    if(i % 2 === 0){
+      if(chunks[i]) container.appendChild(document.createTextNode(chunks[i]));
+    } else {
+      container.appendChild(makeGap(parseInt(chunks[i], 10)));
+    }
+  }
+}
+
+/* ============================================================
+   Armado de una tarjeta por ejercicio
+   ============================================================ */
+var root = document.getElementById("exercises");
+var SCORES = [];
+
+function card(ex, idx){
+  var sec = el("section", "card ex");
+  sec.setAttribute("data-ex", String(idx));
+
+  var head = el("div", "exhead");
+  head.appendChild(el("span", "exnum", String(ex.n)));
+  head.appendChild(el("span", "expts", ex.points + " marks"));
+  sec.appendChild(head);
+
+  sec.appendChild(el("p", "rubric", ex.rubric));
+
+  /* caja de gramatica ANTES del ejercicio, al estilo "explore grammar" del libro */
+  if(ex.note){
+    var nb = el("div", "gnote");
+    nb.appendChild(el("b", "gnotetitle", ex.note.title));
+    var ul = el("ul");
+    for(var k = 0; k < ex.note.lines.length; k++){
+      var li = el("li");
+      var parts = String(ex.note.lines[k]).split(" -> ");
+      li.appendChild(el("b", "gform", parts[0]));
+      if(parts.length > 1) li.appendChild(document.createTextNode(" " + parts[1]));
+      ul.appendChild(li);
+    }
+    nb.appendChild(ul);
+    if(ex.note.warning){
+      var w = el("p", "gwarn");
+      w.appendChild(el("b", null, "Careful: "));
+      w.appendChild(document.createTextNode(ex.note.warning));
+      nb.appendChild(w);
+    }
+    sec.appendChild(nb);
+  }
+
+  if(ex.intro) sec.appendChild(el("p", "intro", ex.intro));
+
+  var body = el("div", "exbody");
+  sec.appendChild(body);
+
+  var row = el("div", "btnrow");
+  var check = el("button", "btn", "Check");
+  check.type = "button";
+  var again = el("button", "btn ghost", "Try again");
+  again.type = "button";
+  row.appendChild(check);
+  row.appendChild(again);
+  var score = el("span", "scoreline");
+  row.appendChild(score);
+  sec.appendChild(row);
+
+  var panel = el("div", "panel");
+  panel.appendChild(el("h3", null, "Answers & explanations"));
+  var panelBody = el("div");
+  panel.appendChild(panelBody);
+  sec.appendChild(panel);
+
+  root.appendChild(sec);
+  return { sec: sec, body: body, check: check, again: again, score: score, panel: panel, panelBody: panelBody };
+}
+
+function fillPanel(body, rows, word){
+  body.innerHTML = "";
+  for(var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    var item = el("div", "pitem");
+    var top = el("div", "ptop");
+    top.appendChild(document.createTextNode((word || "Item") + " " + r.num));
+    top.appendChild(el("span", "mark " + (r.ok ? "y" : "n"), r.ok ? "correct" : "not yet"));
+    item.appendChild(top);
+    item.appendChild(explainBox(r.ok, r.shown, r.why, r.tip, r.note));
+    body.appendChild(item);
+  }
+}
+
+function setScore(idx, ex, right, total, ui){
+  var pts = total ? Math.round((right / total) * ex.points * 10) / 10 : 0;
+  SCORES[idx] = { pts: pts, max: ex.points, done: true };
+  ui.score.textContent = right + " / " + total + "  ·  " + pts + " of " + ex.points + " marks";
+  updateTotal();
+}
+
+var totalEl = document.getElementById("total");
+var totalBar = document.getElementById("totalBar");
+function updateTotal(){
+  var got = 0, of = 0;
+  for(var i = 0; i < SCORES.length; i++){
+    if(SCORES[i] && SCORES[i].done){ got += SCORES[i].pts; of += SCORES[i].max; }
+  }
+  got = Math.round(got * 10) / 10;
+  totalEl.textContent = of ? got + " / " + of + " marks so far" : "Nothing checked yet";
+  totalBar.style.width = of ? Math.round((got / of) * 100) + "%" : "0%";
+}
+
+/* ---------- matching: cada item elige una etiqueta ---------- */
+function renderMatching(ex, idx){
+  var ui = card(ex, idx);
+  var ids = [];
+  for(var i = 0; i < ex.items.length; i++){
+    var d = ex.items[i];
+    var id = REG.push({ data: d }) - 1;
+    ids.push(id);
+
+    var item = el("div", "item");
+    item.setAttribute("data-id", String(id));
+    var line = el("div", "mline");
+    line.appendChild(el("b", "rn", String(i + 1)));
+    line.appendChild(el("span", "mtext", d.text));
+    item.appendChild(line);
+
+    var sel = document.createElement("select");
+    sel.className = "pick";
+    sel.setAttribute("data-id", String(id));
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "-- choose --";
+    sel.appendChild(blank);
+    for(var j = 0; j < ex.labels.length; j++){
+      var o = document.createElement("option");
+      o.value = ex.labels[j]; o.textContent = ex.labels[j];
+      sel.appendChild(o);
+    }
+    item.appendChild(sel);
+    ui.body.appendChild(item);
+  }
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    clearExp(ui.body);
+    for(var i = 0; i < ids.length; i++){
+      var item = ui.body.querySelector('.item[data-id="' + ids[i] + '"]');
+      var sel = item.querySelector("select");
+      var d = REG[ids[i]].data;
+      var ok = sel.value === d.correct;
+      if(ok) right++;
+      sel.disabled = true;
+      sel.className = "pick " + (ok ? "ok" : "no");
+      item.appendChild(explainBox(ok, d.correct, d.why, d.tip, null));
+    }
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    clearExp(ui.body);
+    var sels = ui.body.querySelectorAll("select");
+    for(var i = 0; i < sels.length; i++){ sels[i].disabled = false; sels[i].value = ""; sels[i].className = "pick"; }
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- transform / gapsentences / kwt: un input por item ---------- */
+function renderInputItems(ex, idx, kind){
+  var ui = card(ex, idx);
+  var ids = [];
+  for(var i = 0; i < ex.items.length; i++){
+    var d = ex.items[i];
+    var id = REG.push({ data: d }) - 1;
+    ids.push(id);
+
+    var item = el("div", "item");
+    item.setAttribute("data-id", String(id));
+
+    if(d.lead){
+      var lead = el("p", "lead");
+      lead.appendChild(el("b", "rn", String(i + 1)));
+      lead.appendChild(document.createTextNode(" " + d.lead));
+      item.appendChild(lead);
+    }
+    if(d.key) item.appendChild(el("div", "keyw", d.key));
+
+    var line = el("div", "target");
+    if(!d.lead){
+      line.appendChild(el("b", "rn", String(i + 1)));
+      line.appendChild(document.createTextNode(" "));
+    }
+    if(d.before) line.appendChild(document.createTextNode(d.before + " "));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = kind === "transform" ? "wide" : "";
+    inp.setAttribute("data-id", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    if(d.after) line.appendChild(document.createTextNode(" " + d.after));
+    item.appendChild(line);
+
+    if(kind === "kwt"){
+      var wc = el("div", "wc", "words: 0  (you need 2 - 5)");
+      item.appendChild(wc);
+      inp.addEventListener("input", function(ev){
+        var n = countWords(ev.currentTarget.value);
+        var box = ev.currentTarget.parentNode.parentNode.querySelector(".wc");
+        box.textContent = "words: " + n + "  (you need 2 - 5)";
+        box.className = (n >= 2 && n <= 5) ? "wc" : "wc bad";
+      });
+    }
+    ui.body.appendChild(item);
+  }
+
+  ui.check.addEventListener("click", function(){
+    var right = 0;
+    clearExp(ui.body);
+    for(var i = 0; i < ids.length; i++){
+      var item = ui.body.querySelector('.item[data-id="' + ids[i] + '"]');
+      var inp = item.querySelector("input");
+      var d = REG[ids[i]].data;
+      var ok = matches(inp.value, d.answers);
+      var note = null;
+      if(kind === "kwt"){
+        var n = countWords(inp.value);
+        if(ok && (n < 2 || n > 5)) ok = false;
+        if(inp.value.trim() !== "" && (n < 2 || n > 5)){
+          note = "Your answer has " + n + " words. Remember that short forms count as two: don't = do + not.";
+        }
+      }
+      if(ok) right++;
+      inp.className = (kind === "transform" ? "wide " : "") + (ok ? "ok" : "no");
+      var shown = d.answers[0];
+      if(kind === "kwt") shown += "  (" + countWords(d.answers[0]) + " words)";
+      if(d.answers.length > 1) shown += "  (also: " + d.answers.slice(1).join(" / ") + ")";
+      item.appendChild(explainBox(ok, shown, d.why, d.tip, note));
+    }
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    clearExp(ui.body);
+    var ins = ui.body.querySelectorAll("input");
+    for(var i = 0; i < ins.length; i++){ ins[i].value = ""; ins[i].className = kind === "transform" ? "wide" : ""; }
+    var wcs = ui.body.querySelectorAll(".wc");
+    for(var j = 0; j < wcs.length; j++){ wcs[j].textContent = "words: 0  (you need 2 - 5)"; wcs[j].className = "wc"; }
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- word formation: articulo corrido con raices ---------- */
+function renderWordform(ex, idx){
+  var ui = card(ex, idx);
+  var textEl = el("p", "passage");
+  ui.body.appendChild(textEl);
+  var ids = [];
+
+  buildGappedText(textEl, ex.text, function(num){
+    var d = ex.items[num - 1];
+    var id = REG.push({ num: num, data: d }) - 1;
+    ids.push(id);
+    var wrap = el("span", "gapwrap");
+    var line = el("span", "gline");
+    line.appendChild(el("b", "gnum", String(num)));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.setAttribute("data-id", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    wrap.appendChild(line);
+    wrap.appendChild(el("span", "cue root", d.root));
+    return wrap;
+  });
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    for(var i = 0; i < ids.length; i++){
+      var entry = REG[ids[i]];
+      var inp = textEl.querySelector('input[data-id="' + ids[i] + '"]');
+      var d = entry.data;
+      var ok = matches(inp.value, d.answers);
+      if(ok) right++;
+      inp.className = ok ? "ok" : "no";
+      var shown = d.answers[0] + "  (from " + d.root + ")";
+      rows.push({ num: entry.num, ok: ok, shown: shown, why: d.why, tip: d.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Gap");
+    ui.panel.style.display = "block";
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    var ins = textEl.querySelectorAll("input");
+    for(var i = 0; i < ins.length; i++){ ins[i].value = ""; ins[i].className = ""; }
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- writing: no se corrige sola, pero SI se controla que aparezcan
+     las estructuras que el ejercicio pide, y se muestra un modelo ---------- */
+function renderWriting(ex, idx){
+  var ui = card(ex, idx);
+  if(ex.situation) ui.body.appendChild(el("div", "situation", ex.situation));
+
+  /* mode "lines": una linea por estructura, con su etiqueta al lado.
+     Es mucho mas facil que un bloque unico donde se olvida una estructura. */
+  var lineas = ex.mode === "lines";
+  var ta = null, inputs = [];
+
+  if(lineas){
+    for(var i = 0; i < ex.required.length; i++){
+      var row = el("div", "wline");
+      var lab = el("div", "wlab");
+      lab.appendChild(el("b", "rn", String(i + 1)));
+      lab.appendChild(el("span", "wform", ex.required[i].form));
+      row.appendChild(lab);
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.className = "wide";
+      inp.setAttribute("spellcheck", "false");
+      inp.placeholder = ex.required[i].starter || "Write your sentence here.";
+      row.appendChild(inp);
+      inputs.push(inp);
+      ui.body.appendChild(row);
+    }
+  } else {
+    ta = document.createElement("textarea");
+    ta.rows = 6;
+    ta.setAttribute("spellcheck", "false");
+    ta.placeholder = "Write your sentences here.";
+    ui.body.appendChild(ta);
+  }
+
+  var need = el("div", "needlist");
+  need.appendChild(el("b", "needtitle", lineas ? "Each line must contain:" : "Your answer must include:"));
+  var ul = el("ul");
+  for(var i = 0; i < ex.required.length; i++){
+    ul.appendChild(el("li", null, ex.required[i].label));
+  }
+  need.appendChild(ul);
+  ui.body.appendChild(need);
+
+  ui.check.addEventListener("click", function(){
+    clearExp(ui.body);
+    var found = 0, rows = [];
+    for(var i = 0; i < ex.required.length; i++){
+      var r = ex.required[i];
+      var txt = " " + normalize(lineas ? inputs[i].value : ta.value) + " ";
+      var hit = false;
+      for(var j = 0; j < r.patterns.length; j++){
+        if(txt.indexOf(normalize(r.patterns[j])) >= 0){ hit = true; break; }
+      }
+      if(hit) found++;
+      if(lineas) inputs[i].className = "wide " + (hit ? "ok" : "no");
+      rows.push({ num: i + 1, ok: hit, shown: r.label, why: r.why, tip: r.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Structure");
+
+    var model = el("div", "modelbox");
+    model.appendChild(el("b", "needtitle", "A possible answer"));
+    model.appendChild(el("p", null, ex.model));
+    model.appendChild(el("p", "selfnote", "This part is marked by your teacher. The check above only looks for the structures the task asks for."));
+    ui.panelBody.appendChild(model);
+
+    ui.panel.style.display = "block";
+    setScore(idx, ex, found, ex.required.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    if(lineas){ for(var i = 0; i < inputs.length; i++){ inputs[i].value = ""; inputs[i].className = "wide"; } }
+    else ta.value = "";
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- arranque ---------- */
+document.getElementById("testTitle").textContent = DATA.title;
+document.getElementById("testSub").textContent = DATA.subtitle;
+
+for(var i = 0; i < DATA.exercises.length; i++){
+  var ex = DATA.exercises[i];
+  SCORES.push(null);
+  if(ex.type === "matching") renderMatching(ex, i);
+  else if(ex.type === "wordform") renderWordform(ex, i);
+  else if(ex.type === "writing") renderWriting(ex, i);
+  else renderInputItems(ex, i, ex.type);
+}
+updateTotal();
+})();
+</script>
+</body>
+</html>

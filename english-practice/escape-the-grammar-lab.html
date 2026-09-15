@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escape the Grammar Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 70px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+/* ---------- header ---------- */
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+/* ---------- cards ---------- */
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+
+/* ---------- inputs ---------- */
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:7px 11px;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- passage + gaps ---------- */
+.passage{font-size:1.06rem;line-height:3.05;margin:0}
+.gapwrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px}
+.gline{display:flex;align-items:center;gap:5px}
+.gnum{
+  font-family:var(--head);font-size:.72rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.gapwrap input{width:132px;text-align:center}
+.cue{font-family:var(--head);font-size:.74rem;font-weight:700;color:var(--violet);line-height:1.1;margin-top:1px}
+
+/* ---------- explanation blocks ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 12px}
+.pitem{border-left:8px solid var(--violet);padding-left:12px;margin-bottom:16px}
+.pitem .ptop{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:2px}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+/* ---------- items (mcq / kwt) ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 17px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+.kwt .lead{font-size:1.04rem;margin:0 0 9px;line-height:1.5}
+.keyw{
+  font-family:var(--head);font-weight:800;letter-spacing:1.6px;background:var(--yellow);
+  border:3px solid #000;border-radius:8px;padding:2px 12px;display:inline-block;margin:0 0 10px;
+}
+.kwt .target{font-size:1.04rem;line-height:2.5}
+.kwt input{width:290px;max-width:100%}
+.wc{font-family:var(--head);font-size:.76rem;font-weight:700;color:#5b5b5b;margin-top:6px}
+.wc.bad{color:#c2004c}
+
+/* ---------- word formation (raiz debajo del hueco, en el propio texto) ---------- */
+.cue.root{
+  font-family:var(--head);font-weight:800;font-size:.7rem;letter-spacing:1.1px;
+  color:#000;background:var(--cyan);border:2px solid #000;border-radius:6px;
+  padding:0 7px;margin-top:2px;
+}
+#wfText .gapwrap input{width:150px}
+
+/* ---------- multiple-choice cloze ---------- */
+.mcgap{
+  display:inline-flex;align-items:center;gap:5px;vertical-align:middle;margin:0 3px;
+  border:3px solid #000;border-radius:11px;padding:3px 9px;background:#fffdf2;min-width:118px;
+}
+.mcgap.ok{background:#e4ffc4;border-color:#1c7a00}
+.mcgap.no{background:#ffe0ec;border-color:#c2004c}
+.mcpick{font-weight:600;font-size:.97rem}
+.mcpick.empty{color:#9a9a9a;letter-spacing:2px}
+.mcrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.mcrow .rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.mcrow .opt{font-size:.9rem;padding:5px 13px;box-shadow:2px 2px 0 #000}
+.mcrow .letter{font-family:var(--head);font-weight:800;margin-right:5px}
+
+/* ---------- warm-up ---------- */
+.card.warm{background:var(--ink);border-color:#000;box-shadow:10px 10px 0 var(--yellow)}
+.warm h2,.warm .sub{color:#fff}
+.warm .sub{color:#c9c9c9}
+.dots{display:flex;gap:7px;margin:14px 0 18px}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.warm .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px;margin-top:6px}
+.final{text-align:center;padding:14px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3.3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.25rem;margin-bottom:14px}
+.hidden{display:none!important}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem;margin-top:14px}
+
+/* ---------- test: cabecera de ejercicio ---------- */
+.card.ex{padding-top:18px}
+.exhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.exnum{
+  font-family:var(--head);font-weight:800;font-size:1.1rem;color:#fff;background:var(--violet);
+  border:3px solid #000;border-radius:50%;width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.expts{
+  font-family:var(--head);font-weight:800;font-size:.78rem;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:2px 13px;text-transform:uppercase;letter-spacing:.8px;
+}
+.rubric{font-weight:600;font-size:1.02rem;margin:0 0 12px;line-height:1.45}
+.intro{
+  font-size:1rem;line-height:1.55;margin:0 0 16px;background:#fffdf2;
+  border:3px solid #000;border-radius:14px;padding:12px 14px;
+}
+.situation{
+  font-size:1rem;line-height:1.55;margin:0 0 14px;background:#f4efff;
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;
+}
+
+/* ---------- matching ---------- */
+.mline{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px}
+.mtext{font-size:1.01rem;line-height:1.45;font-weight:500}
+.rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;margin-top:2px;
+}
+select.pick{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:7px 11px;
+  border:3px solid #000;border-radius:11px;background:#fff;cursor:pointer;max-width:100%;
+}
+select.pick.ok{background:#e4ffc4;border-color:#1c7a00}
+select.pick.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- transform / gapsentences ---------- */
+.item .lead{font-size:1.02rem;margin:0 0 9px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.item .target{font-size:1.02rem;line-height:2.6}
+.item input{width:210px}
+.item input.wide{width:100%;max-width:520px;text-align:left}
+
+/* ---------- caja de gramatica previa, al estilo "explore grammar" ---------- */
+.gnote{
+  border:4px solid #000;border-radius:16px;padding:13px 16px;margin:0 0 16px;
+  background:#fff7e0;box-shadow:5px 5px 0 var(--yellow);font-size:.96rem;line-height:1.55;
+}
+.gnotetitle{font-family:var(--head);font-size:1.05rem;display:block;margin-bottom:6px}
+.gnote ul{margin:0;padding-left:19px}
+.gnote li{margin-bottom:5px}
+.gform{
+  font-family:var(--head);font-weight:800;background:var(--cyan);
+  border:2px solid #000;border-radius:6px;padding:0 7px;display:inline-block;
+}
+.gwarn{margin:9px 0 0;background:#ffe0ec;border:2px solid #000;border-radius:10px;padding:7px 11px}
+
+/* ---------- writing ---------- */
+.wline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.wlab{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.wform{
+  font-family:var(--head);font-weight:800;font-size:.8rem;background:var(--lime);
+  border:2px solid #000;border-radius:999px;padding:2px 11px;white-space:nowrap;
+}
+.wline input{flex:1 1 300px;min-width:220px}
+textarea{
+  font-family:var(--body);font-size:1rem;font-weight:500;width:100%;padding:11px 13px;
+  border:3px solid #000;border-radius:14px;background:#fffdf2;outline:none;resize:vertical;
+}
+textarea:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+.needlist{
+  margin-top:13px;border:3px solid #000;border-radius:14px;padding:11px 14px;background:#f0ffe0;
+  font-size:.93rem;line-height:1.5;
+}
+.needlist ul{margin:6px 0 0;padding-left:20px}
+.needtitle{font-family:var(--head);font-size:.9rem;display:block;margin-bottom:2px}
+.modelbox{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;background:#fffdf2;
+  font-size:.93rem;line-height:1.55;margin-top:6px;
+}
+.modelbox p{margin:6px 0 0}
+.selfnote{font-style:italic;color:#5b5b5b;font-size:.86rem}
+
+/* ---------- marcador global ---------- */
+.totalcard{
+  background:var(--ink);border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 var(--lime);
+  padding:16px 20px;margin-bottom:34px;position:sticky;top:8px;z-index:5;
+}
+.totalcard .lbl{font-family:var(--head);font-weight:800;color:var(--yellow);font-size:.8rem;
+  text-transform:uppercase;letter-spacing:1.2px}
+.totalcard .val{font-family:var(--head);font-weight:800;color:#fff;font-size:1.5rem;line-height:1.2}
+.track{height:14px;border:3px solid #fff;border-radius:999px;margin-top:9px;overflow:hidden;background:transparent}
+.track span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .25s}
+
+/* ================= WARM-UP GAMES ================= */
+.gamecard{
+  background:var(--ink); border:5px solid #000; border-radius:22px; padding:22px 22px 24px;
+  margin-bottom:34px; box-shadow:10px 10px 0 var(--yellow); transform:rotate(-.35deg);
+}
+.gamecard:nth-of-type(even){box-shadow:10px 10px 0 var(--lime); transform:rotate(.3deg)}
+.gamecard h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;color:#fff}
+.gamecard .sub{color:#d3d3d3;margin:0 0 16px;font-size:.93rem;line-height:1.5}
+.gamecard .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.chip.left{background:var(--yellow)}
+.dots{display:flex;gap:7px;margin:0 0 14px;flex-wrap:wrap}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.gq{font-size:1.1rem;font-weight:500;line-height:1.7;margin:0 0 13px}
+.blank{
+  font-family:var(--head);font-weight:800;letter-spacing:2px;background:var(--yellow);
+  border:2px solid #000;border-radius:7px;padding:0 12px;
+}
+.final{text-align:center;padding:10px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.2rem;margin-bottom:6px}
+.hidden{display:none!important}
+
+/* pieces / builder */
+.prompt{font-size:1.02rem;font-weight:500;margin:0 0 12px;line-height:1.5}
+.bank,.slot{
+  display:flex;flex-wrap:wrap;gap:9px;padding:13px;border:3px dashed #000;border-radius:14px;
+  min-height:58px;margin-bottom:12px;background:#f7f2ff;align-items:flex-start;
+}
+.slot{background:#e9fbff;border-style:solid}
+.boxlab{font-family:var(--head);font-weight:800;font-size:.74rem;text-transform:uppercase;
+  letter-spacing:1px;color:#5b5b5b;margin:0 0 4px}
+.piece{
+  font-family:var(--body);font-weight:600;font-size:.97rem;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 #000;
+  user-select:none;transition:transform .07s,box-shadow .07s;
+}
+.piece:hover{background:var(--yellow)}
+.piece:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.slot .piece{background:var(--cyan)}
+.piece.good{background:var(--lime);border-color:#1c7a00}
+.piece.bad{background:#ffc2d8;border-color:#c2004c}
+
+/* match columns */
+.match{display:flex;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:10px;flex:1 1 240px}
+.mi{
+  font-family:var(--body);font-weight:600;font-size:.95rem;cursor:pointer;text-align:center;
+  background:#fff;border:3px solid #000;border-radius:14px;padding:11px 12px;box-shadow:4px 4px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.mi:hover{background:#fff9c9}
+.mi.sel{background:var(--cyan);transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.mi.done{background:var(--lime);border-color:#1c7a00;cursor:default;box-shadow:0 0 0 #000;
+  transform:translate(4px,4px);opacity:.85}
+.mi.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.score{font-family:var(--head);font-weight:800;font-size:.95rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:4px 15px}
+
+/* separador entre calentamiento y test */
+.divider{
+  background:#fff;border:4px solid #000;border-radius:18px;box-shadow:8px 8px 0 var(--violet);
+  padding:14px 20px;margin-bottom:34px;text-align:center;
+}
+.divider b{font-family:var(--head);font-size:1.25rem;display:block}
+.divider span{font-size:.92rem;color:#4a4a4a}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:34px;font-size:.95rem;
+}
+.piece.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+
+/* ================= ESCAPE ROOM ================= */
+.lockcard{
+  background:var(--ink);border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 var(--cyan);
+  padding:18px 20px;margin-bottom:34px;position:sticky;top:8px;z-index:6;
+}
+.lockcard .lbl{font-family:var(--head);font-weight:800;color:var(--yellow);font-size:.8rem;
+  text-transform:uppercase;letter-spacing:1.2px}
+.digits{display:flex;gap:9px;margin-top:9px;flex-wrap:wrap}
+.digit{
+  font-family:var(--head);font-weight:800;font-size:1.5rem;color:#fff;background:transparent;
+  border:3px solid #fff;border-radius:12px;width:46px;height:52px;
+  display:flex;align-items:center;justify-content:center;
+}
+.digit.got{background:var(--lime);color:#000;border-color:var(--lime)}
+.digit small{font-family:var(--body);font-weight:600;font-size:.6rem;color:#bdbdbd}
+.lockrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.lockrow input{width:150px;text-align:center;font-family:var(--head);font-weight:800;letter-spacing:4px}
+.lockmsg{font-family:var(--head);font-weight:800;color:#fff;font-size:.95rem}
+.lockmsg.win{color:var(--lime)}
+
+/* ---------- juego: cazador de errores ---------- */
+.sentence{font-size:1.12rem;line-height:2.3;margin:0 0 6px}
+.word{
+  display:inline-block;padding:2px 7px;margin:0 1px;border-radius:8px;cursor:pointer;
+  border:2px solid transparent;transition:background .08s;
+}
+.word:hover{background:var(--yellow);border-color:#000}
+.word.bad{background:#ffc2d8;border-color:#c2004c;text-decoration:line-through}
+.word.good{background:var(--lime);border-color:#1c7a00}
+.word.dead{cursor:default}
+.word.dead:hover{background:transparent;border-color:transparent}
+.fixline{font-family:var(--head);font-weight:800;color:#12006b;margin:8px 0 0;font-size:1rem}
+
+/* ---------- juego: cirujano de comas ---------- */
+.surgery{font-size:1.1rem;line-height:2.6;margin:0 0 10px}
+.cgap{
+  display:inline-block;width:16px;height:26px;margin:0 -2px;border-radius:6px;cursor:pointer;
+  border:2px dashed #b9b9b9;vertical-align:middle;position:relative;
+}
+.cgap:hover{border-color:#000;background:#fff9c9}
+.cgap.on{border-style:solid;border-color:#000;background:var(--yellow)}
+.cgap.on::after{content:",";position:absolute;left:4px;top:-2px;font-family:var(--head);font-weight:800}
+.cgap.dead{cursor:default;border-color:#ddd;background:transparent}
+.cgap.miss{border-style:solid;border-color:#c2004c;background:#ffc2d8}
+.cgap.hit{border-style:solid;border-color:#1c7a00;background:var(--lime)}
+
+/* ---------- juego: formdle ---------- */
+.clueword{
+  font-family:var(--head);font-weight:800;font-size:1.25rem;background:var(--cyan);
+  border:3px solid #000;border-radius:10px;padding:2px 14px;display:inline-block;margin-bottom:12px;
+  text-transform:uppercase;letter-spacing:2px;
+}
+.wgrid{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.wrow{display:flex;gap:7px;flex-wrap:wrap}
+.tile{
+  width:40px;height:44px;border:3px solid #000;border-radius:9px;background:#fff;
+  font-family:var(--head);font-weight:800;font-size:1.25rem;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;
+}
+.tile.hit{background:var(--lime);border-color:#1c7a00}
+.tile.near{background:var(--yellow)}
+.tile.miss{background:#d8d8d8;color:#6b6b6b}
+.guessrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.guessrow input{width:190px;text-transform:uppercase;letter-spacing:3px;font-weight:600}
+.keyhint{font-family:var(--head);font-weight:700;font-size:.78rem;color:#5b5b5b;margin-top:8px}
+
+/* ---------- juego: grilla ---------- */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:330px;margin:0 auto 14px}
+.sq{
+  aspect-ratio:1/1;border:4px solid #000;border-radius:14px;background:#fffdf2;cursor:pointer;
+  font-family:var(--head);font-weight:800;font-size:2.1rem;
+  display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 #000;
+}
+.sq:hover{background:#fff9c9}
+.sq.me{background:var(--lime);color:#12006b;cursor:default}
+.sq.cpu{background:#ffc2d8;color:#c2004c;cursor:default}
+.sq.win{box-shadow:0 0 0 5px var(--violet)}
+.turnmsg{font-family:var(--head);font-weight:800;text-align:center;margin:0 0 12px;font-size:1rem}
+
+/* ---------- juego: contrarreloj ---------- */
+.clock{
+  font-family:var(--head);font-weight:800;font-size:2.1rem;color:#fff;text-align:center;
+  line-height:1;margin-bottom:6px;
+}
+.clock.low{color:var(--pink)}
+.timerbar{height:16px;border:3px solid #fff;border-radius:999px;overflow:hidden;background:transparent;margin-bottom:14px}
+.timerbar span{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--lime),var(--cyan));transition:width .1s linear}
+.flash{font-family:var(--head);font-weight:800;font-size:.95rem;margin-top:10px;
+  border:3px solid #000;border-radius:12px;padding:8px 12px;background:#f0ffe0}
+.flash.no{background:#fff0f5}
+.done{font-family:var(--head);font-weight:800;font-size:.85rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:3px 13px;display:inline-block;margin-left:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>ESCAPE THE GRAMMAR LAB</h1>
+    <p>Five games &middot; relative clauses, the passive and the causative &middot; one code to get out</p>
+  </div>
+
+  <div class="lockcard">
+    <div class="lbl">The door code</div>
+    <div class="digits" id="digits"></div>
+    <div class="lockrow">
+      <input type="text" id="codeInput" maxlength="5" placeholder="-----" autocomplete="off" spellcheck="false">
+      <button class="btn" id="codeBtn" type="button">Open the door</button>
+      <span class="lockmsg" id="codeMsg">Win a game and you win a digit.</span>
+    </div>
+  </div>
+
+  <!-- ============ GAME 1 ============ -->
+  <section class="gamecard" id="g1">
+    <span class="tag">Room 1</span>
+    <h2>Error Hunter<span class="done hidden" id="d1">digit won</span></h2>
+    <p class="sub">Every sentence below has exactly <b>one</b> wrong word. Click it. Sometimes the word is simply wrong, and sometimes it is a word that should not be there at all. Six sentences out of eight and the first digit is yours.</p>
+    <div class="hud">
+      <span class="chip" id="g1score">0 / 8</span>
+      <span class="chip streak" id="g1lives">first try: 0</span>
+    </div>
+    <div class="dots" id="g1dots"></div>
+    <div class="qbox" id="g1box"></div>
+    <div class="btnrow">
+      <button class="btn" id="g1next" type="button" disabled>Next sentence</button>
+      <button class="btn ghost" id="g1again" type="button">Play again</button>
+    </div>
+  </section>
+
+  <!-- ============ GAME 2 ============ -->
+  <section class="gamecard" id="g2">
+    <span class="tag">Room 2</span>
+    <h2>Comma Surgeon<span class="done hidden" id="d2">digit won</span></h2>
+    <p class="sub">Click the little gaps between the words to put the commas in. A non-defining clause needs <b>two</b> commas, one before it and one after it. If the clause tells you which person or thing you mean, press <b>No commas needed</b> instead. Five out of six and the second digit is yours.</p>
+    <div class="hud">
+      <span class="chip" id="g2score">0 / 6</span>
+      <span class="chip left" id="g2which">sentence 1 of 6</span>
+    </div>
+    <div class="qbox" id="g2box"></div>
+    <div class="btnrow">
+      <button class="btn" id="g2check" type="button">Operate</button>
+      <button class="btn ghost" id="g2none" type="button">No commas needed</button>
+      <button class="btn ghost" id="g2next" type="button" disabled>Next patient</button>
+      <button class="btn ghost" id="g2again" type="button">Play again</button>
+    </div>
+  </section>
+
+  <!-- ============ GAME 3 ============ -->
+  <section class="gamecard" id="g3">
+    <span class="tag">Room 3</span>
+    <h2>Third Form Hunt<span class="done hidden" id="d3">digit won</span></h2>
+    <p class="sub">Guess the third form of the verb on the card. Six tries. After each guess the tiles tell you: <b>green</b> means right letter in the right place, <b>yellow</b> means right letter in the wrong place, <b>grey</b> means the letter is not in the word. Every passive and every causative ends in one of these forms.</p>
+    <div class="qbox" id="g3box">
+      <div><span class="clueword" id="g3clue"></span></div>
+      <div class="wgrid" id="g3grid"></div>
+      <div class="guessrow">
+        <input type="text" id="g3input" autocomplete="off" spellcheck="false" placeholder="your guess">
+        <button class="btn" id="g3go" type="button">Guess</button>
+        <button class="btn ghost" id="g3new" type="button">Another verb</button>
+      </div>
+      <p class="keyhint" id="g3hint"></p>
+      <div id="g3exp"></div>
+    </div>
+  </section>
+
+  <!-- ============ GAME 4 ============ -->
+  <section class="gamecard" id="g4">
+    <span class="tag">Room 4</span>
+    <h2>Grammar Grid<span class="done hidden" id="d4">digit won</span></h2>
+    <p class="sub">Three in a row against the machine. Click an empty square and answer the question: if you are right the square is yours, if you are wrong the machine takes it. Beat the machine and the fourth digit is yours. A draw is not enough.</p>
+    <p class="turnmsg" id="g4msg">Pick a square to start.</p>
+    <div class="board" id="g4board"></div>
+    <div class="qbox hidden" id="g4box"></div>
+    <div class="btnrow">
+      <button class="btn ghost" id="g4again" type="button">New game</button>
+      <span class="score" id="g4score">0 wins</span>
+    </div>
+  </section>
+
+  <!-- ============ GAME 5 ============ -->
+  <section class="gamecard" id="g5">
+    <span class="tag">Room 5</span>
+    <h2>Beat the Clock<span class="done hidden" id="d5">digit won</span></h2>
+    <p class="sub">Sixty seconds, one tap per question, everything you have practised mixed together. Ten correct answers and the last digit is yours. Wrong answers do not stop the clock, so read fast and keep going.</p>
+    <div class="clock" id="g5clock">60</div>
+    <div class="timerbar"><span id="g5bar"></span></div>
+    <div class="hud">
+      <span class="chip" id="g5score">0 correct</span>
+      <span class="chip streak" id="g5streak">streak 0</span>
+    </div>
+    <div class="qbox" id="g5box"></div>
+    <div class="btnrow">
+      <button class="btn" id="g5start" type="button">Start the clock</button>
+    </div>
+  </section>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="games-block">
+(function(){
+"use strict";
+
+/* ---------- helpers ---------- */
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+function shuffle(a){
+  var i, j, t;
+  for(i = a.length - 1; i > 0; i--){ j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+function expBox(ok, answer, why, tip){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answer){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", answer));
+    box.appendChild(p0);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+/* ---------- the lock ---------- */
+var CODE = [7, 3, 9, 1, 4];
+var LABELS = ["Error Hunter","Comma Surgeon","Third Form","Grammar Grid","Beat the Clock"];
+var won = [false, false, false, false, false];
+var digitsBox = document.getElementById("digits");
+var codeMsg = document.getElementById("codeMsg");
+
+function drawDigits(){
+  digitsBox.innerHTML = "";
+  for(var i = 0; i < CODE.length; i++){
+    var d = el("div", "digit" + (won[i] ? " got" : ""));
+    d.appendChild(document.createTextNode(won[i] ? String(CODE[i]) : "?"));
+    digitsBox.appendChild(d);
+  }
+}
+function unlock(i){
+  if(won[i]) return;
+  won[i] = true;
+  drawDigits();
+  document.getElementById("d" + (i + 1)).className = "done";
+  var missing = 0;
+  for(var k = 0; k < won.length; k++){ if(!won[k]) missing++; }
+  codeMsg.className = "lockmsg";
+  codeMsg.textContent = missing ? (LABELS[i] + " solved. " + missing + " digit" + (missing === 1 ? "" : "s") + " to go.")
+                                : "Every digit is yours. Type the code and open the door.";
+}
+drawDigits();
+
+document.getElementById("codeBtn").addEventListener("click", function(){
+  var v = document.getElementById("codeInput").value.replace(/\D/g, "");
+  if(v === CODE.join("")){
+    codeMsg.className = "lockmsg win";
+    codeMsg.textContent = "The door is open. You are out of the lab.";
+  } else {
+    codeMsg.className = "lockmsg";
+    codeMsg.textContent = "That is not the code. Win the games and the digits appear above.";
+  }
+});
+
+/* ============================================================
+   GAME 1 · ERROR HUNTER
+   ============================================================ */
+var ERRORS = [
+  { words: ["The","results","will","been","uploaded","on","Friday."], bad: 3, fix: "be",
+    why: "Will is always followed by be, never by been. The future passive is will be plus the third form.",
+    tip: "Been only appears after has, have or had." },
+  { words: ["My","cousin,","that","lives","in","Rosario,","learns","everything","by","heart."], bad: 2, fix: "who",
+    why: "The commas make this a non-defining clause, and that is impossible inside a clause with commas.",
+    tip: "After a comma use who for people and which for things." },
+  { words: ["She","had","her","bag","steal","on","the","bus."], bad: 4, fix: "stolen",
+    why: "The causative always ends in the third form, so steal has to become stolen.",
+    tip: "Have or get plus the object plus the third form: had her bag stolen." },
+  { words: ["The","theory","is","been","tested","at","the","moment."], bad: 3, fix: "being",
+    why: "The present continuous passive is is being plus the third form. Been belongs to the perfect tenses.",
+    tip: "Being means in progress now. Been means finished and connected to now." },
+  { words: ["We","are","going","to","be","test","next","week."], bad: 5, fix: "tested",
+    why: "After be you need the third form, so test has to become tested.",
+    tip: "Say the block out loud: going to be tested. Three words that always travel together." },
+  { words: ["I","had","my","hair","cutted","last","Saturday."], bad: 4, fix: "cut",
+    why: "Cut is irregular and its three forms are all the same: cut, cut, cut.",
+    tip: "Never add -ed to an irregular verb. Put, hit, let and cost behave in the same way." },
+  { words: ["The","school","where","I","study","in","is","very","old."], bad: 5, fix: "",
+    why: "Where already means in which, so the preposition in is repeated and has to disappear.",
+    tip: "Where, when and why never take a preposition after the clause." },
+  { words: ["The","girl","who's","project","won","the","prize","is","in","my","class."], bad: 2, fix: "whose",
+    why: "Who's means who is. Here the project belongs to the girl, so you need the possessive whose.",
+    tip: "If a noun follows with no article, the word is whose." }
+];
+
+(function(){
+  var box = document.getElementById("g1box");
+  var dots = document.getElementById("g1dots");
+  var scoreEl = document.getElementById("g1score");
+  var livesEl = document.getElementById("g1lives");
+  var nextBtn = document.getElementById("g1next");
+  var againBtn = document.getElementById("g1again");
+  var order = [], idx = 0, right = 0, clean = 0, marks = [];
+
+  function drawDots(){
+    dots.innerHTML = "";
+    for(var i = 0; i < ERRORS.length; i++){
+      var cls = "dot";
+      if(marks[i] === true) cls = "dot y";
+      else if(marks[i] === false) cls = "dot n";
+      if(i === idx) cls += " now";
+      dots.appendChild(el("span", cls));
+    }
+  }
+
+  function finish(){
+    box.innerHTML = "";
+    var f = el("div", "final");
+    f.appendChild(el("div", "msg", right >= 6 ? "Room 1 solved." : "Not enough this time."));
+    f.appendChild(el("div", "big", right + " / " + ERRORS.length));
+    f.appendChild(el("div", "msg", right >= 6 ? "Look at the code above." : "You need six. Play again."));
+    box.appendChild(f);
+    nextBtn.disabled = true;
+    if(right >= 6) unlock(0);
+    drawDots();
+  }
+
+  function render(){
+    box.innerHTML = "";
+    if(idx >= order.length){ finish(); return; }
+    var q = order[idx];
+    var p = el("p", "sentence");
+    var misses = 0;
+
+    function reveal(found){
+      var all = p.querySelectorAll(".word");
+      for(var z = 0; z < all.length; z++){ all[z].className = all[z].className.replace("word", "word dead"); }
+      all[q.bad].className = "word dead " + (found ? "good" : "bad");
+      if(found){
+        right++;
+        if(misses === 0) clean++;
+      }
+      marks[idx] = found;
+      scoreEl.textContent = right + " / " + ERRORS.length;
+      livesEl.textContent = "first try: " + clean;
+      var fixed = q.words.slice();
+      if(q.fix === "") fixed.splice(q.bad, 1);
+      else fixed[q.bad] = q.fix;
+      box.appendChild(el("p", "fixline", "Correct: " + fixed.join(" ")));
+      box.appendChild(expBox(found, q.fix === "" ? "The word " + q.words[q.bad] + " has to go." : q.words[q.bad] + "  ->  " + q.fix, q.why, q.tip));
+      nextBtn.disabled = false;
+      drawDots();
+    }
+
+    for(var i = 0; i < q.words.length; i++){
+      (function(k){
+        var w = el("span", "word", q.words[k]);
+        w.onclick = function(){
+          if(box.querySelector(".exp")) return;
+          if(k === q.bad){ reveal(true); return; }
+          w.className = "word bad";
+          misses++;
+          if(misses >= 2) reveal(false);
+        };
+        p.appendChild(w);
+        p.appendChild(document.createTextNode(" "));
+      })(i);
+    }
+    box.appendChild(p);
+    box.appendChild(el("p", "keyhint", "Click the word you think is wrong. Two wrong clicks and the sentence is lost, so read it all before you decide."));
+    nextBtn.disabled = true;
+    drawDots();
+  }
+
+  function start(){
+    order = shuffle(ERRORS.slice());
+    idx = 0; right = 0; clean = 0; marks = [];
+    scoreEl.textContent = "0 / " + ERRORS.length;
+    livesEl.textContent = "first try: 0";
+    render();
+  }
+  nextBtn.addEventListener("click", function(){ idx++; render(); });
+  againBtn.addEventListener("click", start);
+  start();
+})();
+
+/* ============================================================
+   GAME 2 · COMMA SURGEON
+   ============================================================ */
+var SURGERY = [
+  { words: ["Brooklyn","Free","School","which","has","a","very","unusual","approach","has","no","timetable."],
+    commas: [2, 8],
+    why: "The name already tells you which school it is, so the clause about its approach is extra information.",
+    tip: "Two commas, never one. The clause opens and closes like a pair of brackets." },
+  { words: ["The","students","who","go","to","my","new","school","are","friendly."],
+    commas: [],
+    why: "Without the clause you do not know which students are friendly, so nothing can be separated off.",
+    tip: "Defining clause, no commas, and here you could even use that instead of who." },
+  { words: ["Anya","whose","sister","is","in","Year","13","never","falls","behind."],
+    commas: [0, 6],
+    why: "Anya is already identified by her name, so the information about her sister is extra.",
+    tip: "A clause straight after a person's name almost always takes commas." },
+  { words: ["The","app","which","I","use","to","look","up","new","words","is","free."],
+    commas: [],
+    why: "The clause says which app you mean, so it is essential and takes no commas.",
+    tip: "Here the pronoun is an object, so you could leave which out completely." },
+  { words: ["Lunchtime","when","most","students","stop","to","eat","is","only","forty","minutes","long."],
+    commas: [0, 6],
+    why: "There is only one lunchtime, so the clause with when only adds extra information about it.",
+    tip: "When and where behave exactly like who and which: the commas depend on the sentence." },
+  { words: ["Our","library","which","was","rebuilt","last","year","opens","at","seven."],
+    commas: [1, 6],
+    why: "The school has one library, so the date of the rebuilding is news, not identification.",
+    tip: "Our, my and this plus one single thing usually means the clause is non-defining." }
+];
+
+(function(){
+  var box = document.getElementById("g2box");
+  var scoreEl = document.getElementById("g2score");
+  var whichEl = document.getElementById("g2which");
+  var checkBtn = document.getElementById("g2check");
+  var noneBtn = document.getElementById("g2none");
+  var nextBtn = document.getElementById("g2next");
+  var againBtn = document.getElementById("g2again");
+  var order = [], idx = 0, right = 0, picked = [], locked = false;
+
+  function render(){
+    box.innerHTML = "";
+    picked = []; locked = false;
+    if(idx >= order.length){
+      var f = el("div", "final");
+      f.appendChild(el("div", "msg", right >= 5 ? "Room 2 solved." : "Not enough this time."));
+      f.appendChild(el("div", "big", right + " / " + order.length));
+      f.appendChild(el("div", "msg", right >= 5 ? "Look at the code above." : "You need five out of six."));
+      box.appendChild(f);
+      checkBtn.disabled = true; noneBtn.disabled = true; nextBtn.disabled = true;
+      if(right >= 5) unlock(1);
+      return;
+    }
+    checkBtn.disabled = false; noneBtn.disabled = false; nextBtn.disabled = true;
+    whichEl.textContent = "sentence " + (idx + 1) + " of " + order.length;
+    var q = order[idx];
+    var p = el("p", "surgery");
+    for(var i = 0; i < q.words.length; i++){
+      p.appendChild(el("span", null, q.words[i]));
+      if(i < q.words.length - 1){
+        (function(k){
+          var g = el("span", "cgap");
+          g.setAttribute("data-k", String(k));
+          g.onclick = function(){
+            if(locked) return;
+            var at = picked.indexOf(k);
+            if(at >= 0){ picked.splice(at, 1); g.className = "cgap"; }
+            else { picked.push(k); g.className = "cgap on"; }
+          };
+          p.appendChild(g);
+        })(i);
+      }
+    }
+    box.appendChild(p);
+    box.appendChild(el("p", "keyhint", "Click a gap once to put a comma in, and again to take it out."));
+  }
+
+  function judge(claimEmpty){
+    if(locked) return;
+    var q = order[idx];
+    var mine = claimEmpty ? [] : picked.slice().sort(function(a, b){ return a - b; });
+    var ok = mine.join(",") === q.commas.join(",");
+    locked = true;
+    checkBtn.disabled = true; noneBtn.disabled = true;
+    nextBtn.disabled = false;
+    if(ok) right++;
+    scoreEl.textContent = right + " / " + order.length;
+
+    var gaps = box.querySelectorAll(".cgap");
+    for(var i = 0; i < gaps.length; i++){
+      var k = parseInt(gaps[i].getAttribute("data-k"), 10);
+      var should = q.commas.indexOf(k) >= 0;
+      var has = mine.indexOf(k) >= 0;
+      if(should) gaps[i].className = "cgap on hit";
+      else if(has) gaps[i].className = "cgap miss";
+      else gaps[i].className = "cgap dead";
+    }
+    var shown = q.words.slice();
+    for(var c = 0; c < q.commas.length; c++){ shown[q.commas[c]] = shown[q.commas[c]] + ","; }
+    box.appendChild(el("p", "fixline", "Correct: " + shown.join(" ")));
+    box.appendChild(expBox(ok, q.commas.length ? "Non-defining: two commas" : "Defining: no commas", q.why, q.tip));
+  }
+
+  function start(){
+    order = shuffle(SURGERY.slice());
+    idx = 0; right = 0;
+    scoreEl.textContent = "0 / " + order.length;
+    render();
+  }
+  checkBtn.addEventListener("click", function(){ judge(false); });
+  noneBtn.addEventListener("click", function(){ judge(true); });
+  nextBtn.addEventListener("click", function(){ idx++; render(); });
+  againBtn.addEventListener("click", start);
+  start();
+})();
+
+/* ============================================================
+   GAME 3 · THIRD FORM HUNT
+   ============================================================ */
+var VERBS = [
+  { base: "take", answer: "TAKEN",
+    why: "Take, took, taken. The third form is the one that goes after be in the passive and at the end of a causative.",
+    tip: "He had a tooth taken out yesterday." },
+  { base: "write", answer: "WRITTEN",
+    why: "Write, wrote, written. Two t and two letters more than the base form.",
+    tip: "The report was written by a student." },
+  { base: "steal", answer: "STOLEN",
+    why: "Steal, stole, stolen. It is the verb of the classic causative of bad news.",
+    tip: "She had her bag stolen on the bus." },
+  { base: "break", answer: "BROKEN",
+    why: "Break, broke, broken. Another verb that usually means bad news in a causative.",
+    tip: "We had our window broken during the storm." },
+  { base: "choose", answer: "CHOSEN",
+    why: "Choose, chose, chosen. Careful: the base form has two o, the other two forms only one.",
+    tip: "The pupils chosen for the trip met at eight." },
+  { base: "give", answer: "GIVEN",
+    why: "Give, gave, given. This verb has two objects, so it makes two different passives.",
+    tip: "We are given printing credits every month." },
+  { base: "find", answer: "FOUND",
+    why: "Find, found, found. The second and third forms are the same, so listen to the auxiliary.",
+    tip: "Three mistakes have been found in the calculation." },
+  { base: "teach", answer: "TAUGHT",
+    why: "Teach, taught, taught. The spelling with -ght has to be learnt by heart.",
+    tip: "Maths is taught by three different teachers in our school." }
+];
+
+(function(){
+  var clue = document.getElementById("g3clue");
+  var grid = document.getElementById("g3grid");
+  var input = document.getElementById("g3input");
+  var goBtn = document.getElementById("g3go");
+  var newBtn = document.getElementById("g3new");
+  var hint = document.getElementById("g3hint");
+  var expArea = document.getElementById("g3exp");
+  var target = null, tries = 0, solved = 0, over = false;
+  var MAX = 6;
+
+  function score(guess, word){
+    var res = [], left = {}, i, c;
+    for(i = 0; i < word.length; i++){
+      if(guess[i] === word[i]) res[i] = "hit";
+      else { res[i] = "miss"; c = word[i]; left[c] = (left[c] || 0) + 1; }
+    }
+    for(i = 0; i < word.length; i++){
+      if(res[i] === "hit") continue;
+      c = guess[i];
+      if(left[c]){ res[i] = "near"; left[c]--; }
+    }
+    return res;
+  }
+
+  function row(guess, marks){
+    var r = el("div", "wrow");
+    for(var i = 0; i < guess.length; i++){
+      r.appendChild(el("div", "tile " + marks[i], guess[i]));
+    }
+    return r;
+  }
+
+  function pick(){
+    var choice = VERBS[Math.floor(Math.random() * VERBS.length)];
+    while(VERBS.length > 1 && target && choice.base === target.base){
+      choice = VERBS[Math.floor(Math.random() * VERBS.length)];
+    }
+    target = choice;
+    tries = 0; over = false;
+    grid.innerHTML = ""; expArea.innerHTML = "";
+    input.value = "";
+    input.disabled = false; goBtn.disabled = false;
+    clue.textContent = "third form of: " + target.base;
+    hint.textContent = target.answer.length + " letters  ·  " + MAX + " tries left  ·  solved so far: " + solved + " of 3";
+  }
+
+  function finish(win){
+    over = true;
+    input.disabled = true; goBtn.disabled = true;
+    expArea.innerHTML = "";
+    expArea.appendChild(expBox(win, target.answer, target.why, target.tip));
+    if(win){
+      solved++;
+      hint.textContent = "solved so far: " + solved + " of 3";
+      if(solved >= 3){
+        unlock(2);
+        expArea.appendChild(el("p", "fixline", "Three verbs found. Room 3 is open: look at the code above."));
+      } else {
+        expArea.appendChild(el("p", "fixline", "Press Another verb to hunt the next one."));
+      }
+    } else {
+      expArea.appendChild(el("p", "fixline", "Press Another verb and try a different one."));
+    }
+  }
+
+  function guess(){
+    if(over) return;
+    var g = input.value.toUpperCase().replace(/[^A-Z]/g, "");
+    if(g.length !== target.answer.length){
+      hint.textContent = "Your guess needs exactly " + target.answer.length + " letters. You wrote " + g.length + ".";
+      return;
+    }
+    tries++;
+    grid.appendChild(row(g, score(g, target.answer)));
+    input.value = "";
+    if(g === target.answer){ finish(true); return; }
+    if(tries >= MAX){ finish(false); return; }
+    hint.textContent = target.answer.length + " letters  ·  " + (MAX - tries) + " tries left  ·  solved so far: " + solved + " of 3";
+  }
+
+  goBtn.addEventListener("click", guess);
+  input.addEventListener("keydown", function(ev){ if(ev.key === "Enter") guess(); });
+  newBtn.addEventListener("click", pick);
+  pick();
+})();
+
+/* ============================================================
+   GAME 4 · GRAMMAR GRID
+   ============================================================ */
+var GRIDQ = [
+  { q: "The bikes ___ every Monday.", options: ["are repaired","is repaired","are repairing"], correct: "are repaired",
+    why: "Bikes is plural and the sentence describes a routine, so the present simple passive is are plus the third form.",
+    tip: "The auxiliary always agrees with the new subject, never with the old one." },
+  { q: "A new formula ___ last week.", options: ["was discovered","was discover","were discovered"], correct: "was discovered",
+    why: "Formula is singular and last week is finished time, so the past simple passive takes was.",
+    tip: "The third form of a regular verb looks exactly like the past simple: discovered." },
+  { q: "Mia ___ every month at the same hairdresser.", options: ["has her hair cut","has cut her hair","has her hair cutted"], correct: "has her hair cut",
+    why: "Somebody else does the job for her, so this is the causative: have plus the object plus the third form.",
+    tip: "Cut is irregular and never takes -ed: cut, cut, cut." },
+  { q: "The teacher ___ helped me with my timetable is retiring.", options: ["who","which","whose"], correct: "who",
+    why: "A teacher is a person and the pronoun is the subject of helped.",
+    tip: "A subject pronoun can never be left out of the clause." },
+  { q: "The theory ___ in three countries at the moment.", options: ["is being tested","is been tested","is testing"], correct: "is being tested",
+    why: "At the moment means the action is in progress, so the passive needs is plus being.",
+    tip: "Being is the mark of the continuous passive. Been belongs to the perfect." },
+  { q: "Luis ___ at the station yesterday.", options: ["had his phone stolen","had stolen his phone","has his phone steal"], correct: "had his phone stolen",
+    why: "Luis did not arrange this: it happened to him, and the structure is still have plus object plus third form.",
+    tip: "Had stolen his phone would mean that Luis was the thief." },
+  { q: "Brooklyn Free School, ___ has no timetable, is in New York.", options: ["which","that","who"], correct: "which",
+    why: "The commas make the clause non-defining, and the school is a thing.",
+    tip: "That is banned after a comma. Always." },
+  { q: "The results ___ on Friday morning.", options: ["will be announced","will been announced","will announce"], correct: "will be announced",
+    why: "The future passive is will be plus the third form, and the results receive the action.",
+    tip: "Will be, never will been and never will is." },
+  { q: "You should ___ tested before the new school year.", options: ["get your eyes","get tested your eyes","your eyes get"], correct: "get your eyes",
+    why: "In a causative the object goes between the two verbs: get your eyes tested.",
+    tip: "After a modal, have and get stay bare: should get, must have, will get." },
+  { q: "Anyone ___ for Friday's test can use the library.", options: ["revising","revised","revise"], correct: "revising",
+    why: "The full clause is who is revising, and an active reduced clause keeps the -ing form.",
+    tip: "Reduce actives with -ing and passives with the third form." }
+];
+
+(function(){
+  var boardEl = document.getElementById("g4board");
+  var msgEl = document.getElementById("g4msg");
+  var qbox = document.getElementById("g4box");
+  var againBtn = document.getElementById("g4again");
+  var scoreEl = document.getElementById("g4score");
+  var board, pool, busy, wins = 0, over;
+  var LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+  function winner(b){
+    for(var i = 0; i < LINES.length; i++){
+      var L = LINES[i];
+      if(b[L[0]] && b[L[0]] === b[L[1]] && b[L[1]] === b[L[2]]) return { who: b[L[0]], line: L };
+    }
+    return null;
+  }
+  function freeCells(b){
+    var f = [];
+    for(var i = 0; i < 9; i++){ if(!b[i]) f.push(i); }
+    return f;
+  }
+  function cpuMove(b){
+    var free = freeCells(b), i, t;
+    for(i = 0; i < free.length; i++){ t = b.slice(); t[free[i]] = "O"; if(winner(t)) return free[i]; }
+    for(i = 0; i < free.length; i++){ t = b.slice(); t[free[i]] = "X"; if(winner(t)) return free[i]; }
+    if(b[4] === "") return 4;
+    var corners = [0, 2, 6, 8].filter(function(c){ return b[c] === ""; });
+    if(corners.length) return corners[Math.floor(Math.random() * corners.length)];
+    return free[Math.floor(Math.random() * free.length)];
+  }
+
+  function paint(line){
+    var sq = boardEl.querySelectorAll(".sq");
+    for(var i = 0; i < 9; i++){
+      var cls = "sq";
+      if(board[i] === "X") cls += " me";
+      else if(board[i] === "O") cls += " cpu";
+      if(line && line.indexOf(i) >= 0) cls += " win";
+      sq[i].className = cls;
+      sq[i].textContent = board[i] === "X" ? "X" : (board[i] === "O" ? "O" : "");
+    }
+  }
+
+  function endGame(w){
+    over = true;
+    qbox.className = "qbox hidden";
+    paint(w ? w.line : null);
+    if(w && w.who === "X"){
+      wins++;
+      scoreEl.textContent = wins + (wins === 1 ? " win" : " wins");
+      msgEl.textContent = "Three in a row. Room 4 is open: look at the code above.";
+      unlock(3);
+    } else if(w){
+      msgEl.textContent = "The machine got three in a row. Press New game.";
+    } else {
+      msgEl.textContent = "A draw, and a draw is not enough. Press New game.";
+    }
+  }
+
+  function afterMove(){
+    var w = winner(board);
+    if(w || freeCells(board).length === 0){ endGame(w); return; }
+    var m = cpuMove(board);
+    board[m] = "O";
+    paint();
+    w = winner(board);
+    if(w || freeCells(board).length === 0){ endGame(w); return; }
+    msgEl.textContent = "Your turn. Pick an empty square.";
+    busy = false;
+  }
+
+  function ask(cell){
+    if(busy || over || board[cell]) return;
+    busy = true;
+    var d = pool.pop();
+    if(!d){ pool = shuffle(GRIDQ.slice()); d = pool.pop(); }
+    qbox.className = "qbox";
+    qbox.innerHTML = "";
+    qbox.appendChild(el("p", "gq", d.q.replace("___", "............")));
+    var opts = el("div", "opts");
+    for(var i = 0; i < d.options.length; i++){
+      (function(word){
+        var b = el("button", "opt", word);
+        b.type = "button";
+        b.addEventListener("click", function(){
+          var all = opts.querySelectorAll("button");
+          for(var k = 0; k < all.length; k++){
+            all[k].disabled = true;
+            if(all[k].textContent === d.correct) all[k].className = "opt good";
+            else if(all[k].textContent === word) all[k].className = "opt bad";
+          }
+          var ok = (word === d.correct);
+          board[cell] = ok ? "X" : "O";
+          paint();
+          qbox.appendChild(expBox(ok, d.correct, d.why, d.tip));
+          msgEl.textContent = ok ? "Square won." : "The machine takes that square.";
+          setTimeout(afterMove, 900);
+        });
+        opts.appendChild(b);
+      })(d.options[i]);
+    }
+    qbox.appendChild(opts);
+  }
+
+  function start(){
+    board = ["","","","","","","","",""];
+    pool = shuffle(GRIDQ.slice());
+    busy = false; over = false;
+    qbox.className = "qbox hidden";
+    qbox.innerHTML = "";
+    msgEl.textContent = "Pick a square to start.";
+    boardEl.innerHTML = "";
+    for(var i = 0; i < 9; i++){
+      (function(k){
+        var s = el("div", "sq");
+        s.onclick = function(){ ask(k); };
+        boardEl.appendChild(s);
+      })(i);
+    }
+    paint();
+  }
+  againBtn.addEventListener("click", start);
+  start();
+})();
+
+/* ============================================================
+   GAME 5 · BEAT THE CLOCK
+   ============================================================ */
+var RAPID = [
+  { q: "The room ___ twice before the carpet arrived.", options: ["was measured","was measure"], correct: "was measured",
+    why: "Past simple passive: was plus the third form.", tip: "Regular third forms end in -ed." },
+  { q: "Students ___ on IT take extra maths.", options: ["focusing","focus"], correct: "focusing",
+    why: "Reduced active clause: who are focusing becomes focusing.", tip: "Actives reduce to -ing." },
+  { q: "She ___ her bag stolen on the bus.", options: ["had","got"], correct: "had",
+    why: "Bad news that nobody arranged always takes have.", tip: "Get is only for jobs you organise." },
+  { q: "I will never forget the day ___ I passed my first exam.", options: ["when","where"], correct: "when",
+    why: "A day is a time, not a place.", tip: "Where is only for places you can walk into." },
+  { q: "Nothing ___ repaired in this house since 1990.", options: ["has been","has being"], correct: "has been",
+    why: "Present perfect passive: has been plus the third form.", tip: "Being is for the continuous only." },
+  { q: "The photos ___ tonight.", options: ["are going to be uploaded","are going to uploaded"], correct: "are going to be uploaded",
+    why: "With be going to the passive keeps be in front of the third form.", tip: "Never lose the be." },
+  { q: "The girl ___ project won the prize is in my class.", options: ["whose","who's"], correct: "whose",
+    why: "The project belongs to the girl, so you need the possessive.", tip: "Who's means who is." },
+  { q: "The equation ___ at last.", options: ["has been solved","has been solve"], correct: "has been solved",
+    why: "The third form has to follow been.", tip: "Been plus third form, always together." },
+  { q: "Our library, ___ was rebuilt last year, opens at seven.", options: ["which","that"], correct: "which",
+    why: "After a comma, that is impossible.", tip: "Commas mean who or which only." },
+  { q: "I ___ my computer repaired next week.", options: ["am going to get","am going to getting"], correct: "am going to get",
+    why: "After to the verb stays in the infinitive.", tip: "Going to get, going to have." },
+  { q: "The price of the trip ___ in the email.", options: ["was not mentioned","was not mention"], correct: "was not mentioned",
+    why: "The negative goes on the auxiliary and the third form stays.", tip: "Price is singular, so was." },
+  { q: "That is the room ___ we go over our notes.", options: ["where","which"], correct: "where",
+    why: "A room is a place and the clause says what happens in it.", tip: "Where already means in which." },
+  { q: "The children ___ next month.", options: ["are going to be tested","are going to test"], correct: "are going to be tested",
+    why: "The children receive the action, so the sentence has to be passive.", tip: "Ask who does what to whom." },
+  { q: "He ___ a tooth taken out yesterday.", options: ["had","has"], correct: "had",
+    why: "Yesterday is finished time, so the causative verb goes into the past.", tip: "The tense always sits on have or get." },
+  { q: "The data ___ before we arrived.", options: ["had been lost","had been lose"], correct: "had been lost",
+    why: "Past perfect passive: had been plus the third form.", tip: "Lose, lost, lost." },
+  { q: "Question five, ___ by many students, was worth ten marks.", options: ["overlooked","overlooking"], correct: "overlooked",
+    why: "The question receives the action, so the reduced clause is passive.", tip: "Passives reduce to the third form." },
+  { q: "The software ___ every summer.", options: ["is improved","are improved"], correct: "is improved",
+    why: "Software is uncountable and takes a singular verb.", tip: "Information, advice and homework behave the same." },
+  { q: "Mr Dale, ___ children attend the school, teaches history.", options: ["whose","who"], correct: "whose",
+    why: "The children belong to Mr Dale.", tip: "Whose is followed straight by a noun." }
+];
+
+(function(){
+  var box = document.getElementById("g5box");
+  var clockEl = document.getElementById("g5clock");
+  var barEl = document.getElementById("g5bar");
+  var scoreEl = document.getElementById("g5score");
+  var streakEl = document.getElementById("g5streak");
+  var startBtn = document.getElementById("g5start");
+  var TOTAL = 60, TARGET = 10;
+  var left = TOTAL, timer = null, pool = [], right = 0, streak = 0, best = 0, running = false;
+
+  function paintClock(){
+    clockEl.textContent = Math.ceil(left);
+    clockEl.className = left <= 10 ? "clock low" : "clock";
+    barEl.style.width = Math.max(0, (left / TOTAL) * 100) + "%";
+  }
+
+  function nextQ(){
+    if(!running) return;
+    if(!pool.length) pool = shuffle(RAPID.slice());
+    var d = pool.pop();
+    box.innerHTML = "";
+    box.appendChild(el("p", "gq", d.q.replace("___", "............")));
+    var opts = el("div", "opts");
+    for(var i = 0; i < d.options.length; i++){
+      (function(word){
+        var b = el("button", "opt", word);
+        b.type = "button";
+        b.addEventListener("click", function(){
+          if(!running) return;
+          var ok = (word === d.correct);
+          if(ok){ right++; streak++; if(streak > best) best = streak; }
+          else { streak = 0; left = Math.max(0, left - 3); paintClock(); }
+          scoreEl.textContent = right + " correct";
+          streakEl.textContent = "streak " + streak;
+          nextQ();
+          var flash = el("p", "flash" + (ok ? "" : " no"));
+          flash.appendChild(document.createTextNode((ok ? "Yes. " : "No: " + d.correct + ". ") + d.why + "  " + d.tip));
+          box.appendChild(flash);
+        });
+        opts.appendChild(b);
+      })(d.options[i]);
+    }
+    box.appendChild(opts);
+  }
+
+  function stop(){
+    running = false;
+    if(timer){ clearInterval(timer); timer = null; }
+    box.innerHTML = "";
+    var f = el("div", "final");
+    f.appendChild(el("div", "msg", right >= TARGET ? "Room 5 solved." : "Time is up."));
+    f.appendChild(el("div", "big", right));
+    f.appendChild(el("div", "msg", "correct answers  ·  longest streak " + best));
+    box.appendChild(f);
+    if(right >= TARGET){
+      unlock(4);
+      box.appendChild(el("p", "fixline", "You needed " + TARGET + ". Look at the code above."));
+    } else {
+      box.appendChild(el("p", "fixline", "You needed " + TARGET + ". Press the button and go again."));
+    }
+    startBtn.disabled = false;
+    startBtn.textContent = "Start the clock";
+  }
+
+  startBtn.addEventListener("click", function(){
+    running = true;
+    left = TOTAL; right = 0; streak = 0; best = 0;
+    pool = shuffle(RAPID.slice());
+    scoreEl.textContent = "0 correct";
+    streakEl.textContent = "streak 0";
+    startBtn.disabled = true;
+    startBtn.textContent = "Running";
+    paintClock();
+    nextQ();
+    timer = setInterval(function(){
+      left -= 0.1;
+      if(left <= 0){ left = 0; paintClock(); stop(); return; }
+      paintClock();
+    }, 100);
+  });
+
+  box.appendChild(el("p", "gq", "Press the button and the first question appears. A wrong answer costs you three seconds."));
+  paintClock();
+})();
+
+})();
+</script>
+</body>
+</html>

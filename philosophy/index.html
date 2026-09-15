@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philosophy, made walkable</title>
+<meta name="description" content="Classroom tools for secondary-school philosophy: a complete Descartes unit — five lessons, a 3D simulation, an argument game and an escape room — plus standalone lessons on Plato and early modernity.">
+<style>
+  :root{
+    --bg:#0B0D11;
+    --panel:#121720;
+    --ink:#F4F1E8;
+    --muted:#A9B0BD;
+    --line:#273140;
+    --accent:#8FC7FF;
+    --accent-2:#C9A0FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;background:var(--bg);color:var(--ink);
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    padding:40px 28px 28px;
+  }
+  .wrap{width:min(1020px,100%);margin:0 auto}
+  .eyebrow{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:10px;
+  }
+  h1{font-size:clamp(28px,5vw,48px);line-height:1.04;letter-spacing:-.03em;margin-bottom:12px}
+  .lead{color:var(--muted);font-size:16px;line-height:1.55;max-width:660px}
+  .sec{margin-top:44px}
+  .sec-head{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    padding-bottom:10px;margin-bottom:16px;border-bottom:1px solid var(--line);
+  }
+  .sec-head h2{font-size:20px;letter-spacing:-.01em}
+  .sec-head span{font-size:13px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  a.card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:176px;
+    border:1px solid var(--line);background:var(--panel);border-radius:8px;
+    padding:18px;color:inherit;text-decoration:none;transition:transform .16s,border-color .16s;
+  }
+  a.card:hover,a.card:focus-visible{transform:translateY(-2px);border-color:var(--accent);outline:none}
+  a.card.flag{grid-column:1 / -1;border-color:#39465a}
+  a.card.flag:hover{border-color:var(--accent-2)}
+  a.card.flag .open{color:var(--accent-2)}
+  .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  h3{font-size:20px;line-height:1.15;margin-bottom:10px}
+  p{font-size:14px;color:var(--muted);line-height:1.5}
+  .open{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-top:16px}
+  .note{margin-top:26px;font-size:13px;color:var(--muted);line-height:1.55;max-width:660px}
+  .back{display:inline-block;margin-top:28px;font-size:13px;color:var(--accent);text-decoration:none}
+  .back:hover{text-decoration:underline}
+  footer{
+    margin-top:30px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:12px;letter-spacing:.06em;color:var(--muted);
+  }
+  @media(max-width:760px){
+    body{padding:24px 18px}
+    .grid{grid-template-columns:1fr}
+    a.card{min-height:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Teaching tools &middot; classroom-tested</div>
+  <h1>Philosophy, made walkable</h1>
+  <p class="lead">Material for fifth-year secondary philosophy in Buenos Aires. The through-line is one idea: an argument is something a student should have to <em>use</em>, not something to memorise. So the same text comes back in four forms — read, simulated, argued, played. Everything is Spanish-language, self-contained HTML, and runs in a school browser with no accounts and no student data.</p>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>A complete unit: Descartes' <em>Meditations</em></h2>
+      <span>One text, four forms</span>
+    </div>
+    <div class="grid">
+      <a class="card flag" href="descartes/">
+        <div>
+          <div class="label">The unit &middot; five lessons</div>
+          <h3>Descartes — <em>Meditaciones metafísicas</em></h3>
+          <p>Five scrollytelling lessons that follow a single staircase: doubt goes all the way down demolishing everything, and then knowledge climbs back up recovering what fell. Doubt and the evil demon, the cogito and the wax, the proofs of God, the origin of error, and the return of the world. Start here — the pieces below hang off this unit.</p>
+        </div>
+        <div class="open">Open the unit</div>
+      </a>
+      <a class="card" href="../escape-cartesiano/">
+        <div>
+          <div class="label">Escape room &middot; six floors</div>
+          <h3>El Edificio</h3>
+          <p>The building Descartes demolishes, walked floor by floor. Each door opens by using the argument, not by recalling a definition. Art, voice-over and every puzzle ship inside one HTML file, so it runs offline.</p>
+        </div>
+        <div class="open">Play the escape room</div>
+      </a>
+      <a class="card" href="descartes/simulacion-la-cera.html">
+        <div>
+          <div class="label">3D simulation</div>
+          <h3>The wax and the understanding</h3>
+          <p>The Second Meditation's wax experiment in four moments: the wax with its qualities, the fire that takes them away, imagination running out of room, and what is left. Rotate it with the mouse.</p>
+        </div>
+        <div class="open">Open the simulation</div>
+      </a>
+      <a class="card" href="descartes/tribunal-genio-vs-cogito.html">
+        <div>
+          <div class="label">Argument game</div>
+          <h3>The tribunal: demon vs. cogito</h3>
+          <p>The evil demon prosecutes, the cogito defends. The class splits into two benches and an objection is only won with an argument from the text.</p>
+        </div>
+        <div class="open">Open the game</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>Single lessons</h2>
+      <span>Other units, same method</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="../interactive-lessons/caverna-platon.html">
+        <div>
+          <div class="label">Guided sequence</div>
+          <h3>Plato's cave</h3>
+          <p>A compact interactive path through appearance, education and intelligible reality — the allegory walked rather than narrated.</p>
+        </div>
+        <div class="open">Open lesson</div>
+      </a>
+      <a class="card" href="../interactive-lessons/linea-tiempo-feudalismo-modernidad.html">
+        <div>
+          <div class="label">Timeline</div>
+          <h3>Feudalism to modernity</h3>
+          <p>A chronological map of authority, crisis, paradigm shifts and early modern method: the context a student needs before the <em>Meditations</em> make sense.</p>
+        </div>
+        <div class="open">Open lesson</div>
+      </a>
+      <a class="card" href="../interactive-lessons/demolicion-descartes.html">
+        <div>
+          <div class="label">Scrollytelling</div>
+          <h3>The demolition</h3>
+          <p>From the Renaissance to Descartes: why the old building had to come down before anyone could look for a first certainty.</p>
+        </div>
+        <div class="open">Open lesson</div>
+      </a>
+    </div>
+  </section>
+
+  <p class="note">All of it was written with Claude Code and used in class. Sources and argument reconstructions follow the Modern Philosophy course materials at the University of Buenos Aires, cited inside each lesson.</p>
+  <a class="back" href="../">&larr; Back to the portfolio</a>
+  <footer>Copyright Prof Dan M. Mecikovsky</footer>
+</div>
+</body>
+</html>

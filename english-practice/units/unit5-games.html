@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Experience B1+ - Unit 5 Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 40px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px;line-height:1.5}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.score{font-family:var(--head);font-weight:800;font-size:.95rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:4px 15px}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:14px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+/* ---------- game 1: taboo ---------- */
+.taboo{
+  max-width:330px;margin:0 auto;background:#fffdf2;border:4px solid #000;border-radius:20px;
+  box-shadow:8px 8px 0 var(--violet);padding:20px;text-align:center;
+}
+.taboo .word{
+  font-family:var(--head);font-weight:800;font-size:1.7rem;color:#fff;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000;border-radius:14px;padding:6px 10px;margin-bottom:14px;
+  text-transform:uppercase;letter-spacing:1px;
+}
+.taboo ul{list-style:none;padding:0;margin:0}
+.taboo li{
+  font-family:var(--head);font-weight:700;font-size:1.02rem;background:#ffd9e8;
+  border:2px solid #000;border-radius:999px;padding:3px 12px;margin-bottom:8px;
+}
+.taboo .hint{font-size:.82rem;color:#4a4a4a;margin:12px 0 0}
+.counter{font-family:var(--head);font-weight:800;font-size:.8rem;color:#5b5b5b;text-align:center;margin-top:10px}
+
+/* ---------- game 2: puzzle ---------- */
+.prompt{font-size:1.02rem;font-weight:500;margin:0 0 12px;line-height:1.5}
+.cue{font-family:var(--head);font-weight:800;background:var(--yellow);
+  border:2px solid #000;border-radius:8px;padding:1px 9px}
+.bank,.slot{
+  display:flex;flex-wrap:wrap;gap:9px;padding:13px;border:3px dashed #000;border-radius:14px;
+  min-height:58px;margin-bottom:12px;background:#f7f2ff;align-items:flex-start;
+}
+.slot{background:#e9fbff;border-style:solid}
+.boxlab{font-family:var(--head);font-weight:800;font-size:.74rem;text-transform:uppercase;
+  letter-spacing:1px;color:#5b5b5b;margin:0 0 4px}
+.piece{
+  font-family:var(--body);font-weight:600;font-size:.97rem;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 #000;
+  user-select:none;transition:transform .07s,box-shadow .07s;
+}
+.piece:hover{background:var(--yellow)}
+.piece:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.slot .piece{background:var(--cyan)}
+.piece.good{background:var(--lime);border-color:#1c7a00}
+.piece.bad{background:#ffc2d8;border-color:#c2004c}
+
+/* ---------- game 3: match ---------- */
+.match{display:flex;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:10px;flex:1 1 240px}
+.mi{
+  font-family:var(--body);font-weight:600;font-size:.97rem;cursor:pointer;text-align:center;
+  background:#fff;border:3px solid #000;border-radius:14px;padding:11px 12px;box-shadow:4px 4px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.mi:hover{background:#fff9c9}
+.mi.sel{background:var(--cyan);transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.mi.done{background:var(--lime);border-color:#1c7a00;cursor:default;box-shadow:0 0 0 #000;
+  transform:translate(4px,4px);opacity:.85}
+.mi.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:30px;font-size:.95rem;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Unit 5 &middot; Lessons for Life</h1>
+    <p>Gold Experience B1+ &mdash; Relative clauses, commas &amp; learning phrasal verbs</p>
+  </div>
+
+  <!-- GAME 1 -->
+  <section class="card">
+    <span class="tag">Game 1</span>
+    <h2>School Taboo</h2>
+    <p class="sub">Define the word on the card using <b>who</b>, <b>which</b>, <b>that</b> or <b>where</b>, but never say the three forbidden words. Useful openers: <i>It's a person who&hellip;</i> / <i>It's a thing which&hellip;</i> / <i>It's a place where&hellip;</i></p>
+    <div class="taboo" id="tabooCard"></div>
+    <p class="counter" id="tabooCount"></p>
+    <div class="btnrow">
+      <button class="btn" id="tabooNext">Next card</button>
+      <button class="btn ghost" id="tabooShow">Show a model answer</button>
+      <button class="btn ghost" id="tabooReset">Shuffle again</button>
+    </div>
+    <div id="tabooExp"></div>
+  </section>
+
+  <!-- GAME 2 -->
+  <section class="card">
+    <span class="tag">Game 2</span>
+    <h2>Sentence Puzzle</h2>
+    <p class="sub">Click the pieces in the correct order and watch the commas. Click a piece in the blue box to send it back.</p>
+    <p class="prompt" id="puzPrompt"></p>
+    <p class="boxlab">Your sentence</p>
+    <div class="slot" id="puzSlot"></div>
+    <p class="boxlab">Pieces</p>
+    <div class="bank" id="puzBank"></div>
+    <div class="btnrow">
+      <button class="btn" id="puzCheck">Check</button>
+      <button class="btn ghost" id="puzClear">Clear</button>
+      <button class="btn ghost" id="puzNext" disabled>Next sentence</button>
+      <span class="score" id="puzScore"></span>
+    </div>
+    <div id="puzExp"></div>
+  </section>
+
+  <!-- GAME 3 -->
+  <section class="card">
+    <span class="tag">Game 3</span>
+    <h2>Learning Phrasal Verbs Match</h2>
+    <p class="sub">Click a phrasal verb on the left, then its meaning on the right.</p>
+    <div class="match">
+      <div class="col" id="mLeft"></div>
+      <div class="col" id="mRight"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn ghost" id="matchReset">Play again</button>
+      <span class="score" id="matchScore"></span>
+    </div>
+    <div id="matchExp"></div>
+  </section>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script>
+(function(){
+"use strict";
+
+function shuffle(a){
+  var i,j,t;
+  for(i=a.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+function indexes(arr){ return arr.map(function(_,i){ return i; }); }
+function exp(box, cls, html){ box.innerHTML = '<div class="exp '+cls+'">'+html+'</div>'; }
+function why(t){ return '<p><b class="lab why">Why</b>'+t+'</p>'; }
+function tip(t){ return '<p><b class="lab tip">Exam tip</b>'+t+'</p>'; }
+
+/* ================= GAME 1: TABOO ================= */
+var TABOO = [
+  { word:"video game", taboo:["play","screen","class"],
+    model:"It's a thing which you use on a console or a phone when you want to relax at home.",
+    why:"<i>video game</i> is a thing, so the relative pronoun is <b>which</b> or <b>that</b>. It is the object of <i>use</i>, so you could also drop it: <i>a thing you use</i>.",
+    tip:"If you can remove the pronoun and the sentence still works, it was an object pronoun. That test comes up in every transformation task." },
+  { word:"lunch club", taboo:["food","eat","school"],
+    model:"It's an activity where students meet in the middle of the day to do something together.",
+    why:"<b>where</b> works for a place or a situation, and it must be followed by a full clause: <i>where students meet</i>.",
+    tip:"After <i>where</i> you never add a preposition at the end: not <i>where students meet in</i>." },
+  { word:"headteacher", taboo:["school","boss","person"],
+    model:"It's the adult who is in charge of all the students and the teachers in one building.",
+    why:"For people we use <b>who</b>. Here <i>who</i> is the subject of <i>is</i>, so it can never be omitted.",
+    tip:"Subject relative pronouns are compulsory. Only object ones may disappear." },
+  { word:"money", taboo:["buy","pay","cash"],
+    model:"It's the thing which you keep in your wallet and you need it in every shop in the world.",
+    why:"<i>money</i> is uncountable, so we say <i>much money</i>, <i>a lot of money</i>, never <i>a money</i> or <i>moneys</i>.",
+    tip:"Watch out for the extra pronoun: <i>the thing which you keep it</i> is a very common B1 error." },
+  { word:"timetable", taboo:["lessons","hours","day"],
+    model:"It's a piece of paper which tells you what you study and when you study it.",
+    why:"After <i>which</i> we go straight to the verb: <i>which tells you</i>, not <i>which it tells you</i>.",
+    tip:"Vary your relatives in the speaking test. Using only <i>that</i> ten times lowers your Grammatical Range mark." },
+  { word:"break", taboo:["lesson","eat","fifteen"],
+    model:"It's the short time when you can go outside and talk to your friends before the next class.",
+    why:"With time nouns (<i>time, day, moment</i>) the relative adverb is <b>when</b>, not <i>where</i>.",
+    tip:"Match the adverb to the noun: place &rarr; <i>where</i>, time &rarr; <i>when</i>, reason &rarr; <i>why</i>." }
+];
+var tOrder=[], tIdx=0;
+var tCard=document.getElementById("tabooCard"),
+    tCount=document.getElementById("tabooCount"),
+    tExp=document.getElementById("tabooExp");
+
+function drawTaboo(){
+  var c = TABOO[tOrder[tIdx]];
+  var lis = c.taboo.map(function(w){ return "<li>"+w+"</li>"; }).join("");
+  tCard.innerHTML = '<div class="word">'+c.word+'</div><ul>'+lis+'</ul>'+
+                    '<p class="hint">Do not say these three words!</p>';
+  tCount.textContent = "Card "+(tIdx+1)+" of "+TABOO.length;
+  tExp.innerHTML = "";
+}
+function nextTaboo(){
+  tIdx++;
+  if(tIdx>=TABOO.length){ tIdx=0; shuffle(tOrder); }
+  drawTaboo();
+}
+function showTaboo(){
+  var c = TABOO[tOrder[tIdx]];
+  exp(tExp,"right",'<p><span class="sol">Model answer:</span> '+c.model+'</p>'+why(c.why)+tip(c.tip));
+}
+function resetTaboo(){
+  tOrder = shuffle(indexes(TABOO));
+  tIdx = 0;
+  drawTaboo();
+}
+
+/* ================= GAME 2: SENTENCE PUZZLE ================= */
+var PUZZLES = [
+  { cue:"my old smartphone / it needs charging",
+    words:["My smartphone,","which is old,","needs","charging."],
+    why:"This is a <b>non-defining</b> relative clause: we already know which phone it is, so the clause only adds extra information and sits between two commas.",
+    tip:"In non-defining clauses you can use <i>which</i> or <i>who</i>, but never <i>that</i>." },
+  { cue:"the new lunch club / it opens tomorrow / it is free",
+    words:["The new lunch club,","which opens tomorrow,","is","free."],
+    why:"The comma pair works like brackets. Remove <i>which opens tomorrow</i> and the sentence is still complete: <i>The new lunch club is free.</i>",
+    tip:"Test it by deleting the clause. If the sentence still makes sense on its own, the commas are correct." },
+  { cue:"the students / they were exhausted by the test / they went home",
+    words:["The students,","exhausted by the test,","went","home."],
+    why:"This is a reduced relative clause: <i>who were exhausted</i> becomes just <i>exhausted</i>. We can drop <i>who + be</i> in a passive-style clause.",
+    tip:"Reduced clauses make your writing sound more advanced. They only work when the pronoun is the subject." },
+  { cue:"the girl / she sits next to me / she is from Chile",
+    words:["The girl","who sits next to me","is","from Chile."],
+    why:"This one is <b>defining</b>: the clause tells us <i>which</i> girl, so it is essential information and takes <b>no commas</b>.",
+    tip:"No commas = defining. Commas = extra information. The examiner reads the punctuation as grammar." }
+];
+var pOrder=[], pIdx=0, pScore=0, pDone=false, pSlot=[], pBank=[];
+var elPrompt=document.getElementById("puzPrompt"),
+    elSlot=document.getElementById("puzSlot"),
+    elBank=document.getElementById("puzBank"),
+    elPExp=document.getElementById("puzExp"),
+    elPScore=document.getElementById("puzScore"),
+    btnPNext=document.getElementById("puzNext");
+
+function renderPuzzle(){
+  var i, b;
+  elSlot.innerHTML=""; elBank.innerHTML="";
+  for(i=0;i<pSlot.length;i++){
+    b=document.createElement("button");
+    b.className="piece"; b.type="button"; b.textContent=pSlot[i];
+    b.dataset.pos=String(i); b.addEventListener("click", slotBack);
+    elSlot.appendChild(b);
+  }
+  for(i=0;i<pBank.length;i++){
+    b=document.createElement("button");
+    b.className="piece"; b.type="button"; b.textContent=pBank[i];
+    b.dataset.pos=String(i); b.addEventListener("click", bankPick);
+    elBank.appendChild(b);
+  }
+}
+function bankPick(e){
+  if(pDone) return;
+  var i=Number(e.currentTarget.dataset.pos);
+  pSlot.push(pBank[i]); pBank.splice(i,1); renderPuzzle();
+}
+function slotBack(e){
+  if(pDone) return;
+  var i=Number(e.currentTarget.dataset.pos);
+  pBank.push(pSlot[i]); pSlot.splice(i,1); renderPuzzle();
+}
+function loadPuzzle(){
+  var p = PUZZLES[pOrder[pIdx]];
+  pDone=false;
+  pSlot=[]; pBank=shuffle(p.words.slice());
+  elPrompt.innerHTML = 'Sentence '+(pIdx+1)+' of '+PUZZLES.length+' &mdash; <span class="cue">'+p.cue+'</span>';
+  elPExp.innerHTML=""; btnPNext.disabled=true;
+  elPScore.textContent = "Score: "+pScore+"/"+PUZZLES.length;
+  renderPuzzle();
+}
+function checkPuzzle(){
+  if(pDone || pSlot.length===0) return;
+  var p = PUZZLES[pOrder[pIdx]];
+  var given = pSlot.join(" ");
+  var answer = p.words.join(" ");
+  pDone = true;
+  var ok = (given === answer);
+  if(ok) pScore++;
+  Array.prototype.forEach.call(elSlot.children, function(el){ el.className = "piece "+(ok?"good":"bad"); });
+  elPScore.textContent = "Score: "+pScore+"/"+PUZZLES.length;
+  exp(elPExp, ok?"right":"wrong",
+    '<p><b>'+(ok?"Correct!":"Not quite.")+'</b> <span class="sol">'+answer+'</span></p>'+why(p.why)+tip(p.tip));
+  btnPNext.disabled = false;
+}
+function clearPuzzle(){
+  if(pDone) return;
+  pBank = pBank.concat(pSlot); pSlot=[]; renderPuzzle();
+}
+function nextPuzzle(){
+  pIdx++;
+  if(pIdx>=PUZZLES.length){ pIdx=0; pScore=0; shuffle(pOrder); }
+  loadPuzzle();
+}
+function startPuzzle(){
+  pOrder = shuffle(indexes(PUZZLES));
+  pIdx=0; pScore=0; loadPuzzle();
+}
+
+/* ================= GAME 3: PHRASAL VERB MATCH ================= */
+var PAIRS = [
+  { pv:"look up", def:"find information in a book or online",
+    why:"<i>Look up</i> is separable, so a pronoun object must go in the middle: <i>look it up</i>.",
+    tip:"With separable phrasal verbs, <i>look up it</i> is always wrong. Pronouns sit inside." },
+  { pv:"write down", def:"make a note of something on paper",
+    why:"Also separable: <i>write the word down</i> or <i>write down the word</i>, but only <i>write it down</i> with a pronoun.",
+    tip:"Full nouns can go either side; pronouns only go in the middle. Learn the rule, not the list." },
+  { pv:"hand in", def:"give your homework to the teacher",
+    why:"<i>Hand in</i> takes a direct object (the work) and is separable: <i>hand it in on Friday</i>.",
+    tip:"Compare <i>hand in</i> (give to a teacher) with <i>hand out</i> (give to everybody). One particle changes everything." },
+  { pv:"catch up", def:"reach the same level as the other students",
+    why:"<i>Catch up</i> has no direct object, and it takes <i>with</i> before a person: <i>catch up with the class</i>.",
+    tip:"Learn the preposition together with the verb. Cambridge tests the particle far more than the verb." },
+  { pv:"go over", def:"review your notes or a lesson",
+    why:"<i>Go over</i> is inseparable: the object always follows the whole unit, <i>go over my notes</i>.",
+    tip:"Never split an inseparable phrasal verb: <i>go my notes over</i> is wrong." }
+];
+var mSel=null, mFound=0;
+var mLeftEl=document.getElementById("mLeft"),
+    mRightEl=document.getElementById("mRight"),
+    mExp=document.getElementById("matchExp"),
+    mScoreEl=document.getElementById("matchScore");
+
+function buildMatch(){
+  mLeftEl.innerHTML=""; mRightEl.innerHTML=""; mSel=null; mFound=0;
+  mExp.innerHTML=""; mScoreEl.textContent="Matched: 0/"+PAIRS.length;
+  shuffle(indexes(PAIRS)).forEach(function(i){
+    var d=document.createElement("button");
+    d.className="mi"; d.type="button"; d.textContent=PAIRS[i].pv; d.dataset.k=String(i);
+    d.addEventListener("click", pickLeft); mLeftEl.appendChild(d);
+  });
+  shuffle(indexes(PAIRS)).forEach(function(i){
+    var d=document.createElement("button");
+    d.className="mi"; d.type="button"; d.textContent=PAIRS[i].def; d.dataset.k=String(i);
+    d.addEventListener("click", pickRight); mRightEl.appendChild(d);
+  });
+}
+function pickLeft(e){
+  var el=e.currentTarget;
+  if(el.classList.contains("done")) return;
+  if(mSel) mSel.classList.remove("sel");
+  mSel = (mSel===el) ? null : el;
+  if(mSel) mSel.classList.add("sel");
+}
+function pickRight(e){
+  var el=e.currentTarget;
+  if(el.classList.contains("done") || !mSel) return;
+  var k = mSel.dataset.k, p = PAIRS[Number(k)];
+  if(el.dataset.k === k){
+    mSel.classList.remove("sel"); mSel.classList.add("done"); el.classList.add("done");
+    mSel=null; mFound++;
+    mScoreEl.textContent = "Matched: "+mFound+"/"+PAIRS.length;
+    exp(mExp,"right",'<p><span class="sol">'+p.pv+'</span> = '+p.def+'</p>'+why(p.why)+tip(p.tip));
+    if(mFound===PAIRS.length){
+      mExp.insertAdjacentHTML("beforeend",
+        '<div class="exp right"><p><b>All matched. Well done!</b> Now say three true sentences about your own week using these phrasal verbs.</p></div>');
+    }
+  } else {
+    el.classList.add("shake");
+    setTimeout(function(){ el.classList.remove("shake"); }, 320);
+    exp(mExp,"wrong",'<p><b>Not that one.</b> Read the meaning again and think about the particle.</p>'+
+      why("<i>"+p.pv+"</i> does not mean that. "+p.why)+tip(p.tip));
+  }
+}
+
+/* ================= WIRING ================= */
+document.getElementById("tabooNext").addEventListener("click", nextTaboo);
+document.getElementById("tabooShow").addEventListener("click", showTaboo);
+document.getElementById("tabooReset").addEventListener("click", resetTaboo);
+document.getElementById("puzCheck").addEventListener("click", checkPuzzle);
+document.getElementById("puzClear").addEventListener("click", clearPuzzle);
+document.getElementById("puzNext").addEventListener("click", nextPuzzle);
+document.getElementById("matchReset").addEventListener("click", buildMatch);
+
+resetTaboo();
+startPuzzle();
+buildMatch();
+})();
+</script>
+</body>
+</html>

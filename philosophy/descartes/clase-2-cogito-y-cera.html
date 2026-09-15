@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 2 · Exposición — Segunda Meditación</title>
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--ink); overflow:hidden;
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:80;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .25s ease}
+
+#stage{position:relative;height:100vh;width:100%}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:6vh clamp(28px,6vw,90px) 11vh;overflow-y:auto;overflow-x:hidden}
+.slide.on{display:flex;animation:enter .5s ease both}
+@keyframes enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.wrap{width:100%;max-width:1180px;margin:0 auto}
+
+.kicker{font-size:clamp(12px,1.15vw,15px);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cyan);font-weight:700;margin-bottom:18px}
+.kicker .num{color:var(--faint);margin-right:.9em}
+h1{font-size:clamp(40px,6.6vw,92px);line-height:1.02;font-weight:800;letter-spacing:-.025em}
+h1 .sub{display:block;color:var(--cyan);font-size:clamp(19px,2.6vw,38px);margin-top:.25em;letter-spacing:-.01em}
+h2{font-size:clamp(27px,4.2vw,58px);line-height:1.05;font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+h2 .u{color:var(--amber)} h2 .cyu{color:var(--cyan)} h2 .vu{color:var(--violet)}
+h3{font-size:clamp(18px,1.9vw,26px);font-weight:800;margin:0 0 8px;color:var(--ink)}
+p.lead{font-size:clamp(17px,1.8vw,26px);color:var(--dim);max-width:62ch;margin:14px 0}
+p.body{font-size:clamp(15.5px,1.5vw,21px);color:var(--ink);max-width:64ch;margin:12px 0}
+p.body b,p.lead b{color:var(--amber)}
+.dim{color:var(--dim)} .faint{color:var(--faint)}
+.g{color:var(--green);font-weight:700} .c{color:var(--coral);font-weight:700}
+.v{color:var(--violet);font-weight:700} .cy{color:var(--cyan);font-weight:700}
+.am{color:var(--amber);font-weight:700}
+ul.plain{list-style:none;max-width:64ch;margin:14px 0}
+ul.plain li{font-size:clamp(15.5px,1.5vw,21px);color:var(--ink);padding-left:1.4em;
+  position:relative;margin:11px 0;line-height:1.45}
+ul.plain li::before{content:"—";position:absolute;left:0;color:var(--cyan);font-weight:700}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(18px,1.95vw,29px);line-height:1.4;margin:24px 0 6px;max-width:54ch;
+  border-left:3px solid var(--violet);padding-left:1em}
+.note{font-size:clamp(13px,1.05vw,16px);color:var(--faint);max-width:74ch;margin-top:16px;line-height:1.5}
+.note b{color:var(--dim)}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent);margin:26px 0}
+
+blockquote{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--ink);
+  font-size:clamp(16.5px,1.7vw,25px);line-height:1.42;margin:20px 0 8px;max-width:58ch;
+  border-left:3px solid var(--cyan);padding:10px 0 10px 1em;background:rgba(34,228,255,.04)}
+blockquote .ref{display:block;font-size:clamp(12px,1vw,15px);color:var(--faint);margin-top:10px;
+  font-style:normal;font-family:"Segoe UI",system-ui,sans-serif;letter-spacing:.06em}
+
+#s0{justify-content:center}
+#s0::before{content:"";position:absolute;inset:-30%;pointer-events:none;
+  background:radial-gradient(ellipse 42% 34% at 64% 36%,rgba(34,228,255,.10),transparent 60%),
+             radial-gradient(ellipse 38% 30% at 28% 74%,rgba(201,160,255,.09),transparent 60%)}
+.dudamark{position:absolute;right:-2vw;bottom:-4vh;font-weight:800;
+  font-size:clamp(110px,17vw,260px);color:rgba(255,255,255,.035);letter-spacing:-.04em;
+  transform:rotate(-4deg);pointer-events:none;user-select:none;line-height:.9}
+
+.grid{display:grid;gap:15px;margin-top:20px}
+.grid.g3{grid-template-columns:repeat(3,1fr)}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid.g3,.grid.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.card .tag{font-size:clamp(11px,.95vw,13px);letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan);margin-bottom:9px}
+.card.am .tag{color:var(--amber)} .card.co .tag{color:var(--coral)}
+.card.vi .tag{color:var(--violet)} .card.gr .tag{color:var(--green)}
+.card h4{font-size:clamp(17px,1.6vw,24px);font-weight:800;margin-bottom:7px;letter-spacing:-.01em}
+.card p{font-size:clamp(14px,1.2vw,17.5px);color:var(--dim);line-height:1.45}
+.card p+p{margin-top:7px}
+.card p b{color:var(--ink)}
+
+.ficha{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:18px}
+@media(max-width:900px){.ficha{grid-template-columns:1fr}}
+.paso{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:15px 17px}
+.paso .pl{font-size:clamp(11px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;margin-bottom:7px}
+.paso p{font-size:clamp(14.5px,1.28vw,19px);color:var(--ink);line-height:1.45}
+.paso p b{color:var(--amber)}
+.paso.ok{border-color:rgba(87,227,139,.35)} .paso.ok .pl{color:var(--green)}
+.paso.no{border-color:rgba(255,107,107,.35)} .paso.no .pl{color:var(--coral)}
+.paso.cy{border-color:rgba(34,228,255,.35)} .paso.cy .pl{color:var(--cyan)}
+.paso.vi{border-color:rgba(201,160,255,.35)} .paso.vi .pl{color:var(--violet)}
+
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.pill{padding:6px 15px;border-radius:22px;font-size:clamp(13px,1.1vw,17px);font-weight:700;
+  border:1px solid var(--line2);color:var(--dim);background:var(--card)}
+.pill.cae{color:var(--coral);border-color:rgba(255,107,107,.45);background:rgba(255,107,107,.07)}
+.pill.queda{color:var(--green);border-color:rgba(87,227,139,.45);background:rgba(87,227,139,.07)}
+.pill.cyp{color:var(--cyan);border-color:rgba(34,228,255,.45);background:rgba(34,228,255,.07)}
+
+table.res{width:100%;border-collapse:collapse;margin-top:18px;font-size:clamp(14px,1.25vw,19px)}
+table.res th,table.res td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.res th{font-size:clamp(11px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;border-bottom-color:var(--line2)}
+table.res td.lbl{font-weight:800;color:var(--faint);width:24%;font-size:.92em}
+table.res td.a{color:var(--cyan)} table.res td.b{color:var(--amber)}
+table.res td b{color:var(--ink)}
+
+/* ---------- diagramas ---------- */
+figure{margin:18px 0 6px}
+figure svg{width:100%;height:auto;display:block;max-height:46vh}
+figcaption{font-size:clamp(12.5px,1.05vw,16px);color:var(--faint);margin-top:10px;line-height:1.5;max-width:78ch}
+figcaption b{color:var(--dim)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.sv-t{fill:var(--ink)} .sv-d{fill:var(--dim)} .sv-f{fill:var(--faint)}
+.sv-cy{fill:var(--cyan)} .sv-co{fill:var(--coral)} .sv-am{fill:var(--amber)} .sv-vi{fill:var(--violet)}
+
+.big{font-size:clamp(32px,5.2vw,72px);font-weight:800;line-height:1.06;letter-spacing:-.025em;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;
+  background-clip:text;color:transparent;max-width:17ch}
+
+#bar{position:fixed;bottom:0;left:0;right:0;height:52px;z-index:70;display:flex;align-items:center;
+  gap:14px;padding:0 clamp(18px,3vw,40px);
+  background:linear-gradient(180deg,transparent,rgba(5,6,8,.9) 45%);
+  font-size:13px;color:var(--faint);letter-spacing:.1em}
+#bar .titulo{flex:1;text-transform:uppercase;font-weight:700;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis;color:var(--dim)}
+#bar .cont{font-variant-numeric:tabular-nums;font-weight:700;color:var(--dim)}
+#bar button{background:var(--card);border:1px solid var(--line2);color:var(--dim);border-radius:9px;
+  width:34px;height:32px;cursor:pointer;font-family:inherit;font-size:15px;transition:.16s}
+#bar button:hover{border-color:var(--cyan);color:var(--cyan)}
+#bar .ayuda{color:var(--faint);font-size:12px}
+#bar .copy{color:var(--faint);font-size:12px;letter-spacing:.06em;white-space:nowrap}
+@media(max-width:760px){#bar .ayuda{display:none}}
+@media(max-width:520px){#bar .copy{display:none}}
+
+#indice{position:fixed;inset:0;z-index:90;background:rgba(5,6,8,.97);display:none;
+  padding:5vh clamp(24px,5vw,70px);overflow-y:auto}
+#indice.on{display:block}
+#indice h3{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+#indice ol{list-style:none;max-width:900px}
+#indice li{padding:9px 12px;border-radius:9px;cursor:pointer;font-size:clamp(14.5px,1.35vw,19px);
+  color:var(--dim);display:flex;gap:16px;transition:.14s}
+#indice li:hover{background:var(--card);color:var(--ink)}
+#indice li .ix{color:var(--faint);font-variant-numeric:tabular-nums;font-weight:700;width:2.2em}
+#indice li.actual{color:var(--cyan)} #indice li.actual .ix{color:var(--cyan)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="stage">
+
+<!-- ============ 0 · PORTADA ============ -->
+<section class="slide" data-t="Portada" id="s0">
+  <div class="dudamark">COGITO</div>
+  <div class="wrap">
+    <div class="kicker">Clase 2 · Descartes</div>
+    <h1>El cogito y la cera<span class="sub">Segunda Meditación — «De la naturaleza del espíritu humano; y que es más fácil de conocer que el cuerpo»</span></h1>
+    <p class="lead" style="margin-top:26px">Ayer se cayó todo. Hoy buscamos si algo quedó abajo — y descubrimos que lo que mejor conocemos no es lo que tocamos.</p>
+    <div class="apho">Cuando no queda nada afuera, empieza a notarse quién está mirando.</div>
+  </div>
+</section>
+
+<!-- ============ 1 · DÓNDE QUEDAMOS ============ -->
+<section class="slide" data-t="Dónde quedamos: el punto de Arquímedes">
+  <div class="wrap">
+    <div class="kicker"><span class="num">I</span>Recapitulación</div>
+    <h2>Un solo punto fijo <span class="u">alcanza para mover el mundo</span></h2>
+    <p class="lead">Al final de la Primera Meditación no quedaba nada: ni los sentidos, ni el mundo, ni el cuerpo, ni la matemática, ni la razón. La Segunda arranca desde ahí, sin consuelo.</p>
+    <blockquote>Arquímedes, para trasladar el globo terrestre de un lugar a otro, no pedía nada más que un punto fijo y seguro. Así yo tendré derecho a concebir grandes esperanzas si soy lo bastante afortunado para hallar sólo una cosa que sea cierta e indudable.<span class="ref">— Segunda Meditación</span></blockquote>
+    <div class="grid g2">
+      <div class="card co"><div class="tag">Lo que se supone falso</div><h4>Todo</h4><p>Cielo, tierra, colores, figuras, sonidos. Y también: <b>que yo tenga cuerpo, sentidos, manos</b>. Todo bajo la hipótesis del genio maligno.</p></div>
+      <div class="card am"><div class="tag">Lo que se busca</div><h4>Una sola cosa</h4><p>No un sistema, no una lista. <b>Un solo punto</b> que resista. Con uno alcanza: sobre él se reconstruye el resto.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · EL ARGUMENTO DEL COGITO ============ -->
+<section class="slide" data-t="El cogito, paso a paso">
+  <div class="wrap">
+    <div class="kicker"><span class="num">1</span>El hallazgo</div>
+    <h2>El genio maligno se muerde <span class="u">la cola</span></h2>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">Paso 1 · la hipótesis máxima</div><p>Supongamos que hay un engañador poderosísimo que me engaña <b>en absolutamente todo</b>.</p></div>
+      <div class="paso cy"><div class="pl">Paso 2 · el detalle que se le escapa</div><p>Para <b>ser engañado</b>, alguien tiene que estar ahí recibiendo el engaño. El engaño necesita un engañado.</p></div>
+      <div class="paso cy"><div class="pl">Paso 3 · el blindaje</div><p>Cuanto más me engañe, <b>más seguro es que existo</b>. La hipótesis destinada a destruirlo todo termina probando una cosa.</p></div>
+      <div class="paso ok"><div class="pl">Conclusión</div><p><b>Yo soy, yo existo.</b> Verdadera cada vez que la pienso o la pronuncio.</p></div>
+    </div>
+    <blockquote>Engáñeme cuanto quiera, que nunca podrá hacer que yo no sea nada, mientras yo piense que soy algo. […] «Yo soy, yo existo» es necesariamente verdadera todas las veces que la pronuncio o la concibo en mi espíritu.<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 3 · CARACTERÍSTICAS DEL COGITO ============ -->
+<section class="slide" data-t="Características del cogito (1 de 2)">
+  <div class="wrap">
+    <div class="kicker"><span class="num">2</span>Qué clase de certeza es esta · 1 de 2</div>
+    <h2>Características del <span class="u">cogito</span></h2>
+    <div class="grid g3">
+      <div class="card"><div class="tag">1 · Intuitiva</div><h4>No es un razonamiento</h4>
+        <p>No es un silogismo abreviado («todo lo que piensa existe / yo pienso / luego existo»). Se capta <b>de golpe</b>, en un solo acto.</p>
+        <p>Prueba: Descartes también lo escribe <b>sin el «luego»</b> — «yo soy, yo existo».</p></div>
+      <div class="card am"><div class="tag">2 · Autoverificante</div><h4>Dudar de ella la confirma</h4>
+        <p>Es la única proposición que <b>se refuta al negarla</b>: si dudo de que existo, ya estoy pensando, y por lo tanto existo.</p>
+        <p>Por eso resiste al genio maligno: el ataque es la prueba.</p></div>
+      <div class="card vi"><div class="tag">3 · De primera persona</div><h4>Nadie la puede pensar por mí</h4>
+        <p>No se demuestra, <b>se ejecuta</b>. Cada uno tiene que hacerla en sí mismo; no sirve que se la cuenten.</p>
+        <p>Es singular en el acto, universal en la forma: a cualquiera le pasa lo mismo cuando lo hace.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-t="Características del cogito (2 de 2)">
+  <div class="wrap">
+    <div class="kicker"><span class="num">2</span>Qué clase de certeza es esta · 2 de 2</div>
+    <h2>Características del <span class="u">cogito</span></h2>
+    <div class="grid g3">
+      <div class="card co"><div class="tag">4 · Puntual</div><h4>Dura lo que dura el pensar</h4>
+        <p>No me garantiza que exista <b>siempre</b>, ni ayer, ni mañana. Solo <b>ahora</b>, mientras pienso.</p>
+        <p>Si dejara de pensar, la certeza se apagaría con el acto.</p></div>
+      <div class="card gr"><div class="tag">5 · Formal</div><h4>No es el yo con nombre</h4>
+        <p>El yo que existe <b>no tiene cuerpo, ni historia, ni apellido</b>: todo eso sigue en duda.</p>
+        <p>Es un yo despojado: pura instancia pensante.</p></div>
+      <div class="card"><div class="tag">6 · Fundante, no informativa</div><h4>Dice <em>que</em> soy, no <em>qué</em> soy</h4>
+        <p>Es la roca, no el edificio. Establece la <b>existencia</b>, y deja abierta la pregunta por la <b>naturaleza</b>.</p>
+        <p>Esa pregunta es la que sigue.</p></div>
+    </div>
+    <blockquote>Yo soy, yo existo: esto es cierto; pero ¿cuánto tiempo? Todo el tiempo que dure mi pensar.<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 5 · DE EXISTO A QUÉ SOY ============ -->
+<section class="slide" data-t="De «existo» a «qué soy»">
+  <div class="wrap">
+    <div class="kicker"><span class="num">3</span>La segunda pregunta</div>
+    <h2>Sé que soy. <span class="u">¿Pero qué soy?</span></h2>
+    <p class="lead">Descartes prueba las respuestas viejas y las va tachando. No porque sean absurdas, sino porque <span class="c">de cada una todavía puedo dudar</span>.</p>
+    <div class="ficha">
+      <div class="paso no"><div class="pl">Respuesta escolar</div><p><b>«Animal racional.»</b> Rechazada: obligaría a definir antes qué es animal y qué es racional. Una definición que abre otras dos no explica nada.</p></div>
+      <div class="paso no"><div class="pl">Respuesta del cuerpo</div><p><b>«Soy este cuerpo.»</b> Rechazada: el genio maligno pudo hacerme creer que tengo cuerpo. No puedo afirmarlo.</p></div>
+      <div class="paso no"><div class="pl">Respuesta del alma-materia</div><p><b>«Un aire, una llama, un viento sutil que recorre mis miembros.»</b> Rechazada: sigue siendo algo corporal, y de lo corporal dudo.</p></div>
+      <div class="paso ok"><div class="pl">Lo único que resiste</div><p><b>Pensar.</b> Es el único atributo que no puedo separar de mí sin que yo desaparezca.</p></div>
+    </div>
+    <p class="note">Método a la vista: no se pregunta «¿qué me parece que soy?», sino <b>«¿qué es lo que queda cuando le saco todo lo dudoso?»</b>. Lo que sobrevive a esa resta es la esencia.</p>
+  </div>
+</section>
+
+<!-- ============ 6 · RES COGITANS ============ -->
+<section class="slide" data-t="Res cogitans — la cosa que piensa">
+  <div class="wrap">
+    <div class="kicker"><span class="num">4</span>La respuesta</div>
+    <h2>Soy una <span class="cyu">res cogitans</span>: una cosa que piensa</h2>
+    <figure>
+      <svg viewBox="0 0 1000 300" role="img" aria-label="Diagrama: el yo pensante y sus ocho modos del pensamiento">
+        <circle cx="500" cy="150" r="66" fill="rgba(34,228,255,.10)" stroke="var(--cyan)" stroke-width="2"/>
+        <text x="500" y="143" text-anchor="middle" font-size="21" font-weight="800" class="sv-cy">res</text>
+        <text x="500" y="169" text-anchor="middle" font-size="21" font-weight="800" class="sv-cy">cogitans</text>
+        <g stroke="var(--line2)" stroke-width="1.4">
+          <line x1="434" y1="150" x2="300" y2="60"/><line x1="434" y1="150" x2="290" y2="120"/>
+          <line x1="434" y1="150" x2="290" y2="180"/><line x1="434" y1="150" x2="300" y2="240"/>
+          <line x1="566" y1="150" x2="700" y2="60"/><line x1="566" y1="150" x2="710" y2="120"/>
+          <line x1="566" y1="150" x2="710" y2="180"/><line x1="566" y1="150" x2="700" y2="240"/>
+        </g>
+        <g font-size="19" font-weight="700">
+          <text x="292" y="65" text-anchor="end" class="sv-t">duda</text>
+          <text x="282" y="125" text-anchor="end" class="sv-t">entiende</text>
+          <text x="282" y="185" text-anchor="end" class="sv-t">afirma</text>
+          <text x="292" y="245" text-anchor="end" class="sv-t">niega</text>
+          <text x="708" y="65" class="sv-t">quiere</text>
+          <text x="718" y="125" class="sv-t">no quiere</text>
+          <text x="718" y="185" class="sv-t">imagina</text>
+          <text x="708" y="245" class="sv-t">siente</text>
+        </g>
+        <g fill="var(--cyan)">
+          <circle cx="298" cy="58" r="4"/><circle cx="288" cy="118" r="4"/>
+          <circle cx="288" cy="178" r="4"/><circle cx="298" cy="238" r="4"/>
+          <circle cx="702" cy="58" r="4"/><circle cx="712" cy="118" r="4"/>
+          <circle cx="712" cy="178" r="4"/><circle cx="702" cy="238" r="4"/>
+        </g>
+      </svg>
+      <figcaption><b>Ocho modos, una sola sustancia.</b> No son ocho facultades separadas: son ocho maneras del mismo acto de pensar. Querer, dudar e imaginar son formas de pensamiento tanto como entender.</figcaption>
+    </figure>
+    <blockquote>¿Qué es una cosa que piensa? Es una cosa que duda, que entiende, que afirma, que niega, que quiere, que no quiere, que imagina también, y que siente.<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 7 · SENTIR ES PENSAR QUE SIENTO ============ -->
+<section class="slide" data-t="«Sentir es pensar que siento»">
+  <div class="wrap">
+    <div class="kicker"><span class="num">4b</span>El modo más raro de la lista</div>
+    <h2>Si dudo de los sentidos, <span class="u">¿cómo puedo decir que siento?</span></h2>
+    <p class="lead">Ahí está la jugada más fina de la Meditación. Descartes no recupera los sentidos: <span class="cy">los reinterpreta</span>.</p>
+    <div class="ficha">
+      <div class="paso no"><div class="pl">Lo que sigue en duda</div><p>Que exista <b>la luz</b> que veo, <b>el calor</b> que siento, <b>el cuerpo</b> que me duele. Todo eso puede ser falso.</p></div>
+      <div class="paso ok"><div class="pl">Lo que es indudable</div><p>Que <b>me parece</b> ver luz, que <b>me parece</b> sentir calor. Ese parecer, en cuanto acto mío, es cierto.</p></div>
+    </div>
+    <p class="body">Y eso —«parecerme que veo»— <b>no es otra cosa que pensar</b>. Por eso sentir entra en la lista de los modos del pensamiento.</p>
+    <div class="pills">
+      <span class="pill cae">Dudoso: el objeto sentido</span>
+      <span class="pill queda">Cierto: el acto de sentir, como pensamiento</span>
+    </div>
+    <p class="note">Ejemplo para el aula: el <b>dolor de un miembro fantasma</b>, o el dolor dentro de un sueño. El objeto no está; el dolor, como vivencia, sí.</p>
+  </div>
+</section>
+
+<!-- ============ 8 · RES COGITANS vs RES EXTENSA ============ -->
+<section class="slide" data-t="Res cogitans / res extensa">
+  <div class="wrap">
+    <div class="kicker"><span class="num">5</span>Las dos naturalezas</div>
+    <h2><span class="cyu">Res cogitans</span> frente a <span class="u">res extensa</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 250" role="img" aria-label="Comparación entre la cosa pensante y la cosa extensa">
+        <line x1="500" y1="18" x2="500" y2="232" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="5 7"/>
+        <!-- izquierda: pensamiento, sin partes -->
+        <circle cx="250" cy="118" r="76" fill="rgba(34,228,255,.09)" stroke="var(--cyan)" stroke-width="2"/>
+        <text x="250" y="126" text-anchor="middle" font-size="24" font-weight="800" class="sv-cy">pensamiento</text>
+        <text x="250" y="228" text-anchor="middle" font-size="17" class="sv-d">sin partes · indivisible · sin lugar</text>
+        <!-- derecha: extensión, cuadriculada y divisible -->
+        <g stroke="var(--amber)" stroke-width="2" fill="rgba(255,201,60,.07)">
+          <rect x="674" y="46" width="152" height="144" rx="6"/>
+        </g>
+        <g stroke="rgba(255,201,60,.45)" stroke-width="1.2">
+          <line x1="674" y1="94" x2="826" y2="94"/><line x1="674" y1="142" x2="826" y2="142"/>
+          <line x1="722" y1="46" x2="722" y2="190"/><line x1="778" y1="46" x2="778" y2="190"/>
+        </g>
+        <text x="750" y="126" text-anchor="middle" font-size="24" font-weight="800" class="sv-am">extensión</text>
+        <text x="750" y="228" text-anchor="middle" font-size="17" class="sv-d">largo · ancho · profundo · divisible</text>
+      </svg>
+    </figure>
+    <table class="res">
+      <tr><th></th><th style="color:var(--cyan)">Res cogitans — la cosa que piensa</th><th style="color:var(--amber)">Res extensa — la cosa extensa</th></tr>
+      <tr><td class="lbl">Atributo esencial</td><td class="a">Pensar</td><td class="b">Ocupar espacio (extensión en largo, ancho y profundidad)</td></tr>
+      <tr><td class="lbl">Sus modos</td><td class="a">Dudar, entender, afirmar, negar, querer, imaginar, sentir</td><td class="b">Figura, tamaño, posición, movimiento, duración</td></tr>
+      <tr><td class="lbl">Cómo se conoce</td><td class="a">Por conciencia inmediata: me es <b>transparente</b></td><td class="b">Solo por el entendimiento — nunca por los sentidos</td></tr>
+      <tr><td class="lbl">Divisibilidad</td><td class="a">Indivisible: el pensamiento no tiene mitades</td><td class="b">Siempre divisible: todo cuerpo tiene partes</td></tr>
+      <tr><td class="lbl">Estado en Med. II</td><td class="a"><b>Su existencia está probada</b></td><td class="b"><b>Su existencia sigue en duda</b> — acá solo se define qué sería</td></tr>
+    </table>
+    <p class="note"><b>Precisión importante:</b> en la Segunda Meditación Descartes todavía <b>no probó</b> que exista la res extensa, ni que sea realmente distinta de mí. Eso llega recién en la Sexta. Acá tenemos el concepto, no la prueba.</p>
+  </div>
+</section>
+
+<!-- ============ 9 · TRANSICIÓN A LA CERA ============ -->
+<section class="slide" data-t="La objeción del sentido común">
+  <div class="wrap">
+    <div class="kicker"><span class="num">6</span>El problema que abre el experimento</div>
+    <h2>«Igual, <span class="u">los objetos los conozco mejor</span> que a mí mismo»</h2>
+    <p class="lead">Descartes admite que su espíritu se resiste: le sigue pareciendo que las cosas que puede ver y tocar son <em>mucho</em> más claras que ese yo sin cuerpo que acaba de encontrar. Para desarmar esa intuición no discute: <span class="cy">hace un experimento</span>.</p>
+    <div class="grid g2">
+      <div class="card co"><div class="tag">Lo que dice el sentido común</div><h4>Lo concreto es lo más claro</h4><p>Un trozo de cera que veo, huelo y toco me parece <b>lo más conocido del mundo</b>. Mi propia mente, en cambio, es vaga.</p></div>
+      <div class="card gr"><div class="tag">Lo que va a mostrar</div><h4>Justo al revés</h4><p>Incluso en el caso más favorable a los sentidos, <b>quien conoce no es el sentido</b>. Y en cada acto de conocer un cuerpo, me conozco a mí mismo con más certeza que a él.</p></div>
+    </div>
+    <div class="apho">Eligió el ejemplo más fácil para el adversario. Ahí es donde conviene ganar.</div>
+  </div>
+</section>
+
+<!-- ============ 10 · CERA PASO 1 ============ -->
+<section class="slide" data-t="Cera · Paso 1 — el inventario sensible">
+  <div class="wrap">
+    <div class="kicker"><span class="num">Cera · 1</span>El inventario</div>
+    <h2>La cera recién sacada <span class="u">del panal</span></h2>
+    <figure>
+      <svg viewBox="-90 -10 1180 290" role="img" aria-label="La cera fría con sus cualidades sensibles">
+        <ellipse cx="250" cy="140" rx="112" ry="76" fill="rgba(255,201,60,.14)" stroke="var(--amber)" stroke-width="2.5"/>
+        <text x="250" y="148" text-anchor="middle" font-size="23" font-weight="800" class="sv-am">cera fría</text>
+        <g stroke="rgba(255,201,60,.5)" stroke-width="1.3">
+          <line x1="250" y1="62" x2="250" y2="34"/><line x1="330" y1="86" x2="380" y2="52"/>
+          <line x1="362" y1="140" x2="420" y2="140"/><line x1="330" y1="194" x2="380" y2="228"/>
+          <line x1="250" y1="218" x2="250" y2="246"/><line x1="170" y1="194" x2="120" y2="228"/>
+          <line x1="138" y1="140" x2="80" y2="140"/><line x1="170" y1="86" x2="120" y2="52"/>
+        </g>
+        <g font-size="18" font-weight="600" class="sv-d">
+          <text x="250" y="26" text-anchor="middle">sabor a miel</text>
+          <text x="392" y="48">olor a flores</text>
+          <text x="430" y="146">color</text>
+          <text x="392" y="238">figura</text>
+          <text x="250" y="262" text-anchor="middle">tamaño</text>
+          <text x="112" y="238" text-anchor="end">dureza</text>
+          <text x="70" y="146" text-anchor="end">frialdad</text>
+          <text x="112" y="48" text-anchor="end">suena al golpearla</text>
+        </g>
+        <line x1="560" y1="40" x2="560" y2="220" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="5 7"/>
+        <text x="610" y="106" font-size="21" font-weight="800" class="sv-t">Todo lo que sé de ella</text>
+        <text x="610" y="140" font-size="21" font-weight="800" class="sv-t">me llegó por los sentidos.</text>
+        <text x="610" y="182" font-size="18" class="sv-f">Es el caso más favorable posible</text>
+        <text x="610" y="206" font-size="18" class="sv-f">para el sentido común.</text>
+      </svg>
+    </figure>
+    <blockquote>Tomemos por ejemplo este trozo de cera que acaba de ser sacado de la colmena: aún no ha perdido la dulzura de la miel que contenía, conserva algo del olor de las flores…<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 11 · CERA PASO 2 ============ -->
+<section class="slide" data-t="Cera · Paso 2 — al fuego, todo cambia">
+  <div class="wrap">
+    <div class="kicker"><span class="num">Cera · 2</span>El experimento</div>
+    <h2>La acerco al fuego: <span class="c">no queda una sola cualidad en pie</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 260" role="img" aria-label="Antes y después de acercar la cera al fuego: todas las cualidades sensibles cambian">
+        <!-- antes -->
+        <ellipse cx="170" cy="120" rx="88" ry="60" fill="rgba(255,201,60,.13)" stroke="var(--amber)" stroke-width="2.5"/>
+        <text x="170" y="128" text-anchor="middle" font-size="20" font-weight="800" class="sv-am">antes</text>
+        <!-- flecha -->
+        <line x1="278" y1="120" x2="392" y2="120" stroke="var(--coral)" stroke-width="2.5"/>
+        <polygon points="392,120 376,112 376,128" fill="var(--coral)"/>
+        <text x="335" y="102" text-anchor="middle" font-size="18" font-weight="700" class="sv-co">fuego</text>
+        <!-- después: charco -->
+        <path d="M420 148 q26 -34 62 -22 q22 -30 62 -16 q34 -12 46 18 q30 4 24 26 q-8 22 -46 22 h-118 q-38 -6 -30 -28 z"
+              fill="rgba(255,107,107,.10)" stroke="var(--coral)" stroke-width="2.5"/>
+        <text x="524" y="204" text-anchor="middle" font-size="20" font-weight="800" class="sv-co">después</text>
+        <!-- lista tachada -->
+        <g font-size="18" font-weight="600">
+          <text x="700" y="46" class="sv-f" text-decoration="line-through">sabor a miel</text>
+          <text x="700" y="76" class="sv-f" text-decoration="line-through">olor a flores</text>
+          <text x="700" y="106" class="sv-f" text-decoration="line-through">color</text>
+          <text x="700" y="136" class="sv-f" text-decoration="line-through">figura</text>
+          <text x="700" y="166" class="sv-f" text-decoration="line-through">tamaño</text>
+          <text x="700" y="196" class="sv-f" text-decoration="line-through">dureza y frialdad</text>
+          <text x="700" y="226" class="sv-f" text-decoration="line-through">el sonido al golpearla</text>
+        </g>
+        <text x="890" y="126" font-size="30" font-weight="800" class="sv-co" text-anchor="middle">0</text>
+        <text x="890" y="152" font-size="15" class="sv-f" text-anchor="middle">cualidades</text>
+        <text x="890" y="172" font-size="15" class="sv-f" text-anchor="middle">sobrevivientes</text>
+      </svg>
+    </figure>
+    <p class="body">Ni una sola de las propiedades que los sentidos me daban se mantuvo. <b>Si la cera fuera esas cualidades, ahora sería otra cosa.</b></p>
+  </div>
+</section>
+
+<!-- ============ 12 · CERA PASO 3 ============ -->
+<section class="slide" data-t="Cera · Paso 3 — y sin embargo es la misma cera">
+  <div class="wrap">
+    <div class="kicker"><span class="num">Cera · 3</span>El giro</div>
+    <h2>Y sin embargo <span class="cyu">nadie duda</span> de que es la misma cera</h2>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">Dato indiscutible</div><p>Todos decimos, sin vacilar, que <b>es la misma cera</b>. Nadie cree que se transformó en otra sustancia.</p></div>
+      <div class="paso cy"><div class="pl">Pregunta</div><p>Entonces, <b>¿qué era lo que yo conocía</b> cuando conocía la cera? No pudieron ser el olor, ni el color, ni la dureza: todos desaparecieron.</p></div>
+      <div class="paso ok"><div class="pl">Consecuencia</div><p>Lo que conozco de la cera <b>nunca fue lo sensible</b>. Los sentidos me daban ropa, no cuerpo.</p></div>
+      <div class="paso vi"><div class="pl">Lo que permanece</div><p>Solo esto: <b>algo extenso, flexible y mudable</b>. Algo que ocupa espacio y admite cambiar de forma.</p></div>
+    </div>
+    <blockquote>¿Permanece la misma cera? Hay que confesar que sí; nadie lo niega, nadie lo juzga de otro modo.<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 13 · CERA PASO 4 (IMAGINACIÓN) ============ -->
+<section class="slide" data-t="Cera · Paso 4 — ¿no será la imaginación?">
+  <div class="wrap">
+    <div class="kicker"><span class="num">Cera · 4</span>El segundo candidato, descartado</div>
+    <h2>¿Y si lo que capta la cera es <span class="u">la imaginación?</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 250" role="img" aria-label="La imaginación solo alcanza a representar unas pocas figuras; los cambios posibles son infinitos">
+        <text x="30" y="34" font-size="18" font-weight="700" class="sv-vi">lo que la imaginación logra representar</text>
+        <g stroke="var(--violet)" stroke-width="2" fill="rgba(201,160,255,.10)">
+          <rect x="30" y="52" width="52" height="52" rx="4"/>
+          <circle cx="134" cy="78" r="26"/>
+          <polygon points="212,52 240,104 184,104"/>
+          <rect x="264" y="52" width="52" height="52" rx="26"/>
+        </g>
+        <line x1="340" y1="40" x2="340" y2="228" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="5 7"/>
+        <text x="368" y="34" font-size="18" font-weight="700" class="sv-f">lo que la cera puede llegar a ser</text>
+        <g stroke="var(--faint)" stroke-width="1.2" fill="none">
+          <rect x="368" y="52" width="26" height="26" rx="3"/><circle cx="428" cy="65" r="13"/>
+          <polygon points="470,52 484,78 456,78"/><rect x="500" y="52" width="26" height="26" rx="13"/>
+          <polygon points="556,52 570,60 570,74 556,78 542,70 542,58"/><rect x="590" y="52" width="26" height="26"/>
+          <circle cx="648" cy="65" r="12"/><rect x="676" y="52" width="26" height="26" rx="8"/>
+          <polygon points="730,52 744,78 716,78"/><rect x="760" y="52" width="26" height="26" rx="4"/>
+        </g>
+        <g stroke="rgba(126,136,152,.55)" stroke-width="1.1" fill="none">
+          <rect x="368" y="98" width="24" height="24" rx="3"/><circle cx="426" cy="110" r="12"/>
+          <polygon points="468,98 482,122 454,122"/><rect x="498" y="98" width="24" height="24" rx="12"/>
+          <rect x="556" y="98" width="24" height="24"/><circle cx="620" cy="110" r="11"/>
+          <rect x="654" y="98" width="24" height="24" rx="7"/><polygon points="712,98 726,122 698,122"/>
+          <rect x="748" y="98" width="24" height="24" rx="3"/><circle cx="808" cy="110" r="11"/>
+        </g>
+        <g stroke="rgba(126,136,152,.3)" stroke-width="1" fill="none">
+          <rect x="368" y="142" width="20" height="20"/><circle cx="422" cy="152" r="10"/>
+          <polygon points="462,142 474,162 450,162"/><rect x="492" y="142" width="20" height="20" rx="10"/>
+          <rect x="544" y="142" width="20" height="20"/><circle cx="600" cy="152" r="9"/>
+          <rect x="632" y="142" width="20" height="20" rx="6"/><polygon points="686,142 698,162 674,162"/>
+          <rect x="720" y="142" width="20" height="20"/><circle cx="778" cy="152" r="9"/>
+          <rect x="810" y="142" width="20" height="20" rx="5"/><circle cx="866" cy="152" r="9"/>
+        </g>
+        <text x="900" y="158" font-size="34" font-weight="800" class="sv-f">∞</text>
+        <text x="368" y="212" font-size="19" font-weight="700" class="sv-t">La imaginación recorre <tspan class="sv-vi">algunas</tspan> figuras. La cera admite <tspan class="sv-t">infinitas</tspan>.</text>
+        <text x="368" y="238" font-size="17" class="sv-f">Y yo la reconozco igual, sin haberlas recorrido. Luego no fue la imaginación.</text>
+      </svg>
+    </figure>
+    <p class="body">La imaginación es una facultad <b>finita</b>: produce imágenes, y las imágenes son siempre particulares. Pero yo entiendo que esta cera <b>puede adoptar más figuras de las que jamás podría imaginar</b>. Entonces mi comprensión de la cera excede a mi imaginación.</p>
+  </div>
+</section>
+
+<!-- ============ 14 · CERA PASO 5 (EL INTELECTO) ============ -->
+<section class="slide" data-t="Cera · Paso 5 — la inspección del espíritu">
+  <div class="wrap">
+    <div class="kicker"><span class="num">Cera · 5</span>La conclusión</div>
+    <h2>Quien capta la cera es <span class="cyu">el entendimiento</span></h2>
+    <figure>
+      <svg viewBox="0 0 1000 320" role="img" aria-label="Diagrama de las tres facultades: los sentidos y la imaginación no alcanzan la esencia de la cera; solo el entendimiento la capta">
+        <!-- objeto -->
+        <ellipse cx="92" cy="160" rx="62" ry="52" fill="rgba(255,201,60,.13)" stroke="var(--amber)" stroke-width="2.5"/>
+        <text x="92" y="166" text-anchor="middle" font-size="19" font-weight="800" class="sv-am">cera</text>
+
+        <!-- via 1: sentidos -->
+        <line x1="156" y1="120" x2="356" y2="58" stroke="var(--coral)" stroke-width="2"/>
+        <rect x="356" y="30" width="196" height="56" rx="12" fill="rgba(255,107,107,.07)" stroke="var(--coral)" stroke-width="1.8"/>
+        <text x="454" y="55" text-anchor="middle" font-size="18" font-weight="800" class="sv-co">SENTIDOS</text>
+        <text x="454" y="76" text-anchor="middle" font-size="14" class="sv-f">color, olor, dureza</text>
+        <line x1="552" y1="58" x2="640" y2="58" stroke="var(--coral)" stroke-width="2" stroke-dasharray="6 6"/>
+        <g stroke="var(--coral)" stroke-width="3"><line x1="646" y1="48" x2="666" y2="68"/><line x1="666" y1="48" x2="646" y2="68"/></g>
+        <text x="684" y="63" font-size="16" class="sv-co">solo dan lo que cambia</text>
+
+        <!-- via 2: imaginación -->
+        <line x1="156" y1="160" x2="356" y2="160" stroke="var(--violet)" stroke-width="2"/>
+        <rect x="356" y="132" width="196" height="56" rx="12" fill="rgba(201,160,255,.07)" stroke="var(--violet)" stroke-width="1.8"/>
+        <text x="454" y="157" text-anchor="middle" font-size="18" font-weight="800" class="sv-vi">IMAGINACIÓN</text>
+        <text x="454" y="178" text-anchor="middle" font-size="14" class="sv-f">figuras particulares</text>
+        <line x1="552" y1="160" x2="640" y2="160" stroke="var(--violet)" stroke-width="2" stroke-dasharray="6 6"/>
+        <g stroke="var(--violet)" stroke-width="3"><line x1="646" y1="150" x2="666" y2="170"/><line x1="666" y1="150" x2="646" y2="170"/></g>
+        <text x="684" y="165" font-size="16" class="sv-vi">no abarca lo infinito</text>
+
+        <!-- via 3: entendimiento -->
+        <line x1="156" y1="200" x2="356" y2="262" stroke="var(--cyan)" stroke-width="2.6"/>
+        <rect x="356" y="234" width="196" height="56" rx="12" fill="rgba(34,228,255,.10)" stroke="var(--cyan)" stroke-width="2.2"/>
+        <text x="454" y="259" text-anchor="middle" font-size="18" font-weight="800" class="sv-cy">ENTENDIMIENTO</text>
+        <text x="454" y="280" text-anchor="middle" font-size="14" class="sv-f">inspectio mentis</text>
+        <line x1="552" y1="262" x2="708" y2="262" stroke="var(--cyan)" stroke-width="2.6"/>
+        <polygon points="708,262 692,254 692,270" fill="var(--cyan)"/>
+        <rect x="714" y="228" width="256" height="66" rx="14" fill="rgba(34,228,255,.06)" stroke="var(--cyan)" stroke-width="2"/>
+        <text x="842" y="254" text-anchor="middle" font-size="17" font-weight="800" class="sv-t">algo extenso,</text>
+        <text x="842" y="278" text-anchor="middle" font-size="17" font-weight="800" class="sv-t">flexible y mudable</text>
+        <text x="842" y="312" text-anchor="middle" font-size="15" class="sv-cy">lo que la cera ES</text>
+      </svg>
+      <figcaption><b>Las tres vías, una sola llega.</b> Los sentidos entregan lo que cambia; la imaginación, figuras sueltas. La esencia —eso que permanece mientras todo lo demás se derrite— la capta el entendimiento, en un acto que Descartes llama <em>inspección del espíritu</em>.</figcaption>
+    </figure>
+    <blockquote>Lo que yo creía ver con mis ojos, lo comprendo únicamente por la facultad de juzgar que reside en mi espíritu.<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 15 · SOMBREROS Y CAPAS ============ -->
+<section class="slide" data-t="Los sombreros y las capas">
+  <div class="wrap">
+    <div class="kicker"><span class="num">7</span>La misma lección, desde la ventana</div>
+    <h2>Digo que <span class="u">«veo hombres»</span>. Pero lo que veo son abrigos.</h2>
+    <figure>
+      <svg viewBox="0 0 1000 210" role="img" aria-label="Desde la ventana se ven sombreros y capas; que debajo haya hombres es un juicio, no una percepción">
+        <rect x="34" y="16" width="230" height="176" rx="8" fill="none" stroke="var(--line2)" stroke-width="2.5"/>
+        <line x1="149" y1="16" x2="149" y2="192" stroke="var(--line2)" stroke-width="1.6"/>
+        <line x1="34" y1="104" x2="264" y2="104" stroke="var(--line2)" stroke-width="1.6"/>
+        <text x="149" y="208" text-anchor="middle" font-size="15" class="sv-f">la ventana</text>
+        <g stroke="var(--dim)" stroke-width="2" fill="rgba(160,171,188,.10)">
+          <path d="M70 150 q0 -34 22 -34 q22 0 22 34 z"/><ellipse cx="92" cy="112" rx="24" ry="7"/>
+          <path d="M182 152 q0 -36 24 -36 q24 0 24 36 z"/><ellipse cx="206" cy="112" rx="26" ry="7"/>
+        </g>
+        <line x1="300" y1="30" x2="300" y2="180" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="5 7"/>
+        <text x="340" y="62" font-size="20" font-weight="800" class="sv-co">Lo que llega al ojo:</text>
+        <text x="340" y="92" font-size="20" class="sv-t">sombreros y capas que se mueven.</text>
+        <text x="340" y="140" font-size="20" font-weight="800" class="sv-cy">Lo que agrego yo:</text>
+        <text x="340" y="170" font-size="20" class="sv-t">que debajo hay hombres, y no autómatas.</text>
+      </svg>
+    </figure>
+    <p class="body">Ese «hay hombres» <b>no lo vi: lo juzgué</b>. Y el juicio no es un acto del ojo, es un acto del entendimiento. Percibir, en Descartes, ya es siempre juzgar.</p>
+    <blockquote>¿Qué es lo que veo desde la ventana, sino sombreros y capas, que bien podrían cubrir espectros o autómatas…? Pero juzgo que son hombres.<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 16 · CONCLUSIÓN INVERTIDA ============ -->
+<section class="slide" data-t="Conclusión: conozco mejor mi espíritu">
+  <div class="wrap">
+    <div class="kicker"><span class="num">8</span>El resultado de la Meditación</div>
+    <h2>Conozco mi espíritu <span class="u">mejor que cualquier cuerpo</span></h2>
+    <p class="lead">La conclusión invierte el sentido común. Y el argumento es simple: cada vez que conozco un cuerpo, ese acto de conocer <span class="cy">prueba dos veces mi existencia</span> — una por el pensar, otra por el conocer.</p>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">Si la cera existe</div><p>Entonces yo, que la estoy pensando, <b>existo con más razón todavía</b>.</p></div>
+      <div class="paso cy"><div class="pl">Si la cera no existe</div><p>Sigo pensando que la veo. Y quien piensa, <b>existe igual</b>.</p></div>
+      <div class="paso ok"><div class="pl">En los dos casos</div><p>Mi existencia queda probada. <b>La de la cera, no.</b></p></div>
+      <div class="paso vi"><div class="pl">Corolario</div><p>Todo lo que me sirve para conocer un cuerpo <b>me hace conocer mejor a mí mismo</b>: cada percepción es también una prueba del que percibe.</p></div>
+    </div>
+    <blockquote>Nada me resulta más fácil de conocer que mi propio espíritu.<span class="ref">— Segunda Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 17 · QUÉ NOS QUEDA ============ -->
+<section class="slide" data-t="¿Entonces qué nos queda?">
+  <div class="wrap">
+    <div class="kicker"><span class="num">IX</span>Balance de la clase</div>
+    <h2>Bueno… <span class="u">¿entonces dónde estamos?</span></h2>
+    <div class="pills" style="margin:18px 0 6px">
+      <span class="pill queda">Existo, mientras pienso</span>
+      <span class="pill queda">Soy una cosa que piensa</span>
+      <span class="pill queda">Sentir, como pensamiento, es cierto</span>
+      <span class="pill queda">Conozco los cuerpos por el entendimiento</span>
+    </div>
+    <div class="pills" style="margin:6px 0 18px">
+      <span class="pill cae">No sé si tengo cuerpo</span>
+      <span class="pill cae">No sé si hay mundo</span>
+      <span class="pill cae">No sé si la matemática es confiable</span>
+      <span class="pill cae">No sé si hay alguien más</span>
+    </div>
+    <p class="lead">Descartes ganó una roca, pero es una roca en el vacío: <b>está solo con sus propios pensamientos</b>. Tiene certeza de sí y de nada más. Eso tiene nombre — solipsismo — y es una cárcel.</p>
+    <div class="apho">Encontró el punto fijo de Arquímedes. Le falta la palanca, y le falta el mundo donde apoyarla.</div>
+  </div>
+</section>
+
+<!-- ============ 18 · CIERRE ============ -->
+<section class="slide" data-t="Cierre">
+  <div class="wrap">
+    <div class="kicker">Para la próxima</div>
+    <div class="big">Para salir de mí mismo necesito algo que no haya podido inventar yo.</div>
+    <p class="lead" style="margin-top:26px">Clase 3 — Dios y el error. <span class="faint">Tercera y Cuarta Meditación.</span></p>
+    <p class="note">Citas en traducción estándar, marcadas por Meditación. Fuentes: Descartes, <em>Meditaciones metafísicas</em>; resumen de cátedra de Filosofía Moderna (Mendoza Hurtado–Jáuregui, UBA); teóricos de C. Jáuregui (UBA, 2016).</p>
+  </div>
+</section>
+
+</div>
+
+<div id="bar">
+  <button id="prev" title="Anterior (←)" aria-label="Diapositiva anterior">‹</button>
+  <button id="next" title="Siguiente (→)" aria-label="Diapositiva siguiente">›</button>
+  <div class="titulo" id="titulo"></div>
+  <div class="ayuda">← → navegar · M índice · F pantalla completa</div>
+  <div class="copy">© Prof. Dan M. Mecikovsky</div>
+  <div class="cont"><span id="ahora">1</span>/<span id="total">1</span></div>
+</div>
+
+<div id="indice" role="dialog" aria-label="Índice de diapositivas">
+  <h3>Índice — tocá para saltar (M o Esc para cerrar)</h3>
+  <ol id="indiceLista"></ol>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var barra = document.getElementById('progress');
+  var titulo = document.getElementById('titulo');
+  var ahora = document.getElementById('ahora');
+  var indice = document.getElementById('indice');
+  var lista = document.getElementById('indiceLista');
+
+  document.getElementById('total').textContent = slides.length;
+
+  slides.forEach(function(s, n){
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="ix">' + (n + 1) + '</span><span>' + (s.getAttribute('data-t') || '') + '</span>';
+    li.addEventListener('click', function(){ ir(n); cerrarIndice(); });
+    lista.appendChild(li);
+  });
+  var items = Array.prototype.slice.call(lista.children);
+
+  function ir(n){
+    if (n < 0) n = 0;
+    if (n > slides.length - 1) n = slides.length - 1;
+    slides[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('on');
+    slides[i].scrollTop = 0;
+    barra.style.width = (i / (slides.length - 1) * 100) + '%';
+    titulo.textContent = slides[i].getAttribute('data-t') || '';
+    ahora.textContent = i + 1;
+    items.forEach(function(li, k){ li.classList.toggle('actual', k === i); });
+  }
+
+  function cerrarIndice(){ indice.classList.remove('on'); }
+  function toggleIndice(){ indice.classList.toggle('on'); }
+
+  document.getElementById('next').addEventListener('click', function(){ ir(i + 1); });
+  document.getElementById('prev').addEventListener('click', function(){ ir(i - 1); });
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'Escape'){ cerrarIndice(); return; }
+    if (k === 'm' || k === 'M'){ toggleIndice(); return; }
+    if (indice.classList.contains('on')) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter'){ e.preventDefault(); ir(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); ir(i - 1); }
+    else if (k === 'Home'){ ir(0); }
+    else if (k === 'End'){ ir(slides.length - 1); }
+    else if (k === 'f' || k === 'F'){
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+      else if (document.exitFullscreen) document.exitFullscreen();
+    }
+  });
+
+  var x0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.changedTouches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var d = e.changedTouches[0].clientX - x0;
+    if (Math.abs(d) > 60) ir(d < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+
+  ir(0);
+})();
+</script>
+</body>
+</html>

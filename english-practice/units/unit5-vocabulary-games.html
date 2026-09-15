@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Experience B1+ - Unit 5 Vocabulary Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 40px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(2n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(2n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px;line-height:1.5}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.score{font-family:var(--head);font-weight:800;font-size:.95rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:4px 15px}
+
+/* ---------- explanations ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:14px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+/* ---------- game 1: sorter ---------- */
+.boxlab{font-family:var(--head);font-weight:800;font-size:.74rem;text-transform:uppercase;
+  letter-spacing:1px;color:#5b5b5b;margin:0 0 5px}
+.pool{
+  display:flex;flex-wrap:wrap;gap:9px;padding:13px;border:3px dashed #000;border-radius:14px;
+  min-height:60px;background:#f7f2ff;margin-bottom:16px;align-items:flex-start;
+}
+.zones{display:flex;gap:16px;flex-wrap:wrap}
+.zone{
+  flex:1 1 250px;border:3px solid #000;border-radius:16px;padding:12px;min-height:120px;
+  background:#e9fbff;cursor:pointer;transition:transform .07s;
+}
+.zone:nth-child(2){background:#fff2f8}
+.zone.armed{transform:translateY(-3px);box-shadow:0 6px 0 #000}
+.zone h3{
+  font-family:var(--head);font-weight:800;font-size:1rem;margin:0 0 4px;text-align:center;
+}
+.zone .zhint{font-size:.78rem;color:#4a4a4a;text-align:center;margin:0 0 10px}
+.zbox{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.badge{
+  font-family:var(--body);font-weight:600;font-size:.95rem;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 #000;
+  user-select:none;transition:transform .07s,box-shadow .07s;
+}
+.badge:hover{background:var(--yellow)}
+.badge.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.badge.good{background:var(--lime);border-color:#1c7a00}
+.badge.bad{background:#ffc2d8;border-color:#c2004c}
+
+/* ---------- game 2: gap fill ---------- */
+.sentence{
+  font-size:1.1rem;line-height:1.8;background:#fffdf2;border:3px solid #000;border-radius:16px;
+  padding:14px 16px;margin:0 0 14px;box-shadow:5px 5px 0 var(--cyan);
+}
+.gap{
+  font-family:var(--head);font-weight:800;color:var(--violet);
+  border-bottom:4px solid var(--violet);padding:0 26px;
+}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:600;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:8px 18px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.good{background:var(--lime);border-color:#1c7a00;transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.bad{background:#ffc2d8;border-color:#c2004c;text-decoration:line-through}
+.opt[disabled]{cursor:default}
+.progress{font-family:var(--head);font-weight:800;font-size:.8rem;color:#5b5b5b;margin:0 0 10px}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:30px;font-size:.95rem;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Unit 5 &middot; Vocabulary Games</h1>
+    <p>Gold Experience B1+ &mdash; Money, countable &amp; uncountable nouns, learning phrasal verbs</p>
+  </div>
+
+  <!-- GAME 1 -->
+  <section class="card">
+    <span class="tag">Game 1</span>
+    <h2>Quick Sorter</h2>
+    <p class="sub">Click a word, then click the box where it belongs. Click a word inside a box to send it back to the pool.</p>
+    <p class="boxlab">Word pool</p>
+    <div class="pool" id="pool"></div>
+    <div class="zones">
+      <div class="zone" id="zoneC" data-zone="countable">
+        <h3>Countable</h3>
+        <p class="zhint">a / an, one, two, many</p>
+        <div class="zbox" id="boxC"></div>
+      </div>
+      <div class="zone" id="zoneU" data-zone="uncountable">
+        <h3>Uncountable</h3>
+        <p class="zhint">no plural, some, much</p>
+        <div class="zbox" id="boxU"></div>
+      </div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" id="sortCheck">Check my sorting</button>
+      <button class="btn ghost" id="sortReset">Play again</button>
+      <span class="score" id="sortScore"></span>
+    </div>
+    <div id="sortExp"></div>
+  </section>
+
+  <!-- GAME 2 -->
+  <section class="card">
+    <span class="tag">Game 2</span>
+    <h2>Sentence Rescue</h2>
+    <p class="sub">Choose the phrasal verb that fits the study situation.</p>
+    <p class="progress" id="gapProg"></p>
+    <p class="sentence" id="gapSent"></p>
+    <div class="opts" id="gapOpts"></div>
+    <div class="btnrow">
+      <button class="btn" id="gapNext" disabled>Next sentence</button>
+      <button class="btn ghost" id="gapReset">Play again</button>
+      <span class="score" id="gapScore"></span>
+    </div>
+    <div id="gapExp"></div>
+  </section>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script>
+(function(){
+"use strict";
+
+function shuffle(a){
+  var i,j,t;
+  for(i=a.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+function indexes(arr){ return arr.map(function(_,i){ return i; }); }
+function exp(box, cls, html){ box.innerHTML = '<div class="exp '+cls+'">'+html+'</div>'; }
+function why(t){ return '<p><b class="lab why">Why</b>'+t+'</p>'; }
+function tip(t){ return '<p><b class="lab tip">Exam tip</b>'+t+'</p>'; }
+
+/* ================= GAME 1: COUNTABLE / UNCOUNTABLE ================= */
+var WORDS = [
+  { w:"money", type:"uncountable",
+    why:"<i>Money</i> has no plural and takes a singular verb: <i>the money is on the table</i>.",
+    tip:"To count it, use a container word: <i>two notes</i>, <i>five coins</i>, <i>a sum of money</i>." },
+  { w:"coin", type:"countable",
+    why:"A coin is a separate object you can hold, so it takes <i>a</i> and a plural: <i>two coins</i>.",
+    tip:"<i>Coin</i> and <i>note</i> are the countable partners of uncountable <i>money</i>." },
+  { w:"homework", type:"uncountable",
+    why:"<i>Homework</i> is always singular in English: <i>homeworks</i> does not exist.",
+    tip:"Say <i>a piece of homework</i> or <i>two exercises</i> when you need a number." },
+  { w:"dollar", type:"countable",
+    why:"Currencies are countable units: <i>a dollar</i>, <i>ten dollars</i>.",
+    tip:"With amounts before a noun there is no plural -s: <i>a ten-dollar note</i>." },
+  { w:"advice", type:"uncountable",
+    why:"<i>Advice</i> is uncountable, so we never say <i>an advice</i> or <i>advices</i>.",
+    tip:"Use <i>a piece of advice</i>. The verb <i>advise</i> has an <i>s</i>; the noun <i>advice</i> has a <i>c</i>." },
+  { w:"video game", type:"countable",
+    why:"You can count separate games: <i>a video game</i>, <i>three video games</i>.",
+    tip:"Compare with uncountable <i>fun</i>: <i>a lot of fun</i>, never <i>many funs</i>." },
+  { w:"information", type:"uncountable",
+    why:"<i>Information</i> has no plural: <i>the information is useful</i>.",
+    tip:"<i>Informations</i> is one of the most penalised errors at B1. Use <i>some information</i> or <i>a piece of information</i>." },
+  { w:"school", type:"countable",
+    why:"A school is a countable institution: <i>a school</i>, <i>two schools</i>.",
+    tip:"Without an article it means the activity: <i>go to school</i> = study, <i>go to the school</i> = visit the building." },
+  { w:"cash", type:"uncountable",
+    why:"<i>Cash</i> means money in notes and coins, seen as one mass, so it has no plural.",
+    tip:"Use <i>much / a lot of</i> with uncountables and <i>many</i> with countables." },
+  { w:"lesson", type:"countable",
+    why:"Lessons are separate events you can number: <i>six lessons a week</i>.",
+    tip:"Careful with the pair: <i>lesson</i> is countable, but <i>knowledge</i> is not." },
+  { w:"luggage", type:"uncountable",
+    why:"<i>Luggage</i> covers all your bags together, so it stays singular.",
+    tip:"The countable version is <i>a suitcase</i> or <i>a bag</i>. Learn uncountables in pairs like this." },
+  { w:"euro", type:"countable",
+    why:"Like <i>dollar</i>, a euro is a unit you can count: <i>twenty euros</i>.",
+    tip:"When you are not sure, ask yourself: can I put <i>a</i> in front of it? If yes, it is countable." }
+];
+
+var sSel=null, sDone=false, sPlace=[];
+var elPool=document.getElementById("pool"),
+    elBoxC=document.getElementById("boxC"),
+    elBoxU=document.getElementById("boxU"),
+    elSExp=document.getElementById("sortExp"),
+    elSScore=document.getElementById("sortScore");
+
+function renderSort(){
+  elPool.innerHTML=""; elBoxC.innerHTML=""; elBoxU.innerHTML="";
+  sPlace.forEach(function(where, i){
+    var b=document.createElement("button");
+    b.className="badge"; b.type="button"; b.textContent=WORDS[i].w; b.dataset.k=String(i);
+    b.addEventListener("click", pickBadge);
+    if(where==="countable") elBoxC.appendChild(b);
+    else if(where==="uncountable") elBoxU.appendChild(b);
+    else elPool.appendChild(b);
+  });
+  var left = sPlace.filter(function(x){ return x===null; }).length;
+  elSScore.textContent = "Still in the pool: "+left;
+}
+function pickBadge(e){
+  if(sDone) return;
+  var el=e.currentTarget, k=Number(el.dataset.k);
+  if(sPlace[k]!==null){ sPlace[k]=null; sSel=null; renderSort(); return; }
+  var was = (sSel===k);
+  sSel = was ? null : k;
+  Array.prototype.forEach.call(elPool.children, function(c){
+    c.classList.toggle("sel", Number(c.dataset.k)===sSel);
+  });
+}
+function dropZone(e){
+  if(sDone || sSel===null) return;
+  sPlace[sSel] = e.currentTarget.dataset.zone;
+  sSel = null;
+  renderSort();
+}
+function checkSort(){
+  if(sDone) return;
+  var left = sPlace.filter(function(x){ return x===null; }).length;
+  if(left>0){
+    exp(elSExp,"wrong",'<p><b>'+left+' word(s) still in the pool.</b> Every word needs a box before you can check.</p>'+
+      why("Deciding countable or uncountable is the first step before choosing <i>a / some / much / many</i>.")+
+      tip("If you truly do not know a word, guess and read the explanation. Blank answers score zero; a guess sometimes scores one."));
+    return;
+  }
+  sDone = true;
+  var right=0, wrongList=[];
+  sPlace.forEach(function(where,i){
+    if(where===WORDS[i].type) right++; else wrongList.push(i);
+  });
+  [elBoxC, elBoxU].forEach(function(box){
+    Array.prototype.forEach.call(box.children, function(c){
+      var k=Number(c.dataset.k);
+      c.className = "badge " + (sPlace[k]===WORDS[k].type ? "good" : "bad");
+    });
+  });
+  elSScore.textContent = "Score: "+right+"/"+WORDS.length;
+  var html = '<p><b>'+right+' out of '+WORDS.length+' correct.</b></p>';
+  var shown = wrongList.length ? wrongList : indexes(WORDS).slice(0,2);
+  html += '<p>'+(wrongList.length ? 'Look at the pink ones:' : 'Everything correct. Two words worth remembering anyway:')+'</p>';
+  shown.forEach(function(i){
+    var it=WORDS[i];
+    html += '<p><span class="sol">'+it.w+'</span> &rarr; '+it.type+'</p>'+why(it.why)+tip(it.tip);
+  });
+  exp(elSExp, wrongList.length ? "wrong" : "right", html);
+}
+function resetSort(){
+  sDone=false; sSel=null;
+  sPlace = WORDS.map(function(){ return null; });
+  elSExp.innerHTML="";
+  renderSort();
+}
+
+/* ================= GAME 2: PHRASAL VERB GAP FILL ================= */
+var GAPS = [
+  { before:"I need to", after:"this word in the dictionary.",
+    answer:"look up", options:["look up","hand in","catch up"],
+    why:"<i>Look up</i> means search for information in a dictionary or online, and it is separable: <i>look it up</i>.",
+    tip:"With separable phrasal verbs a pronoun always goes in the middle: <i>look up it</i> is wrong." },
+  { before:"Please", after:"the answers in your notebook.",
+    answer:"write down", options:["go over","write down","hand in"],
+    why:"<i>Write down</i> means make a note of something on paper. The particle <i>down</i> adds the idea of putting it on a surface.",
+    tip:"A full noun can go on either side (<i>write down the answers</i> / <i>write the answers down</i>), but a pronoun only fits inside." },
+  { before:"Don't forget to", after:"your project to the teacher tomorrow.",
+    answer:"hand in", options:["look up","catch up","hand in"],
+    why:"<i>Hand in</i> means give finished written work to a teacher. The preposition <i>to</i> introduces the person.",
+    tip:"Compare <i>hand in</i> (give to one person in authority) with <i>hand out</i> (give to the whole class)." },
+  { before:"I was ill for a week, so I need to", after:"with my classes.",
+    answer:"catch up", options:["go over","catch up","write down"],
+    why:"<i>Catch up</i> means reach the same level as the others. It has no direct object, and takes <i>with</i> before what you are following.",
+    tip:"Learn the preposition with the verb. Cambridge tests the particle more often than the verb itself." },
+  { before:"Let's", after:"our notes before the final exam.",
+    answer:"go over", options:["go over","hand in","look up"],
+    why:"<i>Go over</i> means review something carefully. It is inseparable, so the object always follows the whole unit.",
+    tip:"Never split an inseparable phrasal verb: <i>go our notes over</i> is wrong." },
+  { before:"She decided to", after:"a new language after the summer.",
+    answer:"take up", options:["take up","put off","work out"],
+    why:"<i>Take up</i> means start a new activity or hobby: <i>take up Japanese</i>, <i>take up chess</i>.",
+    tip:"The particle <i>up</i> often carries the idea of starting or increasing: <i>take up</i>, <i>speak up</i>, <i>build up</i>." },
+  { before:"Stop watching videos and don't", after:"your revision until Sunday.",
+    answer:"put off", options:["put off","hand in","catch up"],
+    why:"<i>Put off</i> means delay something. It is followed by a noun or an <i>-ing</i> form: <i>put off revising</i>.",
+    tip:"After a particle we use <i>-ing</i>, never the infinitive: <i>put off to revise</i> is wrong." }
+];
+var gOrder=[], gIdx=0, gScore=0, gDone=false;
+var elGProg=document.getElementById("gapProg"),
+    elGSent=document.getElementById("gapSent"),
+    elGOpts=document.getElementById("gapOpts"),
+    elGExp=document.getElementById("gapExp"),
+    elGScore=document.getElementById("gapScore"),
+    btnGNext=document.getElementById("gapNext");
+
+function loadGap(){
+  var g = GAPS[gOrder[gIdx]];
+  gDone=false;
+  elGProg.textContent = "Sentence "+(gIdx+1)+" of "+GAPS.length;
+  elGSent.innerHTML = g.before+' <span class="gap">&nbsp;</span> '+g.after;
+  elGOpts.innerHTML="";
+  shuffle(g.options.slice()).forEach(function(o){
+    var b=document.createElement("button");
+    b.className="opt"; b.type="button"; b.textContent=o; b.dataset.v=o;
+    b.addEventListener("click", answerGap);
+    elGOpts.appendChild(b);
+  });
+  elGExp.innerHTML=""; btnGNext.disabled=true;
+  elGScore.textContent = "Score: "+gScore+"/"+GAPS.length;
+}
+function answerGap(e){
+  if(gDone) return;
+  gDone=true;
+  var g = GAPS[gOrder[gIdx]];
+  var chosen = e.currentTarget.dataset.v;
+  var ok = (chosen === g.answer);
+  if(ok) gScore++;
+  Array.prototype.forEach.call(elGOpts.children, function(b){
+    b.disabled = true;
+    if(b.dataset.v === g.answer) b.classList.add("good");
+    else if(b.dataset.v === chosen) b.classList.add("bad");
+  });
+  elGSent.innerHTML = g.before+' <span class="gap">'+g.answer+'</span> '+g.after;
+  elGScore.textContent = "Score: "+gScore+"/"+GAPS.length;
+  exp(elGExp, ok?"right":"wrong",
+    '<p><b>'+(ok?"Correct!":"Not this time.")+'</b> The answer is <span class="sol">'+g.answer+'</span>.</p>'+
+    why(g.why)+tip(g.tip));
+  btnGNext.disabled = false;
+}
+function nextGap(){
+  gIdx++;
+  if(gIdx>=GAPS.length){
+    elGProg.textContent = "Finished";
+    elGSent.innerHTML = "You completed all the sentences. Final score: <b>"+gScore+"/"+GAPS.length+"</b>";
+    elGOpts.innerHTML=""; btnGNext.disabled=true;
+    exp(elGExp,"right",'<p><b>Well done!</b> Now write three true sentences about your own studies using three of these phrasal verbs.</p>'+
+      why("Using a phrasal verb in a sentence of your own is what moves it from recognition into active vocabulary.")+
+      tip("Record each phrasal verb with a full example sentence, never as an isolated translation."));
+    return;
+  }
+  loadGap();
+}
+function resetGap(){
+  gOrder = shuffle(indexes(GAPS));
+  gIdx=0; gScore=0; loadGap();
+}
+
+/* ================= WIRING ================= */
+document.getElementById("zoneC").addEventListener("click", dropZone);
+document.getElementById("zoneU").addEventListener("click", dropZone);
+document.getElementById("sortCheck").addEventListener("click", checkSort);
+document.getElementById("sortReset").addEventListener("click", resetSort);
+document.getElementById("gapNext").addEventListener("click", nextGap);
+document.getElementById("gapReset").addEventListener("click", resetGap);
+
+resetSort();
+resetGap();
+})();
+</script>
+</body>
+</html>

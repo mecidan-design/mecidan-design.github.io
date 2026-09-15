@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El tribunal · El genio vs. el cogito — Descartes</title>
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);line-height:1.55;
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:4px}
+.wrap{max-width:820px;margin:0 auto;padding:8vh 22px 12vh}
+
+.kicker{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:14px}
+h1{font-size:clamp(32px,6vw,58px);line-height:1.04;font-weight:800;letter-spacing:-.02em}
+h1 .sub{display:block;color:var(--coral);font-size:clamp(18px,3vw,28px);margin-top:.2em}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(17px,2.1vw,23px);line-height:1.45;margin:22px 0 6px;max-width:58ch;
+  border-left:3px solid var(--violet);padding-left:1em}
+p.body{font-size:clamp(15.5px,1.8vw,18px);color:var(--dim);max-width:66ch;margin:12px 0}
+p.body b{color:var(--amber)}
+.rol{margin:18px 0;border:1px solid var(--line2);border-left:3px solid var(--cyan);border-radius:12px;
+  padding:14px 16px;background:rgba(34,228,255,.03);font-size:14.6px;color:var(--ink)}
+.rol b{color:var(--cyan)}
+
+/* ---------- escena ---------- */
+.stage{margin-top:26px;border:1px solid var(--line);border-radius:18px;background:var(--card2);overflow:hidden}
+.gbar{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line);
+  font-family:Georgia,serif;font-style:italic;color:var(--violet);font-size:clamp(13.5px,1.8vw,16.5px);line-height:1.45;min-height:52px}
+.gbar .who{flex:0 0 auto;font:700 10px/1.6 "Segoe UI",system-ui,sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--coral);font-style:normal}
+.svgwrap{display:flex;justify-content:center;padding:6px 0 0}
+.svgwrap svg{display:block;width:auto;height:min(34vh,260px)}
+
+.meter{padding:6px 16px 16px}
+.meter .mlabel{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:700;
+  display:flex;justify-content:space-between;gap:10px;margin-bottom:6px}
+.meter .mlabel b{color:var(--coral)}
+.bar{height:8px;border-radius:6px;background:var(--card);border:1px solid var(--line2);overflow:hidden}
+.bar span{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--coral),#a8324a);transition:width .8s ease}
+.stage.won .bar span{width:0%}
+.stage.won .meter .mlabel b{color:var(--cyan)}
+
+/* ---------- defensas ---------- */
+.pruebas{margin-top:22px;display:grid;gap:10px}
+.prueba{border:1px solid var(--line2);background:var(--card);border-radius:12px;padding:14px 16px;cursor:pointer;
+  text-align:left;font:inherit;color:var(--ink);transition:all .18s;font-size:15px;line-height:1.45}
+.prueba:hover:not(:disabled){border-color:var(--cyan);transform:translateY(-1px)}
+.prueba .tag{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:5px}
+.prueba.cog{border-color:rgba(34,228,255,.35)}
+.prueba.caida{opacity:.4;cursor:default;border-color:var(--line);text-decoration:line-through;text-decoration-color:var(--coral)}
+.prueba:disabled{cursor:default}
+
+.feed{margin-top:16px;min-height:28px;font-size:15px;line-height:1.55;color:var(--dim)}
+.feed .lem{display:block;color:var(--amber);font-size:13.5px;margin-top:8px}
+
+/* ---------- veredicto ---------- */
+#veredicto{display:none;margin-top:24px;border:1px solid var(--line2);border-left:3px solid var(--cyan);
+  border-radius:16px;padding:24px;background:rgba(34,228,255,.03)}
+#veredicto.show{display:block;animation:rise .8s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+#veredicto .big{font-size:clamp(30px,6vw,52px);font-weight:800;letter-spacing:-.02em;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+#veredicto .cite{display:block;font-size:13px;color:var(--faint);margin-top:12px}
+
+.btn{appearance:none;border:1px solid var(--line2);background:var(--card);color:var(--ink);font:inherit;
+  font-size:15px;font-weight:600;border-radius:12px;padding:11px 18px;cursor:pointer;transition:all .18s;margin:16px 8px 0 0}
+.btn:hover{border-color:var(--cyan);box-shadow:0 0 14px rgba(34,228,255,.18);transform:translateY(-1px)}
+.btn.ghost{background:transparent}
+footer{border-top:1px solid var(--line);margin-top:14px;padding:24px 22px;text-align:center;font-size:12.5px;color:var(--faint)}
+footer em{color:var(--dim);font-style:italic}
+
+/* ---------- genio: animación ---------- */
+#genio{transform-box:fill-box;transform-origin:50% 100%;transform:scale(var(--gs,1));transition:transform .9s cubic-bezier(.3,1.25,.4,1)}
+#genio.taunt{animation:gtaunt .55s ease}
+@keyframes gtaunt{0%,100%{transform:scale(var(--gs,1))}
+  30%{transform:scale(var(--gs,1)) rotate(-3deg) translateX(-4px)}
+  65%{transform:scale(var(--gs,1)) rotate(2deg) translateX(4px)}}
+#g-headg,#g-torso,#g-armL,#g-armR,#g-tail,#g-eyes{transform-box:fill-box;transform-origin:center}
+#g-cracks{transition:opacity .25s}
+#genio.broken #g-headg{animation:brkHead 1.5s ease-out forwards}
+#genio.broken #g-armL{animation:brkAL 1.5s ease-out forwards}
+#genio.broken #g-armR{animation:brkAR 1.5s ease-out forwards}
+#genio.broken #g-torso{animation:brkTor 1.5s ease-out forwards}
+#genio.broken #g-tail{animation:brkTail 1.7s ease-out forwards}
+#genio.broken #g-eyes{animation:brkEyes .9s ease-out forwards}
+#genio.broken #g-cracks{animation:showcracks 1s ease-out .4s forwards}
+@keyframes brkHead{to{transform:translate(30px,-38px) rotate(32deg);opacity:.12}}
+@keyframes brkAL{to{transform:translate(-34px,10px) rotate(-40deg);opacity:.1}}
+@keyframes brkAR{to{transform:translate(30px,-6px) rotate(34deg);opacity:.1}}
+@keyframes brkTor{to{transform:translate(-8px,16px) rotate(-14deg);opacity:.14}}
+@keyframes brkTail{to{transform:translate(6px,26px) scale(.7);opacity:.1}}
+@keyframes brkEyes{to{opacity:0}}
+@keyframes showcracks{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Filosofía 5.º · Descartes · juego de rol</div>
+  <h1>El tribunal<span class="sub">El genio maligno vs. el cogito</span></h1>
+  <div class="apho">El genio puede falsear todo el contenido de tus pensamientos. Todo, menos uno.</div>
+
+  <p class="body">El <b>genio maligno</b> —tan poderoso como astuto— te acusa: nada de lo que creés es tuyo, nada es real, todo lo puso él en tu mente. Vos sos <b>la defensa</b>. Presentá tus pruebas, una por una. Él va a refutar cada una mostrándote cómo la pudo haber fabricado.</p>
+  <div class="rol"><b>Tu misión:</b> encontrar la única prueba que el genio <b>no pueda</b> falsear. Cuando la presentes, cae él. Probá primero con lo que te parezca más firme y fijate qué pasa.</div>
+
+  <div class="stage" id="stage">
+    <div class="gbar"><span class="who">El genio maligno</span><span id="bubble" aria-live="polite">Adelante. Presentá tu primera prueba. Ninguna resiste.</span></div>
+    <div class="svgwrap">
+      <svg viewBox="0 0 240 300" role="img" aria-label="El genio maligno, de pie, esperando tus pruebas." xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gviol" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#191227"/><stop offset="1" stop-color="#3A2A63"/>
+          </linearGradient>
+          <radialGradient id="glow" cx=".5" cy=".4" r=".7">
+            <stop offset="0" stop-color="rgba(255,107,107,.10)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="240" height="300" fill="url(#glow)"/>
+        <g transform="translate(120,272)">
+          <g id="genio">
+            <path id="g-tail" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+              d="M0,2 C-30,2 -36,-14 -30,-26 C-27,-44 -28,-56 -28,-66 L28,-66 C28,-56 27,-44 30,-26 C36,-14 30,2 0,2 Z"/>
+            <path id="g-torso" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+              d="M-28,-64 C-30,-92 -26,-112 -16,-124 L16,-124 C26,-112 30,-92 28,-64 Z"/>
+            <path id="g-armL" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+              d="M-16,-118 C-44,-124 -64,-114 -78,-98 C-76,-94 -70,-93 -66,-96 C-54,-106 -38,-108 -14,-102 Z"/>
+            <path id="g-armR" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"
+              d="M16,-118 C36,-124 52,-138 58,-158 C55,-161 50,-160 48,-156 C42,-142 32,-130 14,-104 Z"/>
+            <g id="g-headg">
+              <circle id="g-head" cx="0" cy="-146" r="24" fill="url(#gviol)" stroke="#5A4390" stroke-width="1.5"/>
+              <path d="M-13,-162 C-22,-166 -28,-174 -30,-184 C-20,-180 -12,-172 -9,-163 Z" fill="#2A1F45" stroke="#5A4390"/>
+              <path d="M13,-162 C22,-166 28,-174 30,-184 C20,-180 12,-172 9,-163 Z" fill="#2A1F45" stroke="#5A4390"/>
+              <path d="M-17,-157 L-4,-152" stroke="#2A1F45" stroke-width="3" stroke-linecap="round"/>
+              <path d="M17,-157 L4,-152" stroke="#2A1F45" stroke-width="3" stroke-linecap="round"/>
+              <g id="g-eyes">
+                <ellipse cx="-9" cy="-147" rx="5" ry="6.2" transform="rotate(14 -9 -147)" fill="#FFC93C"/>
+                <ellipse cx="9" cy="-147" rx="5" ry="6.2" transform="rotate(-14 9 -147)" fill="#FFC93C"/>
+              </g>
+              <path d="M-12,-131 Q0,-121 12,-131" stroke="#E0525E" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <g id="g-cracks" stroke="#22E4FF" stroke-width="1.6" fill="none" opacity="0">
+              <path d="M-6,-160 L2,-148 L-4,-138 L4,-128"/>
+              <path d="M-14,-118 L-4,-106 L-12,-92 L-2,-80"/>
+              <path d="M12,-114 L6,-100 L14,-88"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="meter">
+      <div class="mlabel"><span>Certeza del genio</span><b id="mstate">en pie</b></div>
+      <div class="bar"><span id="mbar"></span></div>
+    </div>
+  </div>
+
+  <div class="pruebas" id="pruebas"></div>
+  <div class="feed" id="feed" aria-live="polite"></div>
+  <div id="controles" style="display:none">
+    <button class="btn ghost" onclick="location.reload()">Volver a empezar</button>
+  </div>
+
+  <div id="veredicto">
+    <div class="kicker" style="color:var(--violet)">En el extremo de la duda</div>
+    <div class="big">Cogito, ergo sum</div>
+    <p class="body" style="color:var(--ink);margin-top:14px">En el preciso momento en que la duda llega al extremo, <b>se convierte en su opuesto</b>: certeza. Para dudar tenés que pensar; para pensar tenés que ser. El genio puede falsear el mundo, tu cuerpo, la matemática — pero no puede hacer que vos <em>no seas</em> mientras pensás que sos algo. El engaño perfecto exige una víctima real.</p>
+    <div class="apho" style="border-color:var(--cyan);color:var(--ink)">La duda, llevada al fondo, rebota. No saliste del pozo: encontraste que el pozo tenía suelo.<span class="cite">Primera verdad indubitable y primer principio de la filosofía · Carpio VIII §7</span></div>
+  </div>
+</div>
+
+<footer>
+  Filosofía 5.º — Master College · Descartes, <em>Meditaciones metafísicas</em> · Primera y Segunda Meditación · Juego de rol
+</footer>
+
+<script>
+var pruebas = [
+  { id:'cuerpo', tag:'Defensa · el cuerpo',
+    t:'“Tengo un cuerpo. Estoy sentado acá, con estas manos, este papel.”',
+    reb:'¿Tu cuerpo? Cuántas noches soñaste que caminabas, y estabas acostado. No hay una sola señal segura que separe el sueño de la vigilia. Tu cuerpo puede ser un sueño que te hago soñar.',
+    lem:'Cae por el argumento del sueño: sin marca que distinga vigilia de sueño, el cuerpo no es certeza.' },
+  { id:'mundo', tag:'Defensa · el mundo',
+    t:'“Hay un mundo afuera: lo veo, lo escucho, lo toco.”',
+    reb:'Los sentidos ya te mintieron: el palo quebrado en el agua, la torre redonda que de cerca era cuadrada. A quien te engañó una vez, ¿por qué le creés? Puedo pintarte un mundo entero que no existe.',
+    lem:'Cae por los sentidos y el sueño: si me pueden engañar, el mundo percibido podría no existir.' },
+  { id:'mate', tag:'Defensa · la matemática',
+    t:'“2 + 3 = 5. La matemática no depende de los sentidos: es segura.”',
+    reb:'Ah, la matemática, tu último orgullo. Pero yo te fabriqué. ¿Y si te hice de modo que te equivoques hasta al sumar 2 y 3, y cada vez sientas que acertaste? Ni ahí estás a salvo.',
+    lem:'Cae por el genio: si atacó la razón misma, ni las verdades matemáticas se salvan.' },
+  { id:'dios', tag:'Defensa · un Dios bueno',
+    t:'“Dios es bueno y no permitiría que me engañen siempre.”',
+    reb:'¿Un Dios bueno? Todavía no probaste que exista. Y mientras tanto acá estoy yo: toda su potencia, nada de su bondad. Por ahora, el que manda soy yo.',
+    lem:'Cae por orden de razones: la bondad divina aún no está probada. No podés apoyarte en lo que todavía dudás.' },
+  { id:'cogito', cog:true, tag:'Última defensa',
+    t:'“Engañame en todo. Pero para engañarme, algo tiene que haber que engañás. Yo, que dudo, soy.”',
+    reb:null, lem:null }
+];
+
+var stage=document.getElementById('stage'), bubble=document.getElementById('bubble'),
+    genio=document.getElementById('genio'), feed=document.getElementById('feed'),
+    mstate=document.getElementById('mstate'), mbar=document.getElementById('mbar'),
+    controles=document.getElementById('controles'), veredicto=document.getElementById('veredicto');
+var caidas=0, ganado=false, tauntT=null;
+
+(function pintar(){
+  var cont=document.getElementById('pruebas');
+  pruebas.forEach(function(p){
+    var b=document.createElement('button');
+    b.className='prueba'+(p.cog?' cog':'');
+    b.id='p_'+p.id;
+    b.innerHTML='<span class="tag">'+p.tag+'</span>'+p.t;
+    b.onclick=function(){ presentar(p,b); };
+    cont.appendChild(b);
+  });
+})();
+
+function taunt(){
+  genio.classList.remove('taunt');
+  void genio.offsetWidth;
+  genio.classList.add('taunt');
+}
+
+function presentar(p,b){
+  if(ganado) return;
+  if(p.cog){ ganar(p); return; }
+  if(b.classList.contains('caida')) return;
+  b.classList.add('caida'); b.disabled=true;
+  caidas++;
+  taunt();
+  bubble.textContent='—jajaja— '+p.reb;
+  feed.innerHTML='El genio refuta y sigue en pie. <span class="lem">'+p.lem+'</span>';
+  mstate.textContent='en pie ('+caidas+' defensa'+(caidas>1?'s':'')+' caída'+(caidas>1?'s':'')+')';
+}
+
+function ganar(p){
+  ganado=true;
+  document.querySelectorAll('.prueba').forEach(function(el){
+    el.disabled=true; if(el!==document.getElementById('p_cogito')) el.classList.add('caida');
+  });
+  bubble.textContent='Engañarte en todo, sí… pero para engañarte tiene que haber alguien a quien engañar. Si dudás, pensás; si pensás, sos. No puedo hacer que no seas mientras pensás que sos algo…';
+  var extra = caidas===0
+    ? 'Fuiste directo al hueso: te salteaste la escalera entera.'
+    : 'Recorriste la escalera —cayeron '+caidas+'— y llegaste a lo que resiste.';
+  feed.innerHTML='El genio no puede refutar esto. Se quiebra. <span class="lem">'+extra+' El engaño perfecto exige una víctima real: para ser engañado, tenés que existir.</span>';
+  mstate.textContent='se quiebra';
+  stage.classList.add('won');
+  genio.classList.remove('taunt');
+  genio.classList.add('broken');
+  controles.style.display='block';
+  setTimeout(function(){
+    veredicto.classList.add('show');
+    veredicto.scrollIntoView({behavior:'smooth',block:'center'});
+  }, 1100);
+}
+</script>
+<footer style="position:relative;z-index:9999;clear:both;display:block;margin:28px auto 0;padding:14px 20px 26px;max-width:1100px;border-top:1px solid rgba(128,128,128,.35);font:12px/1.5 system-ui,sans-serif;letter-spacing:.05em;text-align:center;opacity:.75">Copyright Prof Dan M. Mecikovsky</footer>
+</body>
+</html>

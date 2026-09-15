@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 5 · Sexta Meditación — El mundo y el dualismo</title>
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--ink); overflow:hidden;
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:80;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .25s ease}
+
+#stage{position:relative;height:100vh;width:100%}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:5.5vh clamp(28px,6vw,90px) 11vh;overflow-y:auto;overflow-x:hidden}
+.slide.on{display:flex;animation:enter .5s ease both}
+@keyframes enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.wrap{width:100%;max-width:1180px;margin:0 auto}
+
+.kicker{font-size:clamp(12px,1.15vw,15px);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cyan);font-weight:700;margin-bottom:16px}
+.kicker .num{color:var(--faint);margin-right:.9em}
+.kicker.vi{color:var(--violet)} .kicker.co{color:var(--coral)} .kicker.am{color:var(--amber)}
+h2{font-size:clamp(26px,4vw,54px);line-height:1.06;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+h2 .u{color:var(--amber)} h2 .cyu{color:var(--cyan)} h2 .vu{color:var(--violet)} h2 .cou{color:var(--coral)}
+h2 .gu{color:var(--green)}
+p.lead{font-size:clamp(16.5px,1.7vw,25px);color:var(--dim);max-width:62ch;margin:13px 0}
+p.body{font-size:clamp(15px,1.45vw,20px);color:var(--ink);max-width:64ch;margin:11px 0}
+p.body b,p.lead b{color:var(--amber)}
+.dim{color:var(--dim)} .faint{color:var(--faint)}
+.g{color:var(--green);font-weight:700} .c{color:var(--coral);font-weight:700}
+.v{color:var(--violet);font-weight:700} .cy{color:var(--cyan);font-weight:700}
+.am{color:var(--amber);font-weight:700}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(17px,1.9vw,28px);line-height:1.4;margin:22px 0 6px;max-width:54ch;
+  border-left:3px solid var(--violet);padding-left:1em}
+.note{font-size:clamp(12.5px,1.02vw,16px);color:var(--faint);max-width:76ch;margin-top:16px;line-height:1.55}
+.note b{color:var(--dim)}
+
+blockquote{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--ink);
+  font-size:clamp(16px,1.6vw,23px);line-height:1.42;margin:20px 0 8px;max-width:58ch;
+  border-left:3px solid var(--cyan);padding:10px 0 10px 1em;background:rgba(34,228,255,.04)}
+blockquote .ref{display:block;font-size:clamp(12px,1vw,15px);color:var(--faint);margin-top:9px;
+  font-style:normal;font-family:"Segoe UI",system-ui,sans-serif;letter-spacing:.06em}
+
+/* ---------- pasos numerados ---------- */
+.premisas{margin-top:18px}
+.prem{display:flex;gap:16px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:13px 17px;margin:10px 0}
+.prem .pn{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--cyan);
+  color:var(--cyan);display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;margin-top:1px}
+.prem .pt{font-size:clamp(14.5px,1.3vw,19px);line-height:1.45}
+.prem .pt b{color:var(--amber)}
+.prem.concl{border-color:rgba(87,227,139,.5);background:rgba(87,227,139,.07)}
+.prem.concl .pn{border-color:var(--green);color:var(--green)}
+.prem.concl .pt{font-weight:800;color:var(--green)}
+.prem.vi .pn{border-color:var(--violet);color:var(--violet)}
+.prem.err .pn{border-color:var(--coral);color:var(--coral)}
+.prem.err .pt b{color:var(--coral)}
+
+/* ---------- insignia de alcance ---------- */
+.alcance{display:inline-block;font-size:clamp(12px,1.05vw,15px);font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;padding:5px 16px;border-radius:22px;margin-bottom:14px}
+.alc-pos{color:var(--faint);border:1px solid var(--line2);background:var(--card)}
+.alc-pro{color:var(--amber);border:1px solid rgba(255,201,60,.45);background:rgba(255,201,60,.08)}
+.alc-cie{color:var(--green);border:1px solid rgba(87,227,139,.45);background:rgba(87,227,139,.08)}
+
+/* ---------- cadena de inferencia ---------- */
+.cadena{font-size:clamp(15.5px,1.5vw,21px);color:var(--ink);line-height:1.6;max-width:66ch;
+  margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+.cadena b{color:var(--amber)}
+.cadena .fl{color:var(--cyan);font-weight:800;margin:0 .3em}
+.cadena .cc{color:var(--green);font-weight:800}
+
+.grid{display:grid;gap:14px;margin-top:18px}
+.grid.g3{grid-template-columns:repeat(3,1fr)}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid.g3,.grid.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.card .tag{font-size:clamp(11px,.95vw,13px);letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan);margin-bottom:9px}
+.card.am .tag{color:var(--amber)} .card.co .tag{color:var(--coral)}
+.card.vi .tag{color:var(--violet)} .card.gr .tag{color:var(--green)}
+.card h4{font-size:clamp(16.5px,1.55vw,23px);font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.card p{font-size:clamp(13.8px,1.18vw,17px);color:var(--dim);line-height:1.5}
+.card p+p{margin-top:8px}
+.card p b{color:var(--ink)}
+.card .lin{font-size:clamp(14.5px,1.3vw,19px);color:var(--ink);font-weight:700;line-height:1.4}
+
+.ficha{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+@media(max-width:900px){.ficha{grid-template-columns:1fr}}
+.paso{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.paso .pl{font-size:clamp(11px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;margin-bottom:8px}
+.paso p{font-size:clamp(14px,1.25vw,18.5px);color:var(--ink);line-height:1.5}
+.paso p+p{margin-top:10px}
+.paso p b{color:var(--amber)}
+.paso.ok{border-color:rgba(87,227,139,.35)} .paso.ok .pl{color:var(--green)}
+.paso.no{border-color:rgba(255,107,107,.35)} .paso.no .pl{color:var(--coral)}
+.paso.cy{border-color:rgba(34,228,255,.35)} .paso.cy .pl{color:var(--cyan)}
+.paso.vi{border-color:rgba(201,160,255,.35)} .paso.vi .pl{color:var(--violet)}
+
+#bar{position:fixed;bottom:0;left:0;right:0;height:52px;z-index:70;display:flex;align-items:center;
+  gap:14px;padding:0 clamp(18px,3vw,40px);
+  background:linear-gradient(180deg,transparent,rgba(5,6,8,.9) 45%);
+  font-size:13px;color:var(--faint);letter-spacing:.1em}
+#bar .titulo{flex:1;text-transform:uppercase;font-weight:700;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis;color:var(--dim)}
+#bar .cont{font-variant-numeric:tabular-nums;font-weight:700;color:var(--dim)}
+#bar button{background:var(--card);border:1px solid var(--line2);color:var(--dim);border-radius:9px;
+  width:34px;height:32px;cursor:pointer;font-family:inherit;font-size:15px;transition:.16s}
+#bar button:hover{border-color:var(--cyan);color:var(--cyan)}
+#bar .ayuda{color:var(--faint);font-size:12px}
+#bar .copy{color:var(--faint);font-size:12px;letter-spacing:.06em;white-space:nowrap}
+@media(max-width:760px){#bar .ayuda{display:none}}
+@media(max-width:520px){#bar .copy{display:none}}
+
+#indice{position:fixed;inset:0;z-index:90;background:rgba(5,6,8,.97);display:none;
+  padding:6vh clamp(24px,5vw,70px);overflow-y:auto}
+#indice.on{display:block}
+#indice h3{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+#indice ol{list-style:none;max-width:960px}
+#indice li{padding:9px 12px;border-radius:9px;cursor:pointer;font-size:clamp(15px,1.35vw,20px);
+  color:var(--dim);display:flex;gap:16px;transition:.14s}
+#indice li:hover{background:var(--card);color:var(--ink)}
+#indice li .ix{color:var(--faint);font-variant-numeric:tabular-nums;font-weight:700;width:2.2em}
+#indice li.actual{color:var(--cyan)} #indice li.actual .ix{color:var(--cyan)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="stage">
+
+<!-- ==================== 1 · LOS TRES PASOS ==================== -->
+<section class="slide" data-t="1 · Los tres pasos, en un vistazo">
+  <div class="wrap">
+    <div class="kicker"><span class="num">VI</span>De la existencia de las cosas materiales</div>
+    <h2>Tres pasos, <span class="u">tres grados de fuerza</span></h2>
+    <p class="lead">Descartes no prueba el mundo de un golpe. Sube por escalones, y <b>dice él mismo</b> que los dos primeros no alcanzan. Recién el tercero concluye.</p>
+    <div class="grid g3">
+      <div class="card"><div class="tag">Paso 1 · por la extensión</div>
+        <div class="alcance alc-pos">Posible</div>
+        <p class="lin">Es posible que existan cosas materiales.</p></div>
+      <div class="card am"><div class="tag">Paso 2 · por la imaginación</div>
+        <div class="alcance alc-pro">Probable</div>
+        <p class="lin">Es probable que haya cuerpos.</p></div>
+      <div class="card gr"><div class="tag">Paso 3 · por la facultad pasiva de sentir</div>
+        <div class="alcance alc-cie">Cierto</div>
+        <p class="lin">Existen cosas corporales.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2 · PASO 1 ==================== -->
+<section class="slide" data-t="2 · Paso 1 — lo posible">
+  <div class="wrap">
+    <div class="kicker"><span class="num">VI · 1</span>Primer paso · por la extensión</div>
+    <div class="alcance alc-pos">Posible</div>
+    <h2>Las cosas materiales <span class="u">podrían existir</span></h2>
+    <div class="cadena">
+      Concibo clara y distintamente las cosas materiales en cuanto objeto de las demostraciones geométricas
+      <span class="fl">→</span> Dios tiene el poder de producir todo lo que concibo con distinción
+      <span class="fl">∴</span> <span class="cc">es posible que existan cosas materiales.</span>
+    </div>
+    <p class="body"><b>Por qué no alcanza.</b> Sólo muestra que la idea no es contradictoria y que Dios <em>podría</em> crearla. Que pueda crearla no significa que la haya creado: a la esencia de los entes matemáticos no le pertenece la existencia.</p>
+    <p class="note">Igual es un avance respecto de la Primera Meditación: entonces el mundo material <b>ni siquiera era posible</b>.</p>
+  </div>
+</section>
+
+<!-- ==================== 3 · PASO 2 ==================== -->
+<section class="slide" data-t="3 · Paso 2 — lo probable">
+  <div class="wrap">
+    <div class="kicker am"><span class="num">VI · 2</span>Segundo paso · por la imaginación</div>
+    <div class="alcance alc-pro">Probable</div>
+    <h2>Algo indica que <span class="u">efectivamente hay cuerpos</span></h2>
+    <div class="cadena">
+      Tengo facultad de imaginar, y la imaginación <b>es distinta del puro intelecto</b>: requiere un esfuerzo particular del espíritu
+      <span class="fl">→</span> si es distinta del intelecto, no pertenece a mi esencia
+      <span class="fl">→</span> si no pertenece a mi esencia, parece depender de algo que no es mi espíritu
+      <span class="fl">∴</span> <span class="cc">es probable que haya cuerpos.</span>
+    </div>
+    <p class="body"><b>Por qué no alcanza.</b> Es un indicio, no una prueba: las ideas de la imaginación <b>podrían ser vacías</b>, sin correlato real.</p>
+    <p class="note">Lo <b>posible</b> es lo no contradictorio. Lo <b>probable</b> tiene más fuerza, porque algo indica que parece existir — pero sigue sin ser certeza.</p>
+  </div>
+</section>
+
+<!-- ==================== 4 · PASO 3 ==================== -->
+<section class="slide" data-t="4 · Paso 3 — la certeza">
+  <div class="wrap">
+    <div class="kicker"><span class="num">VI · 3</span>Tercer paso · por la facultad pasiva de sentir</div>
+    <div class="alcance alc-cie">Cierto</div>
+    <h2>Existen <span class="gu">cosas corporales</span></h2>
+    <div class="premisas">
+      <div class="prem"><div class="pn">1</div><div class="pt">Tengo una <b>facultad pasiva de sentir</b>: de recibir ideas de cosas sensibles.</div></div>
+      <div class="prem"><div class="pn">2</div><div class="pt">Toda facultad pasiva supone una <b>facultad activa</b> que produzca esas ideas.</div></div>
+      <div class="prem"><div class="pn">3</div><div class="pt">Esa facultad activa está en mí, o en las cosas materiales, o en Dios, o en algo más noble que el cuerpo.</div></div>
+      <div class="prem"><div class="pn">4</div><div class="pt"><b>No está en mí:</b> esas ideas no presuponen mi pensamiento y se me presentan <b>involuntariamente</b>.</div></div>
+      <div class="prem"><div class="pn">5</div><div class="pt"><b>No es Dios ni algo más noble:</b> Dios no es engañador, y me dio una fuerte inclinación a creer que vienen de las cosas materiales — sin darme ningún medio para corregir el engaño si lo hubiera.</div></div>
+      <div class="prem concl"><div class="pn">∴</div><div class="pt">Esas ideas provienen de las cosas materiales. Existen cosas corporales.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5 · LA DISTINCIÓN REAL ==================== -->
+<section class="slide" data-t="5 · La distinción real alma / cuerpo">
+  <div class="wrap">
+    <div class="kicker vi"><span class="num">VI · 4</span>De la distinción real entre el alma y el cuerpo</div>
+    <h2>El argumento del <span class="vu">dualismo</span></h2>
+    <div class="premisas">
+      <div class="prem vi"><div class="pn">1</div><div class="pt">Tengo una <b>idea clara y distinta de mí mismo</b> según la cual soy <b>sólo algo que piensa</b> y no extenso.</div></div>
+      <div class="prem vi"><div class="pn">2</div><div class="pt">Tengo una <b>idea clara y distinta del cuerpo</b> según la cual es <b>sólo una cosa extensa</b> que no piensa.</div></div>
+      <div class="prem vi"><div class="pn">3</div><div class="pt">Puedo <b>excluir con el pensamiento</b> una de la otra: concebirme entero sin el cuerpo, y al cuerpo sin pensamiento.</div></div>
+      <div class="prem vi"><div class="pn">4</div><div class="pt">Y <b>Dios, que no engaña, es garante</b> de todo lo que concibo clara y distintamente: si lo concibo así, así puede ser.</div></div>
+      <div class="prem concl"><div class="pn">∴</div><div class="pt">Mi alma, por la cual soy lo que soy, es entera y verdaderamente distinta de mi cuerpo. Puedo ser y existir sin él.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6 · UNIÓN Y DIVISIBILIDAD ==================== -->
+<section class="slide" data-t="6 · La unión y la divisibilidad">
+  <div class="wrap">
+    <div class="kicker vi"><span class="num">VI · 5</span>Dos precisiones sobre el dualismo</div>
+    <h2>Distintas, <span class="vu">pero unidas</span></h2>
+    <div class="ficha">
+      <div class="paso vi"><div class="pl">El refuerzo · la divisibilidad</div>
+        <p>Cuando me considero a mí mismo como espíritu, <b>no puedo distinguir partes en mí</b>: soy uno e íntegro. En cambio mi pensamiento puede <b>deshacer en pedazos</b> cualquier cosa extensa.</p>
+        <p>El alma es <b>indivisible</b>; el cuerpo, <b>divisible</b>. Y lo que difiere en una propiedad esencial no es lo mismo.</p></div>
+      <div class="paso cy"><div class="pl">La aclaración que casi nadie da</div>
+        <p>Distinción real <b>no es separación de hecho</b>. Dios nos creó como <b>unión</b> de alma y cuerpo, y estamos estrechísimamente unidos.</p>
+        <p>Lo que se prueba es que son <b>realmente distintas</b>, no que anden sueltas.</p></div>
+    </div>
+    <blockquote>La naturaleza me enseña… que no estoy alojado en mi cuerpo sólo como un piloto en su navío, sino que le estoy unido muy estrechamente y como mezclado.<span class="ref">— Sexta Meditación</span></blockquote>
+    <p class="note"><b>Dato fino:</b> el espíritu no recibe la impresión de todas las partes del cuerpo, <b>sino sólo del cerebro</b>. Y una parte del cuerpo puede ser movida por otra alejada a través de las que están en el medio — de ahí que la señal pueda falsear sin que Dios engañe.</p>
+  </div>
+</section>
+
+<!-- ==================== 7 · ALCANCES ==================== -->
+<section class="slide" data-t="7 · Alcances — qué se ganó y qué no">
+  <div class="wrap">
+    <div class="kicker"><span class="num">VI · 6</span>Alcances</div>
+    <h2>Qué se ganó <span class="u">y hasta dónde</span></h2>
+    <div class="grid g2">
+      <div class="card gr"><div class="tag">Qué se ganó</div><h4>La escalera se desarma entera</h4>
+        <p>La duda se resuelve en <b>orden inverso</b> al que subió: primero volvió el yo, después la razón y el juicio —con eso cayó el genio maligno—, luego la posibilidad de lo material —con eso cayó el argumento del sueño— y por último los datos de los sentidos.</p>
+        <p><b>Se recupera que hay cuerpos</b>, y una nueva función para los sentidos.</p></div>
+      <div class="card am"><div class="tag">El recorte</div><h4>No recuperamos el mundo tal como lo vemos</h4>
+        <p>Lo que se prueba es que <b>existen cosas corporales</b>, no que sean como las percibo. De ellas conozco verdaderamente sólo lo que cae bajo la geometría: <b>extensión, figura, movimiento, disposición de las partes</b>.</p>
+        <p>Color, sabor y olor <b>no nos enseñan cómo son las cosas</b>. Los sentidos no sirven para conocer esencias: sirven para <b>preservar el cuerpo</b>.</p></div>
+    </div>
+    <blockquote>Existen cosas corporales; aunque quizá no todas sean enteramente tales como las percibo por los sentidos.<span class="ref">— Sexta Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ==================== 8 · CRÍTICAS ==================== -->
+<section class="slide" data-t="8 · Críticas y el problema abierto">
+  <div class="wrap">
+    <div class="kicker co"><span class="num">VI · 7</span>Críticas y problemas</div>
+    <h2>Dónde <span class="cou">se apoya y dónde cruje</span></h2>
+    <div class="grid g3">
+      <div class="card co"><div class="tag">Crítica · la prueba del mundo</div><h4>Todo cuelga de Dios</h4>
+        <p>El paso decisivo no es empírico: es <b>teológico</b>. Sin Dios como garante, la inclinación a creer que las ideas vienen de los cuerpos sería una inclinación más — y las inclinaciones engañan.</p>
+        <p>Si el <b>círculo cartesiano</b> no está cerrado, esta prueba tampoco.</p></div>
+      <div class="card co"><div class="tag">Crítica · el dualismo</div><h4>Del concebir al ser</h4>
+        <p>La premisa fuerte es el paso de <b>«puedo concebir A sin B»</b> a <b>«A puede existir sin B»</b>. Vale sólo si mis ideas claras y distintas alcanzan la esencia de las cosas — y eso, otra vez, lo garantiza Dios.</p>
+        <p>Objeción clásica: quizá diga algo sobre <b>los límites de mi concepción</b>, no sobre cómo son las cosas.</p></div>
+      <div class="card vi"><div class="tag">Problema abierto</div><h4>¿Cómo se tocan?</h4>
+        <p>Si el alma es inextensa y el cuerpo es pura extensión, <b>¿cómo puede una causar movimiento en el otro?</b> Descartes afirma la unión y localiza el contacto en el cerebro, pero no explica el mecanismo.</p>
+        <p>Es <b>el problema de la interacción</b>, y va a ocupar a toda la filosofía posterior.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 9 · ERRORES COMUNES ==================== -->
+<section class="slide" data-t="9 · Errores comunes">
+  <div class="wrap">
+    <div class="kicker co"><span class="num">VI · 8</span>Dónde se tropieza</div>
+    <h2>Cinco <span class="cou">trampas frecuentes</span></h2>
+    <div class="premisas">
+      <div class="prem err"><div class="pn">1</div><div class="pt">Creer que <b>la Quinta ya probó que existen los cuerpos.</b> No: eso se prueba acá, en la Sexta.</div></div>
+      <div class="prem err"><div class="pn">2</div><div class="pt">Leer «distinción real» como que <b>el cuerpo no importa.</b> Descartes insiste en la unión estrechísima: no soy un piloto en su navío.</div></div>
+      <div class="prem err"><div class="pn">3</div><div class="pt">Tomar los tres pasos como <b>tres pruebas equivalentes.</b> Los dos primeros Descartes mismo los da por insuficientes.</div></div>
+      <div class="prem err"><div class="pn">4</div><div class="pt">Concluir que <b>el mundo es como lo percibimos.</b> Sólo se recupera lo matematizable.</div></div>
+      <div class="prem err"><div class="pn">5</div><div class="pt">Decir que <b>el alma es divisible.</b> Al revés: el alma es indivisible, el cuerpo es el divisible.</div></div>
+    </div>
+    <div class="apho">Descartes recupera el mundo, pero no el mundo que había perdido: devuelve un mundo medible, no un mundo sabroso.</div>
+  </div>
+</section>
+
+</div>
+
+<div id="bar">
+  <button id="prev" title="Anterior (←)" aria-label="Diapositiva anterior">‹</button>
+  <button id="next" title="Siguiente (→)" aria-label="Diapositiva siguiente">›</button>
+  <div class="titulo" id="titulo"></div>
+  <div class="ayuda">← → navegar · M índice · F pantalla completa</div>
+  <div class="copy">© Prof. Dan M. Mecikovsky</div>
+  <div class="cont"><span id="ahora">1</span>/<span id="total">1</span></div>
+</div>
+
+<div id="indice" role="dialog" aria-label="Índice de diapositivas">
+  <h3>Índice — tocá para saltar (M o Esc para cerrar)</h3>
+  <ol id="indiceLista"></ol>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var barra = document.getElementById('progress');
+  var titulo = document.getElementById('titulo');
+  var ahora = document.getElementById('ahora');
+  var indice = document.getElementById('indice');
+  var lista = document.getElementById('indiceLista');
+
+  document.getElementById('total').textContent = slides.length;
+
+  slides.forEach(function(s, n){
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="ix">' + (n + 1) + '</span><span>' + (s.getAttribute('data-t') || '') + '</span>';
+    li.addEventListener('click', function(){ ir(n); cerrarIndice(); });
+    lista.appendChild(li);
+  });
+  var items = Array.prototype.slice.call(lista.children);
+
+  function ir(n){
+    if (n < 0) n = 0;
+    if (n > slides.length - 1) n = slides.length - 1;
+    slides[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('on');
+    slides[i].scrollTop = 0;
+    barra.style.width = (i / (slides.length - 1) * 100) + '%';
+    titulo.textContent = slides[i].getAttribute('data-t') || '';
+    ahora.textContent = i + 1;
+    items.forEach(function(li, k){ li.classList.toggle('actual', k === i); });
+  }
+
+  function cerrarIndice(){ indice.classList.remove('on'); }
+  function toggleIndice(){ indice.classList.toggle('on'); }
+
+  document.getElementById('next').addEventListener('click', function(){ ir(i + 1); });
+  document.getElementById('prev').addEventListener('click', function(){ ir(i - 1); });
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'Escape'){ cerrarIndice(); return; }
+    if (k === 'm' || k === 'M'){ toggleIndice(); return; }
+    if (indice.classList.contains('on')) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter'){ e.preventDefault(); ir(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); ir(i - 1); }
+    else if (k === 'Home'){ ir(0); }
+    else if (k === 'End'){ ir(slides.length - 1); }
+    else if (k === 'f' || k === 'F'){
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+      else if (document.exitFullscreen) document.exitFullscreen();
+    }
+  });
+
+  var x0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.changedTouches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var d = e.changedTouches[0].clientX - x0;
+    if (Math.abs(d) > 60) ir(d < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+
+  ir(0);
+})();
+</script>
+</body>
+</html>

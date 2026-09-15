@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descartes · Meditaciones metafísicas — Filosofía 5.º</title>
+<meta name="description" content="Material de clase sobre las Meditaciones metafísicas de Descartes. Filosofía 5.º año, Master College, CABA.">
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink); min-height:100vh;
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.55;
+}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+a{text-decoration:none;color:inherit}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(22px,5vw,48px)}
+
+/* ---------- héroe ---------- */
+header{position:relative;overflow:hidden;padding:clamp(60px,11vh,120px) 0 clamp(40px,7vh,70px)}
+header::before{content:"";position:absolute;inset:-40%;pointer-events:none;
+  background:radial-gradient(ellipse 42% 34% at 68% 34%,rgba(34,228,255,.10),transparent 60%),
+             radial-gradient(ellipse 38% 30% at 24% 76%,rgba(201,160,255,.09),transparent 60%)}
+.marca{position:absolute;right:-2vw;top:10%;font-weight:800;
+  font-size:clamp(90px,16vw,220px);color:rgba(255,255,255,.032);letter-spacing:-.04em;
+  transform:rotate(-4deg);pointer-events:none;user-select:none;line-height:.9}
+.kicker{font-size:clamp(11px,1.05vw,14px);letter-spacing:.32em;text-transform:uppercase;
+  color:var(--cyan);font-weight:700;margin-bottom:18px;position:relative}
+h1{font-size:clamp(38px,6.4vw,86px);line-height:1.02;font-weight:800;letter-spacing:-.025em;position:relative}
+h1 .sub{display:block;color:var(--cyan);font-size:clamp(17px,2.3vw,32px);margin-top:.3em;letter-spacing:-.01em}
+header p.lead{font-size:clamp(16px,1.6vw,22px);color:var(--dim);max-width:60ch;margin-top:24px;position:relative}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(17px,1.8vw,26px);line-height:1.4;margin-top:28px;max-width:52ch;
+  border-left:3px solid var(--violet);padding-left:1em;position:relative}
+
+/* ---------- secciones ---------- */
+section{padding:clamp(34px,6vh,60px) 0}
+h2.sec{font-size:clamp(13px,1.15vw,15px);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;margin-bottom:22px}
+
+/* ---------- tarjetas de clase ---------- */
+.grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.clase{display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:24px 26px;transition:border-color .2s,transform .2s,box-shadow .2s;position:relative}
+.clase:hover{border-color:var(--cyan);transform:translateY(-3px);
+  box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 24px rgba(34,228,255,.10)}
+.clase .n{font-size:12px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;
+  color:var(--cyan);margin-bottom:12px}
+.clase h3{font-size:clamp(21px,2.2vw,30px);font-weight:800;letter-spacing:-.015em;margin-bottom:6px}
+.clase .med{font-size:clamp(13.5px,1.15vw,16px);color:var(--amber);font-weight:700;margin-bottom:12px}
+.clase p{font-size:clamp(14px,1.2vw,17px);color:var(--dim);line-height:1.5}
+.clase .ir{margin-top:16px;font-size:13px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);transition:color .2s}
+.clase:hover .ir{color:var(--cyan)}
+.clase .ir::after{content:" →"}
+
+/* ---------- tarjetas de recurso ---------- */
+.grid.rec{grid-template-columns:repeat(2,1fr)}
+@media(max-width:820px){.grid.rec{grid-template-columns:1fr}}
+.rec .clase{border-style:dashed}
+.rec .clase .n{color:var(--violet)}
+.rec .clase:hover{border-color:var(--violet);box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 24px rgba(201,160,255,.10)}
+.rec .clase:hover .ir{color:var(--violet)}
+
+/* ---------- clase todavía no publicada ---------- */
+.clase.pend{border-style:dashed;border-color:var(--line2);cursor:default;opacity:.72}
+.clase.pend:hover{border-color:var(--line2);transform:none;box-shadow:none}
+.clase.pend .n{color:var(--faint)}
+.clase.pend h3{color:var(--dim)}
+.clase.pend .med{color:var(--faint)}
+.clase.pend .ir{color:var(--faint)}
+.clase.pend .ir::after{content:""}
+.badge{display:inline-block;margin-left:10px;vertical-align:middle;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  color:var(--amber);border:1px solid rgba(255,201,60,.45);background:rgba(255,201,60,.08);
+  border-radius:20px;padding:3px 11px}
+
+/* ---------- pie ---------- */
+footer{border-top:1px solid var(--line);margin-top:40px;padding:32px 0 44px;
+  font-size:13.5px;color:var(--faint);line-height:1.7}
+footer em{color:var(--dim);font-style:italic}
+footer .cr{display:block;margin-top:10px;color:var(--dim);font-weight:700}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="marca">DUDA</div>
+  <div class="wrap">
+    <div class="kicker">Filosofía 5.º · Master College, CABA</div>
+    <h1>Descartes<span class="sub">Meditaciones metafísicas — el problema del conocimiento</span></h1>
+    <p class="lead">Cinco clases que siguen una sola escalera: la duda baja hasta el fondo derribando todo, y después el conocimiento vuelve a subir recuperando lo que había caído. Cada pantalla se recorre con las flechas del teclado.</p>
+    <div class="apho">Dudar no es no saber. Dudar es querer saber tanto que uno se atreve a perderlo todo primero.</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">Las clases</h2>
+    <div class="grid">
+
+      <a class="clase" href="clase-1-la-duda.html">
+        <div class="n">Clase 1</div>
+        <h3>La duda</h3>
+        <div class="med">Primera Meditación</div>
+        <p>Los argumentos con los que Descartes derriba todo, uno por uno y en el orden del texto: los sentidos, el sueño, el Dios engañador y el genio maligno. Con las tres características de la duda sistematizadas.</p>
+        <div class="ir">Entrar</div>
+      </a>
+
+      <a class="clase" href="clase-2-cogito-y-cera.html">
+        <div class="n">Clase 2</div>
+        <h3>El cogito y la cera</h3>
+        <div class="med">Segunda Meditación</div>
+        <p>La primera certeza y sus seis características. La <em>res cogitans</em> frente a la <em>res extensa</em>. Y el experimento de la cera paso a paso, hasta mostrar que quien conoce no es el sentido sino el entendimiento.</p>
+        <div class="ir">Entrar</div>
+      </a>
+
+      <a class="clase" href="clase-3-dios-y-el-error.html">
+        <div class="n">Clase 3</div>
+        <h3>Dios y el error</h3>
+        <div class="med">Tercera Meditación</div>
+        <p>Por qué hay que probar a Dios justo después del cogito. Realidad formal y realidad objetiva, las dos pruebas causales, las objeciones a la idea de infinito y el círculo cartesiano.</p>
+        <div class="ir">Entrar</div>
+      </a>
+
+      <a class="clase" href="clase-4-razon-y-argumento-ontologico.html">
+        <div class="n">Clase 4</div>
+        <h3>Por qué erramos</h3>
+        <div class="med">Cuarta y Quinta Meditación</div>
+        <p>Repaso del método, el criterio y la duda. De dónde sale el error: entendimiento finito, voluntad infinita, precipitación. Y el argumento ontológico, la segunda prueba de Dios.</p>
+        <div class="ir">Entrar</div>
+      </a>
+
+      <a class="clase" href="clase-5-el-mundo-y-el-dualismo.html">
+        <div class="n">Clase 5</div>
+        <h3>El mundo recuperado y el dualismo</h3>
+        <div class="med">Sexta Meditación</div>
+        <p>El último escalón: la prueba de que existen los cuerpos, la distinción real entre alma y cuerpo, y la nueva función de los sentidos, que ya no es conocer sino avisar.</p>
+        <div class="ir">Entrar</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">Otros materiales</h2>
+    <div class="grid rec">
+
+      <a class="clase" href="simulacion-la-cera.html">
+        <div class="n">Simulación 3D</div>
+        <h3>La cera y el entendimiento</h3>
+        <div class="med">Segunda Meditación</div>
+        <p>Cuatro momentos en 3D: la cera con sus cualidades, el fuego que se las lleva, la imaginación que no da abasto, y el despojamiento final. Se gira con el mouse y tiene sonido.</p>
+        <div class="ir">Abrir</div>
+      </a>
+
+      <a class="clase" href="tribunal-genio-vs-cogito.html">
+        <div class="n">Juego de argumentación</div>
+        <h3>El tribunal: el genio contra el cogito</h3>
+        <div class="med">Primera y Segunda Meditación</div>
+        <p>El genio maligno acusa y el cogito se defiende. El curso se divide en dos bancas y cada objeción sólo se gana con un argumento del texto, no con una definición aprendida de memoria.</p>
+        <div class="ir">Abrir</div>
+      </a>
+
+      <a class="clase" href="../../escape-cartesiano/">
+        <div class="n">Escape room</div>
+        <h3>El Edificio</h3>
+        <div class="med">Las seis Meditaciones</div>
+        <p>Seis pisos que se recorren en el orden en que Descartes derriba y reconstruye. Cada puerta se abre usando el argumento, no recordándolo. Arte, voces y acertijos viajan dentro de un solo archivo: corre sin internet y sin instalar nada.</p>
+        <div class="ir">Jugar</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Filosofía 5.º — Master College, CABA · Descartes, <em>Meditaciones metafísicas</em> · Material de clase.<br>
+    Citas en traducción estándar, marcadas por Meditación. Reconstrucción de argumentos según el resumen de cátedra de Filosofía Moderna (Mendoza Hurtado–Jáuregui, UBA) y los teóricos de C. Jáuregui (UBA, 2016).
+    <span class="cr">© Prof. Dan M. Mecikovsky</span>
+  </div>
+</footer>
+
+</body>
+</html>

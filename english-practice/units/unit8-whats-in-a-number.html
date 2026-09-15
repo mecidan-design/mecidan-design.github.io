@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Experience B1+ - Unit 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 70px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+/* ---------- header ---------- */
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+/* ---------- cards ---------- */
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+
+/* ---------- inputs ---------- */
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:7px 11px;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- passage + gaps ---------- */
+.passage{font-size:1.06rem;line-height:3.05;margin:0}
+.gapwrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px}
+.gline{display:flex;align-items:center;gap:5px}
+.gnum{
+  font-family:var(--head);font-size:.72rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.gapwrap input{width:132px;text-align:center}
+.cue{font-family:var(--head);font-size:.74rem;font-weight:700;color:var(--violet);line-height:1.1;margin-top:1px}
+
+/* ---------- explanation blocks ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 12px}
+.pitem{border-left:8px solid var(--violet);padding-left:12px;margin-bottom:16px}
+.pitem .ptop{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:2px}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+/* ---------- items (mcq / kwt) ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 17px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+.kwt .lead{font-size:1.04rem;margin:0 0 9px;line-height:1.5}
+.keyw{
+  font-family:var(--head);font-weight:800;letter-spacing:1.6px;background:var(--yellow);
+  border:3px solid #000;border-radius:8px;padding:2px 12px;display:inline-block;margin:0 0 10px;
+}
+.kwt .target{font-size:1.04rem;line-height:2.5}
+.kwt input{width:290px;max-width:100%}
+.wc{font-family:var(--head);font-size:.76rem;font-weight:700;color:#5b5b5b;margin-top:6px}
+.wc.bad{color:#c2004c}
+
+/* ---------- word formation (raiz debajo del hueco, en el propio texto) ---------- */
+.cue.root{
+  font-family:var(--head);font-weight:800;font-size:.7rem;letter-spacing:1.1px;
+  color:#000;background:var(--cyan);border:2px solid #000;border-radius:6px;
+  padding:0 7px;margin-top:2px;
+}
+#wfText .gapwrap input{width:150px}
+
+/* ---------- multiple-choice cloze ---------- */
+.mcgap{
+  display:inline-flex;align-items:center;gap:5px;vertical-align:middle;margin:0 3px;
+  border:3px solid #000;border-radius:11px;padding:3px 9px;background:#fffdf2;min-width:118px;
+}
+.mcgap.ok{background:#e4ffc4;border-color:#1c7a00}
+.mcgap.no{background:#ffe0ec;border-color:#c2004c}
+.mcpick{font-weight:600;font-size:.97rem}
+.mcpick.empty{color:#9a9a9a;letter-spacing:2px}
+.mcrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.mcrow .rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.mcrow .opt{font-size:.9rem;padding:5px 13px;box-shadow:2px 2px 0 #000}
+.mcrow .letter{font-family:var(--head);font-weight:800;margin-right:5px}
+
+/* ---------- warm-up ---------- */
+.card.warm{background:var(--ink);border-color:#000;box-shadow:10px 10px 0 var(--yellow)}
+.warm h2,.warm .sub{color:#fff}
+.warm .sub{color:#c9c9c9}
+.dots{display:flex;gap:7px;margin:14px 0 18px}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.warm .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px;margin-top:6px}
+.final{text-align:center;padding:14px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3.3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.25rem;margin-bottom:14px}
+.hidden{display:none}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>UNIT 8 &middot; WHAT'S IN A NUMBER?</h1>
+    <p>Unit 8 &bull; What is in a number? &bull; Use of English 1 &amp; 2</p>
+  </div>
+
+  <!-- ============ WARM-UP ============ -->
+  <section class="card warm" id="warmCard">
+    <span class="tag">Round 1</span>
+    <h2>Quick Warm-up</h2>
+    <p class="sub">One question at a time. Keep your streak alive.</p>
+    <div class="hud">
+      <span class="chip" id="wScore">Score 0</span>
+      <span class="chip streak" id="wStreak">Streak 0</span>
+    </div>
+    <div class="dots" id="wDots"></div>
+    <div id="wStage"></div>
+  </section>
+
+  <!-- ============ GAP-FILL ============ -->
+  <section class="card">
+    <span class="tag">Part 1</span>
+    <h2>Gap-fill</h2>
+    <p class="sub">Read the whole text first. Then write one or two words in each gap.</p>
+    <p class="passage" id="passage"></p>
+    <div class="btnrow">
+      <button class="btn" id="gapCheck">Check answers</button>
+      <button class="btn ghost" id="gapReset">Try again</button>
+      <span class="scoreline" id="gapScore"></span>
+    </div>
+    <div class="panel" id="gapPanel">
+      <h3>Answers &amp; explanations</h3>
+      <div id="gapPanelBody"></div>
+    </div>
+  </section>
+
+  <!-- ============ MULTIPLE CHOICE ============ -->
+  <section class="card">
+    <span class="tag">Part 2</span>
+    <h2>Multiple choice</h2>
+    <p class="sub">Choose the option that completes each sentence.</p>
+    <div id="mcqBox"></div>
+    <div class="btnrow">
+      <button class="btn" id="mcqCheck">Check answers</button>
+      <button class="btn ghost" id="mcqReset">Try again</button>
+      <span class="scoreline" id="mcqScore"></span>
+    </div>
+  </section>
+
+  <!-- ============ KEY WORD TRANSFORMATION ============ -->
+  <section class="card">
+    <span class="tag">Part 3</span>
+    <h2>Key word transformation</h2>
+    <p class="sub">Complete the second sentence so it means the same as the first. Use the word in capitals. Write between two and five words.</p>
+    <div id="kwtBox"></div>
+    <div class="btnrow">
+      <button class="btn" id="kwtCheck">Check answers</button>
+      <button class="btn ghost" id="kwtReset">Try again</button>
+      <span class="scoreline" id="kwtScore"></span>
+    </div>
+  </section>
+
+  <!-- ====== WORD FORMATION: articulo corrido con raices, como el libro (p58).
+             Se oculta solo si DATA.wordform no existe. ====== -->
+  <section class="card" id="wfCard" style="display:none">
+    <span class="tag">Part 4</span>
+    <h2>Word formation</h2>
+    <p class="sub">Complete the article with the correct form of the words in capitals.</p>
+    <p class="passage" id="wfText"></p>
+    <div class="btnrow">
+      <button class="btn" id="wfCheck">Check answers</button>
+      <button class="btn ghost" id="wfReset">Try again</button>
+      <span class="scoreline" id="wfScore"></span>
+    </div>
+    <div class="panel" id="wfPanel">
+      <h3>Answers &amp; explanations</h3>
+      <div id="wfPanelBody"></div>
+    </div>
+  </section>
+
+  <!-- ====== MULTIPLE-CHOICE CLOZE: articulo corrido + opciones A-D debajo,
+             como el libro (p114). Se oculta solo si DATA.mccloze no existe. ====== -->
+  <section class="card" id="mccCard" style="display:none">
+    <span class="tag">Part 5</span>
+    <h2>Multiple-choice cloze</h2>
+    <p class="sub">Read the article and choose the best answer (A, B, C or D) for each gap.</p>
+    <p class="passage" id="mccText"></p>
+    <div id="mccRows"></div>
+    <div class="btnrow">
+      <button class="btn" id="mccCheck">Check answers</button>
+      <button class="btn ghost" id="mccReset">Try again</button>
+      <span class="scoreline" id="mccScore"></span>
+    </div>
+    <div class="panel" id="mccPanel">
+      <h3>Answers &amp; explanations</h3>
+      <div id="mccPanelBody"></div>
+    </div>
+  </section>
+
+</div>
+
+<script id="data-block">
+/* ====== UNIT 8 - What's in a number? Gold Experience B1+ 2nd ed, p107-114.
+   Formatos copiados de las paginas reales:
+   - USE OF ENGLISH 1 (p113): OPEN CLOZE. Texto corrido, una palabra por hueco,
+     SIN ninguna pista. Grammar de la pagina: have/get something done.
+   - USE OF ENGLISH 2 (p114): MULTIPLE-CHOICE CLOZE. Articulo corrido con las
+     opciones A-D en filas debajo del texto.
+   Vocabulario de p111/p114: maths, sustantivos en -tion/-sion/-ment,
+   countable and uncountable nouns (work/works, exercise/exercises,
+   time/times, experience/experiences), facil y dificil (basic, advanced,
+   struggle, tough, tricky, nightmare, a piece of cake).
+   Todas las oraciones son originales. ====== */
+var DATA = {
+
+warmup: [
+  { q: "The results ___ next Friday.",
+    options: ["will announce","will be announced","announce"], correct: 1,
+    why: "The results do not announce anything. The school does it, so the results receive the action.",
+    tip: "Future passive is always will be plus the third form." },
+
+  { q: "We are ___ our kitchen painted next week.",
+    options: ["having","doing","making"], correct: 0,
+    why: "Somebody else will paint the kitchen for us, and that arrangement is have something done.",
+    tip: "have or get + the thing + third form. The third form always goes last: having the kitchen painted." },
+
+  { q: "How ___ homework do you usually get?",
+    options: ["many","much","few"], correct: 1,
+    why: "homework is uncountable, so we cannot count it one by one and we use much.",
+    tip: "homework, information, advice and furniture are always uncountable. They never take an s." },
+
+  { q: "Da Vinci produced many ___ of art.",
+    options: ["work","works","working"], correct: 1,
+    why: "Here work means separate pieces of art, and in that meaning it becomes countable: works.",
+    tip: "Some nouns change meaning when they become countable: work is a job, but works are pieces of art." },
+
+  { q: "Twenty ___ five equals four.",
+    options: ["divided by","times","minus"], correct: 0,
+    why: "Twenty divided by five gives four, so the phrase we need is divided by.",
+    tip: "The four operations in English: plus, minus, times, divided by." },
+
+  { q: "He ___ his phone stolen on the bus yesterday.",
+    options: ["had","got","made"], correct: 0,
+    why: "Losing the phone was bad and he did not ask for it, and in that case we use have, never get.",
+    tip: "get something done is fine for jobs you arrange. For something bad that happens to you, use had." }
+],
+
+/* OPEN CLOZE: sin cue en ningun hueco y una sola palabra por respuesta */
+passage: {
+  title: "The girl who counted",
+  text: "Ana was fourteen when she started counting things. It began {1} a school project about waste: her class had to record how much food {2} thrown away in the canteen every day. Ana expected a small number, {3} after two weeks the total was over sixty kilos. She showed the figures to the head teacher, who had them {4} on the school website. Within a month, three other schools in the city {5} started their own projects. Ana says the hardest part was not the maths; it was persuading adults {6} she was serious. People think you need {7} be an expert, she says. You do not. You just need to count. Her project has now been running {8} three years."
+},
+
+gaps: [
+  { cue: "", answers: ["as", "with"],
+    why: "begin as means that the project was the starting point of everything else.",
+    tip: "In an open cloze the missing word is usually small: a preposition, an article or a helping verb." },
+
+  { cue: "", answers: ["was"],
+    why: "The food does not throw itself away, so the sentence is passive and needs the helping verb was.",
+    tip: "If you can see a third form like thrown, look for a missing form of be in front of it." },
+
+  { cue: "", answers: ["but"],
+    why: "The real number was much bigger than she expected, so the two halves contrast.",
+    tip: "A surprise between the two halves of a sentence usually means but, however or yet." },
+
+  { cue: "", answers: ["published", "posted", "put"],
+    why: "She did not put the figures online herself. The head teacher arranged it, so this is have something done.",
+    tip: "had them plus a third form means somebody else did the job. The gap needs that third form." },
+
+  { cue: "", answers: ["had"],
+    why: "This happened before the moment we are describing, so we need had plus the third form started.",
+    tip: "Within a month points back to an earlier moment, so the past perfect fits." },
+
+  { cue: "", answers: ["that"],
+    why: "persuade somebody that introduces the idea we want them to believe.",
+    tip: "After persuade, tell or convince plus a person, a whole clause starts with that." },
+
+  { cue: "", answers: ["to"],
+    why: "need is followed by to plus the verb.",
+    tip: "Watch for verbs that always take to: need to, want to, decide to, hope to." },
+
+  { cue: "", answers: ["for"],
+    why: "for plus a period of time says how long the project has lasted.",
+    tip: "for plus a length of time, since plus the moment it started: for three years, since 2023." }
+],
+
+mcq: [
+  { q: "I have got a lot of ___ with this kind of software.",
+    options: ["experiences","experience","experienced"], correct: 1,
+    why: "Here experience means knowledge you build up over time, and in that meaning it is uncountable.",
+    tip: "experience is uncountable when it means knowledge, but countable when it means separate events." },
+
+  { q: "There was not much ___ on the bus, so we stood.",
+    options: ["room","rooms","a room"], correct: 0,
+    why: "Here room means space, and in that meaning it is uncountable, so it takes much and no s.",
+    tip: "room is space when uncountable, but a part of a house when countable." },
+
+  { q: "How many ___ do I have to explain this?",
+    options: ["time","times","timing"], correct: 1,
+    why: "Here we count separate occasions, and in that meaning time becomes countable: times.",
+    tip: "many always needs a countable plural. If you see many, the noun must end in s." },
+
+  { q: "This form must ___ in black ink.",
+    options: ["complete","be completed","completing"], correct: 1,
+    why: "The form does not complete itself, and after a modal the passive is be plus the third form.",
+    tip: "modal + be + third form never changes: must be completed, should be sent, can be seen." },
+
+  { q: "We are going to ___ the car serviced before the trip.",
+    options: ["get","make","let"], correct: 0,
+    why: "A mechanic will do the job for us, and get something done is the everyday way of saying that.",
+    tip: "get something done and have something done mean the same. get sounds more spoken." }
+],
+
+kwt: [
+  { lead: "A dentist checked my teeth yesterday.", key: "HAD",
+    before: "I", after: "yesterday.",
+    answers: ["had my teeth checked"],
+    why: "I did not check my own teeth. I arranged for the dentist to do it, so we use had plus my teeth plus the third form.",
+    tip: "The order never changes: had + the thing + third form. The third form goes at the end." },
+
+  { lead: "Somebody will repair our machine today.", key: "GET",
+    before: "We", after: "repaired today.",
+    answers: ["will get our machine"],
+    why: "Somebody else does the repair for us, so we use get plus the machine plus the third form repaired.",
+    tip: "The key word GET tells you to build get something done, not a normal passive." },
+
+  { lead: "Somebody has painted the gate.", key: "BEEN",
+    before: "The gate", after: "recently.",
+    answers: ["has been painted"],
+    why: "The gate receives the action and the result still matters now, so we use has been plus the third form.",
+    tip: "Present perfect passive is has or have + been + third form. The key word BEEN confirms it." },
+
+  { lead: "They are building a new library in our street.", key: "BEING",
+    before: "A new library", after: "in our street.",
+    answers: ["is being built"],
+    why: "The work is happening right now and the library receives it, so the passive is is being plus the third form.",
+    tip: "Present continuous passive is is or are + being + third form." },
+
+  { lead: "A sixteen-year-old student wrote this song.", key: "BY",
+    before: "This song", after: "a sixteen-year-old student.",
+    answers: ["was written by"],
+    why: "The song receives the action, and by introduces the person who did it.",
+    tip: "Use by only when the person who did the action really matters. Otherwise leave them out." },
+
+  { lead: "There is not a lot of information on that website.", key: "MUCH",
+    before: "There", after: "on that website.",
+    answers: ["is not much information", "isn't much information"],
+    why: "information is uncountable, so a lot of becomes much in this negative sentence.",
+    tip: "much fits negatives and questions. In positive sentences we normally prefer a lot of." }
+],
+
+mccloze: {
+  text: "I joined the school maths club last September, mostly because my best friend {1} me into it. I had always thought of myself as somebody who was hopeless with numbers, so the first few weeks were a real {2}. The other members could solve problems in their heads while I was still copying the question down. Our teacher told me that about ninety {3} of people who feel this way have simply been taught badly. She gave me a set of {4} exercises to start with, and promised I could move on to the advanced ones later. Slowly things began to {5} sense. By December I could handle {6} that would have terrified me in September, and I even started to {7} forward to the harder puzzles. It turns out I am not bad at maths. I just needed a different {8}.",
+  items: [
+    { options: ["talked","spoke","said","told"], correct: 0,
+      why: "talk somebody into something means to persuade them to do it. The other three verbs do not take into.",
+      tip: "In this task the answer is often fixed by the small word after the gap. Here into decides it." },
+
+    { options: ["trouble","struggle","bother","difficulty"], correct: 1,
+      why: "a real struggle is the natural phrase for weeks that were hard work. trouble and difficulty do not follow a real in this way.",
+      tip: "All four options can mean something hard. Choose the one that sounds normal with the words around it." },
+
+    { options: ["fraction","area","percentage","measurement"], correct: 2,
+      why: "ninety per cent is a percentage, because we are giving a number out of a hundred.",
+      tip: "Learn the number words as a family: percentage, fraction, decimal, average, total." },
+
+    { options: ["basic","tough","confusing","tricky"], correct: 0,
+      why: "The next words say she could move on to the advanced ones later, and the opposite of advanced is basic.",
+      tip: "Look for the contrast in the sentence. Here advanced tells you the answer must mean easy." },
+
+    { options: ["do","make","take","have"], correct: 1,
+      why: "make sense is a fixed phrase. We never say do sense or take sense.",
+      tip: "Collocations with make and do have to be learnt one by one: make sense, make a mistake, do your homework." },
+
+    { options: ["work","works","exercise","exercises"], correct: 3,
+      why: "Here we mean separate maths tasks, and in that meaning exercise is countable, so it takes an s.",
+      tip: "exercise without s is sport or movement. exercises with s are tasks on a page." },
+
+    { options: ["look","see","watch","wait"], correct: 0,
+      why: "look forward to something means to feel happy about something that is coming.",
+      tip: "The word forward after the gap only fits look. Read the words on both sides before choosing." },
+
+    { options: ["explanation","explaining","explained","explains"], correct: 0,
+      why: "After a different we need a noun, and the noun from explain is explanation.",
+      tip: "-tion turns a verb into a noun: explain and explanation, educate and education, decide and decision." }
+  ]
+}
+
+};
+</script>
+
+<script id="engine-block">
+(function(){
+"use strict";
+
+/* ===== registries: the DOM only ever stores a numeric index ===== */
+var REG = { gap: [], mcq: [], kwt: [], warm: [], wf: [], mcc: [] };
+
+/* ===== helpers ===== */
+function normalize(s){
+  return String(s).toLowerCase()
+    .replace(/[‘’ʼ]/g, "'")
+    .replace(/[^a-z0-9' ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function countWords(s){
+  s = String(s).replace(/\bcannot\b/gi, "can not");
+  var t = String(s).toLowerCase().replace(/[‘’ʼ]/g, "'");
+  t = t.replace(/n't\b/g, " not")
+       .replace(/'ll\b/g, " will")
+       .replace(/'re\b/g, " are")
+       .replace(/'ve\b/g, " have")
+       .replace(/'m\b/g, " am")
+       .replace(/'d\b/g, " would");
+  t = t.replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  return t === "" ? 0 : t.split(" ").length;
+}
+
+function matches(given, list){
+  var g = normalize(given);
+  if(g === "") return false;
+  for(var i = 0; i < list.length; i++){ if(normalize(list[i]) === g) return true; }
+  return false;
+}
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+
+/* Why + Exam tip block. Always shown, right or wrong. */
+function explainBox(ok, answerText, why, tip, extraNote){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answerText){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", "Answer: " + answerText));
+    box.appendChild(p0);
+  }
+  if(extraNote){
+    var pn = el("p");
+    pn.appendChild(el("b", "lab tip", "Length"));
+    pn.appendChild(document.createTextNode(extraNote));
+    box.appendChild(pn);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+function clearExp(scope){
+  var old = scope.querySelectorAll(".exp");
+  for(var i = 0; i < old.length; i++){ old[i].parentNode.removeChild(old[i]); }
+}
+
+/* ============================================================
+   PART 1 - GAP-FILL (explanations go in a panel under the text)
+   ============================================================ */
+var passageEl   = document.getElementById("passage");
+var gapPanel    = document.getElementById("gapPanel");
+var gapPanelBod = document.getElementById("gapPanelBody");
+var gapScoreEl  = document.getElementById("gapScore");
+
+function renderPassage(){
+  passageEl.innerHTML = "";
+  REG.gap.length = 0;
+  var chunks = DATA.passage.text.split(/\{(\d+)\}/);
+  for(var i = 0; i < chunks.length; i++){
+    if(i % 2 === 0){
+      if(chunks[i]) passageEl.appendChild(document.createTextNode(chunks[i]));
+    } else {
+      var num = parseInt(chunks[i], 10);
+      var data = DATA.gaps[num - 1];
+      var id = REG.gap.push({ num: num, data: data }) - 1;
+
+      var wrap = el("span", "gapwrap");
+      var line = el("span", "gline");
+      line.appendChild(el("b", "gnum", String(num)));
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.setAttribute("data-gid", String(id));
+      inp.setAttribute("autocomplete", "off");
+      inp.setAttribute("spellcheck", "false");
+      line.appendChild(inp);
+      wrap.appendChild(line);
+      /* sin cue = open cloze: el hueco va limpio, como en el libro */
+      if(data.cue) wrap.appendChild(el("span", "cue", data.cue));
+      passageEl.appendChild(wrap);
+    }
+  }
+}
+
+function checkGaps(){
+  var inputs = passageEl.querySelectorAll("input[data-gid]");
+  var right = 0;
+  gapPanelBod.innerHTML = "";
+  for(var i = 0; i < inputs.length; i++){
+    var inp = inputs[i];
+    var entry = REG.gap[parseInt(inp.getAttribute("data-gid"), 10)];
+    var d = entry.data;
+    var ok = matches(inp.value, d.answers);
+    if(ok) right++;
+    inp.className = ok ? "ok" : "no";
+
+    var item = el("div", "pitem");
+    var top = el("div", "ptop");
+    top.appendChild(document.createTextNode("Gap " + entry.num));
+    top.appendChild(el("span", "mark " + (ok ? "y" : "n"), ok ? "correct" : "not yet"));
+    item.appendChild(top);
+    var shown = d.answers[0];
+    if(d.answers.length > 1) shown += "  (also: " + d.answers.slice(1).join(" / ") + ")";
+    item.appendChild(explainBox(ok, shown, d.why, d.tip, null));
+    gapPanelBod.appendChild(item);
+  }
+  gapPanel.style.display = "block";
+  gapScoreEl.textContent = right + " / " + inputs.length;
+}
+
+function resetGaps(){
+  renderPassage();
+  gapPanel.style.display = "none";
+  gapPanelBod.innerHTML = "";
+  gapScoreEl.textContent = "";
+}
+
+/* ============================================================
+   PART 2 - MULTIPLE CHOICE (explanation sits under each item)
+   ============================================================ */
+var mcqBox = document.getElementById("mcqBox");
+var mcqScoreEl = document.getElementById("mcqScore");
+
+function renderMCQ(){
+  mcqBox.innerHTML = "";
+  REG.mcq.length = 0;
+  for(var i = 0; i < DATA.mcq.length; i++){
+    var d = DATA.mcq[i];
+    var id = REG.mcq.push({ data: d, picked: -1 }) - 1;
+
+    var item = el("div", "item");
+    item.setAttribute("data-mid", String(id));
+    item.appendChild(el("p", "q", (i + 1) + ".  " + d.q));
+
+    var opts = el("div", "opts");
+    for(var j = 0; j < d.options.length; j++){
+      var b = el("button", "opt", d.options[j]);
+      b.type = "button";
+      b.setAttribute("data-mid", String(id));
+      b.setAttribute("data-opt", String(j));
+      b.addEventListener("click", pickMCQ);
+      opts.appendChild(b);
+    }
+    item.appendChild(opts);
+    mcqBox.appendChild(item);
+  }
+}
+
+function pickMCQ(ev){
+  var b = ev.currentTarget;
+  var id = parseInt(b.getAttribute("data-mid"), 10);
+  var j = parseInt(b.getAttribute("data-opt"), 10);
+  if(REG.mcq[id].locked) return;
+  REG.mcq[id].picked = j;
+  var sibs = b.parentNode.querySelectorAll(".opt");
+  for(var k = 0; k < sibs.length; k++){ sibs[k].classList.remove("sel"); }
+  b.classList.add("sel");
+}
+
+function checkMCQ(){
+  var items = mcqBox.querySelectorAll(".item");
+  var right = 0;
+  clearExp(mcqBox);
+  for(var i = 0; i < items.length; i++){
+    var item = items[i];
+    var entry = REG.mcq[parseInt(item.getAttribute("data-mid"), 10)];
+    var d = entry.data;
+    entry.locked = true;
+    var ok = entry.picked === d.correct;
+    if(ok) right++;
+    var btns = item.querySelectorAll(".opt");
+    for(var j = 0; j < btns.length; j++){
+      btns[j].disabled = true;
+      btns[j].classList.remove("sel");
+      if(j === d.correct) btns[j].classList.add("good");
+      else if(j === entry.picked) btns[j].classList.add("bad");
+    }
+    item.appendChild(explainBox(ok, d.options[d.correct], d.why, d.tip, null));
+  }
+  mcqScoreEl.textContent = right + " / " + items.length;
+}
+
+function resetMCQ(){
+  renderMCQ();
+  mcqScoreEl.textContent = "";
+}
+
+/* ============================================================
+   PART 3 - KEY WORD TRANSFORMATION (two to five words)
+   ============================================================ */
+var kwtBox = document.getElementById("kwtBox");
+var kwtScoreEl = document.getElementById("kwtScore");
+
+function renderKWT(){
+  kwtBox.innerHTML = "";
+  REG.kwt.length = 0;
+  for(var i = 0; i < DATA.kwt.length; i++){
+    var d = DATA.kwt[i];
+    var id = REG.kwt.push({ data: d }) - 1;
+
+    var item = el("div", "item kwt");
+    item.setAttribute("data-kid", String(id));
+    item.appendChild(el("p", "lead", (i + 1) + ".  " + d.lead));
+    item.appendChild(el("div", "keyw", d.key));
+
+    var line = el("div", "target");
+    line.appendChild(document.createTextNode(d.before + " "));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.setAttribute("data-kid", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    line.appendChild(document.createTextNode(" " + d.after));
+    item.appendChild(line);
+
+    var wc = el("div", "wc", "words: 0  (you need 2 - 5)");
+    item.appendChild(wc);
+    inp.addEventListener("input", function(ev){
+      var n = countWords(ev.currentTarget.value);
+      var box = ev.currentTarget.parentNode.parentNode.querySelector(".wc");
+      box.textContent = "words: " + n + "  (you need 2 - 5)";
+      box.className = (n >= 2 && n <= 5) ? "wc" : "wc bad";
+    });
+
+    kwtBox.appendChild(item);
+  }
+}
+
+function checkKWT(){
+  var items = kwtBox.querySelectorAll(".item");
+  var right = 0;
+  clearExp(kwtBox);
+  for(var i = 0; i < items.length; i++){
+    var item = items[i];
+    var entry = REG.kwt[parseInt(item.getAttribute("data-kid"), 10)];
+    var d = entry.data;
+    var inp = item.querySelector("input");
+    var n = countWords(inp.value);
+    var ok = matches(inp.value, d.answers) && n >= 2 && n <= 5;
+    if(ok) right++;
+    inp.className = ok ? "ok" : "no";
+
+    var note = null;
+    if(inp.value.trim() !== "" && (n < 2 || n > 5)){
+      note = "Your answer has " + n + " words. Remember that short forms count as two: don't = do + not.";
+    }
+    var shown = d.answers[0] + "  (" + countWords(d.answers[0]) + " words)";
+    if(d.answers.length > 1) shown += "  (also: " + d.answers.slice(1).join(" / ") + ")";
+    item.appendChild(explainBox(ok, shown, d.why, d.tip, note));
+  }
+  kwtScoreEl.textContent = right + " / " + items.length;
+}
+
+function resetKWT(){
+  renderKWT();
+  kwtScoreEl.textContent = "";
+}
+
+/* ============================================================
+   WARM-UP - one question at a time, score and streak
+   ============================================================ */
+var wStage = document.getElementById("wStage");
+var wDots  = document.getElementById("wDots");
+var wScore = document.getElementById("wScore");
+var wStreak = document.getElementById("wStreak");
+var W = { i: 0, score: 0, streak: 0, best: 0, results: [] };
+
+function drawDots(){
+  wDots.innerHTML = "";
+  for(var i = 0; i < DATA.warmup.length; i++){
+    var cls = "dot";
+    if(W.results[i] === true) cls += " y";
+    else if(W.results[i] === false) cls += " n";
+    if(i === W.i) cls += " now";
+    wDots.appendChild(el("span", cls));
+  }
+}
+
+function drawHUD(){
+  wScore.textContent = "Score " + W.score;
+  wStreak.textContent = "Streak " + W.streak;
+}
+
+function warmQuestion(){
+  drawDots();
+  drawHUD();
+  wStage.innerHTML = "";
+  REG.warm.length = 0;
+
+  var d = DATA.warmup[W.i];
+  var id = REG.warm.push({ data: d }) - 1;
+
+  var box = el("div", "qbox");
+  box.appendChild(el("p", "q", "Q" + (W.i + 1) + " of " + DATA.warmup.length + ".  " + d.q));
+  var opts = el("div", "opts");
+  for(var j = 0; j < d.options.length; j++){
+    var b = el("button", "opt", d.options[j]);
+    b.type = "button";
+    b.setAttribute("data-wid", String(id));
+    b.setAttribute("data-opt", String(j));
+    b.addEventListener("click", answerWarm);
+    opts.appendChild(b);
+  }
+  box.appendChild(opts);
+  wStage.appendChild(box);
+}
+
+function answerWarm(ev){
+  var b = ev.currentTarget;
+  var entry = REG.warm[parseInt(b.getAttribute("data-wid"), 10)];
+  var d = entry.data;
+  var j = parseInt(b.getAttribute("data-opt"), 10);
+  var ok = j === d.correct;
+
+  var box = b.parentNode.parentNode;
+  var btns = box.querySelectorAll(".opt");
+  for(var k = 0; k < btns.length; k++){
+    btns[k].disabled = true;
+    if(k === d.correct) btns[k].classList.add("good");
+    else if(k === j) btns[k].classList.add("bad");
+  }
+
+  W.results[W.i] = ok;
+  if(ok){
+    W.score++;
+    W.streak++;
+    if(W.streak > W.best) W.best = W.streak;
+  } else {
+    W.streak = 0;
+  }
+  drawHUD();
+  drawDots();
+
+  box.appendChild(explainBox(ok, d.options[d.correct], d.why, d.tip, null));
+
+  var row = el("div", "btnrow");
+  var next = el("button", "btn", W.i === DATA.warmup.length - 1 ? "See my result" : "Next question");
+  next.type = "button";
+  next.addEventListener("click", function(){
+    if(W.i === DATA.warmup.length - 1){ warmFinal(); }
+    else { W.i++; warmQuestion(); }
+  });
+  row.appendChild(next);
+  box.appendChild(row);
+}
+
+function warmFinal(){
+  W.i = -1;
+  drawDots();
+  var total = DATA.warmup.length;
+  var msg;
+  if(W.score === total) msg = "Perfect. Every single one.";
+  else if(W.score >= total - 1) msg = "Really strong. Almost perfect.";
+  else if(W.score >= total / 2) msg = "Good work. Now read the tips again.";
+  else msg = "Warm-up done. The tips below are where your points are.";
+
+  wStage.innerHTML = "";
+  var f = el("div", "final");
+  f.appendChild(el("div", "big", W.score + " / " + total));
+  f.appendChild(el("div", "msg", msg));
+  f.appendChild(el("div", "msg", "Best streak: " + W.best));
+  var again = el("button", "btn ghost", "Play again");
+  again.type = "button";
+  again.addEventListener("click", startWarm);
+  f.appendChild(again);
+  wStage.appendChild(f);
+}
+
+function startWarm(){
+  W = { i: 0, score: 0, streak: 0, best: 0, results: [] };
+  warmQuestion();
+}
+
+/* ============================================================
+   PART 4 - WORD FORMATION (optional: only if DATA.wordform exists)
+   ============================================================ */
+var wfCard = document.getElementById("wfCard");
+var wfText = document.getElementById("wfText");
+var wfPanel = document.getElementById("wfPanel");
+var wfPanelBody = document.getElementById("wfPanelBody");
+var wfScoreEl = document.getElementById("wfScore");
+
+/* Recorre un texto con marcadores {n} y deja que quien llama arme cada hueco. */
+function buildGappedText(container, text, makeGap){
+  container.innerHTML = "";
+  var chunks = String(text).split(/\{(\d+)\}/);
+  for(var i = 0; i < chunks.length; i++){
+    if(i % 2 === 0){
+      if(chunks[i]) container.appendChild(document.createTextNode(chunks[i]));
+    } else {
+      container.appendChild(makeGap(parseInt(chunks[i], 10)));
+    }
+  }
+}
+
+/* Panel numerado debajo del texto. Lo comparten todas las secciones de
+   texto corrido, para no pegar explicaciones al lado de cada hueco. */
+function fillPanel(body, entries){
+  body.innerHTML = "";
+  for(var i = 0; i < entries.length; i++){
+    var e = entries[i];
+    var item = el("div", "pitem");
+    var top = el("div", "ptop");
+    top.appendChild(document.createTextNode("Gap " + e.num));
+    top.appendChild(el("span", "mark " + (e.ok ? "y" : "n"), e.ok ? "correct" : "not yet"));
+    item.appendChild(top);
+    item.appendChild(explainBox(e.ok, e.shown, e.why, e.tip, null));
+    body.appendChild(item);
+  }
+}
+
+function hasWF(){ return DATA.wordform && Array.isArray(DATA.wordform.items) && DATA.wordform.items.length > 0; }
+
+function renderWF(){
+  if(!hasWF()){ wfCard.style.display = "none"; return; }
+  wfCard.style.display = "";
+  REG.wf.length = 0;
+  buildGappedText(wfText, DATA.wordform.text, function(num){
+    var d = DATA.wordform.items[num - 1];
+    var id = REG.wf.push({ num: num, data: d }) - 1;
+    var wrap = el("span", "gapwrap");
+    var line = el("span", "gline");
+    line.appendChild(el("b", "gnum", String(num)));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.setAttribute("data-wfid", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    wrap.appendChild(line);
+    wrap.appendChild(el("span", "cue root", d.root));
+    return wrap;
+  });
+  wfPanel.style.display = "none";
+  wfPanelBody.innerHTML = "";
+  wfScoreEl.textContent = "";
+}
+
+function checkWF(){
+  if(!hasWF()) return;
+  var inputs = wfText.querySelectorAll("input[data-wfid]");
+  var right = 0, rows = [];
+  for(var i = 0; i < inputs.length; i++){
+    var inp = inputs[i];
+    var entry = REG.wf[parseInt(inp.getAttribute("data-wfid"), 10)];
+    var d = entry.data;
+    var ok = matches(inp.value, d.answers);
+    if(ok) right++;
+    inp.className = ok ? "ok" : "no";
+    var shown = d.answers[0] + "  (from " + d.root + ")";
+    if(d.answers.length > 1) shown += "  (also: " + d.answers.slice(1).join(" / ") + ")";
+    rows.push({ num: entry.num, ok: ok, shown: shown, why: d.why, tip: d.tip });
+  }
+  fillPanel(wfPanelBody, rows);
+  wfPanel.style.display = "block";
+  wfScoreEl.textContent = right + " / " + inputs.length;
+}
+
+function resetWF(){ renderWF(); }
+
+/* ============================================================
+   PART 5 - MULTIPLE-CHOICE CLOZE (optional: only if DATA.mccloze exists)
+   Articulo corrido con huecos + filas de opciones A-D debajo.
+   ============================================================ */
+var mccCard = document.getElementById("mccCard");
+var mccText = document.getElementById("mccText");
+var mccRows = document.getElementById("mccRows");
+var mccPanel = document.getElementById("mccPanel");
+var mccPanelBody = document.getElementById("mccPanelBody");
+var mccScoreEl = document.getElementById("mccScore");
+var LETTERS = ["A", "B", "C", "D", "E"];
+
+function hasMCC(){ return DATA.mccloze && Array.isArray(DATA.mccloze.items) && DATA.mccloze.items.length > 0; }
+
+function renderMCC(){
+  if(!hasMCC()){ mccCard.style.display = "none"; return; }
+  mccCard.style.display = "";
+  REG.mcc.length = 0;
+  mccRows.innerHTML = "";
+
+  buildGappedText(mccText, DATA.mccloze.text, function(num){
+    var d = DATA.mccloze.items[num - 1];
+    var id = REG.mcc.push({ num: num, data: d, picked: -1 }) - 1;
+    var span = el("span", "mcgap");
+    span.setAttribute("data-mccid", String(id));
+    span.appendChild(el("b", "gnum", String(num)));
+    span.appendChild(el("span", "mcpick empty", "______"));
+    return span;
+  });
+
+  for(var i = 0; i < REG.mcc.length; i++){
+    var entry = REG.mcc[i];
+    var row = el("div", "mcrow");
+    row.setAttribute("data-mccid", String(i));
+    row.appendChild(el("b", "rn", String(entry.num)));
+    for(var j = 0; j < entry.data.options.length; j++){
+      var b = el("button", "opt");
+      b.type = "button";
+      b.appendChild(el("span", "letter", LETTERS[j]));
+      b.appendChild(document.createTextNode(entry.data.options[j]));
+      b.setAttribute("data-mccid", String(i));
+      b.setAttribute("data-opt", String(j));
+      b.addEventListener("click", pickMCC);
+      row.appendChild(b);
+    }
+    mccRows.appendChild(row);
+  }
+  mccPanel.style.display = "none";
+  mccPanelBody.innerHTML = "";
+  mccScoreEl.textContent = "";
+}
+
+function pickMCC(ev){
+  var b = ev.currentTarget;
+  var id = parseInt(b.getAttribute("data-mccid"), 10);
+  var j = parseInt(b.getAttribute("data-opt"), 10);
+  var entry = REG.mcc[id];
+  if(entry.locked) return;
+  entry.picked = j;
+  var sibs = b.parentNode.querySelectorAll(".opt");
+  for(var k = 0; k < sibs.length; k++){ sibs[k].classList.remove("sel"); }
+  b.classList.add("sel");
+  var pick = mccText.querySelector('.mcgap[data-mccid="' + id + '"] .mcpick');
+  pick.textContent = entry.data.options[j];
+  pick.className = "mcpick";
+}
+
+function checkMCC(){
+  if(!hasMCC()) return;
+  var right = 0, rows = [];
+  for(var i = 0; i < REG.mcc.length; i++){
+    var entry = REG.mcc[i];
+    var d = entry.data;
+    entry.locked = true;
+    var ok = entry.picked === d.correct;
+    if(ok) right++;
+
+    var row = mccRows.querySelector('.mcrow[data-mccid="' + i + '"]');
+    var btns = row.querySelectorAll(".opt");
+    for(var j = 0; j < btns.length; j++){
+      btns[j].disabled = true;
+      btns[j].classList.remove("sel");
+      if(j === d.correct) btns[j].classList.add("good");
+      else if(j === entry.picked) btns[j].classList.add("bad");
+    }
+
+    var gap = mccText.querySelector('.mcgap[data-mccid="' + i + '"]');
+    gap.className = "mcgap " + (ok ? "ok" : "no");
+    var pick = gap.querySelector(".mcpick");
+    pick.textContent = d.options[d.correct];
+    pick.className = "mcpick";
+
+    rows.push({ num: entry.num, ok: ok,
+                shown: LETTERS[d.correct] + "  " + d.options[d.correct],
+                why: d.why, tip: d.tip });
+  }
+  fillPanel(mccPanelBody, rows);
+  mccPanel.style.display = "block";
+  mccScoreEl.textContent = right + " / " + REG.mcc.length;
+}
+
+function resetMCC(){ renderMCC(); }
+
+/* ===== wiring ===== */
+document.getElementById("gapCheck").addEventListener("click", checkGaps);
+document.getElementById("gapReset").addEventListener("click", resetGaps);
+document.getElementById("mcqCheck").addEventListener("click", checkMCQ);
+document.getElementById("mcqReset").addEventListener("click", resetMCQ);
+document.getElementById("kwtCheck").addEventListener("click", checkKWT);
+document.getElementById("kwtReset").addEventListener("click", resetKWT);
+document.getElementById("wfCheck").addEventListener("click", checkWF);
+document.getElementById("wfReset").addEventListener("click", resetWF);
+document.getElementById("mccCheck").addEventListener("click", checkMCC);
+document.getElementById("mccReset").addEventListener("click", resetMCC);
+
+renderPassage();
+renderMCQ();
+renderKWT();
+renderWF();
+renderMCC();
+startWarm();
+})();
+</script>
+<footer style="position:relative;z-index:9999;clear:both;display:block;margin:28px auto 0;padding:14px 20px 26px;max-width:1100px;border-top:1px solid rgba(128,128,128,.35);font:12px/1.5 system-ui,sans-serif;letter-spacing:.05em;text-align:center;opacity:.75">Copyright Prof Dan M. Mecikovsky</footer>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Passive: which BE?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 70px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:900px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.4deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.35deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.25deg)}
+.card.dark{background:var(--ink);color:#fff}
+.card.dark h2{color:#fff}
+.card.alert{background:#fff0f5}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.8rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.5rem;margin:.1rem 0 .5rem;line-height:1.15}
+.sub{font-size:.95rem;color:#4a4a4a;margin:0 0 16px;line-height:1.5}
+.card.dark .sub{color:#c9c9c9}
+
+/* ---------- la regla grande ---------- */
+.bigrule{
+  font-family:var(--head);font-weight:800;font-size:clamp(1.15rem,3.6vw,1.6rem);
+  line-height:1.3;margin:0 0 16px;
+}
+.bigrule .hl{background:var(--lime);border:3px solid #000;border-radius:9px;padding:0 9px;display:inline-block}
+.bigrule .hl2{background:var(--cyan);border:3px solid #000;border-radius:9px;padding:0 9px;display:inline-block}
+
+.demo{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch;margin-top:6px}
+.demoside{
+  flex:1 1 260px;border:3px solid #000;border-radius:16px;padding:13px 15px;background:#fffdf2;
+}
+.demoside.p{background:#f0ffe0}
+.demolab{
+  font-family:var(--head);font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;
+  border:2px solid #000;border-radius:999px;padding:1px 10px;display:inline-block;margin-bottom:8px;
+}
+.demolab.a{background:#ffc2d8}
+.demolab.p{background:var(--lime)}
+.sent{font-size:1.1rem;line-height:1.9;font-weight:500}
+.be{background:var(--lime);border:2px solid #000;border-radius:7px;padding:1px 7px;font-weight:700}
+.pp{border-bottom:4px solid var(--violet);font-weight:700}
+.frozen{background:#e6e0ff;border:2px dashed #000;border-radius:7px;padding:1px 7px;font-weight:700}
+.mini{font-family:var(--head);font-size:.76rem;font-weight:700;color:var(--violet);margin-top:7px}
+
+/* ---------- pasos ---------- */
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.stepn{
+  font-family:var(--head);font-weight:800;font-size:1.1rem;color:#fff;background:var(--violet);
+  border:3px solid #000;border-radius:50%;width:38px;height:38px;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+}
+.steptxt{font-size:1rem;line-height:1.5;padding-top:5px}
+.steptxt b{font-family:var(--head)}
+
+/* ---------- tabla de tiempos ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.chip:hover{background:#fff9c9}
+.chip.on{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+
+.tablewrap{overflow-x:auto;border:3px solid #000;border-radius:16px}
+table{border-collapse:collapse;width:100%;min-width:560px;background:#fff}
+th,td{padding:9px 12px;text-align:left;border-bottom:2px solid #000;font-size:.95rem;line-height:1.45}
+th{font-family:var(--head);font-size:.82rem;text-transform:uppercase;letter-spacing:.8px;background:var(--yellow)}
+tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:#faf7ff}
+td.tname{font-family:var(--head);font-weight:700;white-space:nowrap}
+
+/* ---------- la palabra extra ---------- */
+.extras{display:flex;flex-wrap:wrap;gap:12px}
+.extra{
+  flex:1 1 200px;border:3px solid #000;border-radius:16px;padding:13px 15px;background:#fffdf2;
+}
+.extra .w{
+  font-family:var(--head);font-weight:800;font-size:1.35rem;background:var(--cyan);
+  border:3px solid #000;border-radius:10px;padding:1px 12px;display:inline-block;margin-bottom:8px;
+}
+.extra .w.none{background:var(--yellow)}
+.extra p{margin:0;font-size:.92rem;line-height:1.5}
+.extra .ex{font-weight:600;margin-top:7px;display:block}
+
+/* ---------- errores ---------- */
+.wrongs{display:flex;flex-direction:column;gap:10px}
+.wrong{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:1rem}
+.x,.v{
+  font-family:var(--head);font-weight:800;font-size:.78rem;border:2px solid #000;border-radius:999px;
+  padding:1px 10px;flex:0 0 auto;
+}
+.x{background:#ffc2d8}
+.v{background:var(--lime)}
+.bad{text-decoration:line-through;text-decoration-color:#c2004c;text-decoration-thickness:2px}
+.wsep{font-family:var(--head);font-weight:800;color:var(--violet)}
+
+/* ---------- cierre ---------- */
+.final{text-align:center;padding:6px 0}
+.final .line{
+  font-family:var(--head);font-weight:800;font-size:clamp(1.05rem,3.2vw,1.45rem);
+  line-height:1.55;color:#fff;
+}
+.final .line span{background:var(--pink);border:3px solid #000;border-radius:10px;padding:1px 10px;display:inline-block;margin:4px 2px}
+.final .line span.c{background:var(--cyan);color:#000}
+.final .line span.y{background:var(--yellow);color:#000}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>THE PASSIVE &middot; WHICH <em>BE</em>?</h1>
+    <p>One rule, three steps, and the four words that give it away</p>
+  </div>
+
+  <!-- ============ 1. la regla ============ -->
+  <section class="card">
+    <span class="tag">The one rule</span>
+    <h2>The tense lives on BE</h2>
+    <p class="bigrule">
+      In a passive sentence, <span class="hl">BE</span> carries the tense.
+      The main verb <span class="hl2">never changes again</span>.
+    </p>
+    <div class="demo">
+      <div class="demoside">
+        <span class="demolab a">Active</span>
+        <div class="sent">They <b>cleaned</b> the office.</div>
+        <div class="mini">the tense is on the main verb</div>
+      </div>
+      <div class="demoside p">
+        <span class="demolab p">Passive</span>
+        <div class="sent">The office <span class="be">was</span> <span class="frozen">cleaned</span>.</div>
+        <div class="mini">tense moves to BE &middot; main verb frozen in the third form</div>
+      </div>
+    </div>
+    <p class="sub" style="margin:16px 0 0">
+      Once you know this, the passive is only ever one question: <b>which form of BE do I need?</b>
+      The third form of the main verb is always the same, in every tense: cleaned, written, taken, sold.
+    </p>
+  </section>
+
+  <!-- ============ 2. tres pasos ============ -->
+  <section class="card">
+    <span class="tag">How to build it</span>
+    <h2>Three steps, always in this order</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="stepn">1</span>
+        <div class="steptxt">Find the <b>object</b> of the active sentence. That object becomes your <b>new subject</b>.
+          <br><span class="mini">They cleaned <b>the office</b> &rarr; <b>The office</b> ...</span></div>
+      </div>
+      <div class="step">
+        <span class="stepn">2</span>
+        <div class="steptxt">Put <b>BE</b> in the <b>same tense</b> as the old verb. Copy the tense, nothing else.
+          <br><span class="mini">cleaned is past simple &rarr; BE goes into the past simple: was / were</span></div>
+      </div>
+      <div class="step">
+        <span class="stepn">3</span>
+        <div class="steptxt">Look at your <b>new subject</b> to choose singular or plural.
+          <br><span class="mini">the office is one thing &rarr; was</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. tabla ============ -->
+  <section class="card">
+    <span class="tag">Which BE</span>
+    <h2>Every tense, side by side</h2>
+    <p class="sub">Tap a tense to see it big. The table below always stays, so you can print this page.</p>
+    <div class="chips" id="chips"></div>
+    <div class="demo" id="stage"></div>
+    <div class="tablewrap" style="margin-top:18px">
+      <table>
+        <thead><tr><th>Tense</th><th>Active</th><th>Passive</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 4. la palabra extra ============ -->
+  <section class="card">
+    <span class="tag">The giveaway</span>
+    <h2>BEING, BEEN, or nothing?</h2>
+    <p class="sub">This is the fastest check. Look at the word in front of the gap and the extra word chooses itself.</p>
+    <div class="extras" id="extras"></div>
+    <p class="bigrule" style="margin:18px 0 0;font-size:1.05rem">
+      <span class="hl">BEING</span> goes after is, are, was, were.
+      <span class="hl2">BEEN</span> goes after has, have, had.
+      Never the other way round.
+    </p>
+  </section>
+
+  <!-- ============ 5. singular o plural ============ -->
+  <section class="card">
+    <span class="tag">Careful</span>
+    <h2>Count the NEW subject, not the old one</h2>
+    <p class="sub">This is where most marks are lost. The person who did the action does not decide anything any more.</p>
+    <div class="demo">
+      <div class="demoside">
+        <span class="demolab a">Active</span>
+        <div class="sent">One shop <b>is selling</b> thousands of units.</div>
+        <div class="mini">one shop &rarr; singular</div>
+      </div>
+      <div class="demoside p">
+        <span class="demolab p">Passive</span>
+        <div class="sent">Thousands of units <span class="be">are being</span> <span class="frozen">sold</span>.</div>
+        <div class="mini">the new subject is thousands of units &rarr; plural, so ARE</div>
+      </div>
+    </div>
+    <div class="tablewrap" style="margin-top:16px">
+      <table>
+        <thead><tr><th>New subject</th><th>BE</th><th>Example</th></tr></thead>
+        <tbody id="agree"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 6. errores ============ -->
+  <section class="card alert">
+    <span class="tag">Never write this</span>
+    <h2>The five that cost marks</h2>
+    <div class="wrongs" id="wrongs"></div>
+  </section>
+
+  <!-- ============ 7. cierre ============ -->
+  <section class="card dark">
+    <div class="final">
+      <div class="line">
+        <span class="c">Tense</span> on BE &middot;
+        <span class="y">Number</span> from the new subject &middot;
+        <span>Main verb</span> frozen in the third form
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script id="data-block">
+/* ====== CONTENIDO. Sin DOM, para poder auditarlo con Node. ====== */
+var DATA = {
+
+tenses: [
+  { name: "Present simple",   be: "is / are",
+    active: "They clean the office every Friday.",
+    passive: "The office |is| cleaned every Friday.",
+    hint: "Simple tense, so BE goes alone." },
+
+  { name: "Past simple",      be: "was / were",
+    active: "They cleaned the office yesterday.",
+    passive: "The office |was| cleaned yesterday.",
+    hint: "Simple tense again. One office, so was." },
+
+  { name: "Present continuous", be: "is / are being",
+    active: "They are cleaning the office now.",
+    passive: "The office |is being| cleaned now.",
+    hint: "Continuous, so add BEING after is or are." },
+
+  { name: "Past continuous",  be: "was / were being",
+    active: "They were cleaning the office at six.",
+    passive: "The office |was being| cleaned at six.",
+    hint: "Continuous in the past: was or were plus BEING." },
+
+  { name: "Present perfect",  be: "has / have been",
+    active: "They have cleaned the office already.",
+    passive: "The office |has been| cleaned already.",
+    hint: "Perfect, so add BEEN after has or have." },
+
+  { name: "Past perfect",     be: "had been",
+    active: "They had cleaned the office before we arrived.",
+    passive: "The office |had been| cleaned before we arrived.",
+    hint: "Perfect again. had never changes for singular or plural." },
+
+  { name: "will",             be: "will be",
+    active: "They will clean the office on Monday.",
+    passive: "The office |will be| cleaned on Monday.",
+    hint: "After will, BE stays in its bare form. Always will be." },
+
+  { name: "going to",         be: "is / are going to be",
+    active: "They are going to clean the office tomorrow.",
+    passive: "The office |is going to be| cleaned tomorrow.",
+    hint: "The tense sits on going to, and BE stays bare at the end." },
+
+  { name: "Modal",            be: "must / should / can be",
+    active: "They must clean the office before Friday.",
+    passive: "The office |must be| cleaned before Friday.",
+    hint: "After any modal, BE stays bare. Modal + be + third form." },
+
+  { name: "Modal + perfect",  be: "must have been",
+    active: "Somebody must have cleaned the office.",
+    passive: "The office |must have been| cleaned.",
+    hint: "Modal keeps have, and the perfect adds BEEN after it." }
+],
+
+extras: [
+  { word: "nothing", none: true,
+    text: "Simple tenses take BE on its own.",
+    example: "is cleaned / are cleaned / was cleaned / were cleaned" },
+
+  { word: "BEING",
+    text: "Continuous tenses add BEING after is, are, was or were.",
+    example: "is being cleaned / was being cleaned" },
+
+  { word: "BEEN",
+    text: "Perfect tenses add BEEN after has, have or had.",
+    example: "has been cleaned / had been cleaned" },
+
+  { word: "bare be",
+    text: "After will or any modal, BE never changes its form.",
+    example: "will be cleaned / must be cleaned / should be sent" }
+],
+
+agreement: [
+  { subject: "one thing", be: "is / was", example: "The bike was designed in Denmark." },
+  { subject: "more than one thing", be: "are / were", example: "The bikes were designed in Denmark." },
+  { subject: "every + noun", be: "is / was", example: "Every motor is checked before delivery." },
+  { subject: "a number + noun", be: "are / were", example: "Three bikes were damaged last week." },
+  { subject: "uncountable noun", be: "is / was", example: "The information was sent this morning." }
+],
+
+wrongs: [
+  { bad: "The office is been cleaned.",      good: "The office is being cleaned.",
+    why: "is and are take BEING, never BEEN." },
+  { bad: "The office has being cleaned.",    good: "The office has been cleaned.",
+    why: "has and have take BEEN, never BEING." },
+  { bad: "The office will is cleaned.",      good: "The office will be cleaned.",
+    why: "After will, BE never changes. It is always will be." },
+  { bad: "The letter was wrote.",            good: "The letter was written.",
+    why: "The passive needs the third form, not the past simple." },
+  { bad: "The bikes was repaired.",          good: "The bikes were repaired.",
+    why: "The new subject is plural, so BE must be plural too." }
+]
+
+};
+</script>
+
+<script id="engine-block">
+(function(){
+"use strict";
+
+var REG = [];
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+
+/* Las oraciones pasivas marcan la parte de BE entre barras: "The office |was| cleaned."
+   Asi el resaltado se arma en el DOM, sin HTML dentro de los datos. */
+function pintarPasiva(texto){
+  var cont = el("div", "sent");
+  var trozos = String(texto).split("|");
+  for(var i = 0; i < trozos.length; i++){
+    if(i % 2 === 1) cont.appendChild(el("span", "be", trozos[i]));
+    else if(trozos[i]) cont.appendChild(document.createTextNode(trozos[i]));
+  }
+  return cont;
+}
+
+/* ---------- tabla de tiempos + chips ---------- */
+var chips = document.getElementById("chips");
+var stage = document.getElementById("stage");
+var tbody = document.getElementById("tbody");
+
+function mostrar(i){
+  var d = DATA.tenses[i];
+  stage.innerHTML = "";
+
+  var a = el("div", "demoside");
+  a.appendChild(el("span", "demolab a", "Active"));
+  a.appendChild(el("div", "sent", d.active));
+  a.appendChild(el("div", "mini", d.name));
+  stage.appendChild(a);
+
+  var p = el("div", "demoside p");
+  p.appendChild(el("span", "demolab p", "Passive"));
+  p.appendChild(pintarPasiva(d.passive));
+  p.appendChild(el("div", "mini", d.hint));
+  stage.appendChild(p);
+
+  var todos = chips.querySelectorAll(".chip");
+  for(var k = 0; k < todos.length; k++){ todos[k].classList.remove("on"); }
+  chips.querySelectorAll(".chip")[i].classList.add("on");
+}
+
+for(var i = 0; i < DATA.tenses.length; i++){
+  var d = DATA.tenses[i];
+  var id = REG.push({ i: i }) - 1;
+
+  var c = el("button", "chip", d.name);
+  c.type = "button";
+  c.setAttribute("data-id", String(id));
+  c.addEventListener("click", function(ev){
+    mostrar(REG[parseInt(ev.currentTarget.getAttribute("data-id"), 10)].i);
+  });
+  chips.appendChild(c);
+
+  var tr = el("tr");
+  tr.appendChild(el("td", "tname", d.name));
+  tr.appendChild(el("td", null, d.active));
+  var td = el("td");
+  td.appendChild(pintarPasiva(d.passive));
+  tr.appendChild(td);
+  tbody.appendChild(tr);
+}
+mostrar(0);
+
+/* ---------- la palabra extra ---------- */
+var extras = document.getElementById("extras");
+for(var j = 0; j < DATA.extras.length; j++){
+  var e = DATA.extras[j];
+  var box = el("div", "extra");
+  box.appendChild(el("span", "w" + (e.none ? " none" : ""), e.word));
+  box.appendChild(el("p", null, e.text));
+  var ex = el("span", "ex", e.example);
+  box.appendChild(ex);
+  extras.appendChild(box);
+}
+
+/* ---------- concordancia ---------- */
+var agree = document.getElementById("agree");
+for(var k = 0; k < DATA.agreement.length; k++){
+  var g = DATA.agreement[k];
+  var tr2 = el("tr");
+  tr2.appendChild(el("td", "tname", g.subject));
+  var tdb = el("td");
+  tdb.appendChild(el("span", "be", g.be));
+  tr2.appendChild(tdb);
+  tr2.appendChild(el("td", null, g.example));
+  agree.appendChild(tr2);
+}
+
+/* ---------- errores ---------- */
+var wrongs = document.getElementById("wrongs");
+for(var m = 0; m < DATA.wrongs.length; m++){
+  var w = DATA.wrongs[m];
+  var row = el("div", "wrong");
+  row.appendChild(el("span", "x", "no"));
+  row.appendChild(el("span", "bad", w.bad));
+  row.appendChild(el("span", "wsep", "→"));
+  row.appendChild(el("span", "v", "yes"));
+  row.appendChild(el("b", null, w.good));
+  wrongs.appendChild(row);
+
+  var why = el("div", "mini");
+  why.textContent = w.why;
+  why.style.marginTop = "0";
+  why.style.width = "100%";
+  row.appendChild(why);
+}
+})();
+</script>
+<footer style="position:relative;z-index:9999;clear:both;display:block;margin:28px auto 0;padding:14px 20px 26px;max-width:1100px;border-top:1px solid rgba(128,128,128,.35);font:12px/1.5 system-ui,sans-serif;letter-spacing:.05em;text-align:center;opacity:.75">Copyright Prof Dan M. Mecikovsky</footer>
+</body>
+</html>

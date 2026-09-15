@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Boy in the Girls' Bathroom - Chapters 10 to 22</title>
+<style>
+/* ---------------------------------------------------------------------------
+   Estetica: aventura 8-bit. Paleta PICO-8, bordes duros, sombras solidas sin
+   blur, animaciones en steps() (nada de suavizado). Los titulos y botones se
+   dibujan con una fuente pixel 5x7 propia (SVG generado en el motor), asi que
+   no hace falta bajar ninguna fuente de internet. El texto largo de las
+   preguntas va en monoespaciada del sistema: la estetica no puede pelearse con
+   la legibilidad desde el fondo del aula.
+   El verde/rojo del feedback sigue siendo claro y directo a proposito.
+   --------------------------------------------------------------------------- */
+:root{
+  /* paleta PICO-8 */
+  --black:#000000;   --navy:#1D2B53;   --plum:#7E2553;  --dgreen:#008751;
+  --brown:#AB5236;   --dgrey:#5F574F;  --lgrey:#C2C3C7; --white:#FFF1E8;
+  --red:#FF004D;     --orange:#FFA300; --yellow:#FFEC27;--green:#00E436;
+  --blue:#29ADFF;    --lavender:#83769C; --pink:#FF77A8;--peach:#FFCCAA;
+
+  --bg:var(--black);
+  --panel:var(--navy);
+  --edge:var(--lavender);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono","Courier New",monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  color:var(--white);
+  font-family:var(--mono);
+  font-size:clamp(15px,0.85vw + 11px,19px);
+  line-height:1.5;
+  background:
+    radial-gradient(rgba(255,241,232,.16) 1px, transparent 1.6px) 0 0/28px 28px,
+    radial-gradient(rgba(41,173,255,.13) 1px, transparent 1.6px) 14px 14px/28px 28px,
+    var(--bg);
+  image-rendering:pixelated;
+}
+.wrap{width:min(1180px,94vw);margin:0 auto}
+
+/* ---------- fuente pixel (SVG) ---------- */
+.pxt{display:block;fill:currentColor}
+.pxt-line{height:1em;width:auto}         /* etiquetas cortas, botones */
+.pxt-block{width:100%;height:auto}       /* logos */
+
+/* ---------- barra superior ---------- */
+.topbar{background:var(--navy);border-bottom:4px solid var(--lavender)}
+.topbar .wrap{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:9px 0}
+.topbar .tag{display:flex;align-items:center;gap:10px;color:var(--peach);font-size:.66em;letter-spacing:.16em;text-transform:uppercase}
+.topbar .tools{display:flex;gap:8px}
+main.wrap{padding:26px 0 30px}
+
+/* ---------- botones ---------- */
+button{font:inherit;color:inherit;margin:0}
+.btn{
+  display:inline-flex;align-items:center;gap:.6em;
+  background:var(--lavender);color:var(--black);
+  border:0;border-radius:0;padding:.62em .95em;cursor:pointer;
+  box-shadow:0 0 0 4px var(--black), 0 7px 0 4px var(--black);
+  margin-bottom:9px;
+  transition:transform .06s steps(2),box-shadow .06s steps(2),background .06s steps(2);
+}
+.btn:hover{background:var(--peach)}
+.btn:active{transform:translateY(7px);box-shadow:0 0 0 4px var(--black)}
+.btn:focus-visible{outline:4px solid var(--yellow);outline-offset:6px}
+.btn.go{background:var(--yellow)}
+.btn.go:hover{background:var(--white)}
+.btn.alt{background:var(--blue)}
+.btn.alt:hover{background:var(--peach)}
+.btn.quiet{background:var(--dgrey);color:var(--white)}
+.btn.quiet:hover{background:var(--lgrey);color:var(--black)}
+.btn.tiny{padding:.45em .6em;font-size:.8em;box-shadow:0 0 0 3px var(--black),0 5px 0 3px var(--black);margin-bottom:6px}
+.btn.tiny:active{transform:translateY(5px);box-shadow:0 0 0 3px var(--black)}
+.btn[disabled]{background:var(--dgrey);color:var(--lgrey);cursor:default;opacity:.55}
+.btn[disabled]:active{transform:none;box-shadow:0 0 0 4px var(--black), 0 7px 0 4px var(--black)}
+
+/* ---------- paneles ---------- */
+.panel{
+  background:var(--panel);
+  border:4px solid var(--white);
+  box-shadow:0 0 0 4px var(--black), 11px 11px 0 0 rgba(0,0,0,.55);
+  padding:20px;
+}
+
+/* ---------- pantalla de titulo ---------- */
+.title-logo{color:var(--yellow);margin:0 auto;max-width:900px}
+.title-logo + .title-logo{margin-top:14px}
+.title-sub{text-align:center;color:var(--peach);font-size:.78em;letter-spacing:.22em;text-transform:uppercase;margin:20px 0 0}
+.blink{animation:blink 1.1s steps(1,end) infinite}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.press{display:flex;justify-content:center;color:var(--green);margin:26px 0 6px}
+.press .pxt-line{height:1.5em}
+.modes{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));margin-top:30px}
+.mode{display:flex;flex-direction:column;gap:14px}
+.mode .mode-name{color:var(--yellow)}
+.mode .mode-name .pxt-line{height:1.5em}
+.mode p{margin:0;color:var(--lgrey);font-size:.86em;flex:1;line-height:1.55}
+
+/* ---------- barra de estado del juego ---------- */
+.hud{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hud-label{display:flex;align-items:center;gap:10px;color:var(--peach)}
+.hud-label .pxt-line{height:1.05em}
+.hud-score{color:var(--green)}
+.hud-score .pxt-line{height:1.05em}
+.bar{display:flex;gap:2px;margin-bottom:20px}
+.bar i{flex:1;height:10px;background:var(--dgrey);box-shadow:0 0 0 2px var(--black)}
+.bar i.on{background:var(--green)}
+.bar i.now{background:var(--yellow)}
+
+/* ---------- pregunta ---------- */
+.q{
+  font-size:clamp(21px,2.9vw,44px);line-height:1.3;font-weight:700;
+  margin:0 0 26px;max-width:24ch;color:var(--white);
+  text-shadow:4px 4px 0 var(--black);
+}
+.q.solo{font-size:clamp(19px,2vw,32px);max-width:32ch;text-shadow:3px 3px 0 var(--black)}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:44ch}
+.opt{
+  display:flex;gap:.7em;align-items:center;width:100%;text-align:left;
+  background:var(--black);color:var(--white);
+  border:4px solid var(--lavender);border-radius:0;
+  padding:.6em .8em;font-size:clamp(17px,2vw,29px);line-height:1.3;
+  font-family:var(--mono);
+  transition:background .08s steps(2),border-color .08s steps(2),color .08s steps(2);
+}
+.opt.solo{font-size:clamp(16px,1.35vw,23px)}
+.opt .cur{width:1.1em;flex:none;color:var(--yellow);opacity:0}
+.opt .cur .pxt-line{height:.8em}
+.opt .k{flex:none;color:var(--blue)}
+.opt .k .pxt-line{height:.85em}
+.opt .tx{flex:1}
+button.opt{cursor:pointer}
+button.opt:hover:not([disabled]),button.opt:focus-visible{border-color:var(--yellow);background:var(--navy);outline:none}
+button.opt:hover:not([disabled]) .cur,button.opt:focus-visible .cur{opacity:1}
+button.opt[disabled]{cursor:default}
+.opt.ok{background:var(--dgreen);border-color:var(--green)}
+.opt.ok .cur{opacity:1;color:var(--green)}
+.opt.ok .k{color:var(--yellow)}
+.opt.no{background:var(--plum);border-color:var(--red)}
+.opt.no .cur{opacity:1;color:var(--red)}
+.opt.no .k{color:var(--peach)}
+.opt.dim{opacity:.4}
+
+/* Un enunciado de 120 caracteres no puede entrar con el mismo cuerpo que uno
+   de 40: se sale de la pantalla en el proyector. El tamano baja por tramos. */
+.q.len-2{font-size:clamp(19px,2.25vw,34px);max-width:32ch}
+.q.len-3{font-size:clamp(18px,1.85vw,28px);max-width:40ch}
+.q.solo.len-2{font-size:clamp(17px,1.7vw,26px);max-width:40ch}
+.q.solo.len-3{font-size:clamp(16px,1.5vw,23px);max-width:46ch}
+.opts.wide{max-width:58ch}
+.opts.wide .opt{font-size:clamp(15px,1.5vw,23px)}
+.opts.wide .opt.solo{font-size:clamp(15px,1.15vw,20px)}
+
+/* ---------- feedback: la zona donde la claridad manda ---------- */
+.fb{
+  margin-top:20px;padding:.7em .85em;max-width:44ch;
+  font-size:clamp(16px,1.6vw,26px);line-height:1.35;
+  border:4px solid var(--black);
+}
+.fb.ok{background:var(--green);color:var(--black)}
+.fb.no{background:var(--red);color:var(--white)}
+.fb .head{display:block;margin-bottom:.25em}
+.fb .head .pxt-line{height:1.05em}
+
+/* ---------- marcador de equipos (siempre visible) ---------- */
+.strip{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px}
+.chip{
+  display:flex;gap:.6em;align-items:center;
+  background:var(--black);border:3px solid var(--edge);
+  padding:.3em .6em;font-size:clamp(14px,1.15vw,20px);
+}
+.chip .dot{width:.8em;height:.8em;flex:none;box-shadow:0 0 0 2px var(--black)}
+.chip b{font-weight:700;color:var(--yellow)}
+
+/* ---------- reparto de puntos ---------- */
+.award{margin-top:28px;border-top:4px solid var(--lavender);padding-top:18px}
+.award h3{margin:0 0 12px;color:var(--peach)}
+.award h3 .pxt-line{height:1.05em}
+.teams{display:flex;flex-wrap:wrap;gap:12px}
+.team{
+  display:flex;gap:.6em;align-items:center;cursor:pointer;
+  background:var(--black);color:var(--white);
+  border:4px solid var(--edge);border-radius:0;
+  padding:.45em .75em;font-size:clamp(15px,1.45vw,24px);
+  font-family:var(--mono);
+  transition:background .08s steps(2),color .08s steps(2);
+}
+.team .k{color:var(--lgrey);font-size:.72em}
+.team .pt{font-weight:700;color:var(--yellow)}
+.team:hover{background:var(--navy)}
+.team:focus-visible{outline:4px solid var(--yellow);outline-offset:4px}
+.team.on{color:var(--black)}
+.team.on .k{color:var(--black)}
+.team.on .pt{color:var(--black)}
+
+/* ---------- acciones ---------- */
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:30px}
+.spacer{flex:1}
+.hint{color:var(--dgrey);font-size:.72em;letter-spacing:.08em;text-transform:uppercase;margin:16px 0 0;line-height:1.7}
+
+/* ---------- cierres ---------- */
+.head-line{color:var(--yellow);margin-bottom:18px}
+.head-line .pxt-line{height:1.7em}
+.big{font-size:clamp(21px,2.3vw,34px);font-weight:700;margin:6px 0;line-height:1.3;color:var(--white)}
+.note{color:var(--lgrey);margin:6px 0 0;font-size:.9em}
+table{border-collapse:collapse;width:100%;margin-top:8px}
+th,td{text-align:left;padding:.5em .6em;border-bottom:3px solid var(--lavender);font-size:clamp(16px,1.5vw,25px)}
+th{color:var(--peach);font-size:.72em;letter-spacing:.14em;text-transform:uppercase;font-weight:400}
+td.pos{color:var(--yellow);width:3.5em}
+td.pts{text-align:right;font-weight:700;color:var(--green);width:5em}
+tr.first td{background:rgba(255,236,39,.13)}
+.review{margin-top:26px}
+.review h3{margin:0 0 14px;color:var(--peach)}
+.review h3 .pxt-line{height:1.05em}
+.review ol{margin:0;padding-left:1.5em}
+.review li{margin-bottom:14px;font-size:.9em;line-height:1.5}
+.review li::marker{color:var(--yellow)}
+.review .aa{color:var(--green)}
+
+/* ---------- configuracion ---------- */
+.field{margin-top:24px}
+.field-label{color:var(--peach);margin-bottom:12px}
+.field-label .pxt-line{height:1.05em}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.names{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.name-slot{display:flex;align-items:center;gap:9px}
+.name-slot .dot{width:1em;height:1em;flex:none;box-shadow:0 0 0 3px var(--black)}
+input[type=text]{
+  font:inherit;color:var(--white);width:100%;
+  background:var(--black);border:3px solid var(--lavender);border-radius:0;padding:.5em .6em;
+}
+input[type=text]:focus{outline:none;border-color:var(--yellow)}
+.check{display:inline-flex;gap:.7em;align-items:center;cursor:pointer;color:var(--lgrey);font-size:.88em}
+.check input{width:1.2em;height:1.2em;accent-color:var(--green)}
+
+/* ---------- pie ---------- */
+footer.site{
+  border-top:4px solid var(--lavender);
+  background:var(--navy);
+  padding:16px 0;margin-top:10px;
+}
+footer.site .wrap{display:flex;justify-content:center}
+footer.site .cr{color:var(--lgrey);font-size:.72em;letter-spacing:.14em;text-transform:uppercase;text-align:center}
+
+@media (max-width:520px){
+  .actions .btn{flex:1 1 auto;justify-content:center}
+  .hint{display:none}
+  .panel{padding:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  .blink{animation:none}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tag">Louis Sachar &nbsp;/&nbsp; Chapters 10-22</div>
+    <div class="tools">
+      <button class="btn tiny quiet" id="btn-sound"></button>
+      <button class="btn tiny quiet" id="btn-home" hidden></button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- ============ TITLE SCREEN ============ -->
+  <section id="scr-home" class="screen">
+    <div class="panel">
+      <div class="title-logo" id="logo-1"></div>
+      <div class="title-logo" id="logo-2"></div>
+      <p class="title-sub">A quest through chapters 10 to 22</p>
+      <div class="press blink" id="press-start"></div>
+    </div>
+    <div class="modes">
+      <div class="panel mode">
+        <div class="mode-name" id="name-class"></div>
+        <p>One screen for the whole class. Teams answer out loud or on paper, and the teacher hands out the points. From 2 to 6 teams.</p>
+        <div><button class="btn go" id="go-setup"></button></div>
+      </div>
+      <div class="panel mode">
+        <div class="mode-name" id="name-solo"></div>
+        <p>Play on your own at home. The 20 questions come in random order, you find out right away if you are right, and your best score stays on this device.</p>
+        <div><button class="btn go" id="go-solo"></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARTY SETUP ============ -->
+  <section id="scr-setup" class="screen" hidden>
+    <div class="panel">
+      <div class="head-line" id="head-setup"></div>
+      <div class="field">
+        <div class="field-label" id="lbl-howmany"></div>
+        <div class="row" id="count-row"></div>
+      </div>
+      <div class="field">
+        <div class="field-label" id="lbl-names"></div>
+        <div class="names" id="names-box"></div>
+      </div>
+      <div class="field">
+        <label class="check"><input type="checkbox" id="chk-shuffle"> Shuffle the questions</label>
+      </div>
+      <div class="actions">
+        <button class="btn go" id="setup-start"></button>
+        <button class="btn quiet" id="setup-back"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLASS QUEST ============ -->
+  <section id="scr-aula" class="screen" hidden>
+    <div class="panel">
+      <div class="strip" id="aula-strip"></div>
+      <div class="hud">
+        <span class="hud-label" id="aula-prog"></span>
+        <span class="hud-score" id="aula-mode"></span>
+      </div>
+      <div class="bar" id="aula-bar"></div>
+      <p class="q" id="aula-q"></p>
+      <ul class="opts" id="aula-opts"></ul>
+      <div class="fb ok" id="aula-answer" hidden></div>
+      <div class="award" id="aula-award" hidden>
+        <h3 id="lbl-givepoint"></h3>
+        <div class="teams" id="aula-teams"></div>
+      </div>
+      <div class="actions">
+        <button class="btn go" id="aula-main"></button>
+        <button class="btn quiet" id="aula-prev"></button>
+        <span class="spacer"></span>
+        <button class="btn tiny quiet" id="aula-stop"></button>
+      </div>
+      <p class="hint">Space or Enter: show the answer and move on. Keys 1 to 6: give a point. Left arrow: go back one question.</p>
+    </div>
+  </section>
+
+  <!-- ============ CLASS QUEST - RESULTS ============ -->
+  <section id="scr-aulaend" class="screen" hidden>
+    <div class="panel">
+      <div class="head-line" id="head-scores"></div>
+      <p class="note" id="aula-played"></p>
+      <table>
+        <thead><tr><th>Rank</th><th>Team</th><th style="text-align:right">Pts</th></tr></thead>
+        <tbody id="aula-table"></tbody>
+      </table>
+      <div class="actions">
+        <button class="btn go" id="aula-again"></button>
+        <button class="btn alt" id="aula-reconf"></button>
+        <button class="btn quiet" id="aula-home"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOLO QUEST ============ -->
+  <section id="scr-solo" class="screen" hidden>
+    <div class="panel">
+      <div class="hud">
+        <span class="hud-label" id="solo-prog"></span>
+        <span class="hud-score" id="solo-score"></span>
+      </div>
+      <div class="bar" id="solo-bar"></div>
+      <p class="q solo" id="solo-q"></p>
+      <div class="opts" id="solo-opts"></div>
+      <div class="fb" id="solo-fb" hidden></div>
+      <div class="actions">
+        <button class="btn go" id="solo-next" hidden></button>
+        <span class="spacer"></span>
+        <button class="btn tiny quiet" id="solo-stop"></button>
+      </div>
+      <p class="hint">Keys 1, 2, 3 or A, B, C: answer. Enter: go on.</p>
+    </div>
+  </section>
+
+  <!-- ============ SOLO QUEST - RESULT ============ -->
+  <section id="scr-soloend" class="screen" hidden>
+    <div class="panel">
+      <div class="head-line" id="head-result"></div>
+      <p class="big" id="solo-result"></p>
+      <p class="note" id="solo-best"></p>
+      <div class="review" id="solo-review" hidden>
+        <h3 id="lbl-review"></h3>
+        <ol id="solo-review-list"></ol>
+      </div>
+      <div class="actions">
+        <button class="btn go" id="solo-again"></button>
+        <button class="btn quiet" id="solo-home"></button>
+      </div>
+    </div>
+  </section>
+
+  <noscript><p>This quest needs JavaScript turned on.</p></noscript>
+</main>
+
+<footer class="site">
+  <div class="wrap"><div class="cr">Copyright Prof Dan M. Mecikovsky</div></div>
+</footer>
+
+<!-- =====================================================================
+     BLOQUE DE DATOS. Contenido puro: ni una referencia al DOM, para poder
+     auditarlo con Node en un sandbox (vm) sin levantar navegador.
+     La clave de respuestas (indice "a": 0=A, 1=B, 2=C) es la que mando el
+     profesor y esta verificada opcion por opcion contra ese listado.
+     ===================================================================== -->
+<script id="data-block">
+var DATA = {
+  book: "There's a Boy in the Girls' Bathroom",
+  author: "Louis Sachar",
+  chapters: "10-22",
+  questions: [
+    { q:"What did Brian do on Halloween to mock Bradley?",
+      opts:["He wore green socks.","He painted a black eye.","He played with a bear."], a:1 },
+    { q:"What lie did Bradley tell his mother about his face?",
+      opts:["He fell from a tree.","He had a bicycle accident.","A gang beat him up."], a:2 },
+    { q:"Why was Bradley happy at lunch in Chapter 11?",
+      opts:["He had a friend.","He liked his lunch.","Mrs. Ebbel gave him a gold star."], a:0 },
+    { q:"What paper did Carla give Colleen in Chapter 12?",
+      opts:["A party card.","A parent form.","A math test."], a:1 },
+    { q:"What did Carla say about rules in her room?",
+      opts:["Students must be quiet.","Nobody can talk.","There are no rules."], a:2 },
+    { q:"Why was Bradley going to Jeff’s house?",
+      opts:["To celebrate a birthday.","To do their homework together.","To play basketball."], a:1 },
+    { q:"What did Bradley want to do to the girls?",
+      opts:["Push them in mud.","Shout at them.","Hide their homework."], a:0 },
+    { q:"What did Lori scream when Bradley fell down?",
+      opts:["Bradley wet his pants.","Bradley broke his leg.","Bradley lost his shoes."], a:0 },
+    { q:"When Bradley went back home after being punched by Melinda. What did Bradley tell his mom the boys did to his homework?",
+      opts:["They threw it away.","They colored it black.","They ripped it up."], a:2 },
+    { q:".What did Bradley's mother cook to make him feel better?",
+      opts:["Hot oatmeal.","Chocolate chip cookies.","A big fat fish."], a:1 },
+    { q:"Who was the bad leader in Bradley's card game?",
+      opts:["The King of Diamonds.","The Two of Spades.","The Nine of Hearts."], a:0 },
+    { q:"Who did Mrs. Ebbel say can unstick Bradley's hand?",
+      opts:["The counselor, Carla.","The school principal.","Bradley's mother."], a:1 },
+    { q:"What did Robbie tell the other boys about Jeff?",
+      opts:["Jeff played basketball.","Jeff hated Bradley.","Jeff hit Bradley."], a:2 },
+    { q:"What did Jeff do when the boys invited him?",
+      opts:["He played basketball.","He ran away.","He said that he didn’t like basketball."], a:0 },
+    { q:"Why did Jeff enjoy playing basketball with those boys?",
+      opts:["Because he wanted to participate in a tournament.","Because they were the kind of friends he had in his previous school.","Because they will give him some candies."], a:1 },
+    { q:"Why did Colleen's parents refuse to sign the paper?",
+      opts:["They hated Carla.","Colleen was bad.","It wasted school money."], a:2 },
+    { q:"Why did Bradley tell Carla that he wanted to hit kids?",
+      opts:["He hated everybody.","They stole his book.","To get their toys."], a:0 },
+    { q:"Where did Bradley hide his list of topics?",
+      opts:["Inside his desk.","In his shoe.","Under his pillow."], a:2 },
+    { q:"What did Claudia think about the list?",
+      opts:["It is the stupidest list in the world.","It wil help Bradley to solve his problems.","It is very interesting and she wants to help him to do it."], a:0 },
+    { q:".What did Claudia tell Bradley about Carla?",
+      opts:["She likes you and she’s going to help you.","She doesn’t like you, it’s just her job.","She will not read your list."], a:1 }
+  ]
+};
+</script>
+
+<!-- =====================================================================
+     MOTOR. Sin librerias. Los botones no guardan datos serializados en
+     atributos data-*: cada boton captura su indice numerico en un closure,
+     asi los apostrofes ingleses (Bradley's, Girls') nunca pasan por el DOM
+     como texto a parsear.
+     ===================================================================== -->
+<script id="engine-block">
+(function(){
+"use strict";
+
+var Q = DATA.questions;
+var TOTAL = Q.length;
+var LETTERS = ["A","B","C"];
+var BEST_KEY = "boy-bathroom-10-22.best";
+var SOUND_KEY = "boy-bathroom-10-22.sound";
+var SCREENS = ["home","setup","aula","aulaend","solo","soloend"];
+var MIN_TEAMS = 2, MAX_TEAMS = 6;
+var TEAM_COLORS = ["#29ADFF","#FFA300","#FF77A8","#FFEC27","#83769C","#FFCCAA"];
+
+function $(id){ return document.getElementById(id); }
+
+/* =========================================================
+   FUENTE PIXEL 5x7. Cada glifo son 7 filas de 5 bits. Se
+   dibuja como SVG, asi que escala sin perder el borde duro
+   y no depende de ninguna fuente descargada.
+   ========================================================= */
+var GLYPHS = {
+"A":"01110,10001,10001,11111,10001,10001,10001",
+"B":"11110,10001,10001,11110,10001,10001,11110",
+"C":"01110,10001,10000,10000,10000,10001,01110",
+"D":"11110,10001,10001,10001,10001,10001,11110",
+"E":"11111,10000,10000,11110,10000,10000,11111",
+"F":"11111,10000,10000,11110,10000,10000,10000",
+"G":"01110,10001,10000,10111,10001,10001,01111",
+"H":"10001,10001,10001,11111,10001,10001,10001",
+"I":"11111,00100,00100,00100,00100,00100,11111",
+"J":"00111,00010,00010,00010,00010,10010,01100",
+"K":"10001,10010,10100,11000,10100,10010,10001",
+"L":"10000,10000,10000,10000,10000,10000,11111",
+"M":"10001,11011,10101,10101,10001,10001,10001",
+"N":"10001,11001,11001,10101,10011,10011,10001",
+"O":"01110,10001,10001,10001,10001,10001,01110",
+"P":"11110,10001,10001,11110,10000,10000,10000",
+"Q":"01110,10001,10001,10001,10101,10010,01101",
+"R":"11110,10001,10001,11110,10100,10010,10001",
+"S":"01111,10000,10000,01110,00001,00001,11110",
+"T":"11111,00100,00100,00100,00100,00100,00100",
+"U":"10001,10001,10001,10001,10001,10001,01110",
+"V":"10001,10001,10001,10001,10001,01010,00100",
+"W":"10001,10001,10001,10101,10101,11011,10001",
+"X":"10001,10001,01010,00100,01010,10001,10001",
+"Y":"10001,10001,01010,00100,00100,00100,00100",
+"Z":"11111,00001,00010,00100,01000,10000,11111",
+"0":"01110,10001,10011,10101,11001,10001,01110",
+"1":"00100,01100,00100,00100,00100,00100,01110",
+"2":"01110,10001,00001,00010,00100,01000,11111",
+"3":"11111,00010,00100,00010,00001,10001,01110",
+"4":"00010,00110,01010,10010,11111,00010,00010",
+"5":"11111,10000,11110,00001,00001,10001,01110",
+"6":"00110,01000,10000,11110,10001,10001,01110",
+"7":"11111,00001,00010,00100,01000,01000,01000",
+"8":"01110,10001,10001,01110,10001,10001,01110",
+"9":"01110,10001,10001,01111,00001,00010,01100",
+" ":"00000,00000,00000,00000,00000,00000,00000",
+"'":"00100,00100,01000,00000,00000,00000,00000",
+"-":"00000,00000,00000,11111,00000,00000,00000",
+".":"00000,00000,00000,00000,00000,01100,01100",
+",":"00000,00000,00000,00000,01100,01100,11000",
+":":"00000,01100,01100,00000,01100,01100,00000",
+"?":"01110,10001,00001,00010,00100,00000,00100",
+"/":"00001,00010,00010,00100,01000,01000,10000",
+">":"10000,11000,11100,11110,11100,11000,10000"
+};
+var SVGNS = "http://www.w3.org/2000/svg";
+
+/* Dibuja `text` como pixeles. Agrupa los unos contiguos de cada fila en un
+   solo <rect> para no llenar el DOM de nodos. */
+function pixelText(text, cls){
+  text = String(text).toUpperCase();
+  var chars = [], i;
+  for(i=0;i<text.length;i++){
+    chars.push(GLYPHS[text.charAt(i)] !== undefined ? text.charAt(i) : " ");
+  }
+  var w = chars.length * 6 - 1;
+  if(w < 1) w = 1;
+  var svg = document.createElementNS(SVGNS, "svg");
+  svg.setAttribute("viewBox", "0 0 " + w + " 7");
+  svg.setAttribute("shape-rendering", "crispEdges");
+  svg.setAttribute("preserveAspectRatio", "xMinYMid meet");
+  svg.setAttribute("focusable", "false");
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", text);
+  svg.setAttribute("class", "pxt " + (cls || "pxt-line"));
+
+  for(i=0;i<chars.length;i++){
+    var rows = GLYPHS[chars[i]].split(",");
+    for(var r=0;r<rows.length;r++){
+      var row = rows[r], run = 0;
+      for(var c=0;c<=row.length;c++){
+        if(row.charAt(c) === "1"){ run++; continue; }
+        if(run > 0){
+          var rect = document.createElementNS(SVGNS, "rect");
+          rect.setAttribute("x", String(i*6 + c - run));
+          rect.setAttribute("y", String(r));
+          rect.setAttribute("width", String(run));
+          rect.setAttribute("height", "1");
+          svg.appendChild(rect);
+          run = 0;
+        }
+      }
+    }
+  }
+  return svg;
+}
+function setPixel(node, text, cls){
+  while(node.firstChild) node.removeChild(node.firstChild);
+  node.appendChild(pixelText(text, cls));
+}
+
+/* =========================================================
+   SONIDO 8-BIT. Osciladores cuadrados por WebAudio: cero
+   archivos, cero descargas. Se puede apagar y queda guardado.
+   ========================================================= */
+var sound = true, actx = null;
+function ctx(){
+  if(!sound) return null;
+  if(!actx){
+    try{ actx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e){ return null; }
+  }
+  return actx;
+}
+function tone(freq, dur, delay, vol){
+  var c = ctx();
+  if(!c) return;
+  try{
+    var t = c.currentTime + (delay || 0);
+    var o = c.createOscillator(), g = c.createGain();
+    o.type = "square";
+    o.frequency.setValueAtTime(freq, t);
+    g.gain.setValueAtTime(vol || 0.05, t);
+    g.gain.setValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(c.destination);
+    o.start(t); o.stop(t + dur + 0.02);
+  }catch(e){}
+}
+var SFX = {
+  move:  function(){ tone(620, 0.05, 0); },
+  reveal:function(){ tone(440, 0.07, 0); tone(660, 0.07, 0.07); },
+  right: function(){ tone(880, 0.07, 0); tone(1175, 0.07, 0.07); tone(1568, 0.12, 0.14); },
+  wrong: function(){ tone(200, 0.12, 0, 0.06); tone(140, 0.18, 0.12, 0.06); },
+  point: function(){ tone(1046, 0.05, 0); tone(1568, 0.08, 0.05); },
+  finish:function(){ tone(523,0.1,0); tone(659,0.1,0.1); tone(784,0.1,0.2); tone(1046,0.22,0.3); }
+};
+function renderSound(){
+  setPixel($("btn-sound"), sound ? "sound on" : "sound off");
+}
+function toggleSound(){
+  sound = !sound;
+  try{ window.localStorage.setItem(SOUND_KEY, sound ? "1" : "0"); }catch(e){}
+  renderSound();
+  if(sound) SFX.move();
+}
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+var current = "home";
+function show(name){
+  for(var i=0;i<SCREENS.length;i++){
+    $("scr-"+SCREENS[i]).hidden = (SCREENS[i] !== name);
+  }
+  $("btn-home").hidden = (name === "home");
+  current = name;
+  window.scrollTo(0,0);
+}
+
+var state = {
+  teams: [],     // [{name,color}]
+  seq: [],       // orden de las preguntas de esta partida
+  awards: [],    // awards[posicion] = [indices de equipo que acertaron]
+  answers: [],   // solo: answers[posicion] = opcion elegida o null
+  seen: {},      // posiciones ya reveladas, para contar bien si se corta antes
+  idx: 0,
+  revealed: false,
+  mix: false
+};
+
+function order(n, mix){
+  var a = [], i, j, t;
+  for(i=0;i<n;i++) a.push(i);
+  if(mix){
+    for(i=a.length-1;i>0;i--){
+      j = Math.floor(Math.random()*(i+1));
+      t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+  }
+  return a;
+}
+function clear(node){ while(node.firstChild) node.removeChild(node.firstChild); }
+function span(cls, text){
+  var s = document.createElement("span");
+  if(cls) s.className = cls;
+  if(text !== undefined && text !== null) s.textContent = text;
+  return s;
+}
+function pxSpan(cls, text){
+  var s = document.createElement("span");
+  if(cls) s.className = cls;
+  s.appendChild(pixelText(text));
+  return s;
+}
+/* Texto de una opcion tal como se lee en voz alta: "B) He painted a black eye." */
+function fullOption(qi, oi){ return LETTERS[oi] + ") " + Q[qi].opts[oi]; }
+
+/* El texto de las preguntas no mide siempre lo mismo. Estas dos funciones
+   eligen el tramo de tamano segun el largo real, para que la mas larga entre
+   en pantalla sin achicar las cortas. */
+function sizeClass(q){
+  var n = q.q.length;
+  return n > 90 ? " len-3" : (n > 55 ? " len-2" : "");
+}
+function optsClass(q){
+  var max = 0;
+  for(var i=0;i<q.opts.length;i++) if(q.opts[i].length > max) max = q.opts[i].length;
+  return max > 40 ? " wide" : "";
+}
+
+/* La barra de progreso: un bloque por pregunta. */
+function renderBar(node, done, now){
+  clear(node);
+  for(var i=0;i<TOTAL;i++){
+    var b = document.createElement("i");
+    if(i === now) b.className = "now";
+    else if(i < done) b.className = "on";
+    node.appendChild(b);
+  }
+}
+
+/* localStorage puede no estar disponible (modo privado, o el archivo abierto
+   desde el disco en ciertos navegadores). Si falla, el juego sigue igual. */
+var storageOK = true;
+function readBest(){
+  try{
+    var v = window.localStorage.getItem(BEST_KEY);
+    if(v === null) return null;
+    v = parseInt(v, 10);
+    return (isNaN(v) || v < 0 || v > TOTAL) ? null : v;
+  }catch(e){ storageOK = false; return null; }
+}
+function writeBest(v){
+  try{ window.localStorage.setItem(BEST_KEY, String(v)); }
+  catch(e){ storageOK = false; }
+}
+
+/* =========================================================
+   PARTY SETUP
+   ========================================================= */
+var setupCount = 3;
+var setupNames = [];
+
+function renderCount(){
+  var box = $("count-row");
+  clear(box);
+  for(var n=MIN_TEAMS;n<=MAX_TEAMS;n++){
+    (function(n){
+      var b = document.createElement("button");
+      b.className = "btn" + (n === setupCount ? " go" : " alt");
+      b.appendChild(pixelText(String(n)));
+      b.setAttribute("aria-pressed", n === setupCount ? "true" : "false");
+      b.setAttribute("aria-label", n + " teams");
+      b.onclick = function(){ setupCount = n; SFX.move(); renderCount(); renderNames(); };
+      box.appendChild(b);
+    })(n);
+  }
+}
+function renderNames(){
+  var box = $("names-box");
+  clear(box);
+  for(var i=0;i<setupCount;i++){
+    if(setupNames[i] === undefined) setupNames[i] = "Team " + (i+1);
+    (function(i){
+      var slot = document.createElement("div");
+      slot.className = "name-slot";
+      var dot = span("dot");
+      dot.style.background = TEAM_COLORS[i];
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.value = setupNames[i];
+      inp.maxLength = 18;
+      inp.setAttribute("aria-label", "Name of team " + (i+1));
+      inp.oninput = function(){ setupNames[i] = inp.value; };
+      slot.appendChild(dot);
+      slot.appendChild(inp);
+      box.appendChild(slot);
+    })(i);
+  }
+}
+
+function startAula(keepTeams){
+  if(!keepTeams){
+    state.teams = [];
+    for(var i=0;i<setupCount;i++){
+      var nm = String(setupNames[i] || "").trim();
+      state.teams.push({ name: nm === "" ? "Team " + (i+1) : nm, color: TEAM_COLORS[i] });
+    }
+    state.mix = $("chk-shuffle").checked;
+  }
+  state.seq = order(TOTAL, state.mix);
+  state.awards = [];
+  for(var k=0;k<TOTAL;k++) state.awards.push([]);
+  state.seen = {};
+  state.idx = 0;
+  state.revealed = false;
+  SFX.finish();
+  show("aula");
+  renderAula();
+}
+
+/* =========================================================
+   CLASS QUEST
+   ========================================================= */
+function scores(){
+  var s = [], i;
+  for(i=0;i<state.teams.length;i++) s.push(0);
+  for(i=0;i<state.awards.length;i++){
+    for(var j=0;j<state.awards[i].length;j++) s[state.awards[i][j]]++;
+  }
+  return s;
+}
+
+function renderStrip(){
+  var box = $("aula-strip"), s = scores();
+  clear(box);
+  for(var i=0;i<state.teams.length;i++){
+    var c = document.createElement("span");
+    c.className = "chip";
+    var dot = span("dot");
+    dot.style.background = state.teams[i].color;
+    c.appendChild(dot);
+    c.appendChild(span("nm", state.teams[i].name));
+    var b = document.createElement("b");
+    b.textContent = String(s[i]);
+    c.appendChild(b);
+    box.appendChild(c);
+  }
+}
+
+function renderAula(){
+  var qi = state.seq[state.idx], q = Q[qi], i;
+
+  renderStrip();
+  setPixel($("aula-prog"), "question " + (state.idx+1) + " of " + TOTAL);
+  setPixel($("aula-mode"), "class quest");
+  renderBar($("aula-bar"), state.idx, state.idx);
+  var qn = $("aula-q");
+  qn.className = "q" + sizeClass(q);
+  qn.textContent = q.q;
+
+  var list = $("aula-opts");
+  list.className = "opts" + optsClass(q);
+  clear(list);
+  for(i=0;i<q.opts.length;i++){
+    var li = document.createElement("li");
+    li.className = "opt";
+    if(state.revealed) li.className += (i === q.a ? " ok" : " dim");
+    li.appendChild(pxSpan("cur", ">"));
+    li.appendChild(pxSpan("k", LETTERS[i]));
+    li.appendChild(span("tx", q.opts[i]));
+    list.appendChild(li);
+  }
+
+  if(state.revealed) state.seen[state.idx] = 1;
+
+  var ans = $("aula-answer");
+  ans.hidden = !state.revealed;
+  if(state.revealed){
+    clear(ans);
+    ans.appendChild(pxSpan("head", "answer"));
+    ans.appendChild(span(null, fullOption(qi, q.a)));
+  }
+
+  $("aula-award").hidden = !state.revealed;
+  if(state.revealed) renderTeams();
+
+  setPixel($("aula-main"), !state.revealed
+    ? "show answer"
+    : (state.idx >= TOTAL-1 ? "see scores" : "next"));
+  $("aula-prev").disabled = (state.idx === 0);
+}
+
+function renderTeams(){
+  var box = $("aula-teams"), s = scores(), given = state.awards[state.idx];
+  clear(box);
+  for(var i=0;i<state.teams.length;i++){
+    (function(i){
+      var on = given.indexOf(i) >= 0;
+      var b = document.createElement("button");
+      b.className = "team" + (on ? " on" : "");
+      b.style.borderColor = state.teams[i].color;
+      b.style.background = on ? state.teams[i].color : "";
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.appendChild(span("k", String(i+1)));
+      b.appendChild(span("nm", state.teams[i].name));
+      b.appendChild(span("pt", String(s[i])));
+      b.onclick = function(){ toggleAward(i); };
+      box.appendChild(b);
+    })(i);
+  }
+}
+
+function toggleAward(i){
+  if(!state.revealed) return;
+  var given = state.awards[state.idx], p = given.indexOf(i);
+  if(p >= 0){ given.splice(p,1); SFX.move(); }
+  else { given.push(i); SFX.point(); }
+  renderStrip();
+  renderTeams();
+}
+
+function aulaMain(){
+  if(!state.revealed){ state.revealed = true; SFX.reveal(); renderAula(); return; }
+  if(state.idx >= TOTAL-1){ endAula(); return; }
+  state.idx++;
+  state.revealed = false;
+  SFX.move();
+  renderAula();
+}
+function aulaPrev(){
+  if(state.idx === 0) return;
+  state.idx--;
+  state.revealed = true;   // se vuelve con la respuesta a la vista, para corregir puntos
+  SFX.move();
+  renderAula();
+}
+function endAula(){
+  var played = 0, p;
+  for(p in state.seen) if(Object.prototype.hasOwnProperty.call(state.seen,p)) played++;
+
+  var s = scores(), rows = [], i;
+  for(i=0;i<state.teams.length;i++) rows.push({ name: state.teams[i].name, pts: s[i], color: state.teams[i].color });
+  rows.sort(function(a,b){ return b.pts - a.pts; });
+
+  var pos = 0, prev = null;
+  for(i=0;i<rows.length;i++){
+    if(prev === null || rows[i].pts !== prev){ pos = i+1; prev = rows[i].pts; }
+    rows[i].pos = pos;
+  }
+
+  $("aula-played").textContent = played < TOTAL
+    ? "You played " + played + " of " + TOTAL + " questions."
+    : "You played all " + TOTAL + " questions.";
+
+  var tb = $("aula-table");
+  clear(tb);
+  for(i=0;i<rows.length;i++){
+    var tr = document.createElement("tr");
+    if(rows[i].pos === 1) tr.className = "first";
+    var td1 = document.createElement("td"); td1.className = "pos"; td1.textContent = rows[i].pos + ".";
+    var td2 = document.createElement("td");
+    var dot = span("dot"); dot.style.background = rows[i].color;
+    dot.style.display = "inline-block"; dot.style.width = ".8em"; dot.style.height = ".8em";
+    dot.style.marginRight = ".6em"; dot.style.boxShadow = "0 0 0 2px #000";
+    td2.appendChild(dot); td2.appendChild(span(null, rows[i].name));
+    var td3 = document.createElement("td"); td3.className = "pts"; td3.textContent = String(rows[i].pts);
+    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+    tb.appendChild(tr);
+  }
+  SFX.finish();
+  show("aulaend");
+}
+
+/* =========================================================
+   SOLO QUEST
+   ========================================================= */
+function startSolo(){
+  state.seq = order(TOTAL, true);   // siempre aleatorio
+  state.answers = [];
+  for(var i=0;i<TOTAL;i++) state.answers.push(null);
+  state.idx = 0;
+  SFX.move();
+  show("solo");
+  renderSolo();
+}
+
+function correctCount(){
+  var n = 0;
+  for(var i=0;i<TOTAL;i++){
+    if(state.answers[i] !== null && state.answers[i] === Q[state.seq[i]].a) n++;
+  }
+  return n;
+}
+function answeredCount(){
+  var n = 0;
+  for(var i=0;i<TOTAL;i++) if(state.answers[i] !== null) n++;
+  return n;
+}
+
+function renderSolo(){
+  var qi = state.seq[state.idx], q = Q[qi], chosen = state.answers[state.idx], i;
+  var done = (chosen !== null);
+
+  setPixel($("solo-prog"), "question " + (state.idx+1) + " of " + TOTAL);
+  setPixel($("solo-score"), "score " + correctCount() + " of " + answeredCount());
+  renderBar($("solo-bar"), state.idx, state.idx);
+  var qn = $("solo-q");
+  qn.className = "q solo" + sizeClass(q);
+  qn.textContent = q.q;
+
+  var box = $("solo-opts");
+  box.className = "opts" + optsClass(q);
+  clear(box);
+  for(i=0;i<q.opts.length;i++){
+    (function(i){
+      var b = document.createElement("button");
+      b.className = "opt solo";
+      if(done){
+        b.disabled = true;
+        if(i === q.a) b.className += " ok";
+        else if(i === chosen) b.className += " no";
+        else b.className += " dim";
+      }
+      b.appendChild(pxSpan("cur", ">"));
+      b.appendChild(pxSpan("k", LETTERS[i]));
+      b.appendChild(span("tx", q.opts[i]));
+      b.onclick = function(){ answerSolo(i); };
+      box.appendChild(b);
+    })(i);
+  }
+
+  var fb = $("solo-fb");
+  fb.hidden = !done;
+  if(done){
+    var ok = (chosen === q.a);
+    fb.className = "fb " + (ok ? "ok" : "no");
+    clear(fb);
+    fb.appendChild(pxSpan("head", ok ? "correct" : "wrong"));
+    if(!ok) fb.appendChild(span(null, "The answer was: " + fullOption(qi, q.a)));
+  }
+
+  var nx = $("solo-next");
+  nx.hidden = !done;
+  setPixel(nx, (state.idx >= TOTAL-1) ? "see result" : "next");
+}
+
+function answerSolo(i){
+  if(state.answers[state.idx] !== null) return;
+  state.answers[state.idx] = i;
+  if(i === Q[state.seq[state.idx]].a) SFX.right(); else SFX.wrong();
+  renderSolo();
+}
+function soloNext(){
+  if(state.answers[state.idx] === null) return;
+  if(state.idx >= TOTAL-1){ endSolo(); return; }
+  state.idx++;
+  SFX.move();
+  renderSolo();
+}
+
+function endSolo(){
+  var got = correctCount(), i;
+
+  $("solo-result").textContent = "You got " + got + " of " + TOTAL + ".";
+
+  var best = readBest();
+  var msg;
+  if(!storageOK){
+    msg = "This browser cannot save your best score.";
+  }else if(best === null){
+    writeBest(got);
+    msg = storageOK
+      ? "Best score on this device: " + got + " of " + TOTAL + "."
+      : "This browser cannot save your best score.";
+  }else if(got > best){
+    writeBest(got);
+    msg = "Best score on this device: " + got + " of " + TOTAL +
+          ". Your old record was " + best + " of " + TOTAL + ".";
+  }else{
+    msg = "Best score on this device: " + best + " of " + TOTAL + ".";
+  }
+  $("solo-best").textContent = msg;
+
+  var wrong = [];
+  for(i=0;i<TOTAL;i++){
+    if(state.answers[i] !== null && state.answers[i] !== Q[state.seq[i]].a) wrong.push(state.seq[i]);
+  }
+  var rev = $("solo-review"), list = $("solo-review-list");
+  clear(list);
+  rev.hidden = (wrong.length === 0);
+  for(i=0;i<wrong.length;i++){
+    var qi = wrong[i];
+    var li = document.createElement("li");
+    li.appendChild(span(null, Q[qi].q));
+    li.appendChild(document.createElement("br"));
+    li.appendChild(span("aa", fullOption(qi, Q[qi].a)));
+    list.appendChild(li);
+  }
+  SFX.finish();
+  show("soloend");
+}
+
+/* =========================================================
+   TECLADO. Pensado para el aula: el docente avanza sin buscar
+   el mouse y suma puntos con los numeros.
+   ========================================================= */
+document.addEventListener("keydown", function(e){
+  var t = e.target || {};
+  if(t.tagName === "INPUT" || t.tagName === "TEXTAREA") return;
+  if(e.ctrlKey || e.altKey || e.metaKey) return;
+  var k = e.key;
+  var onButton = (t.tagName === "BUTTON");
+
+  if(current === "aula"){
+    if(k === "Enter" || k === " " || k === "Spacebar"){
+      if(onButton) return;              // el boton ya recibe su propio click
+      e.preventDefault(); aulaMain(); return;
+    }
+    if(k === "ArrowRight"){ e.preventDefault(); aulaMain(); return; }
+    if(k === "ArrowLeft"){ e.preventDefault(); aulaPrev(); return; }
+    if(k >= "1" && k <= "6"){
+      var n = parseInt(k,10) - 1;
+      if(n < state.teams.length){ e.preventDefault(); toggleAward(n); }
+      return;
+    }
+  }
+
+  if(current === "solo"){
+    var map = { "1":0, "2":1, "3":2, "a":0, "b":1, "c":2, "A":0, "B":1, "C":2 };
+    if(map[k] !== undefined){ e.preventDefault(); answerSolo(map[k]); return; }
+    if(k === "Enter" || k === " " || k === "Spacebar"){
+      if(onButton) return;
+      e.preventDefault(); soloNext(); return;
+    }
+  }
+});
+
+/* =========================================================
+   CABLEADO
+   ========================================================= */
+function leaveGame(){
+  if(current === "aula" || current === "solo"){
+    if(!window.confirm("Leave the game. Your progress will be lost.")) return;
+  }
+  SFX.move();
+  show("home");
+}
+
+$("btn-sound").onclick = toggleSound;
+$("btn-home").onclick = leaveGame;
+$("go-setup").onclick = function(){ SFX.move(); renderCount(); renderNames(); show("setup"); };
+$("go-solo").onclick  = function(){ startSolo(); };
+$("setup-start").onclick = function(){ startAula(false); };
+$("setup-back").onclick  = function(){ SFX.move(); show("home"); };
+$("aula-main").onclick = aulaMain;
+$("aula-prev").onclick = aulaPrev;
+$("aula-stop").onclick = function(){
+  if(window.confirm("End the game and see the scores.")) endAula();
+};
+$("aula-again").onclick  = function(){ startAula(true); };
+$("aula-reconf").onclick = function(){ SFX.move(); renderCount(); renderNames(); show("setup"); };
+$("aula-home").onclick   = function(){ SFX.move(); show("home"); };
+$("solo-next").onclick = soloNext;
+$("solo-stop").onclick = function(){
+  if(window.confirm("End the game and see your result.")) endSolo();
+};
+$("solo-again").onclick = startSolo;
+$("solo-home").onclick  = function(){ SFX.move(); show("home"); };
+
+/* --------- etiquetas fijas dibujadas en pixel --------- */
+setPixel($("logo-1"), "boy in the", "pxt-block");
+setPixel($("logo-2"), "girls' bathroom", "pxt-block");
+setPixel($("press-start"), "press start");
+setPixel($("name-class"), "class quest");
+setPixel($("name-solo"), "solo quest");
+setPixel($("head-setup"), "party setup");
+setPixel($("lbl-howmany"), "how many teams");
+setPixel($("lbl-names"), "team names");
+setPixel($("lbl-givepoint"), "give a point to");
+setPixel($("head-scores"), "final scores");
+setPixel($("head-result"), "result");
+setPixel($("lbl-review"), "review these");
+setPixel($("go-setup"), "choose teams");
+setPixel($("go-solo"), "start");
+setPixel($("setup-start"), "start");
+setPixel($("setup-back"), "back");
+setPixel($("aula-prev"), "back");
+setPixel($("aula-stop"), "end game");
+setPixel($("aula-again"), "play again");
+setPixel($("aula-reconf"), "new teams");
+setPixel($("aula-home"), "title screen");
+setPixel($("solo-stop"), "end game");
+setPixel($("solo-again"), "play again");
+setPixel($("solo-home"), "title screen");
+setPixel($("btn-home"), "title screen");
+
+try{ sound = (window.localStorage.getItem(SOUND_KEY) !== "0"); }catch(e){}
+renderSound();
+show("home");
+})();
+</script>
+</body>
+</html>

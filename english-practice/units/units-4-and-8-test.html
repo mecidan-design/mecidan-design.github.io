@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>August Test · Units 4 and 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 70px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+/* ---------- header ---------- */
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+/* ---------- cards ---------- */
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+
+/* ---------- inputs ---------- */
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:7px 11px;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- passage + gaps ---------- */
+.passage{font-size:1.06rem;line-height:3.05;margin:0}
+.gapwrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px}
+.gline{display:flex;align-items:center;gap:5px}
+.gnum{
+  font-family:var(--head);font-size:.72rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.gapwrap input{width:132px;text-align:center}
+.cue{font-family:var(--head);font-size:.74rem;font-weight:700;color:var(--violet);line-height:1.1;margin-top:1px}
+
+/* ---------- explanation blocks ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 12px}
+.pitem{border-left:8px solid var(--violet);padding-left:12px;margin-bottom:16px}
+.pitem .ptop{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:2px}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+/* ---------- items (mcq / kwt) ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 17px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+.kwt .lead{font-size:1.04rem;margin:0 0 9px;line-height:1.5}
+.keyw{
+  font-family:var(--head);font-weight:800;letter-spacing:1.6px;background:var(--yellow);
+  border:3px solid #000;border-radius:8px;padding:2px 12px;display:inline-block;margin:0 0 10px;
+}
+.kwt .target{font-size:1.04rem;line-height:2.5}
+.kwt input{width:290px;max-width:100%}
+.wc{font-family:var(--head);font-size:.76rem;font-weight:700;color:#5b5b5b;margin-top:6px}
+.wc.bad{color:#c2004c}
+
+/* ---------- word formation (raiz debajo del hueco, en el propio texto) ---------- */
+.cue.root{
+  font-family:var(--head);font-weight:800;font-size:.7rem;letter-spacing:1.1px;
+  color:#000;background:var(--cyan);border:2px solid #000;border-radius:6px;
+  padding:0 7px;margin-top:2px;
+}
+#wfText .gapwrap input{width:150px}
+
+/* ---------- multiple-choice cloze ---------- */
+.mcgap{
+  display:inline-flex;align-items:center;gap:5px;vertical-align:middle;margin:0 3px;
+  border:3px solid #000;border-radius:11px;padding:3px 9px;background:#fffdf2;min-width:118px;
+}
+.mcgap.ok{background:#e4ffc4;border-color:#1c7a00}
+.mcgap.no{background:#ffe0ec;border-color:#c2004c}
+.mcpick{font-weight:600;font-size:.97rem}
+.mcpick.empty{color:#9a9a9a;letter-spacing:2px}
+.mcrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.mcrow .rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.mcrow .opt{font-size:.9rem;padding:5px 13px;box-shadow:2px 2px 0 #000}
+.mcrow .letter{font-family:var(--head);font-weight:800;margin-right:5px}
+
+/* ---------- warm-up ---------- */
+.card.warm{background:var(--ink);border-color:#000;box-shadow:10px 10px 0 var(--yellow)}
+.warm h2,.warm .sub{color:#fff}
+.warm .sub{color:#c9c9c9}
+.dots{display:flex;gap:7px;margin:14px 0 18px}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.warm .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px;margin-top:6px}
+.final{text-align:center;padding:14px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3.3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.25rem;margin-bottom:14px}
+.hidden{display:none}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem;margin-top:14px}
+
+/* ---------- test: cabecera de ejercicio ---------- */
+.card.ex{padding-top:18px}
+.exhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.exnum{
+  font-family:var(--head);font-weight:800;font-size:1.1rem;color:#fff;background:var(--violet);
+  border:3px solid #000;border-radius:50%;width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.expts{
+  font-family:var(--head);font-weight:800;font-size:.78rem;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:2px 13px;text-transform:uppercase;letter-spacing:.8px;
+}
+.rubric{font-weight:600;font-size:1.02rem;margin:0 0 12px;line-height:1.45}
+.intro{
+  font-size:1rem;line-height:1.55;margin:0 0 16px;background:#fffdf2;
+  border:3px solid #000;border-radius:14px;padding:12px 14px;
+}
+.situation{
+  font-size:1rem;line-height:1.55;margin:0 0 14px;background:#f4efff;
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;
+}
+
+/* ---------- matching ---------- */
+.mline{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px}
+.mtext{font-size:1.01rem;line-height:1.45;font-weight:500}
+.rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;margin-top:2px;
+}
+select.pick{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:7px 11px;
+  border:3px solid #000;border-radius:11px;background:#fff;cursor:pointer;max-width:100%;
+}
+select.pick.ok{background:#e4ffc4;border-color:#1c7a00}
+select.pick.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- transform / gapsentences ---------- */
+.item .lead{font-size:1.02rem;margin:0 0 9px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.item .target{font-size:1.02rem;line-height:2.6}
+.item input{width:210px}
+.item input.wide{width:100%;max-width:520px;text-align:left}
+
+/* ---------- caja de gramatica previa, al estilo "explore grammar" ---------- */
+.gnote{
+  border:4px solid #000;border-radius:16px;padding:13px 16px;margin:0 0 16px;
+  background:#fff7e0;box-shadow:5px 5px 0 var(--yellow);font-size:.96rem;line-height:1.55;
+}
+.gnotetitle{font-family:var(--head);font-size:1.05rem;display:block;margin-bottom:6px}
+.gnote ul{margin:0;padding-left:19px}
+.gnote li{margin-bottom:5px}
+.gform{
+  font-family:var(--head);font-weight:800;background:var(--cyan);
+  border:2px solid #000;border-radius:6px;padding:0 7px;display:inline-block;
+}
+.gwarn{margin:9px 0 0;background:#ffe0ec;border:2px solid #000;border-radius:10px;padding:7px 11px}
+
+/* ---------- writing ---------- */
+.wline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.wlab{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.wform{
+  font-family:var(--head);font-weight:800;font-size:.8rem;background:var(--lime);
+  border:2px solid #000;border-radius:999px;padding:2px 11px;white-space:nowrap;
+}
+.wline input{flex:1 1 300px;min-width:220px}
+textarea{
+  font-family:var(--body);font-size:1rem;font-weight:500;width:100%;padding:11px 13px;
+  border:3px solid #000;border-radius:14px;background:#fffdf2;outline:none;resize:vertical;
+}
+textarea:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+.needlist{
+  margin-top:13px;border:3px solid #000;border-radius:14px;padding:11px 14px;background:#f0ffe0;
+  font-size:.93rem;line-height:1.5;
+}
+.needlist ul{margin:6px 0 0;padding-left:20px}
+.needtitle{font-family:var(--head);font-size:.9rem;display:block;margin-bottom:2px}
+.modelbox{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;background:#fffdf2;
+  font-size:.93rem;line-height:1.55;margin-top:6px;
+}
+.modelbox p{margin:6px 0 0}
+.selfnote{font-style:italic;color:#5b5b5b;font-size:.86rem}
+
+/* ---------- marcador global ---------- */
+.totalcard{
+  background:var(--ink);border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 var(--lime);
+  padding:16px 20px;margin-bottom:34px;position:sticky;top:8px;z-index:5;
+}
+.totalcard .lbl{font-family:var(--head);font-weight:800;color:var(--yellow);font-size:.8rem;
+  text-transform:uppercase;letter-spacing:1.2px}
+.totalcard .val{font-family:var(--head);font-weight:800;color:#fff;font-size:1.5rem;line-height:1.2}
+.track{height:14px;border:3px solid #fff;border-radius:999px;margin-top:9px;overflow:hidden;background:transparent}
+.track span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .25s}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="testTitle"></h1>
+    <p id="testSub"></p>
+  </div>
+
+  <div class="totalcard">
+    <div class="lbl">Running total</div>
+    <div class="val" id="total"></div>
+    <div class="track"><span id="totalBar"></span></div>
+  </div>
+
+  <div id="exercises"></div>
+
+</div>
+
+<script id="data-block">
+/* ====== MOCK 3, paralelo al "August Test Practice (Units 4 and 8)".
+   Mismos 11 ejercicios y mismo reparto (17-8-6-12-6-9-11-3-10-10-8 = 100).
+   Cambios pedidos:
+   - ej.2 reforzado: caja de gramatica ANTES, y una linea guiada por estructura
+     en lugar de un bloque libre unico, para que no se olvide ninguna.
+   - ej.3 reforzado: caja de gramatica con have vs get, y dos items donde SOLO
+     vale have (algo malo que le pasa a uno y no pidio).
+   - phrasal verbs: solo los quince de la lista del libro.
+       ej.5  bring together, build up, join in, start out, think up, try out
+       ej.6  cheer sb up, fall out with, get away from, get sb down, stick to,
+             talk sth over
+       los tres restantes (get on with, go through, take sth up) aparecen dentro
+       de las oraciones del ej.1, asi que los quince se practican.
+   Orden interno distinto al del mock 1 y al del mock 2. ====== */
+var DATA = {
+
+title: "AUGUST TEST · UNITS 4 AND 8",
+subtitle: "Mock paper 3 · modals in the past and the causative · 100 marks",
+
+exercises: [
+
+/* ---------- 1 ---------- 17 marks ---------- */
+{ n: 1, points: 17, type: "matching",
+  rubric: "Read sentences 1-10 and match each one to its use.",
+  labels: ["Advice","Obligation","No obligation","Prohibition","Certainty","Certainty (in the past)","Possibility","Regret about the past","Request","Ability (in the past)"],
+  items: [
+    { text: "The bus might get stuck in the traffic, so leave a bit earlier.", correct: "Possibility",
+      why: "might says that the traffic is one of several things that may happen, not something we know.",
+      tip: "might, may and could all mean possibility. The advice that follows does not change that." },
+
+    { text: "You ought to talk it over with your parents before you decide.", correct: "Advice",
+      why: "ought to tells somebody what is sensible to do, but nobody forces them.",
+      tip: "ought to and should are the same strength. Both are advice, never obligation." },
+
+    { text: "He is not answering, so his phone must be switched off.", correct: "Certainty",
+      why: "The silence is evidence, so the speaker feels sure about the situation right now.",
+      tip: "Evidence first, must second. That order almost always means certainty." },
+
+    { text: "Everybody has to hand the form in before the end of term.", correct: "Obligation",
+      why: "has to says that the school makes this necessary. It comes from outside the speaker.",
+      tip: "School and work rules take have to or must." },
+
+    { text: "Could you help me carry these boxes upstairs?", correct: "Request",
+      why: "A question with could you politely asks somebody to do something for you.",
+      tip: "Same word, two jobs: could you is a request, she could swim is past ability." },
+
+    { text: "Students must not leave the building during the lunch break.", correct: "Prohibition",
+      why: "must not says that the action is not allowed at all.",
+      tip: "must not forbids. do not have to only says there is no need. They are opposites." },
+
+    { text: "I should have taken up swimming years ago.", correct: "Regret about the past",
+      why: "should have plus the third form names something good that did not happen.",
+      tip: "should have always looks backwards. It is regret, not advice about now." },
+
+    { text: "The ticket includes lunch, so you do not have to bring any food.", correct: "No obligation",
+      why: "Bringing food is simply not necessary, because lunch is already paid for.",
+      tip: "do not have to, do not need to and need not all mean the same thing." },
+
+    { text: "When she was nine, she could already play three instruments.", correct: "Ability (in the past)",
+      why: "could here describes a skill she had during her childhood.",
+      tip: "could plus a skill is past ability. For one single success use was able to." },
+
+    { text: "They cannot have gone through all that paperwork in one afternoon.", correct: "Certainty (in the past)",
+      why: "cannot have plus the third form says the speaker is sure this did not happen.",
+      tip: "must have and cannot have are the two sides of certainty about the past." }
+  ]
+},
+
+/* ---------- 2 ---------- 8 marks ---------- */
+{ n: 2, points: 8, type: "writing", mode: "lines",
+  rubric: "Read the situation and write one sentence for each structure. You are guessing about the past, so every sentence needs have plus the third form.",
+  note: {
+    title: "Guessing about the past",
+    lines: [
+      "must have + third form -> you are sure it happened. He must have missed the train.",
+      "can't have + third form -> you are sure it did not happen. She can't have finished already.",
+      "might / may / could have + third form -> it is possible, but you do not know. They might have forgotten.",
+      "should have + third form -> it was the right thing to do, and it did not happen. I should have called."
+    ],
+    warning: "All four are built the same way: modal + have + third form. The word have never changes to has or had here."
+  },
+  situation: "Nico was supposed to run in the school relay on Saturday. He never appeared at the track. His running shoes were found later in the changing room, and on Monday he would not talk to anybody about it.",
+  required: [
+    { form: "might have", label: "might have, may have or could have + third form (a possibility)",
+      starter: "He might have ...",
+      patterns: ["might have","may have","could have"],
+      why: "Use this when something is possible but you have no way of proving it.",
+      tip: "If you cannot prove it, might have is the safest choice of the three." },
+
+    { form: "should have", label: "should have or shouldn't have + third form (a regret)",
+      starter: "He should have ...",
+      patterns: ["should have","shouldn't have","should not have"],
+      why: "This one is not a guess: it says what was the right thing to do.",
+      tip: "Regret looks backwards. Never should plus a past simple verb." },
+
+    { form: "can't have", label: "can't have or couldn't have + third form (something you are sure did NOT happen)",
+      starter: "He can't have ...",
+      patterns: ["can't have","cannot have","couldn't have","could not have"],
+      why: "This is the negative of must have: the evidence tells you it did not happen.",
+      tip: "There is no mustn't have for guessing. The negative is always can't have." },
+
+    { form: "must have", label: "must have + third form (something you are sure about)",
+      starter: "Nico must have ...",
+      patterns: ["must have"],
+      why: "Use this when the evidence is strong enough for you to feel sure about what happened.",
+      tip: "Three blocks, always in this order: must + have + third form." }
+  ],
+  model: "Nico must have felt embarrassed about something. He can't have forgotten the date, because the whole team reminded him on Friday. He might have hurt his ankle during the week. He should have told the coach instead of disappearing."
+},
+
+/* ---------- 3 ---------- 6 marks ---------- */
+{ n: 3, points: 6, type: "transform",
+  rubric: "Rewrite each sentence using the causative. Read the grammar box first: two of these sentences can only take have.",
+  note: {
+    title: "have or get something done",
+    lines: [
+      "have + thing + third form -> you arrange for somebody else to do the job. We had the kitchen painted.",
+      "get + thing + third form -> exactly the same meaning, but it sounds more spoken. We got the kitchen painted.",
+      "the tense goes on have or get -> I am having it repaired. I had it repaired. I will have it repaired. The third form never changes."
+    ],
+    warning: "When something bad happens to you and you did not ask for it, use HAVE and never get. She had her bag stolen. Nobody arranges that."
+  },
+  items: [
+    { lead: "A dentist is checking Mateo's teeth right now.", before: "Mateo", after: "right now.",
+      answers: ["is having his teeth checked","is getting his teeth checked"],
+      why: "Mateo arranged the appointment, so both have and get work, and the tense goes on the first verb: is having.",
+      tip: "If the person chose to have the job done, get is just as good as have." },
+
+    { lead: "Somebody stole Lucia's laptop on the train yesterday.", before: "Lucia", after: "on the train yesterday.",
+      answers: ["had her laptop stolen"],
+      why: "Lucia did not arrange this and it was bad news, so this is the one case where only have works.",
+      tip: "somebody stole, somebody broke, somebody took: bad news means have, never get." },
+
+    { lead: "A photographer will take the team photo on Friday.", before: "The team", after: "on Friday.",
+      answers: ["will have the photo taken","will get the photo taken"],
+      why: "The team arranged the photographer, so have and get both work, and will goes on the first verb.",
+      tip: "Future causative is will have or will get plus the thing plus the third form." },
+
+    { lead: "Somebody broke Andres's window during the storm.", before: "Andres", after: "during the storm.",
+      answers: ["had his window broken"],
+      why: "Nobody arranges a broken window, so this is the bad news case and only have is possible.",
+      tip: "Ask yourself one question: did the person want this? If the answer is no, use have." },
+
+    { lead: "A garage is going to service my father's car next week.", before: "My father", after: "next week.",
+      answers: ["is going to have his car serviced","is going to get his car serviced"],
+      why: "This is a planned service, so both verbs work, and is going to stays in front of have or get.",
+      tip: "Build the tense first, then add have or get, then the thing, then the third form." }
+  ]
+},
+
+/* ---------- 4 ---------- 12 marks ---------- */
+{ n: 4, points: 12, type: "transform",
+  rubric: "Read the facts about a city bike-sharing scheme and rewrite each sentence in the passive voice.",
+  items: [
+    { lead: "The council repairs the bikes every Monday.", before: "The bikes", after: "every Monday.",
+      answers: ["are repaired","are repaired by the council"],
+      why: "This is a routine in the present and bikes is plural, so the passive is are plus the third form.",
+      tip: "every Monday points to the present simple. Plural takes are, singular takes is." },
+
+    { lead: "A local artist designed the first stations in 2018.", before: "The first stations", after: "in 2018.",
+      answers: ["were designed by a local artist"],
+      why: "The stations receive the action, and here the artist is new information, so we keep by a local artist.",
+      tip: "Keep by when the person is interesting. Drop it when it adds nothing." },
+
+    { lead: "The city will add two hundred bikes next spring.", before: "Two hundred bikes", after: "next spring.",
+      answers: ["will be added","will be added by the city"],
+      why: "The bikes receive the action in the future, so the passive is will be plus the third form.",
+      tip: "Future passive is always will be + third form." },
+
+    { lead: "Workers are painting the new stations this month.", before: "The new stations", after: "this month.",
+      answers: ["are being painted","are being painted by workers"],
+      why: "The work is in progress now, so the passive is are being plus the third form.",
+      tip: "Present continuous passive is is or are + being + third form. This is the one people forget." },
+
+    { lead: "Somebody damaged three bikes near the park last week.", before: "Three bikes", after: "near the park last week.",
+      answers: ["were damaged"],
+      why: "We do not know who did it, so the person disappears, and bikes is plural in a finished past time.",
+      tip: "somebody in the first sentence means you can leave the person out completely." },
+
+    { lead: "The scheme has not reached the north of the city yet.", before: "The north of the city", after: "yet.",
+      answers: ["has not been reached","hasn't been reached"],
+      why: "The present perfect passive keeps has, adds been, and then the third form: reach - reached - reached.",
+      tip: "Three pieces here: has or have + been + third form." }
+  ]
+},
+
+/* ---------- 5 ---------- 6 marks ---------- */
+{ n: 5, points: 6, type: "matching",
+  rubric: "Match each phrasal verb to its definition.",
+  labels: ["To invent an idea or a plan","To take part in an activity with other people","To begin your life or career in a particular way","To make people meet or work as a group","To test something to see if it works","To increase something slowly over time"],
+  items: [
+    { text: "think up", correct: "To invent an idea or a plan",
+      why: "think up means to produce a new idea, usually a clever one.",
+      tip: "You can separate it: think up a plan, or think a plan up. Both are correct." },
+
+    { text: "join in", correct: "To take part in an activity with other people",
+      why: "join in means to start doing what a group is already doing.",
+      tip: "join in needs no object: everybody joined in. join a club needs one. Do not mix them." },
+
+    { text: "start out", correct: "To begin your life or career in a particular way",
+      why: "start out describes how something or somebody began, usually a long time ago.",
+      tip: "start out is about the beginning of a long story: she started out as a waitress." },
+
+    { text: "bring together", correct: "To make people meet or work as a group",
+      why: "bring together means that something makes separate people into a group.",
+      tip: "The thing that unites people is the subject: music brings people together." },
+
+    { text: "try out", correct: "To test something to see if it works",
+      why: "try out means to use something once in order to find out if it is any good.",
+      tip: "try out is about testing. try on is about clothes. One letter, different meaning." },
+
+    { text: "build up", correct: "To increase something slowly over time",
+      why: "build up means that something grows little by little, not suddenly.",
+      tip: "build up goes with things that grow slowly: an audience, confidence, strength." }
+  ]
+},
+
+/* ---------- 6 ---------- 9 marks ---------- */
+{ n: 6, points: 9, type: "gapsentences",
+  rubric: "Complete each sentence with the correct form of a phrasal verb from the box. Be careful with the tense and with where the person goes.",
+  intro: "cheer somebody up · fall out with somebody · get away from · get somebody down · stick to something · talk something over",
+  items: [
+    { before: "She was in a terrible mood, so we took her to the cinema to", after: ".",
+      answers: ["cheer her up"],
+      why: "After to the verb stays in its base form, and with this phrasal verb the person goes in the middle.",
+      tip: "cheer her up, never cheer up her. When the object is a pronoun it always goes inside." },
+
+    { before: "Three weeks of rain in a row really", after: ".",
+      answers: ["gets me down","gets you down","get me down","get you down"],
+      why: "Three weeks is treated as one period, so the present simple takes gets, and the person goes in the middle.",
+      tip: "Same rule as the one above: get me down, get you down. The pronoun never goes at the end." },
+
+    { before: "I", after: "my best friend last term, but we are fine again now.",
+      answers: ["fell out with"],
+      why: "last term is finished past time, so fall becomes fell: fall - fell - fallen.",
+      tip: "fall out with somebody needs all three words. The person goes after with." },
+
+    { before: "If you want to see any progress, you have to", after: "the plan for a whole month.",
+      answers: ["stick to"],
+      why: "After have to the verb stays in its base form, and to stays attached to stick.",
+      tip: "stick to something means not to abandon it. Do not drop the to." },
+
+    { before: "We spent the whole evening trying to", after: "with my parents.",
+      answers: ["talk it over","talk things over","talk it through"],
+      why: "After to the verb stays in its base form, and a pronoun object goes between talk and over.",
+      tip: "talk it over, not talk over it. The pronoun always splits this one." },
+
+    { before: "After a month of exams I really need to", after: "the city for a few days.",
+      answers: ["get away from"],
+      why: "After need to the verb stays in its base form, and from is needed before the place.",
+      tip: "get away on its own means escape. Add from when you say what you are escaping." }
+  ]
+},
+
+/* ---------- 7 ---------- 11 marks ---------- */
+{ n: 7, points: 11, type: "gapsentences",
+  rubric: "Complete each sentence with ONE preposition. Prepositions can be repeated.",
+  items: [
+    { before: "My youngest brother is hopeless", after: "keeping secrets.",
+      answers: ["at"], why: "hopeless says how badly he does something, and ability adjectives take at.",
+      tip: "After at the verb always ends in -ing: hopeless at keeping." },
+
+    { before: "She has always been terrified", after: "heights.",
+      answers: ["of"], why: "terrified belongs to the fear group, and fear adjectives take of.",
+      tip: "afraid of, frightened of, terrified of. Fear always takes of." },
+
+    { before: "He looked quite nervous", after: "the job interview.",
+      answers: ["about"], why: "nervous is a feeling, and feeling adjectives take about.",
+      tip: "worried about, anxious about, nervous about. Emotions take about." },
+
+    { before: "The new teacher is very popular", after: "our class.",
+      answers: ["with"], why: "popular takes with when we say who likes the person.",
+      tip: "popular with people, but popular in a place. The word after the gap decides." },
+
+    { before: "I am really proud", after: "what my sister did last year.",
+      answers: ["of"], why: "proud takes of when we say what we are proud about.",
+      tip: "proud of, capable of, afraid of. This is a big group, so of is a good first guess." },
+
+    { before: "Nobody in my family is keen", after: "camping.",
+      answers: ["on"], why: "keen takes on when we talk about something people enjoy.",
+      tip: "keen on stands alone in its group. Learn it as one single word." },
+
+    { before: "He felt embarrassed", after: "forgetting her name.",
+      answers: ["about"], why: "embarrassed is an emotion, so it takes about, and the verb after it takes -ing.",
+      tip: "If the adjective names a feeling, about is nearly always right." },
+
+    { before: "My whole class seems to be addicted", after: "that game.",
+      answers: ["to"], why: "addicted is the only adjective in this set that takes to.",
+      tip: "addicted to and keen on are the two odd ones. Learn them as a pair." },
+
+    { before: "You are much better", after: "this game than I am.",
+      answers: ["at"], why: "better is the comparative of good, and it keeps the same preposition: at.",
+      tip: "The preposition does not change when the adjective becomes comparative: good at, better at." },
+
+    { before: "Most people are a little afraid", after: "speaking in public.",
+      answers: ["of"], why: "afraid takes of, and the verb after the preposition takes -ing.",
+      tip: "Never afraid to make here. After of the verb always ends in -ing." },
+
+    { before: "Everybody is fed up", after: "the noise from the roadworks.",
+      answers: ["with"], why: "fed up is a fixed expression and it always takes with.",
+      tip: "fed up with and popular with are the two to memorise in this group." }
+  ]
+},
+
+/* ---------- 8 ---------- 3 marks ---------- */
+{ n: 8, points: 3, type: "matching",
+  rubric: "Which preposition follows each group of adjectives?",
+  labels: ["at","about","of","with","on","to"],
+  items: [
+    { text: "ANXIOUS, EMBARRASSED, NERVOUS, STRESSED, WORRIED", correct: "about",
+      why: "All five describe how somebody feels, and feelings take about.",
+      tip: "This is the biggest group. If the adjective is an emotion, try about first." },
+
+    { text: "BAD, BETTER, GOOD, HOPELESS", correct: "at",
+      why: "All four say how well somebody does something, and that meaning takes at.",
+      tip: "The comparative keeps the preposition: good at and better at." },
+
+    { text: "ADDICTED, MARRIED, SIMILAR", correct: "to",
+      why: "Both of these take to, and they are the only common ones that do.",
+      tip: "Very small groups are the ones exams love. Say them out loud: addicted to, married to, similar to." },
+
+    { text: "AFRAID, CAPABLE, PROUD, TERRIFIED", correct: "of",
+      why: "This group mixes fear with proud and capable, and all of them take of.",
+      tip: "Fear plus proud plus capable all take of. Keep them together in your notes." },
+
+    { text: "FED UP, PLEASED, POPULAR", correct: "with",
+      why: "These three take with, usually before a person or a situation.",
+      tip: "with often points at the other people involved: popular with them, fed up with them." },
+
+    { text: "KEEN", correct: "on",
+      why: "keen is on its own: it takes on and nothing else.",
+      tip: "keen on stands alone, exactly like addicted to. Learn the two together." }
+  ]
+},
+
+/* ---------- 9 ---------- 10 marks ---------- */
+{ n: 9, points: 10, type: "writing", mode: "lines",
+  rubric: "Write one sentence for each group of adjectives in exercise 8. Use the correct preposition every time.",
+  situation: "Do not invent people. Use your own family, your own friends and your own school, because a sentence you actually mean is one you will still remember in November.",
+  required: [
+    { form: "with", label: "an adjective from the WITH group (fed up, pleased, popular) with with",
+      starter: "My ... is popular with ...",
+      patterns: ["fed up with","pleased with","popular with"],
+      why: "The with group usually points at people or at a situation you are reacting to.",
+      tip: "Say who or what: popular with the little kids, fed up with the noise." },
+
+    { form: "about", label: "an adjective from the ABOUT group (anxious, embarrassed, nervous, stressed, worried) with about",
+      starter: "I am nervous about ...",
+      patterns: ["anxious about","embarrassed about","nervous about","stressed about","worried about"],
+      why: "The about group is about feelings, so name the thing that causes the feeling.",
+      tip: "The cause always goes after about: nervous about the oral exam." },
+
+    { form: "on / to", label: "either keen on or addicted to",
+      starter: "My brother is addicted to ...",
+      patterns: ["keen on","addicted to"],
+      why: "These two are the odd ones out, so a test almost always includes one of them.",
+      tip: "Write both once and read them aloud. That is the fastest way to stop swapping them." },
+
+    { form: "of", label: "an adjective from the OF group (afraid, capable, proud, terrified) with of",
+      starter: "She is proud of ...",
+      patterns: ["afraid of","capable of","proud of","terrified of"],
+      why: "The of group covers fear plus proud and capable.",
+      tip: "After of the verb takes -ing: capable of running, terrified of falling." },
+
+    { form: "at", label: "an adjective from the AT group (bad, better, good, hopeless) with at",
+      starter: "I am hopeless at ...",
+      patterns: ["bad at","better at","good at","hopeless at"],
+      why: "The at group is about ability, so say how well somebody does something.",
+      tip: "Put an -ing verb after at and the sentence writes itself: hopeless at drawing." }
+  ],
+  model: "That song is popular with everybody in my year. I am always nervous about speaking in front of the class. My little brother is addicted to that card game. My grandmother is very proud of her garden. I am hopeless at remembering birthdays."
+},
+
+/* ---------- 10 ---------- 10 marks ---------- */
+{ n: 10, points: 10, type: "kwt",
+  rubric: "Rewrite each sentence using the word given. Use between two and five words, including the word given. Do not change the word given.",
+  items: [
+    { lead: "I am sure Pablo forgot to set his alarm.", key: "MUST",
+      before: "Pablo", after: "to set his alarm.",
+      answers: ["must have forgotten"],
+      why: "I am sure about something in the past is certainty, and that is must have plus the third form.",
+      tip: "I am sure plus a past verb almost always becomes must have + third form." },
+
+    { lead: "It would be a good idea to book the table now.", key: "BETTER",
+      before: "We", after: "the table now.",
+      answers: ["had better book"],
+      why: "had better gives strong advice about what is sensible right now, and it takes the bare verb.",
+      tip: "Never had better to book. After better the verb goes with no to." },
+
+    { lead: "Somebody is cutting my grandmother's hair this morning.", key: "HAVING",
+      before: "My grandmother", after: "this morning.",
+      answers: ["is having her hair cut"],
+      why: "She arranged the appointment, so this is the causative, and the tense goes on have: is having.",
+      tip: "cut looks the same in all three forms. Do not write cutted." },
+
+    { lead: "Ana did not manage to finish the exam in time.", key: "ABLE",
+      before: "Ana", after: "finish the exam in time.",
+      answers: ["was not able to","wasn't able to"],
+      why: "did not manage to and was not able to both describe one thing she could not do on one occasion.",
+      tip: "Keep the to in your answer, and remember that wasn't counts as two words." },
+
+    { lead: "Nobody has cleaned these windows for months.", key: "BEEN",
+      before: "These windows", after: "for months.",
+      answers: ["have not been cleaned","haven't been cleaned"],
+      why: "The windows receive the action and the result still matters now, so we use have not been plus the third form.",
+      tip: "windows is plural, so the answer needs have and not has." }
+  ]
+},
+
+/* ---------- 11 ---------- 8 marks ---------- */
+{ n: 11, points: 8, type: "wordform",
+  rubric: "Complete the text with the correct form of the words in capitals. Some answers need a negative prefix.",
+  text: "Two years ago four students at my school decided to start a band. None of them was especially {1} at the beginning: they simply liked the same music and wanted somewhere to go on Friday afternoons. Marcos, the drummer, was the {2} one, and he was already talking about a first album before they had learnt a single song. Their first concert was not exactly {3}: eleven people came, and four of them were parents. Their rehearsals are still completely {4}, with no timetable and no rules, and anybody who wants to can join in. What kept them going is that they never became {5} on other people's opinions. They practised every week, built up an audience slowly, and turned out to be surprisingly {6}: in two years they have never cancelled a rehearsal. The music teacher says they were the most {7} group he ever taught, because they refused to play a single song he suggested. Playing that badly at the start and still continuing seemed {8} to me, and now they bring together half the school every time they play.",
+  items: [
+    { root: "CREATE", answers: ["creative"],
+      why: "especially needs an adjective, and the adjective from the verb create is creative, ending in -ive.",
+      tip: "-ive builds adjectives from verbs: create and creative, attract and attractive." },
+
+    { root: "AMBITION", answers: ["ambitious"],
+      why: "the most needs an adjective, and the adjective from the noun ambition is ambitious, ending in -ous.",
+      tip: "-ous turns a noun into an adjective: ambition and ambitious, danger and dangerous." },
+
+    { root: "SUCCESS", answers: ["successful"],
+      why: "not exactly needs an adjective, and the adjective from success is successful.",
+      tip: "-ful means full of something. Two s in the middle, only one l at the end." },
+
+    { root: "FORMAL", answers: ["informal"],
+      why: "No timetable and no rules is the opposite of formal, and that opposite takes in-.",
+      tip: "Read what comes after the gap. Here it explains the meaning, so it tells you a prefix is needed." },
+
+    { root: "DEPEND", answers: ["dependent"],
+      why: "became needs an adjective, and the adjective from depend is dependent. The word never before it already makes the sentence negative.",
+      tip: "Careful: never in the sentence does the negative work, so the word itself does not need a prefix." },
+
+    { root: "RELY", answers: ["reliable"],
+      why: "turned out to be needs an adjective, and the adjective from rely is reliable: the y disappears.",
+      tip: "-able often means you can trust or use something: reliable, enjoyable, comfortable." },
+
+    { root: "OBEDIENT", answers: ["disobedient"],
+      why: "They refused to play his songs, so we need the opposite of obedient, and that opposite takes dis-.",
+      tip: "dis- makes the opposite of some adjectives: obedient, honest, loyal." },
+
+    { root: "POSSIBLE", answers: ["impossible"],
+      why: "Continuing after a concert like that looked like something that could not be done, so we need the opposite of possible.",
+      tip: "im- goes before words starting with p or m: possible and impossible, patient and impatient." }
+  ]
+}
+
+]
+
+};
+</script>
+<script id="engine-block">
+(function(){
+"use strict";
+
+/* Registry: el DOM guarda solo indices numericos, nunca JSON serializado. */
+var REG = [];
+
+function normalize(s){
+  return String(s).toLowerCase()
+    .replace(/[‘’ʼ]/g, "'")
+    .replace(/[^a-z0-9' ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function countWords(s){
+  s = String(s).replace(/\bcannot\b/gi, "can not");
+  var t = String(s).toLowerCase().replace(/[‘’ʼ]/g, "'");
+  t = t.replace(/n't\b/g, " not")
+       .replace(/'ll\b/g, " will")
+       .replace(/'re\b/g, " are")
+       .replace(/'ve\b/g, " have")
+       .replace(/'m\b/g, " am")
+       .replace(/'d\b/g, " would");
+  t = t.replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  return t === "" ? 0 : t.split(" ").length;
+}
+
+function matches(given, list){
+  var g = normalize(given);
+  if(g === "") return false;
+  for(var i = 0; i < list.length; i++){ if(normalize(list[i]) === g) return true; }
+  return false;
+}
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+
+function explainBox(ok, answerText, why, tip, note){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answerText){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", "Answer: " + answerText));
+    box.appendChild(p0);
+  }
+  if(note){
+    var pn = el("p");
+    pn.appendChild(el("b", "lab tip", "Length"));
+    pn.appendChild(document.createTextNode(note));
+    box.appendChild(pn);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+function clearExp(scope){
+  var old = scope.querySelectorAll(".exp");
+  for(var i = 0; i < old.length; i++){ old[i].parentNode.removeChild(old[i]); }
+}
+
+function buildGappedText(container, text, makeGap){
+  container.innerHTML = "";
+  var chunks = String(text).split(/\{(\d+)\}/);
+  for(var i = 0; i < chunks.length; i++){
+    if(i % 2 === 0){
+      if(chunks[i]) container.appendChild(document.createTextNode(chunks[i]));
+    } else {
+      container.appendChild(makeGap(parseInt(chunks[i], 10)));
+    }
+  }
+}
+
+/* ============================================================
+   Armado de una tarjeta por ejercicio
+   ============================================================ */
+var root = document.getElementById("exercises");
+var SCORES = [];
+
+function card(ex, idx){
+  var sec = el("section", "card ex");
+  sec.setAttribute("data-ex", String(idx));
+
+  var head = el("div", "exhead");
+  head.appendChild(el("span", "exnum", String(ex.n)));
+  head.appendChild(el("span", "expts", ex.points + " marks"));
+  sec.appendChild(head);
+
+  sec.appendChild(el("p", "rubric", ex.rubric));
+
+  /* caja de gramatica ANTES del ejercicio, al estilo "explore grammar" del libro */
+  if(ex.note){
+    var nb = el("div", "gnote");
+    nb.appendChild(el("b", "gnotetitle", ex.note.title));
+    var ul = el("ul");
+    for(var k = 0; k < ex.note.lines.length; k++){
+      var li = el("li");
+      var parts = String(ex.note.lines[k]).split(" -> ");
+      li.appendChild(el("b", "gform", parts[0]));
+      if(parts.length > 1) li.appendChild(document.createTextNode(" " + parts[1]));
+      ul.appendChild(li);
+    }
+    nb.appendChild(ul);
+    if(ex.note.warning){
+      var w = el("p", "gwarn");
+      w.appendChild(el("b", null, "Careful: "));
+      w.appendChild(document.createTextNode(ex.note.warning));
+      nb.appendChild(w);
+    }
+    sec.appendChild(nb);
+  }
+
+  if(ex.intro) sec.appendChild(el("p", "intro", ex.intro));
+
+  var body = el("div", "exbody");
+  sec.appendChild(body);
+
+  var row = el("div", "btnrow");
+  var check = el("button", "btn", "Check");
+  check.type = "button";
+  var again = el("button", "btn ghost", "Try again");
+  again.type = "button";
+  row.appendChild(check);
+  row.appendChild(again);
+  var score = el("span", "scoreline");
+  row.appendChild(score);
+  sec.appendChild(row);
+
+  var panel = el("div", "panel");
+  panel.appendChild(el("h3", null, "Answers & explanations"));
+  var panelBody = el("div");
+  panel.appendChild(panelBody);
+  sec.appendChild(panel);
+
+  root.appendChild(sec);
+  return { sec: sec, body: body, check: check, again: again, score: score, panel: panel, panelBody: panelBody };
+}
+
+function fillPanel(body, rows, word){
+  body.innerHTML = "";
+  for(var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    var item = el("div", "pitem");
+    var top = el("div", "ptop");
+    top.appendChild(document.createTextNode((word || "Item") + " " + r.num));
+    top.appendChild(el("span", "mark " + (r.ok ? "y" : "n"), r.ok ? "correct" : "not yet"));
+    item.appendChild(top);
+    item.appendChild(explainBox(r.ok, r.shown, r.why, r.tip, r.note));
+    body.appendChild(item);
+  }
+}
+
+function setScore(idx, ex, right, total, ui){
+  var pts = total ? Math.round((right / total) * ex.points * 10) / 10 : 0;
+  SCORES[idx] = { pts: pts, max: ex.points, done: true };
+  ui.score.textContent = right + " / " + total + "  ·  " + pts + " of " + ex.points + " marks";
+  updateTotal();
+}
+
+var totalEl = document.getElementById("total");
+var totalBar = document.getElementById("totalBar");
+function updateTotal(){
+  var got = 0, of = 0;
+  for(var i = 0; i < SCORES.length; i++){
+    if(SCORES[i] && SCORES[i].done){ got += SCORES[i].pts; of += SCORES[i].max; }
+  }
+  got = Math.round(got * 10) / 10;
+  totalEl.textContent = of ? got + " / " + of + " marks so far" : "Nothing checked yet";
+  totalBar.style.width = of ? Math.round((got / of) * 100) + "%" : "0%";
+}
+
+/* ---------- matching: cada item elige una etiqueta ---------- */
+function renderMatching(ex, idx){
+  var ui = card(ex, idx);
+  var ids = [];
+  for(var i = 0; i < ex.items.length; i++){
+    var d = ex.items[i];
+    var id = REG.push({ data: d }) - 1;
+    ids.push(id);
+
+    var item = el("div", "item");
+    item.setAttribute("data-id", String(id));
+    var line = el("div", "mline");
+    line.appendChild(el("b", "rn", String(i + 1)));
+    line.appendChild(el("span", "mtext", d.text));
+    item.appendChild(line);
+
+    var sel = document.createElement("select");
+    sel.className = "pick";
+    sel.setAttribute("data-id", String(id));
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "-- choose --";
+    sel.appendChild(blank);
+    for(var j = 0; j < ex.labels.length; j++){
+      var o = document.createElement("option");
+      o.value = ex.labels[j]; o.textContent = ex.labels[j];
+      sel.appendChild(o);
+    }
+    item.appendChild(sel);
+    ui.body.appendChild(item);
+  }
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    clearExp(ui.body);
+    for(var i = 0; i < ids.length; i++){
+      var item = ui.body.querySelector('.item[data-id="' + ids[i] + '"]');
+      var sel = item.querySelector("select");
+      var d = REG[ids[i]].data;
+      var ok = sel.value === d.correct;
+      if(ok) right++;
+      sel.disabled = true;
+      sel.className = "pick " + (ok ? "ok" : "no");
+      item.appendChild(explainBox(ok, d.correct, d.why, d.tip, null));
+    }
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    clearExp(ui.body);
+    var sels = ui.body.querySelectorAll("select");
+    for(var i = 0; i < sels.length; i++){ sels[i].disabled = false; sels[i].value = ""; sels[i].className = "pick"; }
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- transform / gapsentences / kwt: un input por item ---------- */
+function renderInputItems(ex, idx, kind){
+  var ui = card(ex, idx);
+  var ids = [];
+  for(var i = 0; i < ex.items.length; i++){
+    var d = ex.items[i];
+    var id = REG.push({ data: d }) - 1;
+    ids.push(id);
+
+    var item = el("div", "item");
+    item.setAttribute("data-id", String(id));
+
+    if(d.lead){
+      var lead = el("p", "lead");
+      lead.appendChild(el("b", "rn", String(i + 1)));
+      lead.appendChild(document.createTextNode(" " + d.lead));
+      item.appendChild(lead);
+    }
+    if(d.key) item.appendChild(el("div", "keyw", d.key));
+
+    var line = el("div", "target");
+    if(!d.lead){
+      line.appendChild(el("b", "rn", String(i + 1)));
+      line.appendChild(document.createTextNode(" "));
+    }
+    if(d.before) line.appendChild(document.createTextNode(d.before + " "));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = kind === "transform" ? "wide" : "";
+    inp.setAttribute("data-id", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    if(d.after) line.appendChild(document.createTextNode(" " + d.after));
+    item.appendChild(line);
+
+    if(kind === "kwt"){
+      var wc = el("div", "wc", "words: 0  (you need 2 - 5)");
+      item.appendChild(wc);
+      inp.addEventListener("input", function(ev){
+        var n = countWords(ev.currentTarget.value);
+        var box = ev.currentTarget.parentNode.parentNode.querySelector(".wc");
+        box.textContent = "words: " + n + "  (you need 2 - 5)";
+        box.className = (n >= 2 && n <= 5) ? "wc" : "wc bad";
+      });
+    }
+    ui.body.appendChild(item);
+  }
+
+  ui.check.addEventListener("click", function(){
+    var right = 0;
+    clearExp(ui.body);
+    for(var i = 0; i < ids.length; i++){
+      var item = ui.body.querySelector('.item[data-id="' + ids[i] + '"]');
+      var inp = item.querySelector("input");
+      var d = REG[ids[i]].data;
+      var ok = matches(inp.value, d.answers);
+      var note = null;
+      if(kind === "kwt"){
+        var n = countWords(inp.value);
+        if(ok && (n < 2 || n > 5)) ok = false;
+        if(inp.value.trim() !== "" && (n < 2 || n > 5)){
+          note = "Your answer has " + n + " words. Remember that short forms count as two: don't = do + not.";
+        }
+      }
+      if(ok) right++;
+      inp.className = (kind === "transform" ? "wide " : "") + (ok ? "ok" : "no");
+      var shown = d.answers[0];
+      if(kind === "kwt") shown += "  (" + countWords(d.answers[0]) + " words)";
+      if(d.answers.length > 1) shown += "  (also: " + d.answers.slice(1).join(" / ") + ")";
+      item.appendChild(explainBox(ok, shown, d.why, d.tip, note));
+    }
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    clearExp(ui.body);
+    var ins = ui.body.querySelectorAll("input");
+    for(var i = 0; i < ins.length; i++){ ins[i].value = ""; ins[i].className = kind === "transform" ? "wide" : ""; }
+    var wcs = ui.body.querySelectorAll(".wc");
+    for(var j = 0; j < wcs.length; j++){ wcs[j].textContent = "words: 0  (you need 2 - 5)"; wcs[j].className = "wc"; }
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- word formation: articulo corrido con raices ---------- */
+function renderWordform(ex, idx){
+  var ui = card(ex, idx);
+  var textEl = el("p", "passage");
+  ui.body.appendChild(textEl);
+  var ids = [];
+
+  buildGappedText(textEl, ex.text, function(num){
+    var d = ex.items[num - 1];
+    var id = REG.push({ num: num, data: d }) - 1;
+    ids.push(id);
+    var wrap = el("span", "gapwrap");
+    var line = el("span", "gline");
+    line.appendChild(el("b", "gnum", String(num)));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.setAttribute("data-id", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    wrap.appendChild(line);
+    wrap.appendChild(el("span", "cue root", d.root));
+    return wrap;
+  });
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    for(var i = 0; i < ids.length; i++){
+      var entry = REG[ids[i]];
+      var inp = textEl.querySelector('input[data-id="' + ids[i] + '"]');
+      var d = entry.data;
+      var ok = matches(inp.value, d.answers);
+      if(ok) right++;
+      inp.className = ok ? "ok" : "no";
+      var shown = d.answers[0] + "  (from " + d.root + ")";
+      rows.push({ num: entry.num, ok: ok, shown: shown, why: d.why, tip: d.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Gap");
+    ui.panel.style.display = "block";
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    var ins = textEl.querySelectorAll("input");
+    for(var i = 0; i < ins.length; i++){ ins[i].value = ""; ins[i].className = ""; }
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- writing: no se corrige sola, pero SI se controla que aparezcan
+     las estructuras que el ejercicio pide, y se muestra un modelo ---------- */
+function renderWriting(ex, idx){
+  var ui = card(ex, idx);
+  if(ex.situation) ui.body.appendChild(el("div", "situation", ex.situation));
+
+  /* mode "lines": una linea por estructura, con su etiqueta al lado.
+     Es mucho mas facil que un bloque unico donde se olvida una estructura. */
+  var lineas = ex.mode === "lines";
+  var ta = null, inputs = [];
+
+  if(lineas){
+    for(var i = 0; i < ex.required.length; i++){
+      var row = el("div", "wline");
+      var lab = el("div", "wlab");
+      lab.appendChild(el("b", "rn", String(i + 1)));
+      lab.appendChild(el("span", "wform", ex.required[i].form));
+      row.appendChild(lab);
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.className = "wide";
+      inp.setAttribute("spellcheck", "false");
+      inp.placeholder = ex.required[i].starter || "Write your sentence here.";
+      row.appendChild(inp);
+      inputs.push(inp);
+      ui.body.appendChild(row);
+    }
+  } else {
+    ta = document.createElement("textarea");
+    ta.rows = 6;
+    ta.setAttribute("spellcheck", "false");
+    ta.placeholder = "Write your sentences here.";
+    ui.body.appendChild(ta);
+  }
+
+  var need = el("div", "needlist");
+  need.appendChild(el("b", "needtitle", lineas ? "Each line must contain:" : "Your answer must include:"));
+  var ul = el("ul");
+  for(var i = 0; i < ex.required.length; i++){
+    ul.appendChild(el("li", null, ex.required[i].label));
+  }
+  need.appendChild(ul);
+  ui.body.appendChild(need);
+
+  ui.check.addEventListener("click", function(){
+    clearExp(ui.body);
+    var found = 0, rows = [];
+    for(var i = 0; i < ex.required.length; i++){
+      var r = ex.required[i];
+      var txt = " " + normalize(lineas ? inputs[i].value : ta.value) + " ";
+      var hit = false;
+      for(var j = 0; j < r.patterns.length; j++){
+        if(txt.indexOf(normalize(r.patterns[j])) >= 0){ hit = true; break; }
+      }
+      if(hit) found++;
+      if(lineas) inputs[i].className = "wide " + (hit ? "ok" : "no");
+      rows.push({ num: i + 1, ok: hit, shown: r.label, why: r.why, tip: r.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Structure");
+
+    var model = el("div", "modelbox");
+    model.appendChild(el("b", "needtitle", "A possible answer"));
+    model.appendChild(el("p", null, ex.model));
+    model.appendChild(el("p", "selfnote", "This part is marked by your teacher. The check above only looks for the structures the task asks for."));
+    ui.panelBody.appendChild(model);
+
+    ui.panel.style.display = "block";
+    setScore(idx, ex, found, ex.required.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    if(lineas){ for(var i = 0; i < inputs.length; i++){ inputs[i].value = ""; inputs[i].className = "wide"; } }
+    else ta.value = "";
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- arranque ---------- */
+document.getElementById("testTitle").textContent = DATA.title;
+document.getElementById("testSub").textContent = DATA.subtitle;
+
+for(var i = 0; i < DATA.exercises.length; i++){
+  var ex = DATA.exercises[i];
+  SCORES.push(null);
+  if(ex.type === "matching") renderMatching(ex, i);
+  else if(ex.type === "wordform") renderWordform(ex, i);
+  else if(ex.type === "writing") renderWriting(ex, i);
+  else renderInputItems(ex, i, ex.type);
+}
+updateTotal();
+})();
+</script>
+<footer style="position:relative;z-index:9999;clear:both;display:block;margin:28px auto 0;padding:14px 20px 26px;max-width:1100px;border-top:1px solid rgba(128,128,128,.35);font:12px/1.5 system-ui,sans-serif;letter-spacing:.05em;text-align:center;opacity:.75">Copyright Prof Dan M. Mecikovsky</footer>
+</body>
+</html>

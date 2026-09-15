@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 5 Test · Lessons for Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 70px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+/* ---------- header ---------- */
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+/* ---------- cards ---------- */
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+
+/* ---------- inputs ---------- */
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:7px 11px;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- passage + gaps ---------- */
+.passage{font-size:1.06rem;line-height:3.05;margin:0}
+.gapwrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px}
+.gline{display:flex;align-items:center;gap:5px}
+.gnum{
+  font-family:var(--head);font-size:.72rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.gapwrap input{width:132px;text-align:center}
+.cue{font-family:var(--head);font-size:.74rem;font-weight:700;color:var(--violet);line-height:1.1;margin-top:1px}
+
+/* ---------- explanation blocks ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 12px}
+.pitem{border-left:8px solid var(--violet);padding-left:12px;margin-bottom:16px}
+.pitem .ptop{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:2px}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+/* ---------- items (mcq / kwt) ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 17px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+.kwt .lead{font-size:1.04rem;margin:0 0 9px;line-height:1.5}
+.keyw{
+  font-family:var(--head);font-weight:800;letter-spacing:1.6px;background:var(--yellow);
+  border:3px solid #000;border-radius:8px;padding:2px 12px;display:inline-block;margin:0 0 10px;
+}
+.kwt .target{font-size:1.04rem;line-height:2.5}
+.kwt input{width:290px;max-width:100%}
+.wc{font-family:var(--head);font-size:.76rem;font-weight:700;color:#5b5b5b;margin-top:6px}
+.wc.bad{color:#c2004c}
+
+/* ---------- word formation (raiz debajo del hueco, en el propio texto) ---------- */
+.cue.root{
+  font-family:var(--head);font-weight:800;font-size:.7rem;letter-spacing:1.1px;
+  color:#000;background:var(--cyan);border:2px solid #000;border-radius:6px;
+  padding:0 7px;margin-top:2px;
+}
+#wfText .gapwrap input{width:150px}
+
+/* ---------- multiple-choice cloze ---------- */
+.mcgap{
+  display:inline-flex;align-items:center;gap:5px;vertical-align:middle;margin:0 3px;
+  border:3px solid #000;border-radius:11px;padding:3px 9px;background:#fffdf2;min-width:118px;
+}
+.mcgap.ok{background:#e4ffc4;border-color:#1c7a00}
+.mcgap.no{background:#ffe0ec;border-color:#c2004c}
+.mcpick{font-weight:600;font-size:.97rem}
+.mcpick.empty{color:#9a9a9a;letter-spacing:2px}
+.mcrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.mcrow .rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.mcrow .opt{font-size:.9rem;padding:5px 13px;box-shadow:2px 2px 0 #000}
+.mcrow .letter{font-family:var(--head);font-weight:800;margin-right:5px}
+
+/* ---------- warm-up ---------- */
+.card.warm{background:var(--ink);border-color:#000;box-shadow:10px 10px 0 var(--yellow)}
+.warm h2,.warm .sub{color:#fff}
+.warm .sub{color:#c9c9c9}
+.dots{display:flex;gap:7px;margin:14px 0 18px}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.warm .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px;margin-top:6px}
+.final{text-align:center;padding:14px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3.3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.25rem;margin-bottom:14px}
+.hidden{display:none}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem;margin-top:14px}
+
+/* ---------- test: cabecera de ejercicio ---------- */
+.card.ex{padding-top:18px}
+.exhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.exnum{
+  font-family:var(--head);font-weight:800;font-size:1.1rem;color:#fff;background:var(--violet);
+  border:3px solid #000;border-radius:50%;width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.expts{
+  font-family:var(--head);font-weight:800;font-size:.78rem;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:2px 13px;text-transform:uppercase;letter-spacing:.8px;
+}
+.rubric{font-weight:600;font-size:1.02rem;margin:0 0 12px;line-height:1.45}
+.intro{
+  font-size:1rem;line-height:1.55;margin:0 0 16px;background:#fffdf2;
+  border:3px solid #000;border-radius:14px;padding:12px 14px;
+}
+.situation{
+  font-size:1rem;line-height:1.55;margin:0 0 14px;background:#f4efff;
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;
+}
+
+/* ---------- matching ---------- */
+.mline{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px}
+.mtext{font-size:1.01rem;line-height:1.45;font-weight:500}
+.rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;margin-top:2px;
+}
+select.pick{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:7px 11px;
+  border:3px solid #000;border-radius:11px;background:#fff;cursor:pointer;max-width:100%;
+}
+select.pick.ok{background:#e4ffc4;border-color:#1c7a00}
+select.pick.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- transform / gapsentences ---------- */
+.item .lead{font-size:1.02rem;margin:0 0 9px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.item .target{font-size:1.02rem;line-height:2.6}
+.item input{width:210px}
+.item input.wide{width:100%;max-width:520px;text-align:left}
+
+/* ---------- caja de gramatica previa, al estilo "explore grammar" ---------- */
+.gnote{
+  border:4px solid #000;border-radius:16px;padding:13px 16px;margin:0 0 16px;
+  background:#fff7e0;box-shadow:5px 5px 0 var(--yellow);font-size:.96rem;line-height:1.55;
+}
+.gnotetitle{font-family:var(--head);font-size:1.05rem;display:block;margin-bottom:6px}
+.gnote ul{margin:0;padding-left:19px}
+.gnote li{margin-bottom:5px}
+.gform{
+  font-family:var(--head);font-weight:800;background:var(--cyan);
+  border:2px solid #000;border-radius:6px;padding:0 7px;display:inline-block;
+}
+.gwarn{margin:9px 0 0;background:#ffe0ec;border:2px solid #000;border-radius:10px;padding:7px 11px}
+
+/* ---------- writing ---------- */
+.wline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.wlab{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.wform{
+  font-family:var(--head);font-weight:800;font-size:.8rem;background:var(--lime);
+  border:2px solid #000;border-radius:999px;padding:2px 11px;white-space:nowrap;
+}
+.wline input{flex:1 1 300px;min-width:220px}
+textarea{
+  font-family:var(--body);font-size:1rem;font-weight:500;width:100%;padding:11px 13px;
+  border:3px solid #000;border-radius:14px;background:#fffdf2;outline:none;resize:vertical;
+}
+textarea:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+.needlist{
+  margin-top:13px;border:3px solid #000;border-radius:14px;padding:11px 14px;background:#f0ffe0;
+  font-size:.93rem;line-height:1.5;
+}
+.needlist ul{margin:6px 0 0;padding-left:20px}
+.needtitle{font-family:var(--head);font-size:.9rem;display:block;margin-bottom:2px}
+.modelbox{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;background:#fffdf2;
+  font-size:.93rem;line-height:1.55;margin-top:6px;
+}
+.modelbox p{margin:6px 0 0}
+.selfnote{font-style:italic;color:#5b5b5b;font-size:.86rem}
+
+/* ---------- marcador global ---------- */
+.totalcard{
+  background:var(--ink);border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 var(--lime);
+  padding:16px 20px;margin-bottom:34px;position:sticky;top:8px;z-index:5;
+}
+.totalcard .lbl{font-family:var(--head);font-weight:800;color:var(--yellow);font-size:.8rem;
+  text-transform:uppercase;letter-spacing:1.2px}
+.totalcard .val{font-family:var(--head);font-weight:800;color:#fff;font-size:1.5rem;line-height:1.2}
+.track{height:14px;border:3px solid #fff;border-radius:999px;margin-top:9px;overflow:hidden;background:transparent}
+.track span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .25s}
+
+/* ================= WARM-UP GAMES ================= */
+.gamecard{
+  background:var(--ink); border:5px solid #000; border-radius:22px; padding:22px 22px 24px;
+  margin-bottom:34px; box-shadow:10px 10px 0 var(--yellow); transform:rotate(-.35deg);
+}
+.gamecard:nth-of-type(even){box-shadow:10px 10px 0 var(--lime); transform:rotate(.3deg)}
+.gamecard h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;color:#fff}
+.gamecard .sub{color:#d3d3d3;margin:0 0 16px;font-size:.93rem;line-height:1.5}
+.gamecard .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.chip.left{background:var(--yellow)}
+.dots{display:flex;gap:7px;margin:0 0 14px;flex-wrap:wrap}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.gq{font-size:1.1rem;font-weight:500;line-height:1.7;margin:0 0 13px}
+.blank{
+  font-family:var(--head);font-weight:800;letter-spacing:2px;background:var(--yellow);
+  border:2px solid #000;border-radius:7px;padding:0 12px;
+}
+.final{text-align:center;padding:10px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.2rem;margin-bottom:6px}
+.hidden{display:none}
+
+/* pieces / builder */
+.prompt{font-size:1.02rem;font-weight:500;margin:0 0 12px;line-height:1.5}
+.bank,.slot{
+  display:flex;flex-wrap:wrap;gap:9px;padding:13px;border:3px dashed #000;border-radius:14px;
+  min-height:58px;margin-bottom:12px;background:#f7f2ff;align-items:flex-start;
+}
+.slot{background:#e9fbff;border-style:solid}
+.boxlab{font-family:var(--head);font-weight:800;font-size:.74rem;text-transform:uppercase;
+  letter-spacing:1px;color:#5b5b5b;margin:0 0 4px}
+.piece{
+  font-family:var(--body);font-weight:600;font-size:.97rem;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 #000;
+  user-select:none;transition:transform .07s,box-shadow .07s;
+}
+.piece:hover{background:var(--yellow)}
+.piece:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.slot .piece{background:var(--cyan)}
+.piece.good{background:var(--lime);border-color:#1c7a00}
+.piece.bad{background:#ffc2d8;border-color:#c2004c}
+
+/* match columns */
+.match{display:flex;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:10px;flex:1 1 240px}
+.mi{
+  font-family:var(--body);font-weight:600;font-size:.95rem;cursor:pointer;text-align:center;
+  background:#fff;border:3px solid #000;border-radius:14px;padding:11px 12px;box-shadow:4px 4px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.mi:hover{background:#fff9c9}
+.mi.sel{background:var(--cyan);transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.mi.done{background:var(--lime);border-color:#1c7a00;cursor:default;box-shadow:0 0 0 #000;
+  transform:translate(4px,4px);opacity:.85}
+.mi.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.score{font-family:var(--head);font-weight:800;font-size:.95rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:4px 15px}
+
+/* separador entre calentamiento y test */
+.divider{
+  background:#fff;border:4px solid #000;border-radius:18px;box-shadow:8px 8px 0 var(--violet);
+  padding:14px 20px;margin-bottom:34px;text-align:center;
+}
+.divider b{font-family:var(--head);font-size:1.25rem;display:block}
+.divider span{font-size:.92rem;color:#4a4a4a}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:34px;font-size:.95rem;
+}
+.piece.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="testTitle">UNIT 5 TEST &middot; LESSONS FOR LIFE</h1>
+    <p id="testSub">Relative clauses &middot; defining, non-defining and reduced &middot; 100 marks</p>
+  </div>
+
+  <!-- ============ WARM-UP GAME 1 ============ -->
+  <section class="gamecard" id="game1">
+    <span class="tag">Warm-up 1</span>
+    <h2>Pronoun Pop</h2>
+    <p class="sub">Eight quick sentences. Pop the pronoun that fits the gap. Get them right one after another and your streak grows. Play this first: it wakes up the five pronouns you are going to need in the test.</p>
+    <div class="hud">
+      <span class="chip" id="g1score">0 / 8</span>
+      <span class="chip streak" id="g1streak">streak 0</span>
+    </div>
+    <div class="dots" id="g1dots"></div>
+    <div class="qbox" id="g1box"></div>
+    <div class="btnrow">
+      <button class="btn" id="g1next" type="button" disabled>Next</button>
+      <button class="btn ghost" id="g1again" type="button">Play again</button>
+    </div>
+  </section>
+
+  <!-- ============ WARM-UP GAME 2 ============ -->
+  <section class="gamecard" id="game2">
+    <span class="tag">Warm-up 2</span>
+    <h2>Comma Cop</h2>
+    <p class="sub">Click a sentence, then click the box where it belongs. If the clause tells you <b>which one</b> you are talking about, it is defining and it takes <b>no commas</b>. If the person or the thing is already identified, the clause is extra information and it needs <b>two commas</b>.</p>
+    <div class="hud">
+      <span class="chip" id="g2score">0 correct</span>
+      <span class="chip left" id="g2left">8 left</span>
+    </div>
+    <div class="qbox">
+      <p class="boxlab">Sentences</p>
+      <div class="bank" id="g2bank"></div>
+      <div class="match">
+        <div class="col">
+          <p class="boxlab">No commas (defining)</p>
+          <div class="slot" id="g2defining"></div>
+        </div>
+        <div class="col">
+          <p class="boxlab">Commas (non-defining)</p>
+          <div class="slot" id="g2nondef"></div>
+        </div>
+      </div>
+      <div id="g2exp"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn ghost" id="g2again" type="button">Play again</button>
+      <span class="score" id="g2msg"></span>
+    </div>
+  </section>
+
+  <div class="divider">
+    <b>Warm-up finished &mdash; now the test</b>
+    <span>Eight exercises, 100 marks. Check each exercise when you finish it and read every Why and Exam tip, even the ones you got right.</span>
+  </div>
+
+  <div class="totalcard">
+    <div class="lbl">Running total</div>
+    <div class="val" id="total"></div>
+    <div class="track"><span id="totalBar"></span></div>
+  </div>
+
+  <div id="exercises"></div>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="games-block">
+(function(){
+"use strict";
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+function shuffle(a){
+  var i, j, t;
+  for(i = a.length - 1; i > 0; i--){ j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+function expBox(ok, answer, why, tip){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answer){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", "Answer: " + answer));
+    box.appendChild(p0);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+/* ================= GAME 1: PRONOUN POP ================= */
+var POP = [
+  { before: "The teacher", after: "helped me with my revision timetable is retiring in July.",
+    options: ["who","which","whose","where"], correct: "who",
+    why: "A teacher is a person, and the pronoun is the subject of helped, so it can never be left out.",
+    tip: "Person plus subject means who. In a defining clause that is possible as well." },
+  { before: "That is the room", after: "we go over our notes before an exam.",
+    options: ["which","where","when","whose"], correct: "where",
+    why: "A room is a place, and the clause says what happens inside that place.",
+    tip: "If you can say in which, the word you need is where." },
+  { before: "Lunchtime,", after: "most students stop to eat, is only forty minutes long.",
+    options: ["when","where","which","who"], correct: "when",
+    why: "Lunchtime is a moment in the day, so the gap needs the pronoun for time.",
+    tip: "Times take when: the day when, the year when, the moment when." },
+  { before: "My cousin,", after: "parents are both scientists, learns everything by heart.",
+    options: ["who","whose","which","when"], correct: "whose",
+    why: "The parents belong to the cousin, so this is possession, not a simple subject.",
+    tip: "Whose is the only relative pronoun followed straight by a noun, with no article in between." },
+  { before: "Science is a subject", after: "requires real concentration.",
+    options: ["who","which","where","whose"], correct: "which",
+    why: "A subject is a thing, and the pronoun is the subject of requires.",
+    tip: "Things take which. In a defining clause that works too, but never in a clause with commas." },
+  { before: "The app", after: "I use to look up new words is completely free.",
+    options: ["which","who","where","when"], correct: "which",
+    why: "An app is a thing. Here the pronoun is the object of use, so you could even leave it out.",
+    tip: "If a subject comes straight after the gap, the pronoun is an object and omission is allowed." },
+  { before: "Ms Parker,", after: "classes I never miss, always hands our tests back quickly.",
+    options: ["who","which","whose","when"], correct: "whose",
+    why: "The classes belong to Ms Parker, so the gap needs possession.",
+    tip: "Whose works for people and for things: the school whose results improved." },
+  { before: "September is the month", after: "everybody falls behind with homework.",
+    options: ["where","when","which","whose"], correct: "when",
+    why: "A month is a period of time, not a physical place, even if it feels like somewhere you are.",
+    tip: "Where is for places you can walk into. Months, days and years take when." }
+];
+
+(function(){
+  var box = document.getElementById("g1box");
+  var dots = document.getElementById("g1dots");
+  var scoreEl = document.getElementById("g1score");
+  var streakEl = document.getElementById("g1streak");
+  var nextBtn = document.getElementById("g1next");
+  var againBtn = document.getElementById("g1again");
+  var order = [], idx = 0, right = 0, streak = 0, best = 0, marks = [];
+
+  function drawDots(){
+    dots.innerHTML = "";
+    for(var i = 0; i < POP.length; i++){
+      var cls = "dot";
+      if(marks[i] === true) cls = "dot y";
+      else if(marks[i] === false) cls = "dot n";
+      if(i === idx) cls += " now";
+      dots.appendChild(el("span", cls));
+    }
+  }
+
+  function render(){
+    box.innerHTML = "";
+    if(idx >= order.length){
+      var f = el("div", "final");
+      f.appendChild(el("div", "msg", right === POP.length ? "Perfect. Every pronoun in place." : "Warm-up finished."));
+      f.appendChild(el("div", "big", right + " / " + POP.length));
+      f.appendChild(el("div", "msg", "Longest streak: " + best));
+      box.appendChild(f);
+      nextBtn.disabled = true;
+      drawDots();
+      return;
+    }
+    var q = order[idx];
+    var p = el("p", "gq");
+    p.appendChild(document.createTextNode(q.before + " "));
+    p.appendChild(el("span", "blank", "?"));
+    p.appendChild(document.createTextNode(" " + q.after));
+    box.appendChild(p);
+
+    var opts = el("div", "opts");
+    for(var i = 0; i < q.options.length; i++){
+      (function(word){
+        var b = el("button", "opt", word);
+        b.type = "button";
+        b.addEventListener("click", function(){
+          var all = opts.querySelectorAll("button");
+          for(var k = 0; k < all.length; k++){
+            all[k].disabled = true;
+            if(all[k].textContent === q.correct) all[k].className = "opt good";
+            else if(all[k].textContent === word) all[k].className = "opt bad";
+          }
+          var ok = (word === q.correct);
+          if(ok){ right++; streak++; if(streak > best) best = streak; }
+          else streak = 0;
+          marks[idx] = ok;
+          scoreEl.textContent = right + " / " + POP.length;
+          streakEl.textContent = "streak " + streak;
+          box.appendChild(expBox(ok, q.correct, q.why, q.tip));
+          nextBtn.disabled = false;
+          drawDots();
+        });
+        opts.appendChild(b);
+      })(q.options[i]);
+    }
+    box.appendChild(opts);
+    nextBtn.disabled = true;
+    drawDots();
+  }
+
+  function start(){
+    order = shuffle(POP.slice());
+    idx = 0; right = 0; streak = 0; best = 0; marks = [];
+    scoreEl.textContent = "0 / " + POP.length;
+    streakEl.textContent = "streak 0";
+    render();
+  }
+  nextBtn.addEventListener("click", function(){ idx++; render(); });
+  againBtn.addEventListener("click", start);
+  start();
+})();
+
+/* ================= GAME 2: COMMA COP ================= */
+var COMMA = [
+  { text: "The students who go to my new school are friendly.", type: "def",
+    why: "Without the clause you do not know which students are friendly, so the information is essential.",
+    tip: "Cover the clause with your finger. If the sentence loses its meaning, there are no commas." },
+  { text: "Brooklyn Free School which has a very unusual approach has no timetable.", type: "non",
+    why: "The name already tells you which school it is, so the clause only adds extra information.",
+    tip: "A name is already identified, so a clause after a name almost always takes commas." },
+  { text: "The subject which I find hardest is chemistry.", type: "def",
+    why: "The clause is exactly what picks out one subject among all the others.",
+    tip: "In this defining clause the pronoun is an object, so you could even drop which." },
+  { text: "My maths teacher who is from Dublin never gives us homework at weekends.", type: "non",
+    why: "You have only one maths teacher, so saying where she is from is extra information.",
+    tip: "My, our or this plus one single person usually means the clause is non-defining." },
+  { text: "Students who fall behind can catch up in the Friday class.", type: "def",
+    why: "Not all students can go to that class, only the ones the clause describes.",
+    tip: "If the clause answers which ones, use no commas and never use that after a comma." },
+  { text: "Our library which was rebuilt last year opens at seven.", type: "non",
+    why: "The school has one library, so the date of the rebuilding is extra news, not identification.",
+    tip: "In a clause with commas you can never use that. Use which for things and who for people." },
+  { text: "The girl whose project won the prize is in my class.", type: "def",
+    why: "The clause identifies which girl you mean, so it cannot be taken out.",
+    tip: "Whose appears in both types. The commas depend on the sentence, not on the pronoun." },
+  { text: "Mr Dale whose children attend the school teaches us history.", type: "non",
+    why: "Mr Dale is already identified by his name, so the detail about his children is extra.",
+    tip: "Two commas, not one. A non-defining clause opens and closes like a pair of brackets." }
+];
+
+(function(){
+  var bank = document.getElementById("g2bank");
+  var boxDef = document.getElementById("g2defining");
+  var boxNon = document.getElementById("g2nondef");
+  var expArea = document.getElementById("g2exp");
+  var scoreEl = document.getElementById("g2score");
+  var leftEl = document.getElementById("g2left");
+  var msgEl = document.getElementById("g2msg");
+  var againBtn = document.getElementById("g2again");
+  var selected = null, right = 0, placed = 0;
+
+  function drop(target){
+    if(!selected) return;
+    var node = selected;
+    var d = COMMA[parseInt(node.getAttribute("data-i"), 10)];
+    var ok = (d.type === target);
+    selected = null;
+    node.onclick = null;
+    node.className = "piece " + (ok ? "good" : "bad");
+    (target === "def" ? boxDef : boxNon).appendChild(node);
+    placed++;
+    if(ok) right++;
+    expArea.innerHTML = "";
+    expArea.appendChild(expBox(ok, d.type === "def" ? "Defining clause: no commas" : "Non-defining clause: two commas", d.why, d.tip));
+    scoreEl.textContent = right + " correct";
+    leftEl.textContent = (COMMA.length - placed) + " left";
+    if(placed === COMMA.length){
+      msgEl.textContent = right + " / " + COMMA.length + "  ·  " + (right === COMMA.length ? "commas under control" : "read the reasons again");
+    }
+  }
+
+  function start(){
+    bank.innerHTML = ""; boxDef.innerHTML = ""; boxNon.innerHTML = "";
+    expArea.innerHTML = ""; msgEl.textContent = "";
+    selected = null; right = 0; placed = 0;
+    scoreEl.textContent = "0 correct";
+    leftEl.textContent = COMMA.length + " left";
+    var order = shuffle(COMMA.map(function(_, i){ return i; }));
+    for(var i = 0; i < order.length; i++){
+      (function(n){
+        var p = el("div", "piece", COMMA[n].text);
+        p.setAttribute("data-i", String(n));
+        p.onclick = function(){
+          var all = bank.querySelectorAll(".piece");
+          for(var k = 0; k < all.length; k++){ all[k].className = "piece"; }
+          p.className = "piece sel";
+          selected = p;
+        };
+        bank.appendChild(p);
+      })(order[i]);
+    }
+  }
+
+  boxDef.addEventListener("click", function(){ drop("def"); });
+  boxNon.addEventListener("click", function(){ drop("non"); });
+  againBtn.addEventListener("click", start);
+  start();
+})();
+
+})();
+</script>
+<script id="data-block">
+/* ====== UNIT 5 MOCK TEST · relative clauses ·  8 ejercicios · 100 marcas
+   12 + 12 + 14 + 14 + 12 + 12 + 14 + 10 = 100
+   Todo el contenido, en ingles. ====== */
+var DATA = {
+
+title: "UNIT 5 TEST · LESSONS FOR LIFE",
+subtitle: "Relative clauses · defining, non-defining and reduced · 100 marks",
+
+exercises: [
+
+/* ---------- 1 ---------- 12 marks ---------- */
+{ n: 1, points: 12, type: "matching",
+  rubric: "Read sentences 1-10 and say what the relative clause in each one does.",
+  labels: ["Person (who)","Thing (which)","Place (where)","Time (when)","Possession (whose)","Reduced clause (no pronoun)"],
+  items: [
+    { text: "The woman who runs the homework club used to be a lawyer.", correct: "Person (who)",
+      why: "Who introduces a clause about a person, and here it is the subject of runs.",
+      tip: "In a defining clause about people, that is also correct. Who is safer in an exam." },
+
+    { text: "This is the room where we go over our mistakes after a test.", correct: "Place (where)",
+      why: "Where points to a physical place and means in which.",
+      tip: "Never use where for a thing: the book where I read it is wrong, use in which." },
+
+    { text: "Friday, when we hand in our projects, is always stressful.", correct: "Time (when)",
+      why: "When introduces a clause about a moment in time, and here the commas make it extra information.",
+      tip: "Day, month, year, moment, time: all of them take when." },
+
+    { text: "I have lost the notebook which I write everything down in.", correct: "Thing (which)",
+      why: "A notebook is a thing, so which is the pronoun, and here it is the object of write.",
+      tip: "Because it is an object in a defining clause, the pronoun could be left out completely." },
+
+    { text: "Anya, whose sister is in Year 13, never falls behind.", correct: "Possession (whose)",
+      why: "The sister belongs to Anya, so the clause expresses possession.",
+      tip: "Whose is always followed by a noun with no article: whose sister, not whose the sister." },
+
+    { text: "Students focusing on a career in IT choose three science subjects.", correct: "Reduced clause (no pronoun)",
+      why: "The full clause is who are focusing, and both the pronoun and the verb be have disappeared.",
+      tip: "An -ing form straight after a noun is a reduced active clause." },
+
+    { text: "The advice which the tutor gave me was completely free.", correct: "Thing (which)",
+      why: "Advice is a thing, so the pronoun is which, and the tutor is the subject of the clause.",
+      tip: "Advice is uncountable: never an advice, never advices." },
+
+    { text: "Question five, overlooked by many students, was worth ten marks.", correct: "Reduced clause (no pronoun)",
+      why: "The full clause is which was overlooked, so the pronoun and was have both gone.",
+      tip: "A third form straight after a noun is a reduced passive clause." },
+
+    { text: "That is the teacher who I get on with best.", correct: "Person (who)",
+      why: "The clause describes a person, and the pronoun is the object of get on with.",
+      tip: "In spoken English the preposition stays at the end: who I get on with, not with who." },
+
+    { text: "The summer, when nobody revises, goes very quickly.", correct: "Time (when)",
+      why: "The summer is a period of time and the commas show the clause is extra information.",
+      tip: "Check the commas before you choose: they tell you the clause is non-defining." }
+  ]
+},
+
+/* ---------- 2 ---------- 12 marks ---------- */
+{ n: 2, points: 12, type: "gapsentences",
+  rubric: "Write one relative pronoun in each gap. Look at the commas before you decide.",
+  note: {
+    title: "The five pronouns",
+    lines: [
+      "who -> people. The girl who sits next to me.",
+      "which -> things and animals. The app which I use.",
+      "where -> places. The school where I study.",
+      "when -> times. The day when we arrived.",
+      "whose -> possession, always followed by a noun. The boy whose bag was stolen."
+    ],
+    warning: "That can replace who or which, but only in a defining clause, that is, one with no commas. After a comma, that is impossible."
+  },
+  items: [
+    { before: "A dictionary is a book", after: "tells you what words mean.",
+      answers: ["which","that"],
+      why: "A book is a thing and the pronoun is the subject of tells, so which or that both work here.",
+      tip: "No commas means a defining clause, and that is why that is allowed." },
+
+    { before: "Mrs Ellis,", after: "son is in my class, teaches us biology.",
+      answers: ["whose"],
+      why: "The son belongs to Mrs Ellis, so the gap needs the possessive pronoun.",
+      tip: "If a noun with no article follows the gap, the answer is almost always whose." },
+
+    { before: "That is the cafe", after: "we always go over our notes.",
+      answers: ["where"],
+      why: "A cafe is a place and the clause says what you do in that place.",
+      tip: "Where already means in which, so never write in where." },
+
+    { before: "I will never forget the day", after: "I passed my first exam.",
+      answers: ["when","that"],
+      why: "The day is a time expression, so when fits, and in a defining clause that is also possible.",
+      tip: "After day, week or year, English often drops the pronoun completely in speech." },
+
+    { before: "The people", after: "concentrate best always sit near the window.",
+      answers: ["who","that"],
+      why: "People are persons and the pronoun is the subject of concentrate, so it cannot be omitted.",
+      tip: "Subject pronouns are never left out. Object pronouns can be." },
+
+    { before: "Our head teacher,", after: "is only thirty-two, started a homework app.",
+      answers: ["who"],
+      why: "The commas make this a non-defining clause about a person, so only who is possible.",
+      tip: "After a comma, that is banned. Use who for people and which for things." },
+
+    { before: "The software,", after: "was written by a student, checks your spelling.",
+      answers: ["which"],
+      why: "Software is a thing and the commas mean the clause only adds extra information.",
+      tip: "Software is uncountable: a piece of software, never a software." },
+
+    { before: "A student", after: "bag was stolen should talk to reception.",
+      answers: ["whose"],
+      why: "The bag belongs to the student, so the gap needs possession even though no commas appear.",
+      tip: "Whose can appear in defining clauses too. Commas and pronouns are two separate decisions." }
+  ]
+},
+
+/* ---------- 3 ---------- 14 marks ---------- */
+{ n: 3, points: 14, type: "transform",
+  rubric: "Join the two sentences into one non-defining clause. The commas are already printed for you: write only the clause.",
+  note: {
+    title: "Non-defining clauses",
+    lines: [
+      "two commas -> the clause is extra information. Sofia, who lives next door, is my cousin.",
+      "no that -> use who, which, whose, where or when only.",
+      "no omission -> the pronoun can never disappear in this type of clause."
+    ],
+    warning: "Ask yourself one question: do I already know who or what we are talking about? If the answer is yes, the clause needs commas."
+  },
+  items: [
+    { lead: "Ms Rivas teaches us history. Her daughter is in our class.",
+      before: "Ms Rivas,", after: "teaches us history.",
+      answers: ["whose daughter is in our class,"],
+      why: "The daughter belongs to Ms Rivas, and the name already identifies her, so the clause is extra.",
+      tip: "Whose plus noun goes straight after the first comma, with no article." },
+
+    { lead: "Brooklyn Free School has no timetable. It is in New York.",
+      before: "Brooklyn Free School,", after: "has no timetable.",
+      answers: ["which is in New York,"],
+      why: "The school is a thing and its name identifies it, so the location is extra information.",
+      tip: "After a comma you must write which. That is impossible here." },
+
+    { lead: "My brother never revises. He still gets top marks.",
+      before: "My brother,", after: "still gets top marks.",
+      answers: ["who never revises,"],
+      why: "My brother is already identified, so the clause about revising only adds information.",
+      tip: "Watch the verb: the main verb of the sentence is gets, the clause verb is revises." },
+
+    { lead: "Lunchtime is only forty minutes long. Students stop to eat then.",
+      before: "Lunchtime,", after: "is only forty minutes long.",
+      answers: ["when students stop to eat,"],
+      why: "Lunchtime is a period of time, so the clause opens with when.",
+      tip: "Then in the second sentence is a signal: it always turns into when." },
+
+    { lead: "The sports hall was freezing that morning. We had our exams there.",
+      before: "The sports hall,", after: "was where we had our exams.",
+      answers: ["which was freezing that morning,"],
+      why: "There is only one sports hall, so the detail about the temperature is extra information.",
+      tip: "Do not confuse the two clauses: one is the relative clause, the other is the main sentence." },
+
+    { lead: "Mr and Mrs Pargeter support the homework club. Their children attend the school.",
+      before: "Mr and Mrs Pargeter,", after: "support the homework club.",
+      answers: ["whose children attend the school,"],
+      why: "The children belong to the Pargeters, and the names already identify them.",
+      tip: "Their in the second sentence always becomes whose." }
+  ]
+},
+
+/* ---------- 4 ---------- 14 marks ---------- */
+{ n: 4, points: 14, type: "transform",
+  rubric: "Rewrite each underlined clause as a reduced relative clause. Write only the missing words.",
+  note: {
+    title: "Reduced relative clauses",
+    lines: [
+      "active -> delete the pronoun and be, and use the -ing form. Students who are focusing -> Students focusing.",
+      "passive -> delete the pronoun and be, and use the third form. Question five, which was overlooked -> Question five, overlooked.",
+      "the meaning never changes -> reducing only makes the sentence shorter and more formal."
+    ],
+    warning: "You can only reduce a clause when the pronoun is the subject. The book which I read cannot be reduced."
+  },
+  items: [
+    { lead: "Students who are focusing on a career in IT take extra maths.",
+      before: "Students", after: "take extra maths.",
+      answers: ["focusing on a career in IT"],
+      why: "Who are disappears and focusing stays, because the students do the action themselves.",
+      tip: "Active reduction always ends up with an -ing form, whatever the original tense was." },
+
+    { lead: "Question five, which was overlooked by many students, was worth ten marks.",
+      before: "Question five,", after: "was worth ten marks.",
+      answers: ["overlooked by many students,"],
+      why: "Which was disappears and the third form stays, because the question receives the action.",
+      tip: "If the original clause has was or were plus a third form, keep only the third form." },
+
+    { lead: "The pupils who were chosen for the trip met at eight.",
+      before: "The pupils", after: "met at eight.",
+      answers: ["chosen for the trip"],
+      why: "The pupils did not choose: somebody chose them, so this is a passive reduction.",
+      tip: "Chosen, taken, written, given: irregular third forms appear here very often." },
+
+    { lead: "Anyone who is revising for Friday's test can use the library.",
+      before: "Anyone", after: "can use the library.",
+      answers: ["revising for Friday's test"],
+      why: "Anyone does the revising, so who is goes and the -ing form stays.",
+      tip: "Anyone, anybody, everyone and people are very common before a reduced clause." },
+
+    { lead: "The advice which was given by our tutor was very simple.",
+      before: "The advice", after: "was very simple.",
+      answers: ["given by our tutor"],
+      why: "The advice receives the action, so which was goes and the third form given stays.",
+      tip: "Keep by plus the person when that information is worth saying." },
+
+    { lead: "The girl who is sitting next to me always hands her homework in late.",
+      before: "The girl", after: "always hands her homework in late.",
+      answers: ["sitting next to me"],
+      why: "The girl is doing the sitting, so the clause reduces to the -ing form.",
+      tip: "Read the new sentence aloud: it should still have one main verb only." }
+  ]
+},
+
+/* ---------- 5 ---------- 12 marks ---------- */
+{ n: 5, points: 12, type: "gapsentences",
+  rubric: "Complete the sentences with a learning phrasal verb in the correct form. Use each verb once.",
+  intro: "catch up  ·  fall behind  ·  keep up with  ·  get on with  ·  look up  ·  write down  ·  hand in  ·  go over",
+  items: [
+    { before: "I missed a whole week of school, so now I have to", after: "with the rest of the class.",
+      answers: ["catch up"],
+      why: "Catch up means to reach the level of the others after being away.",
+      tip: "Catch up is followed by with when you mention the people: catch up with the class." },
+
+    { before: "If you never do the reading, you will", after: "very quickly.",
+      answers: ["fall behind"],
+      why: "Fall behind means to end up at a lower level than the rest of the group.",
+      tip: "Fall behind is the opposite of keep up. Both are about level, not about speed of walking." },
+
+    { before: "She works so fast that nobody in the class can", after: "her.",
+      answers: ["keep up with"],
+      why: "Keep up with means to stay at the same level or speed as somebody else.",
+      tip: "Keep up with always needs with before the person or thing." },
+
+    { before: "I", after: "my new maths teacher really well.",
+      answers: ["get on with"],
+      why: "Get on with a person means to have a good relationship with them.",
+      tip: "Careful: get on with the work means continue working. The meaning depends on the object." },
+
+    { before: "When I do not know a word, I", after: "it in an online dictionary.",
+      answers: ["look up"],
+      why: "Look up means to search for information in a dictionary or a list.",
+      tip: "With a pronoun the verb splits: look it up, never look up it." },
+
+    { before: "Always", after: "the homework in your diary before you leave.",
+      answers: ["write down"],
+      why: "Write down means to put information on paper so that you do not forget it.",
+      tip: "Write down also splits with a pronoun: write it down." },
+
+    { before: "You must", after: "your projects before Friday at four.",
+      answers: ["hand in"],
+      why: "Hand in means to give a piece of work to a teacher.",
+      tip: "Hand in is the opposite of hand back, which is what the teacher does." },
+
+    { before: "Let us", after: "the answers together before the test tomorrow.",
+      answers: ["go over"],
+      why: "Go over means to examine or revise something carefully from the beginning.",
+      tip: "Go over never splits: go over them, never go them over." }
+  ]
+},
+
+/* ---------- 6 ---------- 12 marks ---------- */
+{ n: 6, points: 12, type: "kwt",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the key word and write between two and five words.",
+  items: [
+    { lead: "The tutor gave me some advice and it was free.", key: "WHICH",
+      before: "The advice", after: "was free.",
+      answers: ["which the tutor gave me"],
+      why: "Advice is a thing, so the clause opens with which, and the tutor is the subject inside the clause.",
+      tip: "Count before you write: which the tutor gave me is exactly five words." },
+
+    { lead: "My cousin's parents are both scientists.", key: "WHOSE",
+      before: "I have a cousin", after: "are both scientists.",
+      answers: ["whose parents"],
+      why: "Whose replaces the possessive form and is followed immediately by the noun parents.",
+      tip: "Never write whose the parents. Whose already does the job of the article." },
+
+    { lead: "We revise in that room before every exam.", key: "WHERE",
+      before: "That is the room", after: "before every exam.",
+      answers: ["where we revise"],
+      why: "The room is a place, so where introduces the clause, followed by subject and verb.",
+      tip: "Where is followed by a normal sentence order: where we revise, not where do we revise." },
+
+    { lead: "I could not understand the homework, so I asked for help.", key: "COPE",
+      before: "I could not", after: "the homework, so I asked for help.",
+      answers: ["cope with"],
+      why: "Cope with means to deal successfully with something difficult.",
+      tip: "Cope always takes with. Cope the problem does not exist." },
+
+    { lead: "Lucia memorises all the dates before the test.", key: "HEART",
+      before: "Lucia learns all the dates", after: "before the test.",
+      answers: ["by heart"],
+      why: "Learn something by heart is the fixed expression for memorising it word for word.",
+      tip: "Fixed expressions are never changed: by heart, never by the heart." },
+
+    { lead: "You must concentrate in class.", key: "ATTENTION",
+      before: "You must", after: "in class.",
+      answers: ["pay attention"],
+      why: "Pay attention is the collocation that means the same as concentrate.",
+      tip: "Attention goes with pay, not with make or do. Collocations have to be learnt as blocks." }
+  ]
+},
+
+/* ---------- 7 ---------- 14 marks ---------- */
+{ n: 7, points: 14, type: "wordform",
+  rubric: "Read the text and write the correct form of the word in the box under each gap.",
+  text: "Our school has just started a new study programme. The head teacher says that {1} is a skill, not a gift, and that the biggest {2} always comes from very small habits. Her first piece of {3} is simple: write everything down. Students who take clear notes rarely feel any {4} when they start {5} for a test. The programme also includes an {6} to a few online tools and a short {7} about sleep. Going to bed at two in the morning, she says, is the worst {8} a student can make.",
+  items: [
+    { root: "CONCENTRATE", answers: ["concentration"],
+      why: "The verb concentrate becomes the uncountable noun concentration.",
+      tip: "Verbs ending in -ate almost always take -ion: concentrate, calculate, translate." },
+    { root: "IMPROVE", answers: ["improvement"],
+      why: "Improve becomes improvement, a countable noun for a change that makes things better.",
+      tip: "The -ment ending keeps the verb complete: improve plus ment, with no spelling change." },
+    { root: "ADVISE", answers: ["advice"],
+      why: "The verb advise ends in -se, and the noun advice ends in -ce.",
+      tip: "Advice is uncountable: a piece of advice, never an advice." },
+    { root: "CONFUSE", answers: ["confusion"],
+      why: "Verbs ending in -se change to -sion, so confuse becomes confusion.",
+      tip: "Decide, confuse, revise: all of them take -sion, not -tion." },
+    { root: "REVISE", answers: ["revising","revision"],
+      why: "After start you need an -ing form, and revising is the natural choice here.",
+      tip: "Start, begin and continue all accept an -ing form after them." },
+    { root: "INTRODUCE", answers: ["introduction"],
+      why: "Introduce becomes introduction, and the article an in the text warns you a noun is coming.",
+      tip: "An introduction to something, never an introduction of something." },
+    { root: "DISCUSS", answers: ["discussion"],
+      why: "Discuss ends in -ss, and that ending also produces -sion.",
+      tip: "Discussion has two s and then -ion. Spelling counts in the exam." },
+    { root: "DECIDE", answers: ["decision"],
+      why: "Decide becomes decision, with the d changing to s before the ending.",
+      tip: "Make a decision, never do a decision or take a decision in this exam." }
+  ]
+},
+
+/* ---------- 8 ---------- 10 marks ---------- */
+{ n: 8, points: 10, type: "writing", mode: "lines",
+  rubric: "Your school magazine has a page called My school in four sentences. Write one sentence for each structure.",
+  situation: "Think about your school: a teacher, a subject, a classmate and a place in the building. Each sentence must contain a relative clause, and the non-defining one must have two commas.",
+  required: [
+    { form: "who", label: "a defining clause with who (no commas), about a teacher",
+      starter: "The teacher who ...",
+      patterns: ["who"],
+      why: "A defining clause tells the reader which teacher you mean, so it takes no commas.",
+      tip: "If the pronoun is the subject of the clause, you can never leave it out." },
+
+    { form: "which + commas", label: "a non-defining clause with which and two commas, about a subject or a thing",
+      starter: "Chemistry, which ... , is my favourite subject.",
+      patterns: ["which"],
+      why: "Because the subject is already named, the clause is extra information and needs commas.",
+      tip: "Never write that inside a clause with commas." },
+
+    { form: "whose", label: "a sentence with whose, about a classmate",
+      starter: "I sit next to a girl whose ...",
+      patterns: ["whose"],
+      why: "Whose shows that something belongs to the person you are describing.",
+      tip: "Whose is followed straight by a noun: whose brother, whose project." },
+
+    { form: "where", label: "a sentence with where, about a place in your school",
+      starter: "The library is the place where ...",
+      patterns: ["where"],
+      why: "Where introduces a clause about a place and means in which.",
+      tip: "Do not add a preposition afterwards: the room where we study, not where we study in." }
+  ],
+  model: "The teacher who runs the drama club also teaches us English. Chemistry, which nobody in my class enjoys, is the subject with the most homework. I sit next to a girl whose older sister studies medicine in Cordoba. The library is the place where we go over our notes before every test."
+}
+
+]};
+</script>
+<script id="engine-block">
+(function(){
+"use strict";
+
+/* Registry: el DOM guarda solo indices numericos, nunca JSON serializado. */
+var REG = [];
+
+function normalize(s){
+  return String(s).toLowerCase()
+    .replace(/[‘’ʼ]/g, "'")
+    .replace(/[^a-z0-9' ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function countWords(s){
+  s = String(s).replace(/\bcannot\b/gi, "can not");
+  var t = String(s).toLowerCase().replace(/[‘’ʼ]/g, "'");
+  t = t.replace(/n't\b/g, " not")
+       .replace(/'ll\b/g, " will")
+       .replace(/'re\b/g, " are")
+       .replace(/'ve\b/g, " have")
+       .replace(/'m\b/g, " am")
+       .replace(/'d\b/g, " would");
+  t = t.replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  return t === "" ? 0 : t.split(" ").length;
+}
+
+function matches(given, list){
+  var g = normalize(given);
+  if(g === "") return false;
+  for(var i = 0; i < list.length; i++){ if(normalize(list[i]) === g) return true; }
+  return false;
+}
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+
+function explainBox(ok, answerText, why, tip, note){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answerText){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", "Answer: " + answerText));
+    box.appendChild(p0);
+  }
+  if(note){
+    var pn = el("p");
+    pn.appendChild(el("b", "lab tip", "Length"));
+    pn.appendChild(document.createTextNode(note));
+    box.appendChild(pn);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+function clearExp(scope){
+  var old = scope.querySelectorAll(".exp");
+  for(var i = 0; i < old.length; i++){ old[i].parentNode.removeChild(old[i]); }
+}
+
+function buildGappedText(container, text, makeGap){
+  container.innerHTML = "";
+  var chunks = String(text).split(/\{(\d+)\}/);
+  for(var i = 0; i < chunks.length; i++){
+    if(i % 2 === 0){
+      if(chunks[i]) container.appendChild(document.createTextNode(chunks[i]));
+    } else {
+      container.appendChild(makeGap(parseInt(chunks[i], 10)));
+    }
+  }
+}
+
+/* ============================================================
+   Armado de una tarjeta por ejercicio
+   ============================================================ */
+var root = document.getElementById("exercises");
+var SCORES = [];
+
+function card(ex, idx){
+  var sec = el("section", "card ex");
+  sec.setAttribute("data-ex", String(idx));
+
+  var head = el("div", "exhead");
+  head.appendChild(el("span", "exnum", String(ex.n)));
+  head.appendChild(el("span", "expts", ex.points + " marks"));
+  sec.appendChild(head);
+
+  sec.appendChild(el("p", "rubric", ex.rubric));
+
+  /* caja de gramatica ANTES del ejercicio, al estilo "explore grammar" del libro */
+  if(ex.note){
+    var nb = el("div", "gnote");
+    nb.appendChild(el("b", "gnotetitle", ex.note.title));
+    var ul = el("ul");
+    for(var k = 0; k < ex.note.lines.length; k++){
+      var li = el("li");
+      var parts = String(ex.note.lines[k]).split(" -> ");
+      li.appendChild(el("b", "gform", parts[0]));
+      if(parts.length > 1) li.appendChild(document.createTextNode(" " + parts[1]));
+      ul.appendChild(li);
+    }
+    nb.appendChild(ul);
+    if(ex.note.warning){
+      var w = el("p", "gwarn");
+      w.appendChild(el("b", null, "Careful: "));
+      w.appendChild(document.createTextNode(ex.note.warning));
+      nb.appendChild(w);
+    }
+    sec.appendChild(nb);
+  }
+
+  if(ex.intro) sec.appendChild(el("p", "intro", ex.intro));
+
+  var body = el("div", "exbody");
+  sec.appendChild(body);
+
+  var row = el("div", "btnrow");
+  var check = el("button", "btn", "Check");
+  check.type = "button";
+  var again = el("button", "btn ghost", "Try again");
+  again.type = "button";
+  row.appendChild(check);
+  row.appendChild(again);
+  var score = el("span", "scoreline");
+  row.appendChild(score);
+  sec.appendChild(row);
+
+  var panel = el("div", "panel");
+  panel.appendChild(el("h3", null, "Answers & explanations"));
+  var panelBody = el("div");
+  panel.appendChild(panelBody);
+  sec.appendChild(panel);
+
+  root.appendChild(sec);
+  return { sec: sec, body: body, check: check, again: again, score: score, panel: panel, panelBody: panelBody };
+}
+
+function fillPanel(body, rows, word){
+  body.innerHTML = "";
+  for(var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    var item = el("div", "pitem");
+    var top = el("div", "ptop");
+    top.appendChild(document.createTextNode((word || "Item") + " " + r.num));
+    top.appendChild(el("span", "mark " + (r.ok ? "y" : "n"), r.ok ? "correct" : "not yet"));
+    item.appendChild(top);
+    item.appendChild(explainBox(r.ok, r.shown, r.why, r.tip, r.note));
+    body.appendChild(item);
+  }
+}
+
+function setScore(idx, ex, right, total, ui){
+  var pts = total ? Math.round((right / total) * ex.points * 10) / 10 : 0;
+  SCORES[idx] = { pts: pts, max: ex.points, done: true };
+  ui.score.textContent = right + " / " + total + "  ·  " + pts + " of " + ex.points + " marks";
+  updateTotal();
+}
+
+var totalEl = document.getElementById("total");
+var totalBar = document.getElementById("totalBar");
+function updateTotal(){
+  var got = 0, of = 0;
+  for(var i = 0; i < SCORES.length; i++){
+    if(SCORES[i] && SCORES[i].done){ got += SCORES[i].pts; of += SCORES[i].max; }
+  }
+  got = Math.round(got * 10) / 10;
+  totalEl.textContent = of ? got + " / " + of + " marks so far" : "Nothing checked yet";
+  totalBar.style.width = of ? Math.round((got / of) * 100) + "%" : "0%";
+}
+
+/* ---------- matching: cada item elige una etiqueta ---------- */
+function renderMatching(ex, idx){
+  var ui = card(ex, idx);
+  var ids = [];
+  for(var i = 0; i < ex.items.length; i++){
+    var d = ex.items[i];
+    var id = REG.push({ data: d }) - 1;
+    ids.push(id);
+
+    var item = el("div", "item");
+    item.setAttribute("data-id", String(id));
+    var line = el("div", "mline");
+    line.appendChild(el("b", "rn", String(i + 1)));
+    line.appendChild(el("span", "mtext", d.text));
+    item.appendChild(line);
+
+    var sel = document.createElement("select");
+    sel.className = "pick";
+    sel.setAttribute("data-id", String(id));
+    var blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "-- choose --";
+    sel.appendChild(blank);
+    for(var j = 0; j < ex.labels.length; j++){
+      var o = document.createElement("option");
+      o.value = ex.labels[j]; o.textContent = ex.labels[j];
+      sel.appendChild(o);
+    }
+    item.appendChild(sel);
+    ui.body.appendChild(item);
+  }
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    clearExp(ui.body);
+    for(var i = 0; i < ids.length; i++){
+      var item = ui.body.querySelector('.item[data-id="' + ids[i] + '"]');
+      var sel = item.querySelector("select");
+      var d = REG[ids[i]].data;
+      var ok = sel.value === d.correct;
+      if(ok) right++;
+      sel.disabled = true;
+      sel.className = "pick " + (ok ? "ok" : "no");
+      item.appendChild(explainBox(ok, d.correct, d.why, d.tip, null));
+    }
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    clearExp(ui.body);
+    var sels = ui.body.querySelectorAll("select");
+    for(var i = 0; i < sels.length; i++){ sels[i].disabled = false; sels[i].value = ""; sels[i].className = "pick"; }
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- transform / gapsentences / kwt: un input por item ---------- */
+function renderInputItems(ex, idx, kind){
+  var ui = card(ex, idx);
+  var ids = [];
+  for(var i = 0; i < ex.items.length; i++){
+    var d = ex.items[i];
+    var id = REG.push({ data: d }) - 1;
+    ids.push(id);
+
+    var item = el("div", "item");
+    item.setAttribute("data-id", String(id));
+
+    if(d.lead){
+      var lead = el("p", "lead");
+      lead.appendChild(el("b", "rn", String(i + 1)));
+      lead.appendChild(document.createTextNode(" " + d.lead));
+      item.appendChild(lead);
+    }
+    if(d.key) item.appendChild(el("div", "keyw", d.key));
+
+    var line = el("div", "target");
+    if(!d.lead){
+      line.appendChild(el("b", "rn", String(i + 1)));
+      line.appendChild(document.createTextNode(" "));
+    }
+    if(d.before) line.appendChild(document.createTextNode(d.before + " "));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = kind === "transform" ? "wide" : "";
+    inp.setAttribute("data-id", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    if(d.after) line.appendChild(document.createTextNode(" " + d.after));
+    item.appendChild(line);
+
+    if(kind === "kwt"){
+      var wc = el("div", "wc", "words: 0  (you need 2 - 5)");
+      item.appendChild(wc);
+      inp.addEventListener("input", function(ev){
+        var n = countWords(ev.currentTarget.value);
+        var box = ev.currentTarget.parentNode.parentNode.querySelector(".wc");
+        box.textContent = "words: " + n + "  (you need 2 - 5)";
+        box.className = (n >= 2 && n <= 5) ? "wc" : "wc bad";
+      });
+    }
+    ui.body.appendChild(item);
+  }
+
+  ui.check.addEventListener("click", function(){
+    var right = 0;
+    clearExp(ui.body);
+    for(var i = 0; i < ids.length; i++){
+      var item = ui.body.querySelector('.item[data-id="' + ids[i] + '"]');
+      var inp = item.querySelector("input");
+      var d = REG[ids[i]].data;
+      var ok = matches(inp.value, d.answers);
+      var note = null;
+      if(kind === "kwt"){
+        var n = countWords(inp.value);
+        if(ok && (n < 2 || n > 5)) ok = false;
+        if(inp.value.trim() !== "" && (n < 2 || n > 5)){
+          note = "Your answer has " + n + " words. Remember that short forms count as two: don't = do + not.";
+        }
+      }
+      if(ok) right++;
+      inp.className = (kind === "transform" ? "wide " : "") + (ok ? "ok" : "no");
+      var shown = d.answers[0];
+      if(kind === "kwt") shown += "  (" + countWords(d.answers[0]) + " words)";
+      if(d.answers.length > 1) shown += "  (also: " + d.answers.slice(1).join(" / ") + ")";
+      item.appendChild(explainBox(ok, shown, d.why, d.tip, note));
+    }
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    clearExp(ui.body);
+    var ins = ui.body.querySelectorAll("input");
+    for(var i = 0; i < ins.length; i++){ ins[i].value = ""; ins[i].className = kind === "transform" ? "wide" : ""; }
+    var wcs = ui.body.querySelectorAll(".wc");
+    for(var j = 0; j < wcs.length; j++){ wcs[j].textContent = "words: 0  (you need 2 - 5)"; wcs[j].className = "wc"; }
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- word formation: articulo corrido con raices ---------- */
+function renderWordform(ex, idx){
+  var ui = card(ex, idx);
+  var textEl = el("p", "passage");
+  ui.body.appendChild(textEl);
+  var ids = [];
+
+  buildGappedText(textEl, ex.text, function(num){
+    var d = ex.items[num - 1];
+    var id = REG.push({ num: num, data: d }) - 1;
+    ids.push(id);
+    var wrap = el("span", "gapwrap");
+    var line = el("span", "gline");
+    line.appendChild(el("b", "gnum", String(num)));
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.setAttribute("data-id", String(id));
+    inp.setAttribute("autocomplete", "off");
+    inp.setAttribute("spellcheck", "false");
+    line.appendChild(inp);
+    wrap.appendChild(line);
+    wrap.appendChild(el("span", "cue root", d.root));
+    return wrap;
+  });
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    for(var i = 0; i < ids.length; i++){
+      var entry = REG[ids[i]];
+      var inp = textEl.querySelector('input[data-id="' + ids[i] + '"]');
+      var d = entry.data;
+      var ok = matches(inp.value, d.answers);
+      if(ok) right++;
+      inp.className = ok ? "ok" : "no";
+      var shown = d.answers[0] + "  (from " + d.root + ")";
+      rows.push({ num: entry.num, ok: ok, shown: shown, why: d.why, tip: d.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Gap");
+    ui.panel.style.display = "block";
+    setScore(idx, ex, right, ids.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    var ins = textEl.querySelectorAll("input");
+    for(var i = 0; i < ins.length; i++){ ins[i].value = ""; ins[i].className = ""; }
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- writing: no se corrige sola, pero SI se controla que aparezcan
+     las estructuras que el ejercicio pide, y se muestra un modelo ---------- */
+function renderWriting(ex, idx){
+  var ui = card(ex, idx);
+  if(ex.situation) ui.body.appendChild(el("div", "situation", ex.situation));
+
+  /* mode "lines": una linea por estructura, con su etiqueta al lado.
+     Es mucho mas facil que un bloque unico donde se olvida una estructura. */
+  var lineas = ex.mode === "lines";
+  var ta = null, inputs = [];
+
+  if(lineas){
+    for(var i = 0; i < ex.required.length; i++){
+      var row = el("div", "wline");
+      var lab = el("div", "wlab");
+      lab.appendChild(el("b", "rn", String(i + 1)));
+      lab.appendChild(el("span", "wform", ex.required[i].form));
+      row.appendChild(lab);
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.className = "wide";
+      inp.setAttribute("spellcheck", "false");
+      inp.placeholder = ex.required[i].starter || "Write your sentence here.";
+      row.appendChild(inp);
+      inputs.push(inp);
+      ui.body.appendChild(row);
+    }
+  } else {
+    ta = document.createElement("textarea");
+    ta.rows = 6;
+    ta.setAttribute("spellcheck", "false");
+    ta.placeholder = "Write your sentences here.";
+    ui.body.appendChild(ta);
+  }
+
+  var need = el("div", "needlist");
+  need.appendChild(el("b", "needtitle", lineas ? "Each line must contain:" : "Your answer must include:"));
+  var ul = el("ul");
+  for(var i = 0; i < ex.required.length; i++){
+    ul.appendChild(el("li", null, ex.required[i].label));
+  }
+  need.appendChild(ul);
+  ui.body.appendChild(need);
+
+  ui.check.addEventListener("click", function(){
+    clearExp(ui.body);
+    var found = 0, rows = [];
+    for(var i = 0; i < ex.required.length; i++){
+      var r = ex.required[i];
+      var txt = " " + normalize(lineas ? inputs[i].value : ta.value) + " ";
+      var hit = false;
+      for(var j = 0; j < r.patterns.length; j++){
+        if(txt.indexOf(normalize(r.patterns[j])) >= 0){ hit = true; break; }
+      }
+      if(hit) found++;
+      if(lineas) inputs[i].className = "wide " + (hit ? "ok" : "no");
+      rows.push({ num: i + 1, ok: hit, shown: r.label, why: r.why, tip: r.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Structure");
+
+    var model = el("div", "modelbox");
+    model.appendChild(el("b", "needtitle", "A possible answer"));
+    model.appendChild(el("p", null, ex.model));
+    model.appendChild(el("p", "selfnote", "This part is marked by your teacher. The check above only looks for the structures the task asks for."));
+    ui.panelBody.appendChild(model);
+
+    ui.panel.style.display = "block";
+    setScore(idx, ex, found, ex.required.length, ui);
+  });
+  ui.again.addEventListener("click", function(){
+    if(lineas){ for(var i = 0; i < inputs.length; i++){ inputs[i].value = ""; inputs[i].className = "wide"; } }
+    else ta.value = "";
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    SCORES[idx] = null; ui.score.textContent = ""; updateTotal();
+  });
+}
+
+/* ---------- arranque ---------- */
+document.getElementById("testTitle").textContent = DATA.title;
+document.getElementById("testSub").textContent = DATA.subtitle;
+
+for(var i = 0; i < DATA.exercises.length; i++){
+  var ex = DATA.exercises[i];
+  SCORES.push(null);
+  if(ex.type === "matching") renderMatching(ex, i);
+  else if(ex.type === "wordform") renderWordform(ex, i);
+  else if(ex.type === "writing") renderWriting(ex, i);
+  else renderInputItems(ex, i, ex.type);
+}
+updateTotal();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 1 · Exposición — Primera Meditación</title>
+<style>
+:root{
+  --bg:#050608; --ink:#F2F5F9; --dim:#A0ABBC; --faint:#7E8898;
+  --cyan:#22E4FF; --amber:#FFC93C; --coral:#FF6B6B; --green:#57E38B; --violet:#C9A0FF;
+  --card:#0D1015; --card2:#11151C; --line:#232936; --line2:#2E3644;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--ink); overflow:hidden;
+  font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+::selection{background:rgba(34,228,255,.25)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+
+/* ---------- barra de progreso ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:80;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .25s ease}
+
+/* ---------- escenario ---------- */
+#stage{position:relative;height:100vh;width:100%}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:6vh clamp(28px,6vw,90px) 11vh;overflow-y:auto;overflow-x:hidden}
+.slide.on{display:flex;animation:enter .5s ease both}
+@keyframes enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.wrap{width:100%;max-width:1180px;margin:0 auto}
+
+/* ---------- tipografía ---------- */
+.kicker{font-size:clamp(12px,1.15vw,15px);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cyan);font-weight:700;margin-bottom:18px}
+.kicker .num{color:var(--faint);margin-right:.9em}
+h1{font-size:clamp(40px,6.6vw,92px);line-height:1.02;font-weight:800;letter-spacing:-.025em}
+h1 .sub{display:block;color:var(--cyan);font-size:clamp(19px,2.6vw,38px);margin-top:.25em;letter-spacing:-.01em}
+h2{font-size:clamp(28px,4.4vw,60px);line-height:1.05;font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+h2 .u{color:var(--amber)}
+h2 .cyu{color:var(--cyan)}
+h3{font-size:clamp(18px,1.9vw,26px);font-weight:800;margin:0 0 8px;color:var(--ink)}
+p.lead{font-size:clamp(18px,1.9vw,27px);color:var(--dim);max-width:60ch;margin:14px 0}
+p.body{font-size:clamp(16px,1.55vw,22px);color:var(--ink);max-width:62ch;margin:12px 0}
+p.body b,p.lead b{color:var(--amber)}
+.dim{color:var(--dim)} .faint{color:var(--faint)}
+.g{color:var(--green);font-weight:700} .c{color:var(--coral);font-weight:700}
+.v{color:var(--violet);font-weight:700} .cy{color:var(--cyan);font-weight:700}
+.am{color:var(--amber);font-weight:700}
+ul.plain{list-style:none;max-width:64ch;margin:14px 0}
+ul.plain li{font-size:clamp(16px,1.55vw,22px);color:var(--ink);padding-left:1.4em;
+  position:relative;margin:12px 0;line-height:1.45}
+ul.plain li::before{content:"—";position:absolute;left:0;color:var(--cyan);font-weight:700}
+.apho{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--violet);
+  font-size:clamp(19px,2vw,30px);line-height:1.4;margin:26px 0 6px;max-width:52ch;
+  border-left:3px solid var(--violet);padding-left:1em}
+.note{font-size:clamp(13px,1.05vw,16px);color:var(--faint);max-width:70ch;margin-top:16px;line-height:1.5}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent);margin:26px 0}
+
+/* ---------- cita textual ---------- */
+blockquote{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--ink);
+  font-size:clamp(17px,1.75vw,26px);line-height:1.42;margin:22px 0 8px;max-width:56ch;
+  border-left:3px solid var(--cyan);padding:10px 0 10px 1em;background:rgba(34,228,255,.04)}
+blockquote .ref{display:block;font-size:clamp(12px,1vw,15px);color:var(--faint);margin-top:10px;
+  font-style:normal;font-family:"Segoe UI",system-ui,sans-serif;letter-spacing:.06em}
+
+/* ---------- portada ---------- */
+#s0{justify-content:center}
+#s0::before{content:"";position:absolute;inset:-30%;pointer-events:none;
+  background:radial-gradient(ellipse 42% 34% at 64% 36%,rgba(34,228,255,.10),transparent 60%),
+             radial-gradient(ellipse 38% 30% at 28% 74%,rgba(201,160,255,.09),transparent 60%)}
+.dudamark{position:absolute;right:-2vw;bottom:-4vh;font-weight:800;
+  font-size:clamp(120px,20vw,300px);color:rgba(255,255,255,.035);letter-spacing:-.04em;
+  transform:rotate(-4deg);pointer-events:none;user-select:none;line-height:.9}
+
+/* ---------- grilla de tarjetas ---------- */
+.grid{display:grid;gap:16px;margin-top:22px}
+.grid.g3{grid-template-columns:repeat(3,1fr)}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid.g3,.grid.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.card .tag{font-size:clamp(11px,.95vw,13px);letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan);margin-bottom:10px}
+.card.am .tag{color:var(--amber)} .card.co .tag{color:var(--coral)} .card.vi .tag{color:var(--violet)}
+.card h4{font-size:clamp(18px,1.7vw,25px);font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.card p{font-size:clamp(14.5px,1.25vw,18px);color:var(--dim);line-height:1.45}
+.card p+p{margin-top:8px}
+.card p b{color:var(--ink)}
+
+/* ---------- mapa / índice de argumentos ---------- */
+.mapa{margin-top:20px;border-left:2px solid var(--line2);padding-left:0}
+.mapa .fila{display:flex;gap:18px;align-items:flex-start;padding:11px 0 11px 22px;position:relative}
+.mapa .fila::before{content:"";position:absolute;left:-6px;top:22px;width:10px;height:10px;
+  border-radius:50%;background:var(--bg);border:2px solid var(--faint)}
+.mapa .fila.hito::before{border-color:var(--cyan);box-shadow:0 0 12px rgba(34,228,255,.6)}
+.mapa .fila .n{flex:0 0 auto;font-size:clamp(13px,1.1vw,16px);font-weight:800;color:var(--faint);
+  letter-spacing:.14em;width:2.6em;padding-top:.25em}
+.mapa .fila.hito .n{color:var(--cyan)}
+.mapa .fila .t{font-size:clamp(16px,1.5vw,22px);font-weight:700;line-height:1.35}
+.mapa .fila .t small{display:block;font-size:clamp(13px,1.1vw,16px);font-weight:400;
+  color:var(--dim);margin-top:3px;letter-spacing:0}
+
+/* ---------- ficha de argumento ---------- */
+.ficha{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media(max-width:900px){.ficha{grid-template-columns:1fr}}
+.paso{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.paso .pl{font-size:clamp(11px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;margin-bottom:8px}
+.paso p{font-size:clamp(15px,1.3vw,19px);color:var(--ink);line-height:1.45}
+.paso p b{color:var(--amber)}
+.paso.ok{border-color:rgba(87,227,139,.35)} .paso.ok .pl{color:var(--green)}
+.paso.no{border-color:rgba(255,107,107,.35)} .paso.no .pl{color:var(--coral)}
+.paso.cy{border-color:rgba(34,228,255,.35)} .paso.cy .pl{color:var(--cyan)}
+
+/* ---------- píldoras cae / queda ---------- */
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.pill{padding:7px 16px;border-radius:22px;font-size:clamp(13px,1.15vw,17px);font-weight:700;
+  border:1px solid var(--line2);color:var(--dim);background:var(--card)}
+.pill.cae{color:var(--coral);border-color:rgba(255,107,107,.45);background:rgba(255,107,107,.07)}
+.pill.queda{color:var(--green);border-color:rgba(87,227,139,.45);background:rgba(87,227,139,.07)}
+
+/* ---------- tabla resumen ---------- */
+table.res{width:100%;border-collapse:collapse;margin-top:20px;font-size:clamp(14px,1.25vw,19px)}
+table.res th,table.res td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.res th{font-size:clamp(11px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;border-bottom-color:var(--line2)}
+table.res td.arg{font-weight:800;color:var(--ink);width:26%}
+table.res td.arg small{display:block;font-weight:400;color:var(--faint);font-size:.78em;margin-top:3px}
+table.res td.cae{color:var(--coral)} table.res td.queda{color:var(--green)}
+@media(max-width:760px){table.res th:nth-child(4),table.res td:nth-child(4){display:none}}
+
+/* ---------- cierre ---------- */
+.big{font-size:clamp(34px,5.6vw,78px);font-weight:800;line-height:1.05;letter-spacing:-.025em;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;
+  background-clip:text;color:transparent;max-width:16ch}
+
+/* ---------- barra inferior ---------- */
+#bar{position:fixed;bottom:0;left:0;right:0;height:52px;z-index:70;display:flex;align-items:center;
+  gap:14px;padding:0 clamp(18px,3vw,40px);
+  background:linear-gradient(180deg,transparent,rgba(5,6,8,.9) 45%);
+  font-size:13px;color:var(--faint);letter-spacing:.1em}
+#bar .titulo{flex:1;text-transform:uppercase;font-weight:700;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis;color:var(--dim)}
+#bar .cont{font-variant-numeric:tabular-nums;font-weight:700;color:var(--dim)}
+#bar button{background:var(--card);border:1px solid var(--line2);color:var(--dim);border-radius:9px;
+  width:34px;height:32px;cursor:pointer;font-family:inherit;font-size:15px;transition:.16s}
+#bar button:hover{border-color:var(--cyan);color:var(--cyan)}
+#bar .ayuda{color:var(--faint);font-size:12px}
+#bar .copy{color:var(--faint);font-size:12px;letter-spacing:.06em;white-space:nowrap}
+@media(max-width:760px){#bar .ayuda{display:none}}
+@media(max-width:520px){#bar .copy{display:none}}
+
+/* ---------- índice emergente ---------- */
+#indice{position:fixed;inset:0;z-index:90;background:rgba(5,6,8,.97);display:none;
+  padding:6vh clamp(24px,5vw,70px);overflow-y:auto}
+#indice.on{display:block}
+#indice h3{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
+#indice ol{list-style:none;max-width:900px}
+#indice li{padding:10px 12px;border-radius:9px;cursor:pointer;font-size:clamp(15px,1.4vw,20px);
+  color:var(--dim);display:flex;gap:16px;transition:.14s}
+#indice li:hover{background:var(--card);color:var(--ink)}
+#indice li .ix{color:var(--faint);font-variant-numeric:tabular-nums;font-weight:700;width:2.2em}
+#indice li.actual{color:var(--cyan)} #indice li.actual .ix{color:var(--cyan)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="stage">
+
+<!-- ============ 0 · PORTADA ============ -->
+<section class="slide" data-t="Portada" id="s0">
+  <div class="dudamark">DUDA</div>
+  <div class="wrap">
+    <div class="kicker">Clase 1 · Descartes</div>
+    <h1>La duda<span class="sub">Primera Meditación — «De las cosas que pueden ponerse en duda»</span></h1>
+    <p class="lead" style="margin-top:28px">Hoy no buscamos respuestas. Hoy miramos cómo se demuele un edificio: uno por uno, cada argumento con el que Descartes derriba todo lo que creía saber.</p>
+    <div class="apho">Dudar no es no saber. Dudar es querer saber tanto que uno se atreve a perderlo todo primero.</div>
+  </div>
+</section>
+
+<!-- ============ 1 · EL PROYECTO ============ -->
+<section class="slide" data-t="El proyecto: por qué demoler">
+  <div class="wrap">
+    <div class="kicker"><span class="num">I</span>El proyecto</div>
+    <h2>No se revisa opinión por opinión: <span class="u">se atacan los cimientos</span></h2>
+    <p class="lead">Descartes tiene un problema práctico: las creencias falsas son infinitas y no tiene toda la vida. La solución es de arquitecto, no de contador.</p>
+    <div class="grid g2">
+      <div class="card"><div class="tag">El problema</div><h4>Demasiadas opiniones</h4><p>Revisar una por una es una tarea infinita. Y muchas de esas creencias las heredé sin examinarlas: entraron por la costumbre, la escuela, la autoridad.</p></div>
+      <div class="card am"><div class="tag">La estrategia</div><h4>Ir a las fuentes</h4><p>Atacar las <b>dos fuentes</b> de donde vino todo: la <b>sensibilidad</b> (lo que aprendí por los sentidos) y la <b>razón</b>. Si caen las fuentes, cae todo lo que salió de ellas.</p></div>
+    </div>
+    <blockquote>Bastará que encuentre en cada una alguna razón de dudar para rechazarlas todas… la ruina de los cimientos arrastra consigo el resto del edificio.<span class="ref">— Primera Meditación</span></blockquote>
+  </div>
+</section>
+
+<!-- ============ 2 · LAS TRES CARACTERÍSTICAS ============ -->
+<section class="slide" data-t="Las tres características de la duda">
+  <div class="wrap">
+    <div class="kicker"><span class="num">II</span>Qué clase de duda es esta</div>
+    <h2>Metódica · <span class="cyu">Hiperbólica</span> · Universal</h2>
+    <div class="grid g3">
+      <div class="card"><div class="tag">Metódica</div><h4>Es un instrumento</h4>
+        <p>No duda porque desconfíe del mundo ni porque esté angustiado. <b>Duda a propósito</b>, como quien golpea una pared para ver si es hueca.</p>
+        <p>Es voluntaria, deliberada y provisoria: se usa para <b>encontrar</b> algo firme, no para quedarse sin nada.</p></div>
+      <div class="card am"><div class="tag">Hiperbólica</div><h4>Es exagerada</h4>
+        <p>La regla: <b>basta poder dudar</b> de algo para tratarlo como falso. No hace falta probar que es falso; alcanza con que no sea absolutamente seguro.</p>
+        <p>Por eso llega a extremos que en la vida cotidiana serían ridículos. Es a propósito: quiere el filtro más fino posible.</p></div>
+      <div class="card co"><div class="tag">Universal</div><h4>No perdona nada</h4>
+        <p>Alcanza a <b>todo</b>: los sentidos, el mundo exterior, el propio cuerpo, las ciencias, y finalmente la matemática y la razón misma.</p>
+        <p>Nada queda afuera por respeto o por costumbre. Nada, hasta que algo resista.</p></div>
+    </div>
+    <div class="apho">Lo dudoso, para Descartes, no es «más o menos verdadero»: es falso hasta nuevo aviso.</div>
+  </div>
+</section>
+
+<!-- ============ 3 · MAPA ============ -->
+<section class="slide" data-t="Mapa: los argumentos de la Primera Meditación">
+  <div class="wrap">
+    <div class="kicker"><span class="num">III</span>Mapa de la clase</div>
+    <h2>Los argumentos, <span class="u">en el orden del texto</span></h2>
+    <p class="lead">Cada peldaño hace caer más cosas que el anterior. Vamos a bajar uno por uno.</p>
+    <div class="mapa">
+      <div class="fila hito"><div class="n">1</div><div class="t">Los sentidos engañan<small>Caen las percepciones aisladas.</small></div></div>
+      <div class="fila"><div class="n">1b</div><div class="t">Objeción: «pero estoy acá, junto al fuego»<small>Hay cosas que parecen imposibles de dudar… salvo que uno esté loco.</small></div></div>
+      <div class="fila hito"><div class="n">2</div><div class="t">El sueño<small>Cae el mundo exterior entero, y con él las ciencias fácticas.</small></div></div>
+      <div class="fila"><div class="n">2b</div><div class="t">El resto que sobrevive al sueño<small>Lo simple y universal: extensión, figura, cantidad, número. La matemática se salva… por ahora.</small></div></div>
+      <div class="fila hito"><div class="n">3</div><div class="t">El Dios omnipotente que podría engañarme<small>Cae la matemática. Dos más tres pueden no ser cinco.</small></div></div>
+      <div class="fila"><div class="n">3b</div><div class="t">Contra-objeción: «¿y si no hay Dios?»<small>Peor todavía: cuanto menos perfecto mi origen, más probable que me engañe siempre.</small></div></div>
+      <div class="fila"><div class="n">4</div><div class="t">La resistencia de los viejos hábitos<small>Sé que debo dudar, pero la costumbre me arrastra de vuelta. Hace falta un artificio.</small></div></div>
+      <div class="fila hito"><div class="n">5</div><div class="t">El genio maligno<small>La hipótesis extrema que sostiene la duda. No cae nada nuevo: se blinda todo lo que ya cayó.</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · ARGUMENTO 1 ============ -->
+<section class="slide" data-t="Argumento 1 — Los sentidos engañan">
+  <div class="wrap">
+    <div class="kicker"><span class="num">1</span>Primer argumento · Ilusión de los sentidos</div>
+    <h2>Los sentidos <span class="u">me han engañado alguna vez</span></h2>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">Premisa 1</div><p>Todo lo que admití hasta hoy como más seguro lo aprendí <b>de los sentidos o por los sentidos</b>.</p></div>
+      <div class="paso cy"><div class="pl">Premisa 2</div><p>Los sentidos me engañan <b>algunas veces</b>: la torre cuadrada que de lejos parece redonda, el remo quebrado en el agua.</p></div>
+      <div class="paso cy"><div class="pl">Premisa 3 · la regla</div><p>Es prudente <b>no fiarse nunca por entero</b> de quien nos engañó una vez.</p></div>
+      <div class="paso no"><div class="pl">Conclusión</div><p>Rechazo el testimonio de los sentidos como fundamento seguro.</p></div>
+    </div>
+    <blockquote>Todo lo que he admitido hasta el presente como lo más seguro y verdadero, lo he aprendido de los sentidos o por los sentidos; ahora bien: he experimentado a veces que tales sentidos me engañaban.<span class="ref">— Primera Meditación</span></blockquote>
+    <div class="pills"><span class="pill cae">Cae: las percepciones sensibles como criterio de verdad</span></div>
+  </div>
+</section>
+
+<!-- ============ 5 · OBJECIÓN 1 ============ -->
+<section class="slide" data-t="Objeción — «pero estoy acá, junto al fuego»">
+  <div class="wrap">
+    <div class="kicker"><span class="num">1b</span>La objeción que él mismo se hace</div>
+    <h2>«Pero estoy <span class="u">acá</span>, sentado junto al fuego, con esta bata»</h2>
+    <p class="lead">Descartes no se queda con la victoria fácil. Se pone la objeción más fuerte: una cosa es equivocarme con lo lejano o lo diminuto; otra muy distinta es dudar de que <span class="cy">estas manos son mías</span>.</p>
+    <div class="ficha">
+      <div class="paso ok"><div class="pl">La objeción</div><p>Hay percepciones <b>cercanas, presentes, plenas</b>: mi cuerpo, esta sala, este papel. Dudar de eso parecería cosa de locos.</p></div>
+      <div class="paso no"><div class="pl">Su respuesta</div><p>Los locos creen exactamente eso con la misma convicción. <b>Desde adentro no se distingue</b> la certeza del delirio. Pero Descartes no elige ese camino: le parece un ejemplo demasiado extravagante para tomarse en serio.</p></div>
+    </div>
+    <p class="body">Necesita algo mejor: un argumento que valga para cualquiera, no solo para el que perdió la razón. Algo que le pase <b>a todo el mundo, todas las noches</b>.</p>
+    <div class="apho">La locura no le sirve: es de otros. El sueño sí, porque es de todos.</div>
+  </div>
+</section>
+
+<!-- ============ 6 · ARGUMENTO 2 ============ -->
+<section class="slide" data-t="Argumento 2 — El sueño">
+  <div class="wrap">
+    <div class="kicker"><span class="num">2</span>Segundo argumento · El sueño</div>
+    <h2>No hay marca que distinga <span class="u">la vigilia del sueño</span></h2>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">Premisa 1</div><p>Muchas veces soñé que estaba <b>acá, vestido, junto al fuego</b> — y era falso.</p></div>
+      <div class="paso cy"><div class="pl">Premisa 2</div><p>Mientras sueño, <b>no me doy cuenta</b> de que sueño: el sueño se siente exactamente igual que la vigilia.</p></div>
+      <div class="paso cy"><div class="pl">Premisa 3</div><p>No existe <b>ningún indicio cierto</b> para decidir, ahora mismo, en cuál de los dos estados estoy.</p></div>
+      <div class="paso no"><div class="pl">Conclusión</div><p>No puedo asegurar que exista <b>nada de lo que percibo</b>: ni esta sala, ni este papel, ni mi propio cuerpo.</p></div>
+    </div>
+    <blockquote>No hay indicios ciertos por donde distinguir claramente la vigilia del sueño.<span class="ref">— Primera Meditación</span></blockquote>
+    <p class="note">Ojo con el salto: no dice «quizá esto que veo es falso». Dice <b>quizá no haya mundo exterior en absoluto</b>. Matrix duda de un video; Descartes duda de que haya algo afuera.</p>
+  </div>
+</section>
+
+<!-- ============ 7 · LO QUE SOBREVIVE AL SUEÑO ============ -->
+<section class="slide" data-t="Lo que sobrevive al sueño">
+  <div class="wrap">
+    <div class="kicker"><span class="num">2b</span>El resto que el sueño no toca</div>
+    <h2>Aun soñando, <span class="u">dos más tres son cinco</span></h2>
+    <p class="lead">Descartes hace una distinción fina: incluso las imágenes de los sueños están hechas de algo. Un centauro es falso, pero está compuesto de partes — cuerpo, patas, color — que no inventé de la nada.</p>
+    <div class="grid g2">
+      <div class="card co"><div class="tag">Cae</div><h4>Las ciencias fácticas</h4><p>Física, astronomía, medicina: todas las que <b>dependen de que existan cosas compuestas</b> ahí afuera. Si no hay mundo, no hay objeto de estudio.</p></div>
+      <div class="card"><div class="tag">Queda en pie</div><h4>Lo simple y universal</h4><p>Extensión, figura, cantidad, número, magnitud, duración. Y con eso, la <b>aritmética y la geometría</b>: sea que duerma o esté despierto, el cuadrado no tiene más de cuatro lados.</p></div>
+    </div>
+    <blockquote>Que esté yo dormido o despierto, dos más tres serán siempre cinco, y el cuadrado no tendrá más de cuatro lados.<span class="ref">— Primera Meditación</span></blockquote>
+    <p class="body"><b>Todavía queda algo firme.</b> Y mientras quede algo firme, la duda no llegó al fondo.</p>
+  </div>
+</section>
+
+<!-- ============ 8 · ARGUMENTO 3 ============ -->
+<section class="slide" data-t="Argumento 3 — El Dios que podría engañarme">
+  <div class="wrap">
+    <div class="kicker"><span class="num">3</span>Tercer argumento · El Dios omnipotente</div>
+    <h2>¿Y si <span class="u">quien me hizo</span> quiso que me equivoque siempre?</h2>
+    <div class="ficha">
+      <div class="paso cy"><div class="pl">Premisa 1</div><p>Tengo grabada la creencia de que existe un Dios <b>todopoderoso</b> que me creó tal como soy.</p></div>
+      <div class="paso cy"><div class="pl">Premisa 2</div><p>Si es todopoderoso, <b>pudo hacerme de modo que me engañe</b> incluso donde creo ver con máxima claridad.</p></div>
+      <div class="paso cy"><div class="pl">Premisa 3</div><p>De hecho, ya me equivoco a veces en cuentas simples. Nada impide que me equivoque <b>siempre</b>.</p></div>
+      <div class="paso no"><div class="pl">Conclusión</div><p>Cae la <b>matemática</b>. Cae la razón misma como garantía. Ya no queda nada.</p></div>
+    </div>
+    <blockquote>¿Qué sé yo si no ha querido que me engañe cuantas veces sumo dos y tres, o cuando enumero los lados de un cuadrado?<span class="ref">— Primera Meditación</span></blockquote>
+    <p class="note">Este es el peldaño decisivo: es el único argumento que alcanza a la <b>razón</b>. Los sentidos ya habían caído; el mundo también. Ahora cae el pensamiento como instrumento confiable.</p>
+  </div>
+</section>
+
+<!-- ============ 9 · CONTRA-OBJECIÓN ============ -->
+<section class="slide" data-t="Contra-objeción — «¿y si no hay Dios?»">
+  <div class="wrap">
+    <div class="kicker"><span class="num">3b</span>La salida que no es salida</div>
+    <h2>«Entonces niego que Dios exista.» <span class="u">Peor.</span></h2>
+    <p class="lead">Alguien podría intentar escaparse: si el problema es un Dios engañador, listo, saco a Dios del medio. Descartes cierra esa puerta en dos líneas.</p>
+    <div class="ficha">
+      <div class="paso ok"><div class="pl">El intento de escape</div><p>Si no hay un ser todopoderoso, nadie pudo haberme diseñado defectuoso. Mi razón estaría a salvo.</p></div>
+      <div class="paso no"><div class="pl">La respuesta</div><p>Al revés. Si mi origen es el azar, o una cadena ciega de causas, entonces mi origen es <b>menos perfecto</b> — y cuanto menos perfecto el autor, <b>más probable</b> que su obra se equivoque siempre.</p></div>
+    </div>
+    <div class="apho">No hay hipótesis sobre mi origen que me deje tranquilo. Con Dios o sin Dios, el error sigue siendo posible.</div>
+    <div class="pills">
+      <span class="pill cae">Cae: los sentidos</span>
+      <span class="pill cae">Cae: el mundo exterior</span>
+      <span class="pill cae">Cae: mi cuerpo</span>
+      <span class="pill cae">Cae: la matemática</span>
+      <span class="pill cae">Cae: la razón</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 · LA RESISTENCIA DE LOS HÁBITOS ============ -->
+<section class="slide" data-t="La resistencia de los viejos hábitos">
+  <div class="wrap">
+    <div class="kicker"><span class="num">4</span>Un problema psicológico, no lógico</div>
+    <h2>Sé que debo dudar… <span class="u">y sin embargo vuelvo a creer</span></h2>
+    <p class="lead">Terminó de derribar todo y descubre algo incómodo: los argumentos convencen a la cabeza, pero la costumbre tira. Apenas deja de razonar, las viejas creencias vuelven solas a ocupar su lugar.</p>
+    <div class="grid g2">
+      <div class="card co"><div class="tag">El síntoma</div><h4>Como el esclavo que sueña</h4><p>Descartes se compara con quien sueña que es libre y, al sospechar que despierta, <b>prefiere seguir durmiendo</b>. Las opiniones viejas son cómodas.</p></div>
+      <div class="card am"><div class="tag">La receta</div><h4>Inclinar la balanza al otro lado</h4><p>No alcanza con «no afirmar». Hay que <b>fingir activamente que todo es falso</b>, hasta que los dos pesos —costumbre y duda— se equilibren y ninguno decida por mí.</p></div>
+    </div>
+    <p class="body">De acá sale el genio maligno. <b>No es un argumento nuevo</b>: es un artificio para que la duda no se afloje.</p>
+  </div>
+</section>
+
+<!-- ============ 11 · EL GENIO MALIGNO ============ -->
+<section class="slide" data-t="El genio maligno — la hipótesis">
+  <div class="wrap">
+    <div class="kicker"><span class="num">5</span>Quinto momento · El genio maligno</div>
+    <h2>Una <span class="u">hipótesis</span>, no una creencia</h2>
+    <blockquote>Supondré… que cierto genio maligno, no menos astuto y engañador que poderoso, ha empleado toda su industria en engañarme.<span class="ref">— Primera Meditación</span></blockquote>
+    <div class="ficha">
+      <div class="paso ok"><div class="pl">Qué es</div><p>Un <b>supuesto voluntario</b>. Una ficción de trabajo que Descartes adopta a sabiendas, como quien pone la peor hipótesis para probar la resistencia de un material.</p></div>
+      <div class="paso no"><div class="pl">Qué NO es</div><p>No es una creencia de Descartes. <b>No afirma que exista.</b> Tampoco es demonología ni superstición: es un recurso metodológico.</p></div>
+      <div class="paso cy"><div class="pl">Para qué sirve</div><p>Para <b>sostener</b> la duda contra la costumbre. Reemplaza a un Dios que por definición es bueno por una figura que sí puede querer engañarme, sin quedar atrapado en discusiones teológicas.</p></div>
+      <div class="paso cy"><div class="pl">Hasta dónde llega</div><p>Puede falsear el cielo, la tierra, los colores, las figuras, los sonidos — y hasta mi propio cuerpo, que quizá sea solo una ilusión que él me hace creer que tengo.</p></div>
+    </div>
+    <div class="apho">El genio maligno no agrega una duda más: le pone músculo a las que ya estaban.</div>
+  </div>
+</section>
+
+<!-- ============ 12 · TABLA RESUMEN ============ -->
+<section class="slide" data-t="Resumen — qué cae en cada peldaño">
+  <div class="wrap">
+    <div class="kicker"><span class="num">VI</span>La escalera completa</div>
+    <h2>Qué cae y qué <span class="u">todavía quedaba</span> en cada peldaño</h2>
+    <table class="res">
+      <tr><th>Argumento</th><th>Hace caer</th><th>Todavía quedaba</th><th>Alcance</th></tr>
+      <tr>
+        <td class="arg">1 · Los sentidos<small>Ilusión sensible</small></td>
+        <td class="cae">Las percepciones aisladas: lo lejano, lo pequeño, lo dudoso.</td>
+        <td class="queda">Lo cercano y presente: mi cuerpo, esta sala.</td>
+        <td class="dim">Parcial</td>
+      </tr>
+      <tr>
+        <td class="arg">2 · El sueño<small>Indistinción vigilia/sueño</small></td>
+        <td class="cae">El mundo exterior entero y las ciencias fácticas (física, astronomía, medicina).</td>
+        <td class="queda">Lo simple y universal: número, figura, extensión. Aritmética y geometría.</td>
+        <td class="dim">Sensibilidad</td>
+      </tr>
+      <tr>
+        <td class="arg">3 · El Dios engañador<small>+ la hipótesis del azar</small></td>
+        <td class="cae">La matemática y la razón como facultad confiable.</td>
+        <td class="queda">Nada asegurado.</td>
+        <td class="dim">Razón</td>
+      </tr>
+      <tr>
+        <td class="arg">4 · El genio maligno<small>Artificio, no argumento</small></td>
+        <td class="cae">Nada nuevo: <b>blinda</b> lo ya derribado contra el regreso de la costumbre.</td>
+        <td class="queda">— </td>
+        <td class="dim">Sostén</td>
+      </tr>
+    </table>
+    <p class="note">Fijate en la dirección: la duda baja de <b>lo particular a lo general</b>, y de <b>la sensibilidad a la razón</b>. Ese orden no es casual: cada peldaño necesita que el anterior ya haya caído.</p>
+  </div>
+</section>
+
+<!-- ============ 13 · ¿QUÉ NOS QUEDA? ============ -->
+<section class="slide" data-t="¿Entonces qué nos queda?">
+  <div class="wrap">
+    <div class="kicker"><span class="num">VII</span>El final de la Primera Meditación</div>
+    <h2 style="margin-bottom:26px">Bueno… <span class="u">¿entonces qué nos queda?</span></h2>
+    <p class="lead">Al terminar la Primera Meditación no queda absolutamente nada en pie. Ni el mundo, ni el cuerpo, ni los números, ni la razón. Descartes se queda en el fondo del pozo, y lo dice sin dramatismo: es el precio de haber querido llegar hasta ahí.</p>
+    <div class="pills" style="margin:24px 0">
+      <span class="pill cae">Los sentidos</span><span class="pill cae">El mundo</span><span class="pill cae">Mi cuerpo</span>
+      <span class="pill cae">Las ciencias</span><span class="pill cae">La matemática</span><span class="pill cae">La razón</span>
+      <span class="pill">¿…?</span>
+    </div>
+    <div class="apho">Si un genio poderosísimo dedica todo su ingenio a engañarme — para engañarme, ¿no hace falta que yo esté acá?</div>
+    <p class="body">Esa es la pregunta con la que arranca la Segunda Meditación. <b>Pensala hasta la clase que viene.</b></p>
+  </div>
+</section>
+
+<!-- ============ 14 · CIERRE ============ -->
+<section class="slide" data-t="Cierre">
+  <div class="wrap" style="text-align:left">
+    <div class="kicker">Para la próxima</div>
+    <div class="big">Algo tiene que quedar debajo de todo lo que cae.</div>
+    <p class="lead" style="margin-top:28px">Clase 2 — El cogito y la cera. <span class="faint">Segunda Meditación.</span></p>
+    <p class="note">Citas en traducción estándar, marcadas por Meditación. Fuentes: Descartes, <em>Meditaciones metafísicas</em>; resumen de cátedra de Filosofía Moderna (Mendoza Hurtado–Jáuregui, UBA); teóricos de C. Jáuregui (UBA, 2016).</p>
+  </div>
+</section>
+
+</div>
+
+<div id="bar">
+  <button id="prev" title="Anterior (←)" aria-label="Diapositiva anterior">‹</button>
+  <button id="next" title="Siguiente (→)" aria-label="Diapositiva siguiente">›</button>
+  <div class="titulo" id="titulo"></div>
+  <div class="ayuda">← → navegar · M índice · F pantalla completa</div>
+  <div class="copy">© Prof. Dan M. Mecikovsky</div>
+  <div class="cont"><span id="ahora">1</span>/<span id="total">1</span></div>
+</div>
+
+<div id="indice" role="dialog" aria-label="Índice de diapositivas">
+  <h3>Índice — tocá para saltar (M o Esc para cerrar)</h3>
+  <ol id="indiceLista"></ol>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var barra = document.getElementById('progress');
+  var titulo = document.getElementById('titulo');
+  var ahora = document.getElementById('ahora');
+  var indice = document.getElementById('indice');
+  var lista = document.getElementById('indiceLista');
+
+  document.getElementById('total').textContent = slides.length;
+
+  slides.forEach(function(s, n){
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="ix">' + (n + 1) + '</span><span>' + (s.getAttribute('data-t') || '') + '</span>';
+    li.addEventListener('click', function(){ ir(n); cerrarIndice(); });
+    lista.appendChild(li);
+  });
+  var items = Array.prototype.slice.call(lista.children);
+
+  function ir(n){
+    if (n < 0) n = 0;
+    if (n > slides.length - 1) n = slides.length - 1;
+    slides[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('on');
+    slides[i].scrollTop = 0;
+    barra.style.width = ((i) / (slides.length - 1) * 100) + '%';
+    titulo.textContent = slides[i].getAttribute('data-t') || '';
+    ahora.textContent = i + 1;
+    items.forEach(function(li, k){ li.classList.toggle('actual', k === i); });
+  }
+
+  function cerrarIndice(){ indice.classList.remove('on'); }
+  function toggleIndice(){ indice.classList.toggle('on'); }
+
+  document.getElementById('next').addEventListener('click', function(){ ir(i + 1); });
+  document.getElementById('prev').addEventListener('click', function(){ ir(i - 1); });
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'Escape'){ cerrarIndice(); return; }
+    if (k === 'm' || k === 'M'){ toggleIndice(); return; }
+    if (indice.classList.contains('on')) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter'){ e.preventDefault(); ir(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); ir(i - 1); }
+    else if (k === 'Home'){ ir(0); }
+    else if (k === 'End'){ ir(slides.length - 1); }
+    else if (k === 'f' || k === 'F'){
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+      else if (document.exitFullscreen) document.exitFullscreen();
+    }
+  });
+
+  // deslizar en pantallas táctiles
+  var x0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.changedTouches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var d = e.changedTouches[0].clientX - x0;
+    if (Math.abs(d) > 60) ir(d < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+
+  ir(0);
+})();
+</script>
+</body>
+</html>
