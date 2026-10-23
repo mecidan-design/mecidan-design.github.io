@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Experience B1+ - Unit 5 Reduced Clauses &amp; Phrasal Verbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 40px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:900px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:30px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.6rem,5.2vw,2.8rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.band{
+  font-family:var(--head);font-weight:800;color:#fff;font-size:1.25rem;
+  text-shadow:2px 2px 0 #000;margin:0 0 16px;letter-spacing:.5px;
+}
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:32px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.4deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.35deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.25deg)}
+
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.78rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 13px; text-transform:uppercase; letter-spacing:1px;
+}
+.tag.lv1{background:var(--lime)}
+.tag.lv2{background:#ffb3d1}
+.tag.lv3{background:#000;color:#fff}
+.tag.warm{background:var(--cyan)}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.45rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px;line-height:1.55}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 24px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.score{font-family:var(--head);font-weight:800;font-size:.95rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:4px 15px}
+
+/* ---------- items ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:14px 15px;margin-bottom:16px;background:#fff}
+.item .q{font-size:1.02rem;font-weight:500;margin:0 0 10px;line-height:1.6}
+.inum{
+  font-family:var(--head);font-size:.74rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:999px;padding:1px 9px;margin-right:8px;
+}
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:8px 11px; width:100%;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+.wc{font-family:var(--head);font-size:.74rem;font-weight:800;color:#5b5b5b;margin-top:5px}
+.wc.over{color:#c2004c}
+
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.96rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 16px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;text-align:left;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;border-color:#c2004c;text-decoration:line-through}
+.opt[disabled]{cursor:default}
+.opts.stack{flex-direction:column;align-items:stretch}
+
+.keyw{
+  font-family:var(--head);font-weight:800;letter-spacing:1.6px;background:var(--yellow);
+  border:3px solid #000;border-radius:8px;padding:2px 12px;display:inline-block;margin:8px 0;
+}
+.lead{font-size:1.02rem;margin:0;line-height:1.55}
+
+/* ---------- chips (warm-up 1) ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.chip{
+  font-family:var(--body);font-size:.97rem;font-weight:600;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:10px;padding:5px 11px;box-shadow:3px 3px 0 #000;
+  user-select:none;transition:transform .07s,box-shadow .07s;
+}
+.chip:hover{background:var(--yellow)}
+.chip.cut{background:#e9e9e9;color:#9a9a9a;text-decoration:line-through;box-shadow:none;
+  transform:translate(3px,3px);border-color:#777}
+.chip.good{background:var(--lime);border-color:#1c7a00}
+.chip.bad{background:#ffc2d8;border-color:#c2004c;text-decoration:line-through}
+
+/* ---------- reading ---------- */
+.textbox{
+  background:#fffdf2;border:3px solid #000;border-radius:16px;padding:18px 20px;
+  box-shadow:6px 6px 0 var(--cyan);margin-bottom:20px;
+}
+.textbox h3{font-family:var(--head);font-weight:800;font-size:1.2rem;margin:0 0 10px}
+.textbox p{font-size:1.02rem;line-height:1.75;margin:0 0 12px}
+.textbox p:last-child{margin-bottom:0}
+.textbox b{background:#ffe9f4;border-bottom:2px solid var(--pink);font-weight:600;padding:0 2px}
+.meta{font-family:var(--head);font-weight:800;font-size:.76rem;color:#5b5b5b;margin:0 0 14px}
+
+/* ---------- explanations ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:11px 13px;margin-top:11px;
+  background:#f4efff;font-size:.92rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.74rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 6px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+.ref{
+  border:3px solid #000;border-radius:14px;background:#f0f7ff;padding:12px 14px;
+  font-size:.92rem;line-height:1.55;margin-bottom:18px;
+}
+.ref b{font-family:var(--head)}
+.ref ul{margin:6px 0 0;padding-left:20px}
+.ref li{margin-bottom:4px}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:30px;font-size:.95rem;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Unit 5 &middot; Reduced Clauses &amp; Phrasal Verbs</h1>
+    <p>Gold Experience B1+ &mdash; 2 warm-ups &bull; 6 activities (medium / hard / very hard) &bull; 1 reading</p>
+  </div>
+
+  <p class="band">Part A &mdash; Warm-ups</p>
+
+  <section class="card">
+    <div class="tags"><span class="tag warm">Warm-up</span><span class="tag">Reduced clauses</span></div>
+    <h2>Cut It Down</h2>
+    <p class="sub">Click the words you can delete to reduce the relative clause. Click again to bring a word back. Only click what really can disappear.</p>
+    <div id="w1"></div>
+    <div class="btnrow">
+      <button class="btn" id="w1Check">Check</button>
+      <button class="btn ghost" id="w1Reset">Reset</button>
+      <span class="score" id="w1Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag warm">Warm-up</span><span class="tag">Phrasal verbs</span></div>
+    <h2>Particle Sprint</h2>
+    <p class="sub">One verb, one meaning, four particles. Choose fast.</p>
+    <div id="w2"></div>
+    <div class="btnrow">
+      <button class="btn" id="w2Check">Check</button>
+      <button class="btn ghost" id="w2Reset">Reset</button>
+      <span class="score" id="w2Score"></span>
+    </div>
+  </section>
+
+  <p class="band">Part B &mdash; Reduced relative clauses</p>
+
+  <div class="ref">
+    <b>The rule in three lines</b>
+    <ul>
+      <li><b>Passive reduction:</b> <i>who / which / that + be</i> disappears and the past participle stays &rarr; <i>the homework which was set on Monday</i> &rarr; <i>the homework set on Monday</i>.</li>
+      <li><b>Active reduction:</b> the pronoun disappears and the verb becomes <i>-ing</i> &rarr; <i>people who live in cities</i> &rarr; <i>people living in cities</i>.</li>
+      <li><b>No reduction</b> when the pronoun is the <b>object</b> (<i>the book which I bought</i>) or when you have <i>whose</i>.</li>
+    </ul>
+  </div>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv1">Medium</span><span class="tag">Activity 1</span></div>
+    <h2>Shorten the Sentence</h2>
+    <p class="sub">Rewrite each sentence with a reduced relative clause. Keep every other word the same.</p>
+    <div id="a1"></div>
+    <div class="btnrow">
+      <button class="btn" id="a1Check">Check</button>
+      <button class="btn ghost" id="a1Reset">Reset</button>
+      <span class="score" id="a1Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv2">Hard</span><span class="tag">Activity 2</span></div>
+    <h2>Reducible or Not?</h2>
+    <p class="sub">Some of these relative clauses can be reduced and some cannot. Decide before you look at the explanation.</p>
+    <div id="a2"></div>
+    <div class="btnrow">
+      <button class="btn" id="a2Check">Check</button>
+      <button class="btn ghost" id="a2Reset">Reset</button>
+      <span class="score" id="a2Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv3">Very hard</span><span class="tag">Activity 3</span></div>
+    <h2>Join Them Up</h2>
+    <p class="sub">Combine the two sentences into one, using a reduced clause or a participle clause. There is more than one good answer for some items.</p>
+    <div id="a3"></div>
+    <div class="btnrow">
+      <button class="btn" id="a3Check">Check</button>
+      <button class="btn ghost" id="a3Reset">Reset</button>
+      <span class="score" id="a3Score"></span>
+    </div>
+  </section>
+
+  <p class="band">Part C &mdash; Phrasal verbs</p>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv1">Medium</span><span class="tag">Activity 4</span></div>
+    <h2>Right Verb, Right Tense</h2>
+    <p class="sub">Complete each sentence with a phrasal verb from the box, in the correct tense. Use each one once.<br>
+    <b>look up &bull; hand in &bull; catch up &bull; go over &bull; put off &bull; take up</b></p>
+    <div id="a4"></div>
+    <div class="btnrow">
+      <button class="btn" id="a4Check">Check</button>
+      <button class="btn ghost" id="a4Reset">Reset</button>
+      <span class="score" id="a4Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv2">Hard</span><span class="tag">Activity 5</span></div>
+    <h2>Where Does the Pronoun Go?</h2>
+    <p class="sub">Only one sentence in each group is correct English. Separable or inseparable: that is the whole question.</p>
+    <div id="a5"></div>
+    <div class="btnrow">
+      <button class="btn" id="a5Check">Check</button>
+      <button class="btn ghost" id="a5Reset">Reset</button>
+      <span class="score" id="a5Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv3">Very hard</span><span class="tag">Activity 6</span></div>
+    <h2>Key Word Transformations</h2>
+    <p class="sub">Complete the second sentence so that it means the same as the first. Use the key word and write <b>between two and five words</b>. Contractions count as two words.</p>
+    <div id="a6"></div>
+    <div class="btnrow">
+      <button class="btn" id="a6Check">Check</button>
+      <button class="btn ghost" id="a6Reset">Reset</button>
+      <span class="score" id="a6Score"></span>
+    </div>
+  </section>
+
+  <p class="band">Part D &mdash; Reading comprehension</p>
+
+  <section class="card">
+    <div class="tags"><span class="tag">Reading</span><span class="tag lv2">Hard</span></div>
+    <h2>The Year I Stopped Putting Things Off</h2>
+    <p class="meta" id="readMeta"></p>
+    <div class="textbox" id="readText"></div>
+    <p class="sub">Answer the six questions. Two of them are about the highlighted language.</p>
+    <div id="a7"></div>
+    <div class="btnrow">
+      <button class="btn" id="a7Check">Check</button>
+      <button class="btn ghost" id="a7Reset">Reset</button>
+      <span class="score" id="a7Score"></span>
+    </div>
+  </section>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ================= HELPERS ================= */
+function shuffle(a){
+  var i,j,t;
+  for(i=a.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/[‘’ʼ]/g,"'")
+    .replace(/[.,;:!?]+$/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+}
+/* Cambridge counting: a contraction counts as two words. */
+function countWords(s){
+  var toks = norm(s).split(" ").filter(function(t){ return t.length>0; });
+  var extra = 0;
+  toks.forEach(function(t){
+    if(/'(t|s|re|ve|ll|d|m)$/.test(t) && !/'s$/.test(t)) extra++;
+    else if(/n't$/.test(t)) extra++;
+  });
+  return toks.length + extra;
+}
+function why(t){ return '<p><b class="lab why">Why</b>'+t+'</p>'; }
+function tip(t){ return '<p><b class="lab tip">Exam tip</b>'+t+'</p>'; }
+function expBlock(ok, head, item){
+  return '<div class="exp '+(ok?"right":"wrong")+'"><p>'+head+'</p>'+why(item.why)+tip(item.tip)+'</div>';
+}
+function el(id){ return document.getElementById(id); }
+
+/* ================= DATA ================= */
+
+/* --- Warm-up 1: delete the deletable words --- */
+var W1 = [
+  { words:["The","students","who","are","waiting","outside","look","nervous."], cut:[2,3],
+    why:"<i>who are</i> can go because <i>who</i> is the subject and the verb is <i>be</i> + <i>-ing</i>. What stays is the participle <i>waiting</i>.",
+    tip:"Reduction is only possible when the pronoun is the subject. Check that first, every time." },
+  { words:["The","homework","which","was","set","on","Monday","is","due","today."], cut:[2,3],
+    why:"Passive clause: <i>which was set</i> &rarr; <i>set</i>. The past participle carries the passive meaning on its own.",
+    tip:"If the participle ends in <i>-ed</i> or is irregular (<i>set, given, written</i>), the reduced clause is passive." },
+  { words:["The","girl","who","is","sitting","next","to","me","is","from","Chile."], cut:[2,3],
+    why:"<i>who is</i> disappears and <i>sitting</i> stays. The main verb of the sentence is the second <i>is</i>, so do not touch it.",
+    tip:"There are two verbs here. Delete only the one inside the relative clause." },
+  { words:["The","information","which","is","given","on","the","website","is","wrong."], cut:[2,3],
+    why:"<i>which is given</i> &rarr; <i>given</i>. Note that <i>information</i> is uncountable, so the verb is singular <i>is</i>.",
+    tip:"Reduced clauses are very common in reading texts. Learning to see them doubles your reading speed." },
+  { words:["The","lessons","that","are","taught","online","are","shorter."], cut:[2,3],
+    why:"<i>that are</i> goes; <i>taught</i> stays. The reduced clause works exactly like an adjective after the noun.",
+    tip:"<i>That</i> behaves like <i>who / which</i> for reduction, as long as it is the subject." },
+  { words:["The","money","which","was","found","in","the","corridor","belongs","to","Ana."], cut:[2,3],
+    why:"<i>which was found</i> &rarr; <i>found</i>. The subject of <i>belongs</i> is still the whole phrase <i>the money found in the corridor</i>.",
+    tip:"After reducing, read the sentence again and check that the main verb still has a subject." }
+];
+
+/* --- Warm-up 2: particles --- */
+var W2 = [
+  { q:"to ______ a word in a dictionary", answer:"look up", options:["look up","look after","look for","look into"],
+    why:"<i>Look up</i> = find information in a reference source. <i>Look for</i> is to search for a lost object.",
+    tip:"Four <i>look</i> phrasal verbs appear at B1: <i>up, for, after, forward to</i>. Learn them as a set." },
+  { q:"to ______ your homework to the teacher", answer:"hand in", options:["hand in","hand out","hand over","hand back"],
+    why:"<i>Hand in</i> = give completed work to someone in authority. <i>Hand out</i> = distribute to everybody.",
+    tip:"One particle changes everything. Always write the particle in your notes, never just the verb." },
+  { q:"to ______ with the rest of the class", answer:"catch up", options:["catch up","catch on","catch out","catch in"],
+    why:"<i>Catch up (with)</i> = reach the same level as others. <i>Catch on</i> = become popular or understand.",
+    tip:"<i>Catch in</i> does not exist. If an option sounds odd, it probably is not a real phrasal verb." },
+  { q:"to ______ your notes before a test", answer:"go over", options:["go over","go off","go on","go through with"],
+    why:"<i>Go over</i> = review carefully. <i>Go through</i> is also possible, but <i>go through with</i> means complete a difficult plan.",
+    tip:"Three-part phrasal verbs like <i>go through with</i> are never separable." },
+  { q:"to ______ an exam until June", answer:"put off", options:["put off","put on","put up","put down"],
+    why:"<i>Put off</i> = delay. <i>Put on</i> is clothes or weight; <i>put down</i> is place on a surface.",
+    tip:"<i>Put off</i> is followed by a noun or an <i>-ing</i> form, never an infinitive." },
+  { q:"to ______ a new hobby", answer:"take up", options:["take up","take on","take off","take in"],
+    why:"<i>Take up</i> = start a new activity. <i>Take on</i> = accept work or responsibility.",
+    tip:"The particle <i>up</i> often adds the idea of starting or increasing: <i>take up, speak up, build up</i>." },
+  { q:"to ______ of a course before it finishes", answer:"drop out", options:["drop out","drop off","drop in","drop by"],
+    why:"<i>Drop out (of)</i> = leave a course or school early. <i>Drop off</i> = fall asleep, or leave someone somewhere.",
+    tip:"Say <i>drop out of university</i>. The <i>of</i> is obligatory before the noun." },
+  { q:"to ______ the answer after thinking hard", answer:"work out", options:["work out","work on","work up","work in"],
+    why:"<i>Work out</i> = solve or calculate. It also means do physical exercise, so context decides.",
+    tip:"When a phrasal verb has two meanings, note both with one example each." }
+];
+
+/* --- Activity 1: medium, write the reduced version --- */
+var A1 = [
+  { q:"The boy who is standing by the door is my brother.",
+    answers:["the boy standing by the door is my brother"],
+    why:"Active reduction with <i>be + -ing</i>: delete <i>who is</i> and keep <i>standing</i>.",
+    tip:"Never write <i>the boy is standing by the door is my brother</i>. One sentence needs one main verb." },
+  { q:"The advice that was given by my tutor changed everything.",
+    answers:["the advice given by my tutor changed everything"],
+    why:"Passive reduction: <i>that was given</i> &rarr; <i>given</i>. <i>Advice</i> is uncountable, so no article and no plural.",
+    tip:"<i>An advice</i> and <i>advices</i> are both wrong. Use <i>a piece of advice</i> if you need a number." },
+  { q:"Students who are taking the exam in June must register now.",
+    answers:["students taking the exam in june must register now"],
+    why:"<i>who are</i> disappears and <i>taking</i> stays. The modal <i>must</i> is the main verb and does not change.",
+    tip:"Reduced clauses are ideal in writing: they save words and sound more formal." },
+  { q:"The video games which were bought online arrived late.",
+    answers:["the video games bought online arrived late"],
+    why:"Passive reduction: <i>which were bought</i> &rarr; <i>bought</i>. The plural information is already in <i>games</i>.",
+    tip:"The participle never shows number: <i>the game bought</i>, <i>the games bought</i>." },
+  { q:"The teacher who is running the lunch club is new.",
+    answers:["the teacher running the lunch club is new"],
+    why:"<i>who is running</i> &rarr; <i>running</i>. Here <i>run</i> means organise, a very common meaning at B1+.",
+    tip:"Read your answer aloud. If you hear two <i>is</i> in a row, something has gone wrong." },
+  { q:"The money which is kept in the office is not ours.",
+    answers:["the money kept in the office is not ours","the money kept in the office isn't ours"],
+    why:"Passive reduction with an uncountable subject: <i>money</i> takes the singular <i>is</i>.",
+    tip:"After reducing, check the main verb agrees with the noun, not with the participle." }
+];
+
+/* --- Activity 2: hard, reducible or not --- */
+var A2 = [
+  { q:"The book which I bought yesterday was very cheap.", answer:"Not reducible",
+    options:["Reducible","Not reducible"],
+    why:"<i>which</i> is the <b>object</b> of <i>bought</i> (I bought it), and there is no form of <i>be</i>, so nothing can be reduced. You can only drop the pronoun: <i>the book I bought yesterday</i>.",
+    tip:"Dropping an object pronoun is not the same as reducing a clause. Do not confuse the two operations." },
+  { q:"The students who were chosen for the trip were very lucky.", answer:"Reducible",
+    options:["Reducible","Not reducible"],
+    why:"Subject pronoun + passive <i>be</i>: <i>who were chosen</i> &rarr; <i>chosen</i>. Result: <i>the students chosen for the trip were very lucky</i>.",
+    tip:"Two <i>were</i> in the sentence is a strong signal that the first one can disappear." },
+  { q:"The girl whose phone was stolen called the police.", answer:"Not reducible",
+    options:["Reducible","Not reducible"],
+    why:"<i>Whose</i> shows possession and can never be reduced or omitted. The clause has to stay complete.",
+    tip:"<i>Whose</i> is the one relative word that survives every transformation. Leave it alone." },
+  { q:"People who live in big cities walk more than people who drive.", answer:"Reducible",
+    options:["Reducible","Not reducible"],
+    why:"Active reduction without <i>be</i>: the subject pronoun goes and the verb becomes <i>-ing</i> &rarr; <i>people living in big cities</i>.",
+    tip:"Active reduction changes the verb form; passive reduction only deletes words. Know which one you are doing." },
+  { q:"The homework which the teacher set on Friday is impossible.", answer:"Not reducible",
+    options:["Reducible","Not reducible"],
+    why:"<i>which</i> is the object and <i>the teacher</i> is the subject, so there is no <i>be</i> to delete. Compare the reducible version: <i>the homework which was set on Friday</i>.",
+    tip:"Look for the subject of the clause. If it is a different noun, reduction is blocked." },
+  { q:"The woman who is in charge of the lunch club is leaving.", answer:"Reducible",
+    options:["Reducible","Not reducible"],
+    why:"Here <i>be</i> is the main verb of the clause, so <i>who is</i> can go and the prepositional phrase stays: <i>the woman in charge of the lunch club</i>.",
+    tip:"<i>Who is / which is</i> + preposition reduces to the preposition alone: <i>the man in the car</i>, <i>the keys on the table</i>." }
+];
+
+/* --- Activity 3: very hard, combine --- */
+var A3 = [
+  { q:"A girl was sitting at the back. She asked a brilliant question.",
+    answers:["the girl sitting at the back asked a brilliant question"],
+    why:"The first sentence becomes a reduced active clause describing the girl: <i>the girl sitting at the back</i>. The article changes from <i>a</i> to <i>the</i> because now we identify her.",
+    tip:"When you combine, the indefinite article almost always becomes definite. Examiners notice that detail." },
+  { q:"The notes were written in pencil. They were impossible to read.",
+    answers:["the notes written in pencil were impossible to read"],
+    why:"Passive reduction: <i>which were written in pencil</i> &rarr; <i>written in pencil</i>, placed straight after the noun.",
+    tip:"The reduced clause sits between the subject and the main verb. Keep that order and the sentence works." },
+  { q:"My phone was bought three years ago. It still works perfectly.",
+    answers:["my phone bought three years ago still works perfectly","my phone, bought three years ago, still works perfectly"],
+    why:"With a unique possession (<i>my phone</i>) the clause is extra information, so commas are natural, although the version without commas is also accepted here.",
+    tip:"Commas = extra information. No commas = the clause tells us which one. Punctuation is grammar in this task." },
+  { q:"The students had failed the test. They had to repeat the year.",
+    answers:["having failed the test the students had to repeat the year","having failed the test, the students had to repeat the year","the students who had failed the test had to repeat the year"],
+    why:"A perfect active clause reduces to <i>having + past participle</i>: <i>having failed the test</i>. The subject of both parts must be the same.",
+    tip:"<i>Having + participle</i> shows that the first action finished before the second. It is a C1 structure that lifts a B1+ text." },
+  { q:"A man was wearing a grey suit. He handed out the exam papers.",
+    answers:["the man wearing a grey suit handed out the exam papers"],
+    why:"Active reduction with <i>-ing</i>, plus the phrasal verb <i>hand out</i> = distribute to everybody.",
+    tip:"Do not say <i>handed the exam papers out</i> here. Both are correct, but keep the given word order when the task says so." },
+  { q:"The lesson was learnt the hard way. It was about fear, not timetables.",
+    answers:["the lesson learnt the hard way was about fear not timetables","the lesson, learnt the hard way, was about fear, not timetables","the lesson learnt the hard way was about fear, not timetables"],
+    why:"Passive reduction with an irregular participle: <i>which was learnt</i> &rarr; <i>learnt</i>. British English prefers <i>learnt</i>; <i>learned</i> is also correct.",
+    tip:"Irregular participles are where reduced clauses hide: <i>set, given, written, taught, learnt, built</i>." }
+];
+
+/* --- Activity 4: medium, tense + phrasal verb --- */
+var A4 = [
+  { before:"Yesterday I", after:"the new word in the dictionary.",
+    answers:["looked up"],
+    why:"Past simple of <i>look up</i>. The object <i>the new word</i> is a full noun, so it can follow the particle.",
+    tip:"If the object were a pronoun it would have to go inside: <i>I looked it up</i>." },
+  { before:"She has already", after:"her essay, so she can relax.",
+    answers:["handed in"],
+    why:"Present perfect with <i>already</i>, so you need the past participle <i>handed</i> + <i>in</i>.",
+    tip:"<i>Already</i> between the auxiliary and the participle is standard word order. Keep it there." },
+  { before:"After two weeks in hospital, it was hard to", after:"with the class.",
+    answers:["catch up"],
+    why:"After <i>to</i> you need the infinitive <i>catch up</i>, and the preposition <i>with</i> is already given.",
+    tip:"<i>Catch up</i> has no direct object: the person or thing follows <i>with</i>." },
+  { before:"Last term we", after:"our notes twice before the final exam.",
+    answers:["went over"],
+    why:"Past simple of the irregular verb <i>go</i> &rarr; <i>went</i>, plus the particle <i>over</i>.",
+    tip:"Phrasal verbs keep the irregular forms of the main verb: <i>go over / went over / gone over</i>." },
+  { before:"Stop watching videos and don't", after:"your revision until Sunday.",
+    answers:["put off"],
+    why:"After <i>don't</i> you need the bare infinitive <i>put off</i>. <i>Put</i> is irregular and does not change here.",
+    tip:"<i>Put off</i> + noun or <i>-ing</i>: <i>put off revising</i>, never <i>put off to revise</i>." },
+  { before:"He", after:"the piano when he was only eight years old.",
+    answers:["took up"],
+    why:"Past simple of <i>take up</i> &rarr; <i>took up</i>, used for starting a hobby.",
+    tip:"<i>Take up</i> is for activities, <i>take on</i> is for work or responsibility. Do not mix them." }
+];
+
+/* --- Activity 5: hard, pronoun placement --- */
+var A5 = [
+  { q:"Which sentence is correct?", answer:"I didn't know the word, so I looked it up.",
+    options:["I didn't know the word, so I looked it up.","I didn't know the word, so I looked up it.","I didn't know the word, so I looked up."],
+    why:"<i>Look up</i> is separable, so a pronoun object must go between the verb and the particle. The third option leaves the verb with no object at all.",
+    tip:"Separable + pronoun = pronoun inside. There are no exceptions to learn here." },
+  { q:"Which sentence is correct?", answer:"The essay is finished, so please hand it in today.",
+    options:["The essay is finished, so please hand it in today.","The essay is finished, so please hand in it today.","The essay is finished, so please hand in today."],
+    why:"Same rule: <i>hand in</i> is separable and <i>it</i> must sit inside. <i>Hand in it</i> is impossible in English.",
+    tip:"Test your sentence by replacing the noun with <i>it</i>. If the result sounds wrong, the verb is probably separable." },
+  { q:"Which sentence is correct?", answer:"These are my notes. Let's go over them tonight.",
+    options:["These are my notes. Let's go over them tonight.","These are my notes. Let's go them over tonight.","These are my notes. Let's go them tonight over."],
+    why:"<i>Go over</i> is <b>inseparable</b>, so the object always follows the complete unit, even a pronoun.",
+    tip:"Separable or inseparable is information you have to learn with the verb. A good dictionary marks it." },
+  { q:"Which sentence is correct?", answer:"She loved the guitar, so she took it up again last year.",
+    options:["She loved the guitar, so she took it up again last year.","She loved the guitar, so she took up it again last year.","She loved the guitar, so she took up again it last year."],
+    why:"<i>Take up</i> is separable, so the pronoun <i>it</i> goes inside and <i>again</i> comes after the particle.",
+    tip:"Adverbs like <i>again</i> never break the verb and its particle. Put them at the end." },
+  { q:"Which sentence is correct?", answer:"The exam was hard, but I worked it out in the end.",
+    options:["The exam was hard, but I worked it out in the end.","The exam was hard, but I worked out it in the end.","The exam was hard, but I worked out in the end it."],
+    why:"<i>Work out</i> is separable in the meaning solve or calculate, so the pronoun goes in the middle.",
+    tip:"The same verb can be separable in one meaning and not in another. Learn verb + meaning + pattern together." },
+  { q:"Which sentence is correct?", answer:"My cousin hated the course, so he dropped out of it in May.",
+    options:["My cousin hated the course, so he dropped out of it in May.","My cousin hated the course, so he dropped it out in May.","My cousin hated the course, so he dropped out it in May."],
+    why:"<i>Drop out of</i> is a three-part phrasal verb, so nothing can go inside: the object follows <i>of</i>.",
+    tip:"Three-part phrasal verbs are never separable. Keep the block together and put the object at the end." }
+];
+
+/* --- Activity 6: very hard, key word transformations --- */
+var A6 = [
+  { lead:"You must give your project to the teacher on Friday.", key:"HANDED",
+    before:"Your project", after:"to the teacher on Friday.",
+    answers:["must be handed in","has to be handed in","needs to be handed in"],
+    why:"The sentence becomes passive, so you need <i>must be</i> + the past participle <i>handed</i>, and then the particle <i>in</i>.",
+    tip:"When the key word is a participle, expect a passive. Count your words before you move on." },
+  { lead:"I didn't know the word, so I searched for it online.", key:"UP",
+    before:"I didn't know the word, so I", after:"online.",
+    answers:["looked it up"],
+    why:"<i>Look up</i> is separable and the object is the pronoun <i>it</i>, so it must go inside: <i>looked it up</i>.",
+    tip:"Three words exactly. Writing <i>looked up it</i> loses the mark even though the vocabulary is right." },
+  { lead:"They decided to delay the exam until September.", key:"PUT",
+    before:"They decided", after:"the exam until September.",
+    answers:["to put off"],
+    why:"After <i>decide</i> you need the infinitive with <i>to</i>, and <i>delay</i> becomes <i>put off</i>.",
+    tip:"Keep the grammar of the first sentence and change only the vocabulary the key word forces you to change." },
+  { lead:"She started learning the guitar last year.", key:"TOOK",
+    before:"She", after:"last year.",
+    answers:["took up the guitar"],
+    why:"<i>Take up</i> replaces <i>start learning</i> for hobbies, so the object moves after the particle: <i>took up the guitar</i>.",
+    tip:"With a full noun object you may also write <i>took the guitar up</i>, but the natural order scores better." },
+  { lead:"I was ill, so now I am behind the rest of the class.", key:"CATCH",
+    before:"I was ill, so now I need", after:"the rest of the class.",
+    answers:["to catch up with"],
+    why:"<i>Need</i> takes the infinitive with <i>to</i>, and <i>catch up</i> needs <i>with</i> before the people you are following.",
+    tip:"Do not forget the preposition. A missing <i>with</i> is a whole mark in this part of the exam." },
+  { lead:"We revised our notes together before the test.", key:"WENT",
+    before:"We", after:"together before the test.",
+    answers:["went over our notes"],
+    why:"<i>Revise</i> becomes <i>go over</i>, in the past simple <i>went over</i>, and <i>go over</i> is inseparable so the object follows the particle.",
+    tip:"Four words. If your answer has six, you have probably repeated something the sentence already gives you." }
+];
+
+/* --- Reading --- */
+var READ = [
+  "Two years ago I was the kind of student who left everything until the last minute. <b>Homework set on Monday</b> was still untouched on Thursday night, and <b>notes written in a hurry</b> made no sense a week later. I told myself I worked better under pressure. I did not.",
+  "Everything changed in March, when I missed nine days of school with pneumonia. <b>Lying in bed with a fever</b>, I watched my classmates move on without me. When I came back, I had to <b>catch up with</b> three subjects. My tutor, Mrs Oyelaran, did not <b>tell me off</b>. She sat down with me and we <b>went over</b> every page I had missed. Then she said something I still think about: “You cannot <b>look up</b> discipline in a dictionary. You build it.”",
+  "That week I <b>took up</b> a new habit. Every evening I <b>wrote down</b> the three most boring tasks on my list, and I did those first. <b>Anything handed in late</b> cost me marks, so my rule was simple: nothing goes to bed unfinished. For the first month I hated it. By June, I had stopped dreaming about exams.",
+  "I am not a perfect student now. I still <b>put off</b> tidying my room, and I nearly <b>dropped out of</b> my music course in July. But the panic has gone. <b>The lesson, learnt the hard way</b>, was not about timetables at all. It was this: the work you keep delaying is almost never as hard as the fear you build around it."
+];
+var A7 = [
+  { q:"Why did the writer fall behind at school?", answer:"Because an illness kept them away for over a week.",
+    options:["Because an illness kept them away for over a week.","Because they refused to do any homework in March.","Because their tutor gave them too much work at once.","Because they dropped out of two of their subjects."],
+    why:"Paragraph 2 says the writer missed nine days of school with pneumonia, and then had to catch up with three subjects.",
+    tip:"Scan for the number first (<i>nine days</i>) and read the sentence around it. Dates and numbers are the fastest way into a text." },
+  { q:"How did the tutor react?", answer:"She went through the missed work with the writer instead of criticising them.",
+    options:["She went through the missed work with the writer instead of criticising them.","She told the writer off for being lazy during the illness.","She advised the writer to look the information up alone.","She asked the writer to hand in all the work immediately."],
+    why:"The text says she <i>did not tell me off</i> and that <i>we went over every page I had missed</i>. <i>Go over</i> = review something carefully with someone.",
+    tip:"A negative sentence often hides the answer: <i>did not tell me off</i> tells you exactly what she did not do." },
+  { q:"What exactly was the new habit?", answer:"Writing down the least appealing tasks and doing them before anything else.",
+    options:["Writing down the least appealing tasks and doing them before anything else.","Making a list of three subjects every evening and revising them.","Going to bed early so that the work felt easier in the morning.","Handing in every piece of homework on the day it was set."],
+    why:"Paragraph 3: the writer <i>wrote down the three most boring tasks</i> and <i>did those first</i>.",
+    tip:"When two options are both in the text, choose the one that answers the exact question asked, not the one with more familiar words." },
+  { q:"What does the tutor mean by “You cannot look up discipline in a dictionary”?", answer:"Discipline is not information you can find; it is a habit you create with practice.",
+    options:["Discipline is not information you can find; it is a habit you create with practice.","Dictionaries are not useful for students who have missed lessons.","The word discipline is too difficult for a B1 student to understand.","You should ask a teacher rather than search for words online."],
+    why:"<i>Look up</i> means find information in a reference source. The contrast with <i>you build it</i> shows that discipline is constructed, not consulted.",
+    tip:"In a meaning question, use the sentence immediately after the quotation. Writers almost always explain themselves there." },
+  { q:"In the text, <b>tell someone off</b> means", answer:"criticise someone angrily for something they have done",
+    options:["criticise someone angrily for something they have done","explain something to someone in detail","ask someone to leave a class or a room","remind someone about a piece of work"],
+    why:"<i>Tell off</i> is separable, which is why the text has <i>tell me off</i> with the pronoun inside, and it means to speak angrily to someone about their behaviour.",
+    tip:"The pronoun inside the verb (<i>tell me off</i>) is itself a clue: only separable phrasal verbs allow it." },
+  { q:"Which phrase in the text is a reduced relative clause?", answer:"Homework set on Monday",
+    options:["Homework set on Monday","I told myself I worked better","nothing goes to bed unfinished","You build it"],
+    why:"<i>Homework set on Monday</i> is the reduced form of <i>homework which was set on Monday</i>: a passive reduction with the participle <i>set</i>.",
+    tip:"Look for a noun followed immediately by a participle with no auxiliary. That pattern is always a reduced clause." }
+];
+
+/* ================= WARM-UP 1 ENGINE ================= */
+var w1Cut = [], w1Done = false;
+function w1Render(){
+  var host = el("w1");
+  host.innerHTML = "";
+  W1.forEach(function(it, qi){
+    var d = document.createElement("div");
+    d.className = "item";
+    var chips = '<div class="chips">';
+    it.words.forEach(function(w, wi){
+      var isCut = w1Cut[qi].indexOf(wi) >= 0;
+      chips += '<button type="button" class="chip'+(isCut?" cut":"")+'" data-q="'+qi+'" data-w="'+wi+'">'+w+'</button>';
+    });
+    chips += '</div>';
+    d.innerHTML = '<p class="q"><span class="inum">'+(qi+1)+'</span>Delete what can go.</p>'+chips+
+                  '<div class="exp-slot" id="w1exp'+qi+'"></div>';
+    host.appendChild(d);
+  });
+  Array.prototype.forEach.call(host.querySelectorAll(".chip"), function(c){
+    c.addEventListener("click", w1Toggle);
+  });
+  el("w1Score").textContent = "";
+}
+function w1Toggle(e){
+  if(w1Done) return;
+  var qi = Number(e.currentTarget.dataset.q), wi = Number(e.currentTarget.dataset.w);
+  var pos = w1Cut[qi].indexOf(wi);
+  if(pos >= 0) w1Cut[qi].splice(pos,1); else w1Cut[qi].push(wi);
+  e.currentTarget.classList.toggle("cut");
+}
+function w1Check(){
+  if(w1Done) return;
+  w1Done = true;
+  var right = 0;
+  W1.forEach(function(it, qi){
+    var mine = w1Cut[qi].slice().sort(function(a,b){return a-b;}).join(",");
+    var good = it.cut.slice().sort(function(a,b){return a-b;}).join(",");
+    var ok = (mine === good);
+    if(ok) right++;
+    var reduced = it.words.filter(function(_,wi){ return it.cut.indexOf(wi) < 0; }).join(" ");
+    Array.prototype.forEach.call(el("w1").querySelectorAll('.chip[data-q="'+qi+'"]'), function(c){
+      var wi = Number(c.dataset.w);
+      c.className = "chip " + (it.cut.indexOf(wi) >= 0 ? "bad" : "good");
+    });
+    el("w1exp"+qi).innerHTML = expBlock(ok,
+      '<b>'+(ok?"Correct!":"Not quite.")+'</b> <span class="sol">'+reduced+'</span>'+
+      '<br><span style="font-size:.85rem">Pink = the words that had to go. Green = the words that stay.</span>', it);
+  });
+  el("w1Score").textContent = "Score: "+right+"/"+W1.length;
+}
+function w1Reset(){
+  w1Done = false;
+  w1Cut = W1.map(function(){ return []; });
+  w1Render();
+}
+
+/* ================= GENERIC MCQ ENGINE ================= */
+/* cfg: {key, host, data, stack} ; registry by index, no JSON in data-* */
+var MCQ = {};
+function mcqInit(cfg){
+  MCQ[cfg.key] = { cfg:cfg, picked:cfg.data.map(function(){ return null; }), order:[], done:false };
+  mcqRender(cfg.key);
+}
+function mcqRender(key){
+  var st = MCQ[key], cfg = st.cfg, host = el(cfg.host);
+  host.innerHTML = "";
+  st.order = cfg.data.map(function(it){ return shuffle(it.options.slice()); });
+  cfg.data.forEach(function(it, qi){
+    var d = document.createElement("div");
+    d.className = "item";
+    var opts = '<div class="opts'+(cfg.stack?" stack":"")+'">';
+    st.order[qi].forEach(function(o, oi){
+      opts += '<button type="button" class="opt" data-k="'+key+'" data-q="'+qi+'" data-o="'+oi+'">'+o+'</button>';
+    });
+    opts += '</div>';
+    d.innerHTML = '<p class="q"><span class="inum">'+(qi+1)+'</span>'+it.q+'</p>'+opts+
+                  '<div id="'+key+'exp'+qi+'"></div>';
+    host.appendChild(d);
+  });
+  Array.prototype.forEach.call(host.querySelectorAll(".opt"), function(b){
+    b.addEventListener("click", mcqPick);
+  });
+  el(cfg.key+"Score").textContent = "";
+}
+function mcqPick(e){
+  var b = e.currentTarget, key = b.dataset.k, st = MCQ[key];
+  if(st.done) return;
+  var qi = Number(b.dataset.q), oi = Number(b.dataset.o);
+  st.picked[qi] = st.order[qi][oi];
+  Array.prototype.forEach.call(el(st.cfg.host).querySelectorAll('.opt[data-q="'+qi+'"]'), function(o){
+    o.classList.toggle("sel", o === b);
+  });
+}
+function mcqCheck(key){
+  var st = MCQ[key];
+  if(st.done) return;
+  st.done = true;
+  var right = 0;
+  st.cfg.data.forEach(function(it, qi){
+    var ok = (st.picked[qi] === it.answer);
+    if(ok) right++;
+    Array.prototype.forEach.call(el(st.cfg.host).querySelectorAll('.opt[data-q="'+qi+'"]'), function(o){
+      o.disabled = true; o.classList.remove("sel");
+      if(o.textContent === it.answer) o.classList.add("good");
+      else if(o.textContent === st.picked[qi]) o.classList.add("bad");
+    });
+    var head = st.picked[qi]===null
+      ? '<b>No answer.</b> The correct one is <span class="sol">'+it.answer+'</span>'
+      : '<b>'+(ok?"Correct!":"Not quite.")+'</b> <span class="sol">'+it.answer+'</span>';
+    el(key+"exp"+qi).innerHTML = expBlock(ok, head, it);
+  });
+  el(key+"Score").textContent = "Score: "+right+"/"+st.cfg.data.length;
+}
+
+/* ================= GENERIC TEXT ENGINE ================= */
+/* kinds: "rewrite" (prompt + input), "gap" (before __ after), "kwt" (lead + key + gap) */
+var TXT = {};
+function txtInit(cfg){
+  TXT[cfg.key] = { cfg:cfg, done:false };
+  txtRender(cfg.key);
+}
+function txtRender(key){
+  var st = TXT[key], cfg = st.cfg, host = el(cfg.host);
+  host.innerHTML = "";
+  cfg.data.forEach(function(it, qi){
+    var d = document.createElement("div");
+    d.className = "item";
+    var body = "";
+    if(cfg.kind === "rewrite"){
+      body = '<p class="q"><span class="inum">'+(qi+1)+'</span>'+it.q+'</p>';
+    } else if(cfg.kind === "gap"){
+      body = '<p class="q"><span class="inum">'+(qi+1)+'</span>'+it.before+' ______ '+it.after+'</p>';
+    } else {
+      body = '<p class="q"><span class="inum">'+(qi+1)+'</span>'+it.lead+'</p>'+
+             '<span class="keyw">'+it.key+'</span>'+
+             '<p class="lead">'+it.before+' ______ '+it.after+'</p>';
+    }
+    body += '<input type="text" id="'+key+'in'+qi+'" autocomplete="off" spellcheck="false" placeholder="'+
+            (cfg.kind==="rewrite" ? "Write the whole sentence" : "Write the missing words")+'">';
+    if(cfg.kind === "kwt") body += '<p class="wc" id="'+key+'wc'+qi+'">0 words</p>';
+    body += '<div id="'+key+'exp'+qi+'"></div>';
+    d.innerHTML = body;
+    host.appendChild(d);
+  });
+  if(cfg.kind === "kwt"){
+    cfg.data.forEach(function(_, qi){
+      el(key+"in"+qi).addEventListener("input", function(){
+        var n = countWords(this.value);
+        var lab = el(key+"wc"+qi);
+        lab.textContent = n+" word"+(n===1?"":"s")+" (2-5 allowed)";
+        lab.classList.toggle("over", n>0 && (n<2 || n>5));
+      });
+    });
+  }
+  el(cfg.key+"Score").textContent = "";
+}
+function txtCheck(key){
+  var st = TXT[key], cfg = st.cfg;
+  if(st.done) return;
+  st.done = true;
+  var right = 0;
+  cfg.data.forEach(function(it, qi){
+    var inp = el(key+"in"+qi);
+    var mine = norm(inp.value);
+    var ok = it.answers.some(function(a){ return norm(a) === mine; });
+    var overLimit = false;
+    if(cfg.kind === "kwt"){
+      var n = countWords(inp.value);
+      if(n < 2 || n > 5) overLimit = true;
+      if(overLimit) ok = false;
+    }
+    if(ok) right++;
+    inp.disabled = true;
+    inp.className = ok ? "ok" : "no";
+    var head;
+    if(mine.length === 0){
+      head = '<b>No answer.</b> <span class="sol">'+it.answers[0]+'</span>';
+    } else if(ok){
+      head = '<b>Correct!</b> <span class="sol">'+it.answers[0]+'</span>';
+    } else if(overLimit){
+      head = '<b>Outside the word limit.</b> <span class="sol">'+it.answers[0]+'</span>';
+    } else {
+      head = '<b>Not quite.</b> <span class="sol">'+it.answers[0]+'</span>';
+    }
+    if(it.answers.length > 1){
+      head += '<br><span style="font-size:.85rem">Also accepted: '+it.answers.slice(1).join(" / ")+'</span>';
+    }
+    el(key+"exp"+qi).innerHTML = expBlock(ok, head, it);
+  });
+  el(key+"Score").textContent = "Score: "+right+"/"+cfg.data.length;
+}
+
+/* ================= BUILD ================= */
+function wireBlock(key, checkFn, resetFn){
+  el(key+"Check").addEventListener("click", checkFn);
+  el(key+"Reset").addEventListener("click", resetFn);
+}
+
+/* reading text */
+el("readText").innerHTML = READ.map(function(p){ return "<p>"+p+"</p>"; }).join("");
+el("readMeta").textContent = "Read the text, then answer the questions below.";
+
+/* warm-up 1 */
+wireBlock("w1", w1Check, w1Reset);
+w1Reset();
+
+/* warm-up 2 and the MCQ activities */
+function makeMcq(key, host, data, stack){
+  mcqInit({ key:key, host:host, data:data, stack:!!stack });
+  wireBlock(key,
+    function(){ mcqCheck(key); },
+    function(){ MCQ[key].done=false; MCQ[key].picked=data.map(function(){return null;}); mcqRender(key); });
+}
+makeMcq("w2","w2",W2,false);
+makeMcq("a2","a2",A2,false);
+makeMcq("a5","a5",A5,true);
+makeMcq("a7","a7",A7,true);
+
+/* the text-input activities */
+function makeTxt(key, host, data, kind){
+  txtInit({ key:key, host:host, data:data, kind:kind });
+  wireBlock(key,
+    function(){ txtCheck(key); },
+    function(){ TXT[key].done=false; txtRender(key); });
+}
+makeTxt("a1","a1",A1,"rewrite");
+makeTxt("a3","a3",A3,"rewrite");
+makeTxt("a4","a4",A4,"gap");
+makeTxt("a6","a6",A6,"kwt");
+})();
+</script>
+</body>
+</html>

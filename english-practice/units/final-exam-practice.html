@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final Exam Practice · Use of English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 70px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+/* ---------- header ---------- */
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:34px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+/* ---------- cards ---------- */
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:5px 5px 0 #000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+
+/* ---------- inputs ---------- */
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:7px 11px;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- passage + gaps ---------- */
+.passage{font-size:1.06rem;line-height:3.05;margin:0}
+.gapwrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px}
+.gline{display:flex;align-items:center;gap:5px}
+.gnum{
+  font-family:var(--head);font-size:.72rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.gapwrap input{width:132px;text-align:center}
+.cue{font-family:var(--head);font-size:.74rem;font-weight:700;color:var(--violet);line-height:1.1;margin-top:1px}
+
+/* ---------- explanation blocks ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 12px}
+.pitem{border-left:8px solid var(--violet);padding-left:12px;margin-bottom:16px}
+.pitem .ptop{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:2px}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+/* ---------- items (mcq / kwt) ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 17px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+.kwt .lead{font-size:1.04rem;margin:0 0 9px;line-height:1.5}
+.keyw{
+  font-family:var(--head);font-weight:800;letter-spacing:1.6px;background:var(--yellow);
+  border:3px solid #000;border-radius:8px;padding:2px 12px;display:inline-block;margin:0 0 10px;
+}
+.kwt .target{font-size:1.04rem;line-height:2.5}
+.kwt input{width:290px;max-width:100%}
+.wc{font-family:var(--head);font-size:.76rem;font-weight:700;color:#5b5b5b;margin-top:6px}
+.wc.bad{color:#c2004c}
+
+/* ---------- word formation (raiz debajo del hueco, en el propio texto) ---------- */
+.cue.root{
+  font-family:var(--head);font-weight:800;font-size:.7rem;letter-spacing:1.1px;
+  color:#000;background:var(--cyan);border:2px solid #000;border-radius:6px;
+  padding:0 7px;margin-top:2px;
+}
+#wfText .gapwrap input{width:150px}
+
+/* ---------- multiple-choice cloze ---------- */
+.mcgap{
+  display:inline-flex;align-items:center;gap:5px;vertical-align:middle;margin:0 3px;
+  border:3px solid #000;border-radius:11px;padding:3px 9px;background:#fffdf2;min-width:118px;
+}
+.mcgap.ok{background:#e4ffc4;border-color:#1c7a00}
+.mcgap.no{background:#ffe0ec;border-color:#c2004c}
+.mcpick{font-weight:600;font-size:.97rem}
+.mcpick.empty{color:#9a9a9a;letter-spacing:2px}
+.mcrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.mcrow .rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.mcrow .opt{font-size:.9rem;padding:5px 13px;box-shadow:2px 2px 0 #000}
+.mcrow .letter{font-family:var(--head);font-weight:800;margin-right:5px}
+
+/* ---------- warm-up ---------- */
+.card.warm{background:var(--ink);border-color:#000;box-shadow:10px 10px 0 var(--yellow)}
+.warm h2,.warm .sub{color:#fff}
+.warm .sub{color:#c9c9c9}
+.dots{display:flex;gap:7px;margin:14px 0 18px}
+.dot{width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:transparent}
+.dot.y{background:var(--lime);border-color:var(--lime)}
+.dot.n{background:var(--pink);border-color:var(--pink)}
+.dot.now{box-shadow:0 0 0 3px var(--cyan)}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{
+  font-family:var(--head);font-weight:800;font-size:.85rem;border:3px solid #000;border-radius:999px;
+  padding:3px 15px;background:var(--cyan);
+}
+.chip.streak{background:var(--pink);color:#fff}
+.warm .qbox{background:#fff;border:4px solid #fff;border-radius:16px;padding:16px;margin-top:6px}
+.final{text-align:center;padding:14px 6px}
+.final .big{font-family:var(--head);font-weight:800;font-size:3.3rem;color:var(--yellow);line-height:1;margin:6px 0}
+.final .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.25rem;margin-bottom:14px}
+.hidden{display:none}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem;margin-top:14px}
+
+/* ---------- test: cabecera de ejercicio ---------- */
+.card.ex{padding-top:18px}
+.exhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.exnum{
+  font-family:var(--head);font-weight:800;font-size:1.1rem;color:#fff;background:var(--violet);
+  border:3px solid #000;border-radius:50%;width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.expts{
+  font-family:var(--head);font-weight:800;font-size:.78rem;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:2px 13px;text-transform:uppercase;letter-spacing:.8px;
+}
+.rubric{font-weight:600;font-size:1.02rem;margin:0 0 12px;line-height:1.45}
+.intro{
+  font-size:1rem;line-height:1.55;margin:0 0 16px;background:#fffdf2;
+  border:3px solid #000;border-radius:14px;padding:12px 14px;
+}
+.situation{
+  font-size:1rem;line-height:1.55;margin:0 0 14px;background:#f4efff;
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;
+}
+
+/* ---------- matching ---------- */
+.mline{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px}
+.mtext{font-size:1.01rem;line-height:1.45;font-weight:500}
+.rn{
+  font-family:var(--head);font-size:.75rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:21px;height:21px;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;margin-top:2px;
+}
+select.pick{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:7px 11px;
+  border:3px solid #000;border-radius:11px;background:#fff;cursor:pointer;max-width:100%;
+}
+select.pick.ok{background:#e4ffc4;border-color:#1c7a00}
+select.pick.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- transform / gapsentences ---------- */
+.item .lead{font-size:1.02rem;margin:0 0 9px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.item .target{font-size:1.02rem;line-height:2.6}
+.item input{width:210px}
+.item input.wide{width:100%;max-width:520px;text-align:left}
+
+/* ---------- caja de gramatica previa, al estilo "explore grammar" ---------- */
+.gnote{
+  border:4px solid #000;border-radius:16px;padding:13px 16px;margin:0 0 16px;
+  background:#fff7e0;box-shadow:5px 5px 0 var(--yellow);font-size:.96rem;line-height:1.55;
+}
+.gnotetitle{font-family:var(--head);font-size:1.05rem;display:block;margin-bottom:6px}
+.gnote ul{margin:0;padding-left:19px}
+.gnote li{margin-bottom:5px}
+.gform{
+  font-family:var(--head);font-weight:800;background:var(--cyan);
+  border:2px solid #000;border-radius:6px;padding:0 7px;display:inline-block;
+}
+.gwarn{margin:9px 0 0;background:#ffe0ec;border:2px solid #000;border-radius:10px;padding:7px 11px}
+
+/* ---------- writing ---------- */
+.wline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.wlab{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.wform{
+  font-family:var(--head);font-weight:800;font-size:.8rem;background:var(--lime);
+  border:2px solid #000;border-radius:999px;padding:2px 11px;white-space:nowrap;
+}
+.wline input{flex:1 1 300px;min-width:220px}
+textarea{
+  font-family:var(--body);font-size:1rem;font-weight:500;width:100%;padding:11px 13px;
+  border:3px solid #000;border-radius:14px;background:#fffdf2;outline:none;resize:vertical;
+}
+textarea:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+.needlist{
+  margin-top:13px;border:3px solid #000;border-radius:14px;padding:11px 14px;background:#f0ffe0;
+  font-size:.93rem;line-height:1.5;
+}
+.needlist ul{margin:6px 0 0;padding-left:20px}
+.needtitle{font-family:var(--head);font-size:.9rem;display:block;margin-bottom:2px}
+.modelbox{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;background:#fffdf2;
+  font-size:.93rem;line-height:1.55;margin-top:6px;
+}
+.modelbox p{margin:6px 0 0}
+.selfnote{font-style:italic;color:#5b5b5b;font-size:.86rem}
+
+/* ---------- marcador global ---------- */
+.totalcard{
+  background:var(--ink);border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 var(--lime);
+  padding:16px 20px;margin-bottom:34px;position:sticky;top:8px;z-index:5;
+}
+.totalcard .lbl{font-family:var(--head);font-weight:800;color:var(--yellow);font-size:.8rem;
+  text-transform:uppercase;letter-spacing:1.2px}
+.totalcard .val{font-family:var(--head);font-weight:800;color:#fff;font-size:1.5rem;line-height:1.2}
+.track{height:14px;border:3px solid #fff;border-radius:999px;margin-top:9px;overflow:hidden;background:transparent}
+.track span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .25s}
+
+/* ---------- final: selector de niveles en el header ---------- */
+.hero{transform:none}
+.hero .tabs{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.tab{
+  font-family:var(--head);font-weight:800;font-size:1.05rem;color:#fff;cursor:pointer;
+  background:transparent;border:3px solid #fff;border-radius:999px;padding:7px 20px 6px;
+  box-shadow:5px 5px 0 var(--pink);transition:transform .07s,box-shadow .07s;text-align:center;line-height:1.1;
+}
+.tab small{display:block;font-size:.68rem;font-weight:700;letter-spacing:.6px;opacity:.9;margin-top:1px}
+.tab:hover{filter:brightness(1.12)}
+.tab[data-l="1"]{box-shadow:5px 5px 0 var(--cyan)}
+.tab[data-l="2"]{box-shadow:5px 5px 0 var(--lime)}
+.tab[data-l="3"]{box-shadow:5px 5px 0 var(--yellow)}
+.tab.on{background:var(--yellow);color:#000;border-color:#000;transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.tab[data-l="3"]:not(.on){background:linear-gradient(90deg,var(--pink),var(--violet))}
+
+.level{display:none}
+.level.on{display:block}
+.levelhead{
+  background:#fff;border:4px solid #000;border-radius:18px;box-shadow:8px 8px 0 var(--violet);
+  padding:14px 20px;margin-bottom:34px;
+}
+.levelhead .tag{margin-bottom:6px}
+.levelhead b{font-family:var(--head);font-size:1.4rem;display:block;line-height:1.15}
+.levelhead span.t{font-size:.95rem;color:#4a4a4a;display:block;margin-top:4px;line-height:1.5}
+
+.item input.wide{width:100%;max-width:520px;text-align:left}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+
+.verdict{
+  display:none;background:var(--ink);border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 var(--yellow);
+  padding:20px 22px;margin-bottom:34px;text-align:center;
+}
+.verdict.on{display:block}
+.verdict .big{font-family:var(--head);font-weight:800;font-size:2.6rem;color:var(--yellow);line-height:1.05}
+.verdict .msg{font-family:var(--head);font-weight:700;color:#fff;font-size:1.15rem;margin-top:8px;line-height:1.35}
+.verdict .msg2{font-family:var(--head);font-weight:700;color:var(--lime);font-size:1rem;margin-top:8px}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:34px;font-size:.95rem;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1 id="testTitle"></h1>
+    <p id="testSub"></p>
+    <div class="tabs" id="tabs"></div>
+  </header>
+
+  <div class="totalcard">
+    <div class="lbl" id="totalLbl">Running total</div>
+    <div class="val" id="total"></div>
+    <div class="track"><span id="totalBar"></span></div>
+  </div>
+
+  <div id="levels"></div>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+
+<script id="data-block">
+/* ====== CONTENIDO SOLAMENTE. Sin DOM, para que Node pueda cargarlo. ====== */
+var DATA = {
+
+title: "FINAL EXAM PRACTICE",
+subtitle: "Use of English · units 4, 5 and 8 · choose your level",
+
+levels: [
+
+{
+id: "medium", name: "MEDIUM", tag: "Level 1",
+blurb: "Warm up the basics: modals, the passive, the causative and the key vocabulary of units 4 and 8.",
+exercises: [
+
+/* ---------- 1 ---------- */
+{ n: 1, type: "kwt", label: "Key word transformation",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the word in capitals. Write between two and five words, including the word given.",
+  items: [
+    { lead: "It wasn't necessary for us to finish the algebra exercise today.", key: "NEED",
+      before: "We", after: "finish the algebra exercise today.",
+      answers: ["did not need to","didn't need to"],
+      why: "It wasn't necessary means there was no obligation in the past. We use didn't need to plus the base verb.",
+      tip: "The key word NEED tells you to use need. Past no obligation: didn't need to + verb." },
+
+    { lead: "Someone is calculating the new budget right now.", key: "BEING",
+      before: "The new budget", after: "right now.",
+      answers: ["is being calculated"],
+      why: "The budget receives the action and the action is happening now, so we use is being plus the third form.",
+      tip: "Right now plus the object as the new subject: is/are being + third form." },
+
+    { lead: "The student is very ambitious. He won a scholarship.", key: "WHO",
+      before: "The student", after: "very ambitious won a scholarship.",
+      answers: ["who is"],
+      why: "who joins the two sentences and replaces He. It is the subject, so the verb is comes straight after it.",
+      tip: "A person plus He or She in the second sentence usually becomes who." },
+
+    { lead: "I strongly advise you to be more sensible about your money.", key: "BETTER",
+      before: "You", after: "more sensible about your money.",
+      answers: ["had better be"],
+      why: "I strongly advise you is strong advice. had better plus the base verb gives strong advice.",
+      tip: "After had better there is no to: had better be, never had better to be." },
+
+    { lead: "A professional will repair the school's computers next week.", key: "HAVE",
+      before: "The school", after: "repaired next week.",
+      answers: ["will have its computers","will have the computers","will have all its computers","will have all the computers"],
+      why: "The school arranges for somebody else to do the job. This is the causative: have + thing + third form, and will goes in front.",
+      tip: "The key word HAVE plus the word repaired at the end points to the causative." },
+
+    { lead: "Is it permitted to bring a dictionary to the exam?", key: "ALLOWED",
+      before: "Are", after: "a dictionary to the exam?",
+      answers: ["we allowed to bring","you allowed to bring","students allowed to bring","people allowed to bring"],
+      why: "Permitted and allowed mean the same. The question is in the passive: Are + person + allowed to + verb.",
+      tip: "Permission questions: Are we allowed to ...? Do not forget to after allowed." }
+  ]
+},
+
+/* ---------- 2 ---------- */
+{ n: 2, type: "mcc", label: "Multiple-choice cloze",
+  rubric: "Read the text and choose the best answer (A, B, C or D) for each gap.",
+  text: "Learning how to handle your finances is an essential life skill. During our last lesson, we talked about {1} management, and the teacher showed us a new {2} of numbers to help us calculate our daily expenses. I usually find maths a piece of {3}, but today's topic was a real {4}. We also had to work out what 500 {5} by 4 is: the answer is 125. It is definitely a {6} task to stay organised when you have a lot of numbers to look at, and many students feel confused. However, if you are {7} and save a small {8} of your income every month, you won't struggle in the future.",
+  items: [
+    { options: ["angle","money","quarter","double"], correct: 1,
+      why: "Money management is a fixed phrase about finances. The other three are maths words.",
+      tip: "Look at the topic of the text first: finances goes with money." },
+    { options: ["angle","revision","introduction","sequence"], correct: 3,
+      why: "A sequence of numbers is a list of numbers in order. The other words do not go with of numbers.",
+      tip: "Learn maths words with a partner: a sequence of numbers, an angle of 90 degrees." },
+    { options: ["time","cake","light","room"], correct: 1,
+      why: "A piece of cake is an expression for something very easy.",
+      tip: "The word but after the gap shows a contrast: easy first, then difficult." },
+    { options: ["company","clear","nightmare","basic"], correct: 2,
+      why: "A nightmare is something terrible or very difficult. It also fits the noun place after a real.",
+      tip: "After a real you need a noun. clear and basic are adjectives." },
+    { options: ["added","multiplied","subtracted","divided"], correct: 3,
+      why: "500 divided by 4 is 125, and the text gives that answer. The other verbs give a different result or do not take by.",
+      tip: "Use the number in the text: do the sum and check which verb gives the answer." },
+    { options: ["clear","basic","simple","tricky"], correct: 3,
+      why: "The text says many students feel confused, so the task is difficult. tricky means difficult and needs care.",
+      tip: "Read the next clause: it often gives you the meaning of the gap." },
+    { options: ["anxious","sensible","outgoing","curious"], correct: 1,
+      why: "Sensible means careful and practical, and it fits a person who saves money.",
+      tip: "Match the adjective to the idea in the sentence: saving money = sensible." },
+    { options: ["percentage","angle","algebra","sequence"], correct: 0,
+      why: "A percentage of your income is a part of it, for example 10%. The other words do not go with of your income.",
+      tip: "a small percentage of is a very common phrase." }
+  ]
+},
+
+/* ---------- 3 ---------- */
+{ n: 3, type: "kwt", label: "Key word transformation",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the word in capitals. Write between two and five words, including the word given.",
+  items: [
+    { lead: "It is a good idea to write down the new vocabulary.", key: "OUGHT",
+      before: "You", after: "the new vocabulary.",
+      answers: ["ought to write down"],
+      why: "It is a good idea is advice. ought to plus the base verb gives advice, like should.",
+      tip: "Unlike should, ought always needs to: ought to write." },
+
+    { lead: "A decorator is painting their house this week.", key: "HAVING",
+      before: "They", after: "painted this week.",
+      answers: ["are having their house","are having the house"],
+      why: "They arrange for somebody else to paint it. It is happening this week, so we use are having + thing + third form.",
+      tip: "The key word HAVING tells you the causative in the present continuous." },
+
+    { lead: "The school where I study has a great laboratory.", key: "WHICH",
+      before: "The school", after: "study has a great laboratory.",
+      answers: ["in which I"],
+      why: "where can be replaced by in which. The preposition in goes before which, and the subject I follows.",
+      tip: "where = in which / at which. Put the preposition before which." },
+
+    { lead: "If we don't hurry, we will be late for the exam.", key: "UNLESS",
+      before: "We will be late", after: "hurry.",
+      answers: ["unless we"],
+      why: "unless means if not. So unless we hurry means if we don't hurry.",
+      tip: "After unless the verb stays positive. Never write unless we don't hurry." },
+
+    { lead: "It is strictly forbidden to use smartphones in class.", key: "MUST",
+      before: "You", after: "smartphones in class.",
+      answers: ["must not use","mustn't use"],
+      why: "Forbidden means prohibition. mustn't plus the base verb says something is not allowed.",
+      tip: "mustn't = not allowed. don't have to = not necessary. They are opposites." },
+
+    { lead: "They will introduce the new accounting software tomorrow.", key: "BE",
+      before: "The new accounting software", after: "tomorrow.",
+      answers: ["will be introduced"],
+      why: "The software receives the action in the future, so we use will be plus the third form.",
+      tip: "Future passive: will be + third form. The word BE in capitals is the clue." }
+  ]
+},
+
+/* ---------- 4 ---------- */
+{ n: 4, type: "mcc", label: "Multiple-choice cloze",
+  rubric: "Read the text and choose the best answer (A, B, C or D) for each gap.",
+  text: "My family decided to move to an eco-friendly home last year. We needed to be very {1} with our money because we had a strict budget to respect. The architect showed us a long {2} of numbers to calculate the cost of the materials. At first, finding a good location was a real {3}, but eventually we found a beautiful area. We {4} the final design checked by an expert to make sure it was safe. Now there is plenty of {5} in the living room for all my books. The whole process was quite a {6} at times, but we learned a lot. If you {7} your cash carefully, you can achieve your dreams. I think it was an excellent {8} for our family.",
+  items: [
+    { options: ["anxious","curious","sensible","outgoing"], correct: 2,
+      why: "A strict budget means we had to be careful and practical with money. That is sensible.",
+      tip: "Think about the situation: a strict budget needs a careful person." },
+    { options: ["angle","percentage","sequence","algebra"], correct: 2,
+      why: "A long sequence of numbers is a list of numbers in order, used to calculate costs.",
+      tip: "of numbers is the clue: sequence of numbers is a natural phrase." },
+    { options: ["struggle","work","light","company"], correct: 0,
+      why: "A real struggle is something that is hard to do. The sentence says it was difficult at first.",
+      tip: "but eventually shows the first part was negative: struggle." },
+    { options: ["made","got","did","let"], correct: 1,
+      why: "We got the design checked is the causative. get + thing + third form means somebody else did the job.",
+      tip: "checked is the third form after the object: have or get + thing + checked." },
+    { options: ["exercise","time","room","company"], correct: 2,
+      why: "Room here is an uncountable noun and means space. Plenty of room for my books means there is a lot of space.",
+      tip: "Watch the pair: a room (countable) is a place, room (uncountable) is space." },
+    { options: ["nightmare","light","company","room"], correct: 0,
+      why: "Quite a nightmare means it was very difficult. The word a before the gap needs a countable noun.",
+      tip: "but we learned a lot shows the process was hard. Choose the negative noun." },
+    { options: ["divide","manage","subtract","multiply"], correct: 1,
+      why: "To manage your cash carefully means to control and use it well. The other verbs are maths words.",
+      tip: "Do not choose a maths verb just because the text talks about money." },
+    { options: ["decide","decisively","decision","deciding"], correct: 2,
+      why: "After an excellent we need a noun, and the noun is decision.",
+      tip: "an + adjective + noun: an excellent decision. Check the word type before the word." }
+  ]
+},
+
+/* ---------- 5 ---------- */
+{ n: 5, type: "wordform", label: "Word formation",
+  rubric: "Complete the text with the correct form of the word in capitals. Some answers need a negative prefix.",
+  text: "When you start a new maths course, good organisation is essential. Sometimes complex algorithms can cause a lot of {1}. However, showing genuine {2} helps you learn faster. A good student needs {3} when solving equations. There is a huge {4} between failing and giving up. Don't be {5} and quit just because a task is hard. With practice, you will see a big {6} in your grades. You can gain more {7} by studying on your own. Finding the right {8} takes time and effort.",
+  items: [
+    { root: "CONFUSE", answers: ["confusion"],
+      why: "After a lot of we need a noun. The noun from confuse is confusion.",
+      tip: "-ion is a very common noun ending: confuse/confusion, decide/decision." },
+    { root: "CURIOUS", answers: ["curiosity"],
+      why: "After genuine we need a noun for the wish to learn. The noun from curious is curiosity.",
+      tip: "-ous adjectives often have a -ity noun: curious/curiosity, generous/generosity." },
+    { root: "PATIENT", answers: ["patience"],
+      why: "After needs we need a noun. The noun from patient is patience.",
+      tip: "-ent adjectives often change to -ence: patient/patience, independent/independence." },
+    { root: "DIFFER", answers: ["difference"],
+      why: "After a huge we need a noun. The noun from differ is difference.",
+      tip: "difference has two f letters and ends in -ence." },
+    { root: "LOGICAL", answers: ["illogical"],
+      why: "Don't be means we need an adjective. Quitting because a task is hard is not logical, so we need the negative prefix il-.",
+      tip: "il- goes before words that start with l: logical/illogical, legal/illegal." },
+    { root: "IMPROVE", answers: ["improvement"],
+      why: "After a big we need a noun. The noun from improve is improvement.",
+      tip: "-ment makes nouns from verbs: improve/improvement, pay/payment." },
+    { root: "DEPEND", answers: ["independence"],
+      why: "Studying on your own gives you freedom. We need the noun with the prefix in- and the ending -ence.",
+      tip: "Two changes in one word: in- at the start and -ence at the end." },
+    { root: "SOLVE", answers: ["solution"],
+      why: "After the right we need a noun. The noun from solve is solution, and the e disappears.",
+      tip: "solve loses its final e before -ution: solve/solution." }
+  ]
+},
+
+/* ---------- 6 ---------- */
+{ n: 6, type: "opencloze", label: "Open cloze",
+  rubric: "Complete the text with ONE word in each gap.",
+  text: "Studying abroad is an amazing and rewarding experience. Last year, I went to a school {1} was located in London. If I had stayed in my country, I {2} not have met so many people. The grammar was explained {3} the teacher very clearly. We didn't {4} to wear a uniform, which was great because I like choosing my clothes. If you go there, you {5} definitely have a great time. The accommodation was perfect; my room was cleaned {6} the staff every single day. Also, the teachers always helped us to catch {7} with the lessons if we were absent. I really think that everyone ought {8} travel and see the world at least once.",
+  items: [
+    { answers: ["which","that"],
+      why: "A school is a thing and the gap is the subject of was located. We use which or that.",
+      tip: "who for people, which or that for things." },
+    { answers: ["would"],
+      why: "If I had stayed is the third conditional. The result part uses would not have plus the third form.",
+      tip: "if + had + third form: the other half is would have + third form." },
+    { answers: ["by"],
+      why: "The grammar was explained is passive. The person who does the action comes after by.",
+      tip: "Passive sentence + the person who did it = by." },
+    { answers: ["have","need"],
+      why: "didn't have to means it was not necessary. didn't need to has the same meaning.",
+      tip: "After didn't the verb has no -s and no to: didn't have, didn't need." },
+    { answers: ["will","can","should","could"],
+      why: "If you go there is the first conditional. The result part usually uses will plus the base verb.",
+      tip: "if + present simple: the other half uses will." },
+    { answers: ["by"],
+      why: "My room was cleaned is passive. The staff do the action, so we use by.",
+      tip: "Passive + the people who did it = by." },
+    { answers: ["up"],
+      why: "catch up with means to reach the same level as other people. It is a phrasal verb.",
+      tip: "Learn the whole phrasal verb: catch up with." },
+    { answers: ["to"],
+      why: "ought is always followed by to plus the base verb. It gives advice.",
+      tip: "should + verb, but ought to + verb. Do not forget to." }
+  ]
+},
+
+/* ---------- 7 ---------- */
+{ n: 7, type: "mcq", label: "Choose the correct sentence",
+  rubric: "Choose the correct sentence in each group. Only one is correct.",
+  items: [
+    { q: "The museum is free on Sundays.",
+      options: ["You mustn't pay on Sundays.","You don't have to pay on Sundays.","You must to pay on Sundays."], correct: 1,
+      why: "Free means it is not necessary to pay. don't have to says there is no obligation.",
+      tip: "mustn't forbids. don't have to only says it is not needed." },
+    { q: "The workers are repairing the road this week.",
+      options: ["The road is being repaired this week.","The road is repairing this week.","The road is been repaired this week."], correct: 0,
+      why: "The road receives the action, and it is happening now. The passive is is being plus the third form.",
+      tip: "Present continuous passive: am/is/are being + third form." },
+    { q: "She went to the hairdresser's yesterday.",
+      options: ["She had her hair cut yesterday.","She had her hair cutting yesterday.","She had cut her hair by a hairdresser yesterday."], correct: 0,
+      why: "The causative is had + thing + third form. Cut is the third form of cut.",
+      tip: "After the thing (her hair) you always need the third form." },
+    { q: "Somebody sold all the tickets.",
+      options: ["All the tickets have been sold.","All the tickets has been sold.","All the tickets have be sold."], correct: 0,
+      why: "Tickets is plural, so we use have, and the passive is been plus the third form.",
+      tip: "Present perfect passive: have/has been + third form." },
+    { q: "It is sensible to see a doctor soon.",
+      options: ["You had better to see a doctor.","You had better see a doctor.","You had better seeing a doctor."], correct: 1,
+      why: "had better is followed by the base verb with no to.",
+      tip: "had better + base verb. No to, no -ing." },
+    { q: "Do the rules say that we can use phones in the exam?",
+      options: ["Are we allowed use phones in the exam?","Are we allowed to use phones in the exam?","Are we allowed using phones in the exam?"], correct: 1,
+      why: "be allowed is followed by to plus the base verb.",
+      tip: "allowed to + verb, always with to." }
+  ]
+},
+
+/* ---------- 8 ---------- */
+{ n: 8, type: "gapsentences", label: "Vocabulary",
+  rubric: "Complete each sentence with ONE word. Think about maths words, difficulty words and personality words.",
+  items: [
+    { before: "Ten", after: "five is fifteen.",
+      answers: ["plus"],
+      why: "plus is the word for adding numbers in a spoken sum.",
+      tip: "plus and minus are the spoken signs: ten plus five." },
+    { before: "Ten", after: "three is seven.",
+      answers: ["minus"],
+      why: "minus is the word for subtracting in a spoken sum.",
+      tip: "minus = take away." },
+    { before: "Twelve", after: "by three is four.",
+      answers: ["divided"],
+      why: "We say divided by when we share a number into equal parts.",
+      tip: "divided by and multiplied by always take by." },
+    { before: "Three", after: "four is twelve.",
+      answers: ["times"],
+      why: "Here times is a plural noun and means multiplied by.",
+      tip: "Three times four. Do not confuse it with the uncountable time." },
+    { before: "The exam was a piece of", after: "; I finished in twenty minutes.",
+      answers: ["cake"],
+      why: "a piece of cake is an expression for something very easy.",
+      tip: "Easy expressions to learn: a piece of cake, simple, basic." },
+    { before: "A", after: "of the class (25 per cent) failed the test.",
+      answers: ["quarter"],
+      why: "A quarter is one part out of four equal parts, which is 25 per cent.",
+      tip: "quarter 25%, half 50%, three quarters 75%." },
+    { before: "A child who never listens to his parents is",
+      after: ".",
+      answers: ["disobedient"],
+      why: "The opposite of obedient is disobedient. The prefix dis- makes the opposite.",
+      tip: "dis- makes the opposite of some adjectives: obedient/disobedient." },
+    { before: "I would love to make friends easily, but I am not very", after: ". I am quite shy.",
+      answers: ["outgoing"],
+      why: "Outgoing describes a person who likes meeting people. Shy is the opposite.",
+      tip: "The second sentence usually gives the opposite meaning. Shy tells you the first needs not outgoing." }
+  ]
+}
+
+]
+},
+
+{
+id: "hard", name: "HARD", tag: "Level 2",
+blurb: "Longer transformations, tougher word formation and traps with modals in the past and the passive.",
+exercises: [
+
+/* ---------- 1 ---------- */
+{ n: 1, type: "kwt", label: "Key word transformation",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the word in capitals. Write between two and five words, including the word given.",
+  items: [
+    { lead: "I regret that I was so irresponsible with my savings last year.", key: "SHOULD",
+      before: "I", after: "so irresponsible with my savings last year.",
+      answers: ["should not have been","shouldn't have been"],
+      why: "I regret describes a past mistake. should not have plus the third form criticises a past action.",
+      tip: "Regret about the past = should have or shouldn't have + third form." },
+
+    { lead: "The mechanic has just fixed my dad's car.", key: "HAD",
+      before: "My dad", after: "fixed by the mechanic.",
+      answers: ["has just had his car","has had his car"],
+      why: "Dad arranged the job, so this is the causative in the present perfect: has had + thing + third form.",
+      tip: "The word fixed after the gap is a third form. Before it you need the thing: his car." },
+
+    { lead: "It is an absolute obligation to show your ID at the entrance.", key: "GOT",
+      before: "You", after: "your ID at the entrance.",
+      answers: ["have got to show","'ve got to show"],
+      why: "It is an obligation is strong obligation. have got to plus the base verb has the same meaning as must.",
+      tip: "have got to is spoken English for must. Do not forget to." },
+
+    { lead: "They will subtract the taxes from your final payment.", key: "BE",
+      before: "The taxes", after: "from your final payment.",
+      answers: ["will be subtracted","are going to be subtracted"],
+      why: "The taxes receive the action in the future, so we use will be plus the third form.",
+      tip: "Future passive: will be / is going to be + third form." },
+
+    { lead: "This is the exact school where I studied advanced algebra.", key: "WHICH",
+      before: "This is the school", after: "studied advanced algebra.",
+      answers: ["in which I"],
+      why: "where means in which. The preposition goes before which, and I is the subject of studied.",
+      tip: "where = in which. In a formal sentence the preposition comes first." },
+
+    { lead: "I strongly advise him not to be so impatient with the process.", key: "OUGHT",
+      before: "He", after: "so impatient with the process.",
+      answers: ["ought not to be","oughtn't to be"],
+      why: "I advise him not to is negative advice. ought not to plus the base verb gives negative advice.",
+      tip: "The negative is ought not to, with the not before to." }
+  ]
+},
+
+/* ---------- 2 ---------- */
+{ n: 2, type: "wordform", label: "Word formation",
+  rubric: "Complete the text with the correct form of the word in capitals. Some answers need a negative prefix.",
+  text: "Starting an independent project requires a lot of thought and the right decision. First, it demands a high level of {1} to manage your schedule. You also need to show genuine {2} when researching the market. If you face a tricky issue, finding a clear {3} might take time. You will probably experience some {4} during the first few weeks of the process. Therefore, it is crucial not to make {5} choices when you are feeling anxious or stressed. Always look for ways to make an {6} in your daily routine. If you create a successful company, you might even increase local {7}. Ultimately, trusting your instincts and hard work will lead to complete financial {8}.",
+  items: [
+    { root: "ORGANISE", answers: ["organisation","organization"],
+      why: "After a high level of we need a noun. The noun from organise is organisation.",
+      tip: "-ation makes nouns from -ise verbs: organise/organisation." },
+    { root: "CURIOUS", answers: ["curiosity"],
+      why: "After genuine we need a noun for the wish to know more. The noun from curious is curiosity.",
+      tip: "curious is the adjective, curiosity is the noun." },
+    { root: "SOLVE", answers: ["solution"],
+      why: "After a clear we need a noun, and the e of solve disappears: solution.",
+      tip: "solve/solution: the final e goes before -ution." },
+    { root: "CONFUSE", answers: ["confusion"],
+      why: "After some we need a noun. The noun from confuse is confusion.",
+      tip: "Many -use verbs make nouns with -usion: confuse/confusion." },
+    { root: "LOGICAL", answers: ["illogical"],
+      why: "Choices needs an adjective. Making choices when you are stressed is not a logical thing, so we need il-.",
+      tip: "il- goes before l: logical/illogical, legal/illegal." },
+    { root: "IMPROVE", answers: ["improvement"],
+      why: "After an we need a noun. The noun from improve is improvement.",
+      tip: "make an improvement: an + noun that starts with a vowel." },
+    { root: "EMPLOY", answers: ["employment"],
+      why: "After local we need an uncountable noun. The noun from employ is employment.",
+      tip: "-ment: employ/employment, pay/payment, improve/improvement." },
+    { root: "DEPEND", answers: ["independence"],
+      why: "Financial freedom needs the noun with a negative idea: in- at the start and -ence at the end.",
+      tip: "dependent/independent and dependence/independence." }
+  ]
+},
+
+/* ---------- 3 ---------- */
+{ n: 3, type: "kwt", label: "Key word transformation",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the word in capitals. Write between two and five words, including the word given.",
+  items: [
+    { lead: "It was a bad idea to be so competitive during the game.", key: "SHOULD",
+      before: "I", after: "so competitive during the game.",
+      answers: ["should not have been","shouldn't have been"],
+      why: "It was a bad idea is a criticism of a past action. should not have plus the third form gives it.",
+      tip: "Past criticism: shouldn't have + third form." },
+
+    { lead: "The mechanic is fixing my bicycle tomorrow morning.", key: "HAVING",
+      before: "I", after: "fixed tomorrow morning.",
+      answers: ["am having my bicycle","'m having my bicycle","am having my bike","'m having my bike"],
+      why: "I arrange for the mechanic to do the job. The causative in the present continuous is am having + thing + third form.",
+      tip: "The present continuous is also used for fixed plans in the future." },
+
+    { lead: "The girl is my friend, and she won the scholarship.", key: "WHO",
+      before: "The girl", after: "is my friend.",
+      answers: ["who won the scholarship"],
+      why: "who introduces a clause about a person. The clause who won the scholarship is the subject of is my friend.",
+      tip: "A person + extra information = who + verb." },
+
+    { lead: "I don't have enough money, so I won't buy the apartment.", key: "WOULD",
+      before: "If I had enough money, I", after: "the apartment.",
+      answers: ["would buy"],
+      why: "This is the second conditional. If + past simple is followed by would plus the base verb.",
+      tip: "if I had ... I would ...: imaginary situation in the present." },
+
+    { lead: "I wasn't able to hand in the assignment on time.", key: "COULD",
+      before: "I", after: "the assignment on time.",
+      answers: ["could not hand in","couldn't hand in"],
+      why: "was not able to and could not mean the same. After could not comes the base verb.",
+      tip: "A phrasal verb stays together: hand in." },
+
+    { lead: "The experts have calculated the exact percentage.", key: "BEEN",
+      before: "The exact percentage", after: "the experts.",
+      answers: ["has been calculated by"],
+      why: "The percentage receives the action. The present perfect passive is has been + third form, and the experts come after by.",
+      tip: "Present perfect passive: has/have been + third form." }
+  ]
+},
+
+/* ---------- 4 ---------- */
+{ n: 4, type: "mcc", label: "Multiple-choice cloze",
+  rubric: "Read the text and choose the best answer (A, B, C or D) for each gap.",
+  text: "Getting a university scholarship requires a lot of hard {1}. It is definitely not a piece of {2}. First, you must show that you are an {3} and active student who participates in class. When calculating your monthly budget, the numbers can be a bit {4} to understand at first. If you are not careful with your expenses, it can turn into a financial {5}. You should always keep some {6} in your pocket for emergencies. Once you get accepted, finding suitable {7} near the campus is the next step. If you subtract the rent from your income, you will know exactly what {8} of your money is left for food and entertainment.",
+  items: [
+    { options: ["job","employment","work","time"], correct: 2,
+      why: "hard work is a fixed phrase. work is uncountable here.",
+      tip: "Learn the phrase: a lot of hard work." },
+    { options: ["clear","basic","simple","cake"], correct: 3,
+      why: "A piece of cake means something very easy. The sentence says it is definitely not easy.",
+      tip: "of cake: the word before the gap is of, so the gap needs a noun." },
+    { options: ["unpleasant","ambitious","anxious","disobedient"], correct: 1,
+      why: "An ambitious student wants to succeed. The other adjectives do not fit a scholarship student who participates.",
+      tip: "an + vowel sound: an ambitious. Check also the meaning." },
+    { options: ["tricky","clear","simple","basic"], correct: 0,
+      why: "Tricky means difficult. The text says at first, which shows the numbers are difficult.",
+      tip: "a bit tricky to understand is a common phrase." },
+    { options: ["nightmare","dream","illusion","sequence"], correct: 0,
+      why: "If you are not careful, money problems become a big problem. A nightmare is something terrible.",
+      tip: "turn into + a bad noun is a warning: turn into a nightmare." },
+    { options: ["coin","cash","receipt","voucher"], correct: 1,
+      why: "Cash is money in notes and coins. It is uncountable, so some cash is correct.",
+      tip: "some + uncountable noun: some cash, some time, some room." },
+    { options: ["furnishings","accommodation","exercise","light"], correct: 1,
+      why: "Accommodation is a place to live. It is uncountable, so we do not use a before it.",
+      tip: "accommodation has no plural in this meaning: living accommodation." },
+    { options: ["angle","algorithm","sequence","percentage"], correct: 3,
+      why: "what percentage of your money asks for a part of the total. The other words do not go with of your money.",
+      tip: "what percentage of ... is a common question about money." }
+  ]
+},
+
+/* ---------- 5 ---------- */
+{ n: 5, type: "wordform", label: "Word formation",
+  rubric: "Complete the text with the correct form of the word in capitals. Some answers need a negative prefix.",
+  text: "Developing new algorithms requires a lot of imagination. A single error in the code can lead to a completely {1} result. Therefore, computer scientists need incredible {2} to review their work. They must find a solid {3} to every programming problem. The initial {4} of a new digital system is always hard. However, it will increase {5} in the tech industry. Many older people feel {6} about these rapid changes. Companies must show {7} and share the technology. This will result in a huge {8} for modern society.",
+  items: [
+    { root: "LOGICAL", answers: ["illogical"],
+      why: "A single error leads to a wrong result. After completely we need the negative adjective illogical.",
+      tip: "il- + logical. The root has an l, so the prefix is il-, not in-." },
+    { root: "PATIENT", answers: ["patience"],
+      why: "After incredible we need a noun. The noun from patient is patience.",
+      tip: "patient/patience, independent/independence: -ent becomes -ence." },
+    { root: "SOLVE", answers: ["solution"],
+      why: "After a solid we need a noun. The noun from solve is solution.",
+      tip: "solution is the answer to a problem." },
+    { root: "INTRODUCE", answers: ["introduction"],
+      why: "After the initial we need a noun. The noun from introduce is introduction.",
+      tip: "-uce becomes -uction: introduce/introduction." },
+    { root: "EMPLOY", answers: ["employment"],
+      why: "After increase we need an uncountable noun. The noun from employ is employment.",
+      tip: "employment means having a job. It has no plural here." },
+    { root: "ANXIETY", answers: ["anxious"],
+      why: "feel needs an adjective. The adjective from anxiety is anxious.",
+      tip: "feel + adjective: feel anxious, feel nervous." },
+    { root: "GENEROUS", answers: ["generosity"],
+      why: "After show we need a noun. The noun from generous is generosity.",
+      tip: "-ous becomes -osity: generous/generosity, curious/curiosity." },
+    { root: "IMPROVE", answers: ["improvement"],
+      why: "After a huge we need a noun. The noun from improve is improvement.",
+      tip: "improve/improvement: the e stays before -ment." }
+  ]
+},
+
+/* ---------- 6 ---------- */
+{ n: 6, type: "opencloze", label: "Open cloze",
+  rubric: "Complete the text with ONE word in each gap.",
+  text: "Last weekend, we went camping in the forest, {1} was a fantastic adventure. If the weather {2} been bad, we would have stayed home. Fortunately, the sun was shining bright. We didn't {3} to pay for the campsite because it was a public area. While we were there, I got my tent set {4} by my older brother, who is a camping expert. In the evening, we had to {5} over our map to find the trail for the next day. A new route is {6} to be opened next summer. The trail is completely surrounded {7} beautiful trees. I think everyone {8} better visit this natural place before it gets too crowded.",
+  items: [
+    { answers: ["which"],
+      why: "The gap follows a comma and refers to the whole idea of going camping. We use which, not that.",
+      tip: "After a comma, use which for things. that is not possible there." },
+    { answers: ["had"],
+      why: "The result half uses would have stayed, so the if half needs had plus the third form: had been.",
+      tip: "Third conditional: if + had + third form, would have + third form." },
+    { answers: ["have","need"],
+      why: "It was a public area, so paying was not necessary. didn't have to or didn't need to are correct.",
+      tip: "didn't + base verb: no -s, no to." },
+    { answers: ["up"],
+      why: "I got my tent set up by my brother is the causative: got + thing + third form. set up is a phrasal verb.",
+      tip: "set up = prepare for use: set up a tent." },
+    { answers: ["go","look","pore"],
+      why: "go over our map means to look at it carefully. look over has a similar meaning.",
+      tip: "over is the clue: go over, look over, check over." },
+    { answers: ["going","due","expected","set","scheduled","supposed"],
+      why: "The sentence is passive in the future: is going to be opened. due to and expected to are also possible.",
+      tip: "is going to be + third form is the future passive with going to." },
+    { answers: ["by","with"],
+      why: "surrounded by or surrounded with are both used with trees. by is the most common.",
+      tip: "Passive + what is around it: be surrounded by." },
+    { answers: ["had"],
+      why: "had better plus the base verb gives strong advice about what is sensible.",
+      tip: "Never say had better to. The verb comes directly after better." }
+  ]
+},
+
+/* ---------- 7 ---------- */
+{ n: 7, type: "mcq", label: "Choose the correct sentence",
+  rubric: "Choose the correct sentence in each group. Only one is correct.",
+  items: [
+    { q: "I am sure he forgot his keys.",
+      options: ["He must has forgotten his keys.","He must have forgot his keys.","He must have forgotten his keys."], correct: 2,
+      why: "must have plus the third form says you are sure about the past. The third form of forget is forgotten.",
+      tip: "must have is always followed by the third form: forget - forgot - forgotten." },
+    { q: "Someone stole the woman's car.",
+      options: ["The woman whose car was stolen called the police.","The woman who's car was stolen called the police.","The woman whose her car was stolen called the police."], correct: 0,
+      why: "whose shows ownership and replaces the possessive. We do not need her after whose.",
+      tip: "who's means who is. whose + noun shows that something belongs to somebody." },
+    { q: "A thief took Maria's bag on the bus.",
+      options: ["Maria had her bag stolen on the bus.","Maria got stolen her bag on the bus.","Maria had stole her bag on the bus."], correct: 0,
+      why: "The causative with had + thing + third form is used when something bad happens to us.",
+      tip: "Bad news that you did not ask for takes had, not got." },
+    { q: "They will open the new library next month.",
+      options: ["The new library will opened next month.","The new library will be opened next month.","The new library will being opened next month."], correct: 1,
+      why: "The future passive is will be plus the third form.",
+      tip: "will + be + third form. After will the verb is never changed." },
+    { q: "I am sure you did not see Tom yesterday, because he was abroad.",
+      options: ["You can't have seen Tom yesterday.","You can't seen Tom yesterday.","You can't to have seen Tom yesterday."], correct: 0,
+      why: "can't have plus the third form says you are sure that something did not happen.",
+      tip: "Certainty about the past: must have (yes) / can't have (no)." },
+    { q: "We met in this cafe last year.",
+      options: ["This is the cafe where we met last year.","This is the cafe where we met there last year.","This is the cafe which we met last year."], correct: 0,
+      why: "where already means in the place, so we do not add there. which would need in before it.",
+      tip: "Do not repeat there or here after where." }
+  ]
+},
+
+/* ---------- 8 ---------- */
+{ n: 8, type: "gapsentences", label: "Particles and prepositions",
+  rubric: "Complete each sentence with ONE word. Think about phrasal verbs and fixed prepositions.",
+  items: [
+    { before: "She fell", after: "with her cousin about money, but they are friends again.",
+      answers: ["out"],
+      why: "fall out with somebody means to have an argument with them.",
+      tip: "Learn the whole phrasal verb: fall out with." },
+    { before: "My sister is terrified", after: "spiders.",
+      answers: ["of"],
+      why: "Fear adjectives take of: afraid of, terrified of.",
+      tip: "Fear adjectives (afraid, terrified, frightened) take of." },
+    { before: "It is hard to give", after: "chocolate when you are on a diet.",
+      answers: ["up"],
+      why: "give up something means to stop doing or having it.",
+      tip: "give up + noun or give up + -ing." },
+    { before: "Don't worry, I will catch", after: "with the homework this weekend.",
+      answers: ["up"],
+      why: "catch up with means to reach the same level as others after being behind.",
+      tip: "catch up with + person or thing." },
+    { before: "The teacher told us to stick", after: "the plan.",
+      answers: ["to"],
+      why: "stick to something means to keep doing what you decided.",
+      tip: "stick to is the opposite of give up on a plan." },
+    { before: "He is addicted", after: "video games.",
+      answers: ["to"],
+      why: "addicted is followed by to. It is one of the few adjectives with to.",
+      tip: "addicted to, similar to, married to. Learn them as a group." },
+    { before: "I always revise", after: "my exams in the library.",
+      answers: ["for"],
+      why: "revise for an exam means to study before it.",
+      tip: "revise for + exam. Do not use about or to." },
+    { before: "Please pay attention", after: "what I say.",
+      answers: ["to"],
+      why: "pay attention is always followed by to.",
+      tip: "pay attention to + noun. The same for listen to and talk to." }
+  ]
+}
+
+]
+},
+
+{
+id: "veryhard", name: "VERY HARD", tag: "Level 3",
+blurb: "Exam-style traps: past modals, passive in every tense, the causative and open gaps with no clue at all.",
+exercises: [
+
+/* ---------- 1 ---------- */
+{ n: 1, type: "kwt", label: "Key word transformation",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the word in capitals. Write between two and five words, including the word given.",
+  items: [
+    { lead: "I'm incredibly sorry I wasn't more decisive during the board meeting.", key: "HAVE",
+      before: "I", after: "decisive during the board meeting.",
+      answers: ["should have been more","ought to have been more"],
+      why: "I'm sorry I wasn't is a regret about the past. should have plus the third form expresses regret.",
+      tip: "I'm sorry I didn't/wasn't = I should have + third form." },
+
+    { lead: "They are going to introduce a new mathematical sequence next week.", key: "BE",
+      before: "A new mathematical sequence", after: "introduced next week.",
+      answers: ["is going to be","will be"],
+      why: "The sequence receives the action in the future, so we use the future passive: is going to be or will be plus the third form.",
+      tip: "Future passive with going to: is/are going to be + third form." },
+
+    { lead: "We arranged for a professional translator to translate the document.", key: "GOT",
+      before: "We", after: "by a professional translator.",
+      answers: ["got the document translated"],
+      why: "We arranged for somebody to do the job. The causative is got + thing + third form.",
+      tip: "The key word GOT tells you to use get, not have." },
+
+    { lead: "It was a terrible mistake for you to be so disobedient yesterday.", key: "OUGHT",
+      before: "You", after: "so disobedient yesterday.",
+      answers: ["ought not to have been","oughtn't to have been"],
+      why: "It was a mistake is criticism of a past action. ought not to have plus the third form criticises the past.",
+      tip: "Past criticism: ought not to have been = shouldn't have been." },
+
+    { lead: "The man whose company is bankrupt asked the bank for a loan.", key: "OWNS",
+      before: "The man", after: "bankrupt company asked the bank for a loan.",
+      answers: ["who owns the","that owns the"],
+      why: "whose company is changed into who owns the company. The relative pronoun is the subject of owns.",
+      tip: "whose + noun = who owns/has + the noun." },
+
+    { lead: "You are strictly prohibited from entering this room without permission.", key: "MUST",
+      before: "You", after: "this room without permission.",
+      answers: ["must not enter","mustn't enter"],
+      why: "Prohibited means not allowed. must not plus the base verb expresses prohibition.",
+      tip: "must not = prohibition. Do not use don't have to for a ban." }
+  ]
+},
+
+/* ---------- 2 ---------- */
+{ n: 2, type: "opencloze", label: "Open cloze",
+  rubric: "Complete the text with ONE word in each gap.",
+  text: "Learning advanced maths isn't just about algebra; it is a vital part of everyday life. For example, a new budget for our department is {1} prepared right now by the finance team. All the complex calculations have already {2} done by an expert. The final report, {3} includes all the statistics, will be presented to the board tomorrow. Yesterday, the director {4} the budget revised by an external auditor to make sure there were no illogical mistakes. Next year, the accounting software is {5} to be completely upgraded. As students, we usually get our daily exercises {6} by the teacher in class. Finding the answer to a tough equation can be a real struggle, but it is {7} a lot easier with practice. Whenever there is a major issue, it is best to have the work handled {8} a professional.",
+  items: [
+    { answers: ["being"],
+      why: "right now shows the action is in progress. The present continuous passive is is being plus the third form.",
+      tip: "Present continuous passive: is/are being + third form." },
+    { answers: ["been"],
+      why: "have already plus the third form is the present perfect. In the passive it becomes have been done.",
+      tip: "Present perfect passive: have/has + been + third form." },
+    { answers: ["which"],
+      why: "The gap follows a comma and talks about the report, a thing. In this non-defining clause we use which, not that.",
+      tip: "Commas on both sides = which or who. Never that." },
+    { answers: ["had","got"],
+      why: "The director arranged for an auditor to revise the budget. This is the causative in the past: had or got + thing + third form.",
+      tip: "Look for a third form (revised) right after the thing: that is the causative." },
+    { answers: ["going","due","expected","set","scheduled","supposed"],
+      why: "Next year points to the future passive: is going to be upgraded. due to and expected to also fit.",
+      tip: "is going to be + third form is the future passive." },
+    { answers: ["done","checked","corrected","marked"],
+      why: "get our exercises plus a third form is the causative: the teacher does the job for us.",
+      tip: "get + thing + third form. The word by the teacher shows who did it." },
+    { answers: ["made","getting","becoming"],
+      why: "it is made a lot easier with practice uses the passive of make. getting and becoming also fit.",
+      tip: "made + adjective is a very common passive: made easier, made worse." },
+    { answers: ["by"],
+      why: "have the work handled by a professional is the causative. The person who does the job comes after by.",
+      tip: "causative + person = by." }
+  ]
+},
+
+/* ---------- 3 ---------- */
+{ n: 3, type: "kwt", label: "Key word transformation",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the word in capitals. Write between two and five words, including the word given.",
+  items: [
+    { lead: "It was a mistake for her to be so disobedient.", key: "NOT",
+      before: "She", after: "so disobedient.",
+      answers: ["should not have been","shouldn't have been","ought not to have been","oughtn't to have been"],
+      why: "It was a mistake is criticism of a past action. should not have or ought not to have plus the third form is correct.",
+      tip: "Criticism of the past: shouldn't have + third form." },
+
+    { lead: "I didn't save money, so I couldn't rent the house.", key: "HAVE",
+      before: "If I had saved money, I", after: "the house.",
+      answers: ["would have rented","could have rented"],
+      why: "This is the third conditional. If + had + third form is followed by would have plus the third form.",
+      tip: "if I had done, I would have done: a past imaginary situation." },
+
+    { lead: "They hired someone to translate the document for the meeting.", key: "GOT",
+      before: "They", after: "for the meeting.",
+      answers: ["got the document translated"],
+      why: "They hired someone is the causative. got + thing + third form has the same meaning.",
+      tip: "hire someone to do = get something done." },
+
+    { lead: "The student was exhausted, but she handed in the essay.", key: "WHO",
+      before: "The student,", after: ", handed in the essay.",
+      answers: ["who was exhausted"],
+      why: "who introduces extra information about a person. It sits between commas because the student is already known.",
+      tip: "Extra information in commas about a person = who." },
+
+    { lead: "It wasn't necessary for you to be so impatient with him.", key: "NEED",
+      before: "You", after: "so impatient with him.",
+      answers: ["need not have been","needn't have been"],
+      why: "It wasn't necessary is no obligation in the past. need not have plus the third form says that something was done but was not necessary.",
+      tip: "needn't have + third form: you did it, but it was not necessary." },
+
+    { lead: "They will not accept illogical decisions in this company.", key: "BE",
+      before: "Illogical decisions", after: "in this company.",
+      answers: ["will not be accepted","won't be accepted"],
+      why: "The decisions receive the action in the future. The future passive is will not be plus the third form.",
+      tip: "Future passive negative: will not be + third form." }
+  ]
+},
+
+/* ---------- 4 ---------- */
+{ n: 4, type: "mcc", label: "Multiple-choice cloze",
+  rubric: "Read the text and choose the best answer (A, B, C or D) for each gap.",
+  text: "Living in a tiny home is an interesting {1}, but it is certainly not a piece of {2}. You must be extremely {3} because there isn't much {4} for extra furniture or useless items. At first, calculating the exact measurements of the walls was a complete {5}. The architect used complex {6} to make sure the entire structure was safe and stable. You have to save a large {7} of your income if you want to build one of these houses from scratch. However, the feeling of absolute {8} from the city is totally worth the effort.",
+  items: [
+    { options: ["time","company","experience","light"], correct: 2,
+      why: "An interesting experience is a common phrase. Here experience is a countable noun and means something that happens to you.",
+      tip: "experience is uncountable for knowledge but countable for events." },
+    { options: ["clear","struggle","cake","nightmare"], correct: 2,
+      why: "a piece of cake means something easy. The text says it is not easy.",
+      tip: "of cake: the idiom is fixed." },
+    { options: ["logical","disobedient","curious","sensible"], correct: 3,
+      why: "In a tiny home you must be careful and practical about what you keep. That is sensible.",
+      tip: "Because shows the reason: a lack of space needs a practical person." },
+    { options: ["work","light","room","exercise"], correct: 2,
+      why: "Room here means space. There isn't much room for furniture means there is not enough space.",
+      tip: "much + uncountable noun: much room, much time." },
+    { options: ["trick","nightmare","angle","sequence"], correct: 1,
+      why: "A complete nightmare is something very difficult. It fits the idea of calculating exact measurements.",
+      tip: "a complete + noun: a complete nightmare, a complete disaster." },
+    { options: ["currencies","algorithms","exercises","companies"], correct: 1,
+      why: "Algorithms are sets of rules for solving problems, and an architect can use them to check a structure.",
+      tip: "complex is often used with algorithms and calculations." },
+    { options: ["currency","cash","percentage","sequence"], correct: 2,
+      why: "a large percentage of your income means a big part of it. The other words do not go with of your income.",
+      tip: "a large percentage of is a very common collocation." },
+    { options: ["availability","curiosity","independence","enthusiasm"], correct: 2,
+      why: "Independence from the city means being free from it. The other nouns do not take from.",
+      tip: "independence from + noun." }
+  ]
+},
+
+/* ---------- 5 ---------- */
+{ n: 5, type: "wordform", label: "Word formation",
+  rubric: "Complete the text with the correct form of the word in capitals. Some answers need a negative prefix.",
+  text: "To run a successful school lunch club, you need strong organisation. First, it requires a great deal of {1} to listen to everyone's ideas. You must respect the {2} between the students' tastes. Never be {3} with the club's money. You will need to do a careful {4} of the weekly budget. Sometimes, deciding what food to buy can cause a bit of {5}. If a problem arises, try to find a quick and effective {6}. Never be {7} to the younger members. This experience will definitely increase your personal {8}.",
+  items: [
+    { root: "PATIENT", answers: ["patience"],
+      why: "A great deal of is followed by an uncountable noun. The noun from patient is patience.",
+      tip: "patient/patience: -ent becomes -ence." },
+    { root: "DIFFER", answers: ["differences","difference"],
+      why: "The differences between tastes means there are several. The plural noun differences fits best.",
+      tip: "between plus two or more things often needs a plural: differences between." },
+    { root: "RESPONSIBLE", answers: ["irresponsible"],
+      why: "Never be needs an adjective. Spending the club's money without care is irresponsible, and the prefix is ir-.",
+      tip: "ir- goes before r: responsible/irresponsible, regular/irregular." },
+    { root: "CALCULATE", answers: ["calculation"],
+      why: "After a careful we need a noun. The noun from calculate is calculation.",
+      tip: "-ate verbs make nouns with -ation: calculate/calculation." },
+    { root: "CONFUSE", answers: ["confusion"],
+      why: "After a bit of we need an uncountable noun. The noun from confuse is confusion.",
+      tip: "confuse/confusion: -ion nouns are often uncountable." },
+    { root: "SOLVE", answers: ["solution"],
+      why: "After effective we need a noun. The noun from solve is solution.",
+      tip: "solution is the answer to a problem." },
+    { root: "PLEASANT", answers: ["unpleasant"],
+      why: "Never be needs an adjective. Being rude to the young members is unpleasant, and the prefix is un-.",
+      tip: "un- is the most common negative prefix: pleasant/unpleasant." },
+    { root: "DEPEND", answers: ["independence"],
+      why: "After personal we need a noun. Increase shows growth in freedom, so we need independence.",
+      tip: "independent/independence: in- at the start, -ence at the end." }
+  ]
+},
+
+/* ---------- 6 ---------- */
+{ n: 6, type: "opencloze", label: "Open cloze",
+  rubric: "Complete the text with ONE word in each gap.",
+  text: "Maths is everywhere. For instance, if you want to travel, a budget must {1} prepared in advance. The exact costs have to be {2} out carefully. A friend of mine, {3} is very logical, always gets his taxes {4} by an accountant. Last year, he {5} not have saved any money if he hadn't planned ahead. When studying, it is crucial to write {6} everything the teacher says in class. All the algebra exercises are {7} to be corrected tomorrow morning. So, you {8} better be ready!",
+  items: [
+    { answers: ["be"],
+      why: "After must the passive uses be plus the third form: must be prepared.",
+      tip: "Modal passive: modal + be + third form." },
+    { answers: ["worked","figured","sorted"],
+      why: "worked out carefully means calculated. The words have to be before the gap show a passive.",
+      tip: "work out = calculate. Passive: be worked out." },
+    { answers: ["who"],
+      why: "The gap follows a comma and refers to a person: A friend of mine. In this non-defining clause we use who.",
+      tip: "Commas + a person = who. That is not possible." },
+    { answers: ["done","checked","calculated","prepared","filed","sorted","handled"],
+      why: "always gets his taxes plus a third form is the causative. The accountant does the job for him.",
+      tip: "get + thing + third form. by an accountant shows who did it." },
+    { answers: ["would","could"],
+      why: "if he hadn't planned is the third conditional. The result part is would not have plus the third form.",
+      tip: "if + had + third form: would have + third form." },
+    { answers: ["down"],
+      why: "write down means to put something on paper so you can remember it. It is a phrasal verb.",
+      tip: "write down, note down, take down. down goes with writing." },
+    { answers: ["going","due","expected","set","scheduled","supposed"],
+      why: "tomorrow morning points to the future passive: are going to be corrected.",
+      tip: "going to be + third form is the future passive." },
+    { answers: ["had"],
+      why: "had better plus the base verb gives strong advice, here it is almost a warning.",
+      tip: "You had better + base verb: had better be, had better go." }
+  ]
+},
+
+/* ---------- 7 ---------- */
+{ n: 7, type: "mcq", label: "Choose the correct sentence",
+  rubric: "Choose the correct sentence in each group. Only one is correct.",
+  items: [
+    { q: "You brought a gift, but it wasn't necessary.",
+      options: ["You needn't to have brought a gift.","You needn't have brought a gift.","You needn't had brought a gift."], correct: 1,
+      why: "needn't have plus the third form says that you did something that was not necessary.",
+      tip: "needn't have + third form. There is no to." },
+    { q: "Ella is writing the report now.",
+      options: ["The report is being written at the moment by Ella.","The report is writing at the moment by Ella.","The report is being wrote at the moment by Ella."], correct: 0,
+      why: "The report receives the action in progress, so we use is being plus the third form: write - wrote - written.",
+      tip: "Present continuous passive: is/are being + third form." },
+    { q: "A builder will repair our roof next week.",
+      options: ["We are going to have the roof repair next week.","We are going to have the roof repaired next week.","We are going have the roof repaired next week."], correct: 1,
+      why: "The causative is have + thing + third form, and going to needs to before have.",
+      tip: "going to + base verb: going to have, going to get." },
+    { q: "Only some of the students passed. All of them got a prize.",
+      options: ["The students, who passed the exam, got a prize.","The students who passed the exam got a prize.","The students, that passed the exam, got a prize."], correct: 1,
+      why: "Only some students passed, so who passed the exam tells us which students. This is a defining clause with no commas.",
+      tip: "No commas when the clause tells us which people we mean." },
+    { q: "She did not wave, so I am sure she did not see me.",
+      options: ["She mustn't have seen me.","She can't have seen me.","She can't has seen me."], correct: 1,
+      why: "can't have plus the third form says you are sure something did not happen.",
+      tip: "There is no mustn't have for certainty. Use can't have." },
+    { q: "Is the winner already announced?",
+      options: ["Has the winner announced yet?","Has the winner been announced yet?","Is the winner been announced yet?"], correct: 1,
+      why: "The winner receives the action. The present perfect passive question is Has + subject + been + third form.",
+      tip: "Present perfect passive question: Has/Have + subject + been + third form." }
+  ]
+},
+
+/* ---------- 8 ---------- */
+{ n: 8, type: "gapsentences", label: "Particles and prepositions",
+  rubric: "Complete each sentence with ONE word. Think about phrasal verbs, fixed prepositions and learning phrases.",
+  items: [
+    { before: "I don't understand this problem. Can you help me work it", after: "?",
+      answers: ["out"],
+      why: "work out means to find the answer to a problem. The pronoun it goes in the middle.",
+      tip: "work it out, never work out it." },
+    { before: "She asked me to look", after: "her essay before she handed it in.",
+      answers: ["through","over"],
+      why: "look through or look over means to read something quickly.",
+      tip: "look through = read quickly. Check the object after the gap." },
+    { before: "Slow down, I can't keep", after: "with you!",
+      answers: ["up"],
+      why: "keep up with somebody means to move as fast as them.",
+      tip: "keep up with + person. Its opposite is fall behind." },
+    { before: "I'm fed", after: "with the noise.",
+      answers: ["up"],
+      why: "fed up with means very annoyed or tired of something.",
+      tip: "fed up with and popular with take with." },
+    { before: "Our grandmother is very proud", after: "us.",
+      answers: ["of"],
+      why: "proud takes of when we say what we are proud about.",
+      tip: "proud, afraid, capable, terrified: all take of." },
+    { before: "My little brother is hopeless", after: "keeping a secret.",
+      answers: ["at"],
+      why: "hopeless at means very bad at something. Ability adjectives take at.",
+      tip: "good at, bad at, hopeless at + -ing." },
+    { before: "You should say sorry: it's the best way to cheer her",
+      after: ".",
+      answers: ["up"],
+      why: "cheer somebody up means to make them feel happier. The person goes in the middle.",
+      tip: "cheer her up. The pronoun comes between cheer and up." },
+    { before: "Learning poems by", after: "is hard.",
+      answers: ["heart"],
+      why: "learn by heart means to learn something so well that you can say it without looking.",
+      tip: "learn by heart is a fixed phrase. Learn it as one block." }
+  ]
+}
+
+]
+},
+
+{
+id: "mastermind", name: "MASTERMIND", tag: "Final boss",
+blurb: "Everything from the year in one level: units 4, 5 and 8 mixed together, with the toughest traps. Only a real mastermind gets 90 per cent.",
+exercises: [
+
+/* ---------- 1 ---------- */
+{ n: 1, type: "kwt", label: "Key word transformation",
+  rubric: "Complete the second sentence so that it means the same as the first. Use the word in capitals. Write between two and five words, including the word given.",
+  items: [
+    { lead: "I'm sure the bank didn't make a mistake with my account.", key: "CANNOT",
+      before: "The bank", after: "a mistake with my account.",
+      answers: ["cannot have made","can't have made"],
+      why: "I'm sure ... didn't is certainty that something did not happen in the past. cannot have plus the third form expresses it.",
+      tip: "Certainty about the past: must have (yes) / cannot have (no)." },
+
+    { lead: "The thief took Sara's phone while she was sleeping.", key: "HAD",
+      before: "Sara", after: "while she was sleeping.",
+      answers: ["had her phone stolen","had her phone taken"],
+      why: "Something bad happened to Sara and she did not ask for it. We use had, not got, plus thing plus the third form.",
+      tip: "Bad news = had + thing + third form." },
+
+    { lead: "The company is going to pay all the staff more next year.", key: "BE",
+      before: "All the staff", after: "more next year.",
+      answers: ["are going to be paid","will be paid"],
+      why: "The staff receive the action in the future, so we use the future passive: will be or are going to be plus the third form.",
+      tip: "Future passive: will be + third form." },
+
+    { lead: "I met a woman. Her son is a famous singer.", key: "WHOSE",
+      before: "I met a woman", after: "is a famous singer.",
+      answers: ["whose son"],
+      why: "whose replaces Her and goes in front of the noun son. It shows possession.",
+      tip: "Her/his/their + noun in the second sentence becomes whose + noun." },
+
+    { lead: "My cousin lent me fifty dollars.", key: "BORROWED",
+      before: "I", after: "my cousin.",
+      answers: ["borrowed fifty dollars from"],
+      why: "lend and borrow describe the same event from different points of view. The person who receives the money borrows it from the person who lends.",
+      tip: "borrow from somebody, lend to somebody." },
+
+    { lead: "It was a bad idea to waste so much money.", key: "SHOULD",
+      before: "You", after: "so much money.",
+      answers: ["should not have wasted","shouldn't have wasted"],
+      why: "It was a bad idea about the past needs should not have plus the third form: waste - wasted - wasted.",
+      tip: "Criticism of a past action: shouldn't have + third form." },
+
+    { lead: "It isn't necessary for you to bring any food.", key: "NEED",
+      before: "You", after: "bring any food.",
+      answers: ["do not need to","don't need to","need not","needn't"],
+      why: "It isn't necessary means no obligation in the present. do not need to plus the base verb has the same meaning.",
+      tip: "don't need to + verb and needn't + verb both mean there is no obligation." },
+
+    { lead: "I'm slower than the others and I can't reach their level.", key: "CATCH",
+      before: "I", after: "the others.",
+      answers: ["cannot catch up with","can't catch up with"],
+      why: "catch up with means to reach the same level as others. The negative can't comes before the verb.",
+      tip: "catch up with is a three-word phrasal verb. Keep all three words." }
+  ]
+},
+
+/* ---------- 2 ---------- */
+{ n: 2, type: "opencloze", label: "Open cloze",
+  rubric: "Complete the text with ONE word in each gap.",
+  text: "Last year my school started a money course, {1} was taught by a former bank manager. All the students {2} asked to bring a notebook, and nobody had {3} pay anything. The teacher, {4} voice was surprisingly funny, explained why we should not spend more than we earn. He said that nobody can {5} to buy everything they want, so we should choose carefully. If you borrow money from a friend, you must give it back; it is not a present. I {6} not understood that before the course, so I {7} have lost a good friend. Now I make sure that every receipt {8} kept in a safe place.",
+  items: [
+    { answers: ["which"],
+      why: "The gap follows a comma and refers to the course, a thing. A non-defining clause uses which, never that.",
+      tip: "Comma + a thing = which." },
+    { answers: ["were","got"],
+      why: "The students received the action of asking, so the sentence is passive: were asked.",
+      tip: "Passive in the past: was/were + third form." },
+    { answers: ["to"],
+      why: "nobody had to pay means nobody was obliged to pay. had to is followed by the base verb.",
+      tip: "had to + verb: obligation in the past." },
+    { answers: ["whose"],
+      why: "The teacher's voice shows possession. whose + noun connects the two ideas.",
+      tip: "whose + noun shows that the noun belongs to the person before the comma." },
+    { answers: ["afford"],
+      why: "can afford to buy means to have enough money for it. We say afford to + verb.",
+      tip: "afford to + verb. Compare: cost, pay and afford are not the same." },
+    { answers: ["had"],
+      why: "before the course points to the past perfect: had not understood.",
+      tip: "before + a past moment = had + third form." },
+    { answers: ["might","could","would"],
+      why: "The second half describes a possible result in the past. might have, could have or would have plus the third form fits.",
+      tip: "modal + have + third form: a possibility in the past." },
+    { answers: ["is","gets"],
+      why: "The receipt receives the action, and this is a habit, so the present simple passive is is kept.",
+      tip: "Present simple passive: am/is/are + third form." }
+  ]
+},
+
+/* ---------- 3 ---------- */
+{ n: 3, type: "mcc", label: "Multiple-choice cloze",
+  rubric: "Read the text and choose the best answer (A, B, C or D) for each gap.",
+  text: "Saving money was never a piece of cake for me. I used to {1} my pocket money on sweets and games, and I was always short of cash. Last month I wanted a pair of trainers, but they were too expensive to {2}. Then my aunt told me to wait for the sales. I found the same pair with a 30% {3} and I bought them. It was a real {4}! The shop assistant gave me a {5} and told me to keep it in case I needed to bring them back. My aunt also offered to {6} me some money for a school trip, but I told her I would pay her back next month. Now I try to {7} on my budget every week, and I really think the effort is {8} it.",
+  items: [
+    { options: ["win","earn","borrow","waste"], correct: 3,
+      why: "waste means to spend money badly. Sweets and games were not good things to buy, and I was always short of cash.",
+      tip: "waste = use badly. spend = use. earn and win bring money in." },
+    { options: ["afford","pay","cost","worth"], correct: 0,
+      why: "too expensive to afford means I did not have enough money. afford is followed by to plus the verb or by a noun.",
+      tip: "can afford = have enough money. pay is not used with to afford." },
+    { options: ["voucher","bargain","discount","receipt"], correct: 2,
+      why: "A discount is a lower price. 30% less is a discount.",
+      tip: "with a discount: the shop reduces the price." },
+    { options: ["receipt","currency","bargain","voucher"], correct: 2,
+      why: "A bargain is something you buy for less than its normal price.",
+      tip: "a real bargain = a very good price." },
+    { options: ["currency","exchange rate","receipt","discount"], correct: 2,
+      why: "A receipt is the paper that shows you bought something. You need it to bring things back.",
+      tip: "bring back + keep the receipt." },
+    { options: ["borrow","earn","win","lend"], correct: 3,
+      why: "My aunt gives me the money, so she lends it to me. I borrow it from her.",
+      tip: "lend = give for a short time. borrow = take for a short time." },
+    { options: ["cope","focus","revise","learn"], correct: 1,
+      why: "focus on something means to give it all your attention. The preposition on follows focus.",
+      tip: "focus on and concentrate on take on." },
+    { options: ["cost","value","worth","price"], correct: 2,
+      why: "worth it means that the result is good enough for the effort. It is a fixed phrase.",
+      tip: "be worth it is a common exam phrase." }
+  ]
+},
+
+/* ---------- 4 ---------- */
+{ n: 4, type: "wordform", label: "Word formation",
+  rubric: "Complete the text with the correct form of the word in capitals. Some answers need a negative prefix.",
+  text: "The school fair was a huge success, but the {1} took almost two months. The committee needed good {2} to find new ideas, and the {3} was a great mix of music and magic. At first the committee was quite {4}, so the meetings were long and tiring. One group of boys was {5} and refused to follow the rules, which was an {6} surprise for the teachers. The {7} for the tickets was easy because we did it online, and it would have been {8} to count so many coins by hand. There was a lot of {9} about the prices at the start, but the {10} was simple: we put a list on the wall.",
+  items: [
+    { root: "ORGANISE", answers: ["organisation","organization"],
+      why: "After the we need a noun. The noun from organise is organisation.",
+      tip: "-ise/-ize verbs make nouns with -ation." },
+    { root: "IMAGINE", answers: ["imagination"],
+      why: "After good we need a noun for the power to think of new ideas. The noun from imagine is imagination.",
+      tip: "imagine/imagination: the e disappears before -ation." },
+    { root: "ENTERTAIN", answers: ["entertainment"],
+      why: "After the we need a noun. The noun from entertain is entertainment.",
+      tip: "-ment: entertain/entertainment, improve/improvement." },
+    { root: "DECISIVE", answers: ["indecisive"],
+      why: "The meetings were long, so the committee could not decide. That is the opposite of decisive, so we need in-.",
+      tip: "in- makes the opposite: decisive/indecisive." },
+    { root: "OBEDIENT", answers: ["disobedient"],
+      why: "The boys refused to follow the rules. The opposite of obedient is disobedient.",
+      tip: "dis- makes the opposite: obedient/disobedient." },
+    { root: "PLEASANT", answers: ["unpleasant"],
+      why: "The teachers did not like the surprise. The article an needs a vowel sound, and unpleasant starts with one.",
+      tip: "un- makes the opposite: pleasant/unpleasant." },
+    { root: "PAY", answers: ["payment"],
+      why: "After The we need a noun. The noun from pay is payment.",
+      tip: "pay/payment: the y stays in this word." },
+    { root: "POSSIBLE", answers: ["impossible"],
+      why: "Counting many coins by hand is not possible, so we need im-, because possible starts with p.",
+      tip: "im- goes before p and m: possible/impossible." },
+    { root: "CONFUSE", answers: ["confusion"],
+      why: "After a lot of we need an uncountable noun. The noun from confuse is confusion.",
+      tip: "confuse/confusion." },
+    { root: "SOLVE", answers: ["solution"],
+      why: "After the we need a noun. The noun from solve is solution.",
+      tip: "solve/solution: no e before -ution." }
+  ]
+},
+
+/* ---------- 5 ---------- */
+{ n: 5, type: "gapsentences", label: "Phrasal verbs",
+  rubric: "Complete each sentence with the correct form of a phrasal verb. Watch the tense and the place of the pronoun.",
+  intro: "cheer up · fall behind · pick up · look through · sum up · work out · catch up · fall out",
+  items: [
+    { before: "My sister is sad today. Let's buy her a cake to", after: ".",
+      answers: ["cheer her up"],
+      why: "cheer up means to make somebody happier. The pronoun goes between the verb and the particle.",
+      tip: "cheer her up, not cheer up her." },
+    { before: "I have not studied for weeks, and now I", after: "with every subject.",
+      answers: ["have fallen behind","am falling behind"],
+      why: "fall behind means to make less progress than others. now shows the result in the present.",
+      tip: "fall - fell - fallen: the present perfect uses fallen." },
+    { before: "Last year I", after: "Spanish just by listening to songs.",
+      answers: ["picked up"],
+      why: "pick up means to learn something without formal lessons. Last year needs the past simple.",
+      tip: "pick - picked. Last year, last month = past simple." },
+    { before: "The exam is tomorrow, so I am going to", after: "all my notes tonight.",
+      answers: ["look through","look over"],
+      why: "look through means to read quickly. After going to the verb stays in its base form.",
+      tip: "look through means to read quickly. It does not mean to study in detail." },
+    { before: "Can you", after: "the main idea of the text in one sentence?",
+      answers: ["sum up"],
+      why: "sum up means to describe the main points briefly. After can you the verb is in the base form.",
+      tip: "sum up = say the main points in a few words." },
+    { before: "We could not", after: "the problem on our own, so we asked the teacher.",
+      answers: ["work out","figure out"],
+      why: "work out means to find the answer to a problem. After could not the verb is in the base form.",
+      tip: "work out the problem; work it out." },
+    { before: "If you miss a lesson, you need to", after: "with the others.",
+      answers: ["catch up"],
+      why: "catch up with means to reach the same level as others. After need to the verb stays in its base form.",
+      tip: "catch up with + person. fall behind is the opposite." },
+    { before: "Tom and I", after: "last year, but now we are friends again.",
+      answers: ["fell out"],
+      why: "fall out means to stop being friends after an argument. Last year needs the past simple: fell.",
+      tip: "fall - fell - fallen. Be careful with the vowel change." }
+  ]
+},
+
+/* ---------- 6 ---------- */
+{ n: 6, type: "gapsentences", label: "Relative clauses",
+  rubric: "Write ONE relative word in each gap. Look at the commas before you decide.",
+  items: [
+    { before: "The girl", after: "bike I borrowed is my cousin.",
+      answers: ["whose"],
+      why: "bike belongs to the girl, so we need whose, which shows possession.",
+      tip: "whose is followed by a noun: whose bike, whose idea." },
+    { before: "That is the shop", after: "I bought my shoes.",
+      answers: ["where"],
+      why: "The shop is a place, and I bought my shoes there. where refers to a place.",
+      tip: "a place + a full clause after the gap = where." },
+    { before: "My teacher,", after: "I admire a lot, is retiring.",
+      answers: ["whom","who"],
+      why: "The commas show extra information about a person. We use who or whom, never that.",
+      tip: "Between commas you cannot use that." },
+    { before: "The book", after: "I told you about is on the table.",
+      answers: ["that","which"],
+      why: "The book is a thing and the clause tells us which book. There are no commas, so that or which are both correct.",
+      tip: "No commas + a thing = that or which." },
+    { before: "I will never forget the day", after: "we won the cup.",
+      answers: ["when","that"],
+      why: "The day is a time, and when refers to a time. that is also possible.",
+      tip: "a time + a full clause = when." },
+    { before: "The company,", after: "shares fell yesterday, has lost a lot of money.",
+      answers: ["whose"],
+      why: "The shares belong to the company, and the commas show extra information. whose connects them.",
+      tip: "whose works in both defining and non-defining clauses." },
+    { before: "Everything", after: "she said was true.",
+      answers: ["that"],
+      why: "After everything, all, nothing and similar words we use that, not which.",
+      tip: "everything, all, nothing, something: use that." },
+    { before: "The man", after: "is sitting there is my uncle.",
+      answers: ["who","that"],
+      why: "The man is a person and the gap is the subject of is sitting. We use who or that.",
+      tip: "a person as subject: who or that." }
+  ]
+},
+
+/* ---------- 7 ---------- */
+{ n: 7, type: "mcq", label: "Choose the correct sentence",
+  rubric: "Choose the correct sentence in each group. Only one is correct.",
+  items: [
+    { q: "I am sure someone signed the documents yesterday.",
+      options: ["The documents must have being signed yesterday.","The documents must have been signed yesterday.","The documents must been signed yesterday."], correct: 1,
+      why: "must have is followed by the passive been plus the third form.",
+      tip: "must have been + third form: a conclusion about the past in the passive." },
+    { q: "A mechanic repaired my car last week.",
+      options: ["I got my car repair last week.","I got my car repaired last week.","I got repaired my car last week."], correct: 1,
+      why: "The causative is got + thing + third form.",
+      tip: "get + thing + third form, never get + third form + thing." },
+    { q: "She did not tell me about the problem. That was a mistake.",
+      options: ["She could have tell me about the problem.","She could have told me about the problem.","She could have telling me about the problem."], correct: 1,
+      why: "could have is followed by the third form: tell - told - told.",
+      tip: "modal + have + third form, always." },
+    { q: "He gave me his bike for the weekend.",
+      options: ["He borrowed me his bike.","He lent me his bike.","He lent from me his bike."], correct: 1,
+      why: "lend means to give something for a short time. He is the person who gives, so he lent.",
+      tip: "lend to somebody, borrow from somebody." },
+    { q: "I bought lots of clothes and now I have no money.",
+      options: ["I spent all my money in clothes.","I spent all my money on clothes.","I spent all my money for clothes."], correct: 1,
+      why: "spend money on something is the correct collocation.",
+      tip: "spend money on + noun." },
+    { q: "Calculators were not permitted during the test.",
+      options: ["We were not allowed to use calculators during the test.","We were not allowed using calculators during the test.","We did not allowed to use calculators during the test."], correct: 0,
+      why: "be allowed to is followed by the base verb. The tense is on be.",
+      tip: "was/were allowed to + verb." },
+    { q: "She baked a cake. It was delicious.",
+      options: ["The cake which she baked it was delicious.","The cake that she baked was delicious.","The cake what she baked was delicious."], correct: 1,
+      why: "The relative pronoun that already replaces the object. We do not repeat it, and what is not a relative pronoun.",
+      tip: "Do not repeat the object after which or that." },
+    { q: "Somebody is correcting the exercise at the moment.",
+      options: ["The exercise is being corrected now.","The exercise is correcting now.","The exercise is being correct now."], correct: 0,
+      why: "The exercise receives the action in progress: is being plus the third form.",
+      tip: "Present continuous passive = being + third form." }
+  ]
+},
+
+/* ---------- 8 ---------- */
+{ n: 8, type: "gapsentences", label: "Prepositions and money words",
+  rubric: "Complete each sentence with ONE word.",
+  items: [
+    { before: "I find it hard to concentrate", after: "my homework with all this noise.",
+      answers: ["on"],
+      why: "concentrate takes the preposition on.",
+      tip: "concentrate on, focus on, depend on." },
+    { before: "We have to revise", after: "the test on Thursday.",
+      answers: ["for"],
+      why: "revise for a test means to study before it.",
+      tip: "revise for + test or exam." },
+    { before: "She copes", after: "stress by going for a run.",
+      answers: ["with"],
+      why: "cope with means to deal with a difficult situation.",
+      tip: "cope with + problem." },
+    { before: "He is very keen", after: "chess.",
+      answers: ["on"],
+      why: "keen is followed by on. It is not like other adjectives, so learn it by itself.",
+      tip: "keen on and addicted to are the two odd ones." },
+    { before: "I'm worried", after: "my maths exam.",
+      answers: ["about"],
+      why: "Feelings like worried, nervous and anxious take about.",
+      tip: "If the adjective is a feeling, try about first." },
+    { before: "Poor Carla is terrified", after: "flying.",
+      answers: ["of"],
+      why: "Fear adjectives take of, and the verb after of takes -ing.",
+      tip: "terrified of + -ing." },
+    { before: "The new teacher is very popular", after: "the students.",
+      answers: ["with"],
+      why: "popular with is the correct preposition when we say who likes somebody.",
+      tip: "popular with people, popular in a place." },
+    { before: "You must pay attention", after: "the instructions.",
+      answers: ["to"],
+      why: "pay attention is always followed by to.",
+      tip: "pay attention to + noun." },
+    { before: "I need to", after: "some money from my brother until Friday.",
+      answers: ["borrow"],
+      why: "I need to take money from my brother for a short time. That is borrow.",
+      tip: "borrow from somebody; lend to somebody." },
+    { before: "I cannot", after: "a new phone; it costs too much.",
+      answers: ["afford"],
+      why: "afford means to have enough money for something.",
+      tip: "cannot afford + noun. It does not take pay or cost." }
+  ]
+}
+
+]
+}
+
+]
+
+};
+</script>
+<script id="engine-block">
+(function(){
+"use strict";
+
+/* Registry: el DOM guarda solo indices numericos, nunca JSON serializado. */
+var REG = [];
+
+function normalize(s){
+  return String(s).toLowerCase()
+    .replace(/[‘’ʼ]/g, "'")
+    .replace(/[^a-z0-9' ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function countWords(s){
+  s = String(s).replace(/\bcannot\b/gi, "can not");
+  var t = String(s).toLowerCase().replace(/[‘’ʼ]/g, "'");
+  t = t.replace(/n't\b/g, " not")
+       .replace(/'ll\b/g, " will")
+       .replace(/'re\b/g, " are")
+       .replace(/'ve\b/g, " have")
+       .replace(/'m\b/g, " am")
+       .replace(/'d\b/g, " would");
+  t = t.replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  return t === "" ? 0 : t.split(" ").length;
+}
+
+function matches(given, list){
+  var g = normalize(given);
+  if(g === "") return false;
+  for(var i = 0; i < list.length; i++){ if(normalize(list[i]) === g) return true; }
+  return false;
+}
+
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+
+function explainBox(ok, answerText, why, tip, note){
+  var box = el("div", "exp " + (ok ? "right" : "wrong"));
+  if(answerText){
+    var p0 = el("p");
+    p0.appendChild(el("span", "sol", "Answer: " + answerText));
+    box.appendChild(p0);
+  }
+  if(note){
+    var pn = el("p");
+    pn.appendChild(el("b", "lab tip", "Length"));
+    pn.appendChild(document.createTextNode(note));
+    box.appendChild(pn);
+  }
+  var p1 = el("p");
+  p1.appendChild(el("b", "lab why", "Why"));
+  p1.appendChild(document.createTextNode(why));
+  box.appendChild(p1);
+  var p2 = el("p");
+  p2.appendChild(el("b", "lab tip", "Exam tip"));
+  p2.appendChild(document.createTextNode(tip));
+  box.appendChild(p2);
+  return box;
+}
+
+function clearExp(scope){
+  var old = scope.querySelectorAll(".exp");
+  for(var i = 0; i < old.length; i++){ old[i].parentNode.removeChild(old[i]); }
+}
+
+function buildGappedText(container, text, makeGap){
+  container.innerHTML = "";
+  var chunks = String(text).split(/\{(\d+)\}/);
+  for(var i = 0; i < chunks.length; i++){
+    if(i % 2 === 0){
+      if(chunks[i]) container.appendChild(document.createTextNode(chunks[i]));
+    } else {
+      container.appendChild(makeGap(parseInt(chunks[i], 10)));
+    }
+  }
+}
+
+function alsoText(answers){
+  return answers.length > 1 ? "  (also: " + answers.slice(1).join(" / ") + ")" : "";
+}
+
+/* ============================================================
+   Estado: niveles, tarjetas y puntajes
+   ============================================================ */
+var LEVELS = DATA.levels;
+var SCORES = [];          /* SCORES[nivel][ejercicio] = { pts, max, done } */
+var ROOTS = [];           /* contenedor de cada nivel */
+var VERDICTS = [];
+var TABS = [];
+var ACTIVE = 0;
+
+function markCount(ex){ return ex.items.length; }
+
+function levelTotal(l){
+  var t = 0;
+  for(var i = 0; i < LEVELS[l].exercises.length; i++){ t += markCount(LEVELS[l].exercises[i]); }
+  return t;
+}
+
+function card(ex, l, e){
+  var sec = el("section", "card ex");
+
+  var head = el("div", "exhead");
+  head.appendChild(el("span", "exnum", String(ex.n)));
+  head.appendChild(el("span", "expts", ex.label));
+  head.appendChild(el("span", "expts", markCount(ex) + " marks"));
+  sec.appendChild(head);
+
+  sec.appendChild(el("p", "rubric", ex.rubric));
+  if(ex.intro) sec.appendChild(el("p", "intro", ex.intro));
+
+  var body = el("div", "exbody");
+  sec.appendChild(body);
+
+  var row = el("div", "btnrow");
+  var check = el("button", "btn", "Check");
+  check.type = "button";
+  var again = el("button", "btn ghost", "Try again");
+  again.type = "button";
+  row.appendChild(check);
+  row.appendChild(again);
+  var score = el("span", "scoreline");
+  row.appendChild(score);
+  sec.appendChild(row);
+
+  var panel = el("div", "panel");
+  panel.appendChild(el("h3", null, "Answers & explanations"));
+  var panelBody = el("div");
+  panel.appendChild(panelBody);
+  sec.appendChild(panel);
+
+  ROOTS[l].appendChild(sec);
+  return { sec: sec, body: body, check: check, again: again, score: score, panel: panel, panelBody: panelBody, l: l, e: e };
+}
+
+function fillPanel(body, rows, word){
+  body.innerHTML = "";
+  for(var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    var item = el("div", "pitem");
+    var top = el("div", "ptop");
+    top.appendChild(document.createTextNode((word || "Item") + " " + r.num));
+    top.appendChild(el("span", "mark " + (r.ok ? "y" : "n"), r.ok ? "correct" : "not yet"));
+    item.appendChild(top);
+    item.appendChild(explainBox(r.ok, r.shown, r.why, r.tip, r.note));
+    body.appendChild(item);
+  }
+}
+
+function setScore(ui, right, total){
+  SCORES[ui.l][ui.e] = { pts: right, max: total, done: true };
+  ui.score.textContent = right + " / " + total + " marks";
+  updateAll();
+}
+
+function clearScore(ui){
+  SCORES[ui.l][ui.e] = null;
+  ui.score.textContent = "";
+  updateAll();
+}
+
+/* ---------- marcador, pestañas y veredicto ---------- */
+var totalEl = document.getElementById("total");
+var totalBar = document.getElementById("totalBar");
+var totalLbl = document.getElementById("totalLbl");
+
+function stats(l){
+  var got = 0, of = 0, done = 0;
+  for(var i = 0; i < SCORES[l].length; i++){
+    var s = SCORES[l][i];
+    if(s && s.done){ got += s.pts; of += s.max; done++; }
+  }
+  return { got: got, of: of, done: done, all: levelTotal(l) };
+}
+
+function verdictFor(l, st){
+  var pct = Math.round((st.got / st.all) * 100);
+  var big = st.got + " / " + st.all + "  (" + pct + "%)";
+  var msg, msg2 = "";
+  var last = (l === LEVELS.length - 1);
+  if(pct >= 90){
+    msg = last ? "MASTERMIND UNLOCKED. Nothing in this year's English can surprise you now."
+               : "Excellent. This level is yours.";
+  } else if(pct >= 70){
+    msg = "Strong result. Read the tips of the ones you missed and try them again.";
+  } else if(pct >= 50){
+    msg = "Good start. Use Try again on the exercises with the most mistakes.";
+  } else {
+    msg = "Keep going. Read every Why and Exam tip, then try again.";
+  }
+  if(!last && pct >= 70){ msg2 = "Ready for the next level: " + LEVELS[l + 1].name; }
+  if(last && pct < 90){ msg2 = "You need 90% to become a Mastermind."; }
+  return { big: big, msg: msg, msg2: msg2 };
+}
+
+function updateAll(){
+  for(var l = 0; l < LEVELS.length; l++){
+    var st = stats(l);
+    var small = TABS[l].querySelector("small");
+    small.textContent = st.done ? (st.got + " / " + st.of + " so far") : (st.all + " marks");
+
+    var v = VERDICTS[l];
+    if(st.done === LEVELS[l].exercises.length){
+      var r = verdictFor(l, st);
+      v.innerHTML = "";
+      v.appendChild(el("div", "big", r.big));
+      v.appendChild(el("div", "msg", r.msg));
+      if(r.msg2) v.appendChild(el("div", "msg2", r.msg2));
+      v.className = "verdict on";
+    } else {
+      v.className = "verdict";
+    }
+  }
+  var a = stats(ACTIVE);
+  totalLbl.textContent = "Running total  ·  " + LEVELS[ACTIVE].name;
+  totalEl.textContent = a.of ? a.got + " / " + a.of + " marks so far" : "Nothing checked yet";
+  totalBar.style.width = a.of ? Math.round((a.got / a.of) * 100) + "%" : "0%";
+}
+
+function activate(l){
+  ACTIVE = l;
+  for(var i = 0; i < LEVELS.length; i++){
+    ROOTS[i].className = "level" + (i === l ? " on" : "");
+    TABS[i].className = "tab" + (i === l ? " on" : "");
+    TABS[i].setAttribute("aria-pressed", i === l ? "true" : "false");
+  }
+  updateAll();
+  window.scrollTo(0, 0);
+}
+
+/* ============================================================
+   kwt / gapsentences: un input por item
+   ============================================================ */
+function renderInputItems(ex, ui, kind){
+  var entries = [];
+
+  function build(){
+    ui.body.innerHTML = "";
+    entries = [];
+    for(var i = 0; i < ex.items.length; i++){
+      var d = ex.items[i];
+      var item = el("div", "item");
+
+      if(d.lead){
+        var lead = el("p", "lead");
+        lead.appendChild(el("b", "rn", String(i + 1)));
+        lead.appendChild(document.createTextNode(" " + d.lead));
+        item.appendChild(lead);
+      }
+      if(d.key) item.appendChild(el("div", "keyw", d.key));
+
+      var line = el("div", "target");
+      if(!d.lead){
+        line.appendChild(el("b", "rn", String(i + 1)));
+        line.appendChild(document.createTextNode(" "));
+      }
+      if(d.before) line.appendChild(document.createTextNode(d.before + " "));
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.className = kind === "kwt" ? "wide" : "";
+      inp.setAttribute("autocomplete", "off");
+      inp.setAttribute("spellcheck", "false");
+      line.appendChild(inp);
+      if(d.after) line.appendChild(document.createTextNode(" " + d.after));
+      item.appendChild(line);
+
+      var wc = null;
+      if(kind === "kwt"){
+        wc = el("div", "wc", "words: 0  (you need 2 - 5)");
+        item.appendChild(wc);
+        (function(inpEl, wcEl){
+          inpEl.addEventListener("input", function(){
+            var n = countWords(inpEl.value);
+            wcEl.textContent = "words: " + n + "  (you need 2 - 5)";
+            wcEl.className = (n >= 2 && n <= 5) ? "wc" : "wc bad";
+          });
+        })(inp, wc);
+      }
+      ui.body.appendChild(item);
+      entries.push({ id: REG.push({ data: d }) - 1, item: item, inp: inp });
+    }
+  }
+  build();
+
+  ui.check.addEventListener("click", function(){
+    var right = 0;
+    clearExp(ui.body);
+    for(var i = 0; i < entries.length; i++){
+      var en = entries[i];
+      var d = REG[en.id].data;
+      var ok = matches(en.inp.value, d.answers);
+      var note = null;
+      if(kind === "kwt"){
+        var n = countWords(en.inp.value);
+        if(ok && (n < 2 || n > 5)) ok = false;
+        if(en.inp.value.trim() !== "" && (n < 2 || n > 5)){
+          note = "Your answer has " + n + " words. Remember that short forms count as two: don't = do + not.";
+        }
+      }
+      if(ok) right++;
+      en.inp.className = (kind === "kwt" ? "wide " : "") + (ok ? "ok" : "no");
+      var shown = d.answers[0];
+      if(kind === "kwt") shown += "  (" + countWords(d.answers[0]) + " words)";
+      shown += alsoText(d.answers);
+      en.item.appendChild(explainBox(ok, shown, d.why, d.tip, note));
+    }
+    setScore(ui, right, entries.length);
+  });
+  ui.again.addEventListener("click", function(){
+    build();
+    clearScore(ui);
+  });
+}
+
+/* ============================================================
+   wordform / opencloze: texto corrido con huecos
+   ============================================================ */
+function renderGapText(ex, ui, withRoot){
+  var textEl = el("p", "passage");
+  ui.body.appendChild(textEl);
+  var entries = [];
+
+  function build(){
+    entries = [];
+    buildGappedText(textEl, ex.text, function(num){
+      var d = ex.items[num - 1];
+      var wrap = el("span", "gapwrap");
+      var line = el("span", "gline");
+      line.appendChild(el("b", "gnum", String(num)));
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.setAttribute("autocomplete", "off");
+      inp.setAttribute("spellcheck", "false");
+      line.appendChild(inp);
+      wrap.appendChild(line);
+      if(withRoot) wrap.appendChild(el("span", "cue root", d.root));
+      entries.push({ num: num, data: d, inp: inp });
+      return wrap;
+    });
+  }
+  build();
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    for(var i = 0; i < entries.length; i++){
+      var en = entries[i];
+      var ok = matches(en.inp.value, en.data.answers);
+      if(ok) right++;
+      en.inp.className = ok ? "ok" : "no";
+      var shown = en.data.answers[0] + (withRoot ? "  (from " + en.data.root + ")" : "") + alsoText(en.data.answers);
+      rows.push({ num: en.num, ok: ok, shown: shown, why: en.data.why, tip: en.data.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Gap");
+    ui.panel.style.display = "block";
+    setScore(ui, right, entries.length);
+  });
+  ui.again.addEventListener("click", function(){
+    build();
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    clearScore(ui);
+  });
+}
+
+/* ============================================================
+   mcc: multiple-choice cloze, texto corrido + opciones A-D debajo
+   ============================================================ */
+var LETTERS = ["A", "B", "C", "D", "E"];
+
+function renderMCC(ex, ui){
+  var textEl = el("p", "passage");
+  var rowsEl = el("div");
+  ui.body.appendChild(textEl);
+  ui.body.appendChild(rowsEl);
+  var ids = [];
+
+  function bindPick(id, j, btn, row){
+    btn.addEventListener("click", function(){
+      var en = REG[id];
+      if(en.locked) return;
+      en.picked = j;
+      var sibs = row.querySelectorAll(".opt");
+      for(var k = 0; k < sibs.length; k++){ sibs[k].classList.remove("sel"); }
+      btn.classList.add("sel");
+      var pick = en.gap.querySelector(".mcpick");
+      pick.textContent = en.data.options[j];
+      pick.className = "mcpick";
+    });
+  }
+
+  function build(){
+    ids = [];
+    rowsEl.innerHTML = "";
+    buildGappedText(textEl, ex.text, function(num){
+      var d = ex.items[num - 1];
+      var span = el("span", "mcgap");
+      span.appendChild(el("b", "gnum", String(num)));
+      span.appendChild(el("span", "mcpick empty", "______"));
+      ids.push(REG.push({ num: num, data: d, picked: -1, locked: false, gap: span, row: null }) - 1);
+      return span;
+    });
+    for(var i = 0; i < ids.length; i++){
+      var en = REG[ids[i]];
+      var row = el("div", "mcrow");
+      row.appendChild(el("b", "rn", String(en.num)));
+      for(var j = 0; j < en.data.options.length; j++){
+        var b = el("button", "opt");
+        b.type = "button";
+        b.appendChild(el("span", "letter", LETTERS[j]));
+        b.appendChild(document.createTextNode(en.data.options[j]));
+        bindPick(ids[i], j, b, row);
+        row.appendChild(b);
+      }
+      en.row = row;
+      rowsEl.appendChild(row);
+    }
+  }
+  build();
+
+  ui.check.addEventListener("click", function(){
+    var right = 0, rows = [];
+    for(var i = 0; i < ids.length; i++){
+      var en = REG[ids[i]];
+      var d = en.data;
+      en.locked = true;
+      var ok = en.picked === d.correct;
+      if(ok) right++;
+      var btns = en.row.querySelectorAll(".opt");
+      for(var j = 0; j < btns.length; j++){
+        btns[j].disabled = true;
+        btns[j].classList.remove("sel");
+        if(j === d.correct) btns[j].classList.add("good");
+        else if(j === en.picked) btns[j].classList.add("bad");
+      }
+      en.gap.className = "mcgap " + (ok ? "ok" : "no");
+      var pick = en.gap.querySelector(".mcpick");
+      pick.textContent = d.options[d.correct];
+      pick.className = "mcpick";
+      rows.push({ num: en.num, ok: ok, shown: LETTERS[d.correct] + "  " + d.options[d.correct], why: d.why, tip: d.tip });
+    }
+    fillPanel(ui.panelBody, rows, "Gap");
+    ui.panel.style.display = "block";
+    setScore(ui, right, ids.length);
+  });
+  ui.again.addEventListener("click", function(){
+    build();
+    ui.panel.style.display = "none"; ui.panelBody.innerHTML = "";
+    clearScore(ui);
+  });
+}
+
+/* ============================================================
+   mcq: una pregunta por item, opciones como botones
+   ============================================================ */
+function renderMCQ(ex, ui){
+  var ids = [];
+
+  function bindPick(id, j, btn, box){
+    btn.addEventListener("click", function(){
+      var en = REG[id];
+      if(en.locked) return;
+      en.picked = j;
+      var sibs = box.querySelectorAll(".opt");
+      for(var k = 0; k < sibs.length; k++){ sibs[k].classList.remove("sel"); }
+      btn.classList.add("sel");
+    });
+  }
+
+  function build(){
+    ui.body.innerHTML = "";
+    ids = [];
+    for(var i = 0; i < ex.items.length; i++){
+      var d = ex.items[i];
+      var id = REG.push({ data: d, picked: -1, locked: false, item: null, btns: [] }) - 1;
+      ids.push(id);
+      var item = el("div", "item");
+      item.appendChild(el("p", "q", (i + 1) + ".  " + d.q));
+      var opts = el("div", "opts");
+      for(var j = 0; j < d.options.length; j++){
+        var b = el("button", "opt", d.options[j]);
+        b.type = "button";
+        bindPick(id, j, b, opts);
+        opts.appendChild(b);
+        REG[id].btns.push(b);
+      }
+      item.appendChild(opts);
+      REG[id].item = item;
+      ui.body.appendChild(item);
+    }
+  }
+  build();
+
+  ui.check.addEventListener("click", function(){
+    var right = 0;
+    clearExp(ui.body);
+    for(var i = 0; i < ids.length; i++){
+      var en = REG[ids[i]];
+      var d = en.data;
+      en.locked = true;
+      var ok = en.picked === d.correct;
+      if(ok) right++;
+      for(var j = 0; j < en.btns.length; j++){
+        en.btns[j].disabled = true;
+        en.btns[j].classList.remove("sel");
+        if(j === d.correct) en.btns[j].classList.add("good");
+        else if(j === en.picked) en.btns[j].classList.add("bad");
+      }
+      en.item.appendChild(explainBox(ok, d.options[d.correct], d.why, d.tip, null));
+    }
+    setScore(ui, right, ids.length);
+  });
+  ui.again.addEventListener("click", function(){
+    build();
+    clearScore(ui);
+  });
+}
+
+/* ---------- arranque ---------- */
+document.getElementById("testTitle").textContent = DATA.title;
+document.getElementById("testSub").textContent = DATA.subtitle;
+
+var tabsEl = document.getElementById("tabs");
+var levelsEl = document.getElementById("levels");
+
+for(var l = 0; l < LEVELS.length; l++){
+  var lv = LEVELS[l];
+  SCORES.push([]);
+
+  var tab = el("button", "tab");
+  tab.type = "button";
+  tab.setAttribute("data-l", String(l));
+  tab.appendChild(document.createTextNode(lv.name));
+  tab.appendChild(el("small", null, ""));
+  (function(idx){ tab.addEventListener("click", function(){ activate(idx); }); })(l);
+  tabsEl.appendChild(tab);
+  TABS.push(tab);
+
+  var root = el("div", "level");
+  var head = el("div", "levelhead");
+  head.appendChild(el("span", "tag", lv.tag));
+  head.appendChild(el("b", null, lv.name));
+  head.appendChild(el("span", "t", lv.blurb));
+  root.appendChild(head);
+  levelsEl.appendChild(root);
+  ROOTS.push(root);
+
+  for(var e = 0; e < lv.exercises.length; e++){
+    var ex = lv.exercises[e];
+    SCORES[l].push(null);
+    var ui = card(ex, l, e);
+    if(ex.type === "kwt") renderInputItems(ex, ui, "kwt");
+    else if(ex.type === "gapsentences") renderInputItems(ex, ui, "gaps");
+    else if(ex.type === "wordform") renderGapText(ex, ui, true);
+    else if(ex.type === "opencloze") renderGapText(ex, ui, false);
+    else if(ex.type === "mcc") renderMCC(ex, ui);
+    else if(ex.type === "mcq") renderMCQ(ex, ui);
+  }
+
+  var verdict = el("div", "verdict");
+  root.appendChild(verdict);
+  VERDICTS.push(verdict);
+}
+
+activate(0);
+})();
+</script>
+</body>
+</html>

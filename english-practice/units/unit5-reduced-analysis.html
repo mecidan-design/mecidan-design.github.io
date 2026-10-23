@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Experience B1+ - Unit 5 Reduced Relative Clauses: Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 40px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:900px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:28px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.6rem,5.2vw,2.7rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:32px; position:relative;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.4deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.35deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.25deg)}
+
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.78rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 13px; text-transform:uppercase; letter-spacing:1px;
+}
+.tag.lv1{background:var(--lime)}
+.tag.lv2{background:#ffb3d1}
+.tag.lv3{background:#000;color:#fff}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.45rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px;line-height:1.55}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 24px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.score{font-family:var(--head);font-weight:800;font-size:.95rem;background:var(--lime);
+  border:3px solid #000;border-radius:999px;padding:4px 15px}
+
+/* ---------- reference ---------- */
+.ref{
+  border:3px solid #000;border-radius:16px;background:#f0f7ff;padding:14px 16px;
+  font-size:.93rem;line-height:1.6;margin-bottom:28px;box-shadow:6px 6px 0 var(--yellow);
+}
+.ref h3{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 8px}
+.ref table{border-collapse:collapse;width:100%;margin-top:8px;font-size:.9rem}
+.ref th,.ref td{border:2px solid #000;padding:6px 9px;text-align:left}
+.ref th{background:var(--cyan);font-family:var(--head);font-weight:800}
+.ref td i{color:#12006b}
+.strike{text-decoration:line-through;color:#9a2b60}
+
+/* ---------- items ---------- */
+.item{border:3px solid #000;border-radius:16px;padding:14px 15px;margin-bottom:16px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 12px;line-height:1.65}
+.item .q b{background:#ffe9f4;border-bottom:2px solid var(--pink);padding:0 3px}
+.inum{
+  font-family:var(--head);font-size:.74rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:999px;padding:1px 9px;margin-right:8px;
+}
+.row{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:9px}
+.rlab{
+  font-family:var(--head);font-weight:800;font-size:.78rem;text-transform:uppercase;
+  letter-spacing:.8px;color:#5b5b5b;min-width:118px;
+}
+.opt{
+  font-family:var(--body);font-size:.95rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;border-color:#c2004c;text-decoration:line-through}
+.opt[disabled]{cursor:default}
+
+input[type=text]{
+  font-family:var(--body); font-size:1rem; font-weight:500; padding:8px 11px; width:100%;
+  border:3px solid #000; border-radius:11px; background:#fffdf2; outline:none;
+}
+input[type=text]:focus{background:#fff;box-shadow:0 0 0 4px var(--cyan)}
+input.ok{background:#e4ffc4;border-color:#1c7a00}
+input.no{background:#ffe0ec;border-color:#c2004c}
+
+/* ---------- inline choice text ---------- */
+.story{
+  background:#fffdf2;border:3px solid #000;border-radius:16px;padding:18px 20px;
+  box-shadow:6px 6px 0 var(--cyan);font-size:1.04rem;line-height:2.5;
+}
+.story h3{font-family:var(--head);font-weight:800;font-size:1.15rem;margin:0 0 8px;line-height:1.3}
+.gapset{display:inline-flex;gap:5px;vertical-align:middle;margin:0 3px}
+.gnum{
+  font-family:var(--head);font-size:.68rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:19px;height:19px;display:inline-flex;
+  align-items:center;justify-content:center;vertical-align:middle;margin-right:3px;
+}
+.ch{
+  font-family:var(--body);font-size:.92rem;font-weight:600;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:2px 11px;box-shadow:2px 2px 0 #000;
+  line-height:1.5;
+}
+.ch:hover{background:#fff9c9}
+.ch.sel{background:var(--cyan);box-shadow:0 0 0 #000;transform:translate(2px,2px)}
+.ch.good{background:var(--lime);border-color:#1c7a00;box-shadow:0 0 0 #000;transform:translate(2px,2px)}
+.ch.bad{background:#ffc2d8;border-color:#c2004c;text-decoration:line-through;box-shadow:0 0 0 #000;transform:translate(2px,2px)}
+.gexp{display:block;margin-top:14px}
+
+/* ---------- explanations ---------- */
+.exp{
+  border:3px solid #000;border-radius:14px;padding:11px 13px;margin-top:11px;
+  background:#f4efff;font-size:.92rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.74rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 6px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+
+footer{
+  text-align:center;font-family:var(--head);font-weight:700;color:#fff;
+  text-shadow:2px 2px 0 #000;margin-top:30px;font-size:.95rem;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Unit 5 &middot; Reduced Relative Clauses</h1>
+    <p>Gold Experience B1+ &mdash; Active or passive? Subject or object? Can it be reduced?</p>
+  </div>
+
+  <div class="ref">
+    <h3>The three questions you ask every time</h3>
+    <p><b>1. Is the relative pronoun the subject or the object of the verb in the clause?</b><br>
+    Only a <b>subject</b> pronoun allows reduction.<br>
+    <i>The people <b>who are organising</b> the concert</i> &rarr; subject &rarr; <i>the people organising the concert</i>.<br>
+    <i>The people <b>who they are inviting</b></i> &rarr; object &rarr; <span class="strike">the people inviting</span>.</p>
+    <p><b>2. Is the verb in the clause active or passive?</b> That decides the participle.</p>
+    <table>
+      <tr><th>Clause</th><th>Voice</th><th>Participle</th><th>Reduced form</th></tr>
+      <tr><td><i>people who live here</i></td><td>active</td><td>-ing</td><td><i>people living here</i></td></tr>
+      <tr><td><i>the coffee that is sold here</i></td><td>passive</td><td>past participle</td><td><i>the coffee sold here</i></td></tr>
+      <tr><td><i>the books that are used</i></td><td>passive</td><td>past participle</td><td><i>the books used</i></td></tr>
+      <tr><td><i>anyone who experiences problems</i></td><td>active</td><td>-ing</td><td><i>anyone experiencing problems</i></td></tr>
+    </table>
+    <p style="margin-top:9px"><b>3. Does the meaning survive?</b> A modal (<i>can, should, might</i>) or a different subject inside the clause blocks the reduction.</p>
+  </div>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv1">Medium</span><span class="tag">Activity 1</span></div>
+    <h2>Active or Passive?</h2>
+    <p class="sub">Look only at the verb inside the <b>relative clause</b>, not at the main verb of the sentence. Then the feedback tells you which participle you would need.</p>
+    <div id="a1"></div>
+    <div class="btnrow">
+      <button class="btn" id="a1Check">Check</button>
+      <button class="btn ghost" id="a1Reset">Reset</button>
+      <span class="score" id="a1Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv1">Medium</span><span class="tag">Activity 2</span></div>
+    <h2>Subject or Object?</h2>
+    <p class="sub">Is the highlighted relative pronoun the <b>subject</b> or the <b>object</b> of the verb inside the clause? Trick: if another subject already appears after the pronoun, the pronoun is the object.</p>
+    <div id="a2"></div>
+    <div class="btnrow">
+      <button class="btn" id="a2Check">Check</button>
+      <button class="btn ghost" id="a2Reset">Reset</button>
+      <span class="score" id="a2Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv2">Hard</span><span class="tag">Activity 3</span></div>
+    <h2>Rewrite the Bold Phrase</h2>
+    <p class="sub">Rewrite the phrase in bold as a reduced relative clause. Write <b>only that phrase</b>, not the whole sentence.</p>
+    <div id="a3"></div>
+    <div class="btnrow">
+      <button class="btn" id="a3Check">Check</button>
+      <button class="btn ghost" id="a3Reset">Reset</button>
+      <span class="score" id="a3Score"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv2">Hard</span><span class="tag">Activity 4</span></div>
+    <h2>Choose the Correct Words</h2>
+    <p class="sub">Click <b>every</b> option that is possible. Sometimes both are, sometimes only one. An option you leave out when it was possible costs you the mark too.</p>
+    <div class="story" id="a4"></div>
+    <div class="btnrow">
+      <button class="btn" id="a4Check">Check</button>
+      <button class="btn ghost" id="a4Reset">Reset</button>
+      <span class="score" id="a4Score"></span>
+    </div>
+    <div id="a4exp"></div>
+  </section>
+
+  <section class="card">
+    <div class="tags"><span class="tag lv3">Very hard</span><span class="tag">Activity 5</span></div>
+    <h2>Full Analysis</h2>
+    <p class="sub">Three decisions for each sentence: the voice of the clause, the role of the pronoun, and whether the clause can be reduced. Every decision scores one point.</p>
+    <div id="a5"></div>
+    <div class="btnrow">
+      <button class="btn" id="a5Check">Check</button>
+      <button class="btn ghost" id="a5Reset">Reset</button>
+      <span class="score" id="a5Score"></span>
+    </div>
+  </section>
+
+</div>
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ================= HELPERS ================= */
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/[‘’ʼ]/g,"'")
+    .replace(/[.,;:!?]+$/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function why(t){ return '<p><b class="lab why">Why</b>'+t+'</p>'; }
+function tip(t){ return '<p><b class="lab tip">Exam tip</b>'+t+'</p>'; }
+function expBlock(ok, head, item){
+  return '<div class="exp '+(ok?"right":"wrong")+'"><p>'+head+'</p>'+why(item.why)+tip(item.tip)+'</div>';
+}
+function el(id){ return document.getElementById(id); }
+function sameSet(a,b){
+  if(a.length !== b.length) return false;
+  var x = a.slice().sort(), y = b.slice().sort(), i;
+  for(i=0;i<x.length;i++){ if(x[i] !== y[i]) return false; }
+  return true;
+}
+
+/* ================= DATA ================= */
+
+/* --- Activity 1: active or passive (one row per item) --- */
+var A1 = [
+  { q:"Babies <b>who are left</b> on their own for long periods can become very upset.",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Passive" }],
+    why:"<i>are left</i> is <i>be</i> + past participle, so the babies receive the action. A passive clause reduces with the past participle alone: <i>babies left on their own</i>.",
+    tip:"Passive reduction only deletes words. Nothing in the verb changes, so these are the easiest marks in the task." },
+  { q:"How can I help people <b>who suffer</b> from headaches?",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Active" }],
+    why:"<i>suffer</i> has no form of <i>be</i>: the people do the suffering. An active clause reduces with <i>-ing</i>: <i>people suffering from headaches</i>.",
+    tip:"Active reduction changes the verb form. Write the <i>-ing</i> word out before you decide anything else." },
+  { q:"It's hard to cope with the lack of sleep <b>which is caused</b> by looking after a baby.",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Passive" }],
+    why:"<i>is caused by</i> is passive: the lack of sleep does not cause anything, the baby does. Reduced: <i>the lack of sleep caused by looking after a baby</i>.",
+    tip:"The word <i>by</i> after the verb is almost always a sign of the passive. Look for it first." },
+  { q:"My school also has a club <b>that teaches</b> first aid.",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Active" }],
+    why:"The club does the teaching, so the clause is active and reduces to <i>a club teaching first aid</i>.",
+    tip:"Ask who does the action. If it is the noun in front of the pronoun, the clause is active." },
+  { q:"What's the most useful technique <b>that has been taught</b> on the course?",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Passive" }],
+    why:"<i>has been taught</i> is a present perfect passive. The reduced form keeps only the final participle: <i>the technique taught on the course</i>.",
+    tip:"Long passive forms (<i>has been, will be, is being</i>) all reduce to the last participle. The tense information disappears." },
+  { q:"The number of schools <b>that teach</b> computer programming has increased.",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Active" }],
+    why:"The schools teach, so it is active: <i>the number of schools teaching computer programming</i>. Careful with the main verb: <i>the number</i> is singular, so <i>has increased</i>.",
+    tip:"Reducing the clause does not change the main verb. Check the agreement again after you rewrite." },
+  { q:"The food <b>which is served</b> in the school cafeteria isn't always healthy.",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Passive" }],
+    why:"The food does not serve, it is served: <i>the food served in the school cafeteria</i>.",
+    tip:"If the noun could not possibly do the action, you are looking at a passive clause." },
+  { q:"The calendars <b>which were ruined</b> by the rain cost us a lot of money.",
+    rows:[{ label:"The clause is", options:["Active","Passive"], answer:"Passive" }],
+    why:"<i>were ruined by the rain</i> is passive, so the reduced form is <i>the calendars ruined by the rain</i>.",
+    tip:"Two verbs in the past (<i>were ruined</i> and <i>cost</i>) usually means the first one belongs to the clause and can go." }
+];
+
+/* --- Activity 2: subject or object --- */
+var A2 = [
+  { q:"My school is the only one in my area <b>that</b> offers courses in childcare.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Subject" }],
+    why:"After <i>that</i> the verb <i>offers</i> comes immediately, with no other subject, so <i>that</i> is doing the offering. Reduction is possible: <i>the only one offering courses in childcare</i>.",
+    tip:"Pronoun + verb with nothing in between = subject. That is the whole test." },
+  { q:"I passed all the exams <b>which</b> I had revised for.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Object" }],
+    why:"After <i>which</i> comes a new subject, <i>I</i>. The exams are what I revised for, so <i>which</i> is the object and the clause cannot be reduced.",
+    tip:"An object pronoun can be deleted (<i>the exams I had revised for</i>) but never turned into a participle. Do not confuse the two." },
+  { q:"There were a lot of students <b>who</b> were having problems with their homework.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Subject" }],
+    why:"The students were having the problems, so <i>who</i> is the subject: <i>a lot of students having problems with their homework</i>.",
+    tip:"<i>There were... who were...</i> is a classic pattern in the exam. The second <i>were</i> is the one that disappears." },
+  { q:"I told her about the video game <b>that</b> I got for my birthday.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Object" }],
+    why:"<i>I</i> is the subject of <i>got</i>, so <i>that</i> is the object. No reduction: <span class=\"strike\">the video game getting for my birthday</span> is impossible.",
+    tip:"If you can say the clause with <i>it</i> at the end (<i>I got it for my birthday</i>), the pronoun is the object." },
+  { q:"Students <b>who</b> want to join the school trip should add their name to the list.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Subject" }],
+    why:"The students want, so <i>who</i> is the subject and the clause reduces to <i>students wanting to join the school trip</i>.",
+    tip:"The modal <i>should</i> belongs to the main clause, not to the relative clause, so it does not block the reduction here." },
+  { q:"I went back to visit the primary school <b>that</b> I had attended.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Object" }],
+    why:"<i>I</i> attended the school, so <i>that</i> is the object. The only legal shortcut is deleting it: <i>the primary school I had attended</i>.",
+    tip:"Past perfect inside a clause almost always has its own subject. Check for it before you reach for a participle." },
+  { q:"The teachers <b>who</b> are employed by the school all enjoy working there.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Subject" }],
+    why:"<i>who</i> is the subject of the passive verb <i>are employed</i>. Subject + passive = the easiest reduction of all: <i>the teachers employed by the school</i>.",
+    tip:"A passive clause always has a subject pronoun, because the agent arrives later with <i>by</i>." },
+  { q:"The homework <b>which</b> he gave us last week was too difficult.",
+    rows:[{ label:"The pronoun is the", options:["Subject","Object"], answer:"Object" }],
+    why:"<i>he</i> is the subject of <i>gave</i>, so <i>which</i> is the object: no participle is possible. Compare <i>the homework which was given last week</i>, which does reduce.",
+    tip:"Active + object = no reduction. Passive + subject = reduction. Learn the two combinations as a pair." }
+];
+
+/* --- Activity 3: rewrite the bold phrase --- */
+var A3 = [
+  { q:"The teenagers <b>that take part</b> in Business Brains learn how to run a company.",
+    answers:["taking part"],
+    why:"Active clause with a subject pronoun, so <i>that take</i> becomes the present participle <i>taking</i>.",
+    tip:"Write only what was in bold. Adding the rest of the sentence is how students lose marks in this task type." },
+  { q:"The calendars <b>which were ruined</b> by the rain cost the group a lot of money.",
+    answers:["ruined"],
+    why:"Passive clause: <i>which were ruined</i> loses the pronoun and <i>be</i>, and the past participle <i>ruined</i> stays on its own.",
+    tip:"In a passive reduction you delete two words and change nothing. If you changed the verb, go back." },
+  { q:"Anyone <b>who wants</b> to join the club should speak to Mrs Low.",
+    answers:["wanting"],
+    why:"<i>Anyone</i> behaves like a plural noun here, and the active verb <i>wants</i> becomes <i>wanting</i>. The <i>-s</i> disappears with the participle.",
+    tip:"The participle never shows person or number: <i>anyone wanting</i>, <i>students wanting</i>, <i>she is the one wanting</i>." },
+  { q:"The students <b>who were invited</b> to the yoga classes all felt calmer.",
+    answers:["invited"],
+    why:"Passive with a subject pronoun, so only <i>invited</i> survives: <i>the students invited to the yoga classes</i>.",
+    tip:"Two past verbs (<i>were invited</i> and <i>felt</i>) means one of them belongs to the clause. Reduce that one." },
+  { q:"The money <b>that is raised</b> at the market goes to a children's charity.",
+    answers:["raised"],
+    why:"Passive clause with the uncountable noun <i>money</i>. The reduced phrase is <i>the money raised at the market</i>, and the main verb stays singular: <i>goes</i>.",
+    tip:"Reducing never changes the main verb. <i>Money</i> is uncountable, so <i>goes</i>, not <i>go</i>." },
+  { q:"A teacher <b>who teaches</b> first aid is coming to our school next week.",
+    answers:["teaching"],
+    why:"Active clause, so the participle is <i>teaching</i>: <i>a teacher teaching first aid</i>. The main verb <i>is coming</i> is a different verb and does not change.",
+    tip:"Two <i>-ing</i> forms in one sentence is normal: one is the reduced clause, the other is the tense." }
+];
+
+/* --- Activity 4: choose the correct words (multi-select) --- */
+var A4TITLE = "Business Brains: the club that nearly went broke";
+var A4TEXT = [
+  "Students {1} part in Business Brains learn how to run a small company. The club, {2} by two teachers from the economics department, started three years ago.",
+  "Teenagers {3} the club have to think of a product {4} at the local market. The first group, {5} by a real accountant, made calendars with photos {6} by the students themselves.",
+  "Everyone {7} them wanted one, but it rained all weekend. The money {8} that day was almost nothing, and the calendars were ruined."
+];
+var A4 = [
+  { options:["taking","who take"], answers:["taking","who take"],
+    why:"<i>who take</i> is the full clause and <i>taking</i> is its reduced form. The pronoun is the subject and the verb is active, so both versions are correct English.",
+    tip:"When the book says <i>sometimes both are possible</i>, it is testing whether you can see a subject pronoun. Both options score only if you tick both." },
+  { options:["running","run"], answers:["run"],
+    why:"The club does not run the teachers: it <b>is run</b> by them. The clause is passive, so the reduced form is the past participle <i>run</i>, not <i>running</i>.",
+    tip:"<i>Run</i> is irregular: run / ran / run. The participle looks like the infinitive, which is exactly why this gap is a trap." },
+  { options:["who join","joining"], answers:["who join","joining"],
+    why:"Active clause with a subject pronoun, so the full form and the reduced form are both possible: <i>teenagers who join the club</i> or <i>teenagers joining the club</i>.",
+    tip:"Reduced clauses are not more correct, just shorter. In speaking, the full clause is often clearer." },
+  { options:["that they can sell","selling"], answers:["that they can sell"],
+    why:"Two problems block the reduction: <i>that</i> is the object (<i>they</i> is the subject), and the modal <i>can</i> cannot survive in a participle.",
+    tip:"A modal inside the clause is an automatic no. There is no participle form of <i>can</i>, <i>should</i> or <i>might</i>." },
+  { options:["advised","who were advised"], answers:["advised","who were advised"],
+    why:"Passive clause with a subject pronoun, so both work. The commas stay in both versions because this is extra information about the first group.",
+    tip:"Reduction and punctuation are independent. A non-defining clause keeps its commas after you reduce it." },
+  { options:["taking","taken"], answers:["taken"],
+    why:"The photos do not take anything: they were taken by the students. Passive, so the past participle <i>taken</i> is the only option.",
+    tip:"<i>Taking</i> and <i>taken</i> is the most tested pair in this unit. Ask who does the action before you choose." },
+  { options:["who saw","seen"], answers:["who saw"],
+    why:"The clause is active (people saw the calendars), so a past participle is impossible. The active participle would be <i>seeing</i>, which is not offered.",
+    tip:"If the only reduced option is a past participle and the clause is active, keep the full clause." },
+  { options:["raising","that they raised"], answers:["that they raised"],
+    why:"<i>they</i> is the subject of <i>raised</i>, so the pronoun is the object and nothing can be reduced. You may delete the pronoun (<i>the money they raised</i>), but that is not the same operation.",
+    tip:"Object pronoun = delete it if you want, but never make a participle. This is the single most common error in the unit." }
+];
+
+/* --- Activity 5: full analysis (three rows per item) --- */
+function rowsFor(voice, role, red){
+  return [
+    { label:"Voice", options:["Active","Passive"], answer:voice },
+    { label:"Pronoun role", options:["Subject","Object"], answer:role },
+    { label:"Can it reduce?", options:["Yes","No"], answer:red }
+  ];
+}
+var A5 = [
+  { q:"The food <b>which is served</b> in the school cafeteria isn't always healthy.",
+    rows:rowsFor("Passive","Subject","Yes"),
+    why:"Passive clause with a subject pronoun, the combination that always reduces: <span class=\"sol\">the food served in the school cafeteria</span>.",
+    tip:"Passive + subject is the safest reduction in the exam. Spot it and take the mark." },
+  { q:"The students <b>who she teaches</b> all enjoy her lessons.",
+    rows:rowsFor("Active","Object","No"),
+    why:"<i>she</i> is the subject of <i>teaches</i>, so <i>who</i> is the object. The verb is active, but the object role blocks everything: only deletion is possible, <i>the students she teaches</i>.",
+    tip:"Active voice does not guarantee reduction. The role of the pronoun decides first; the voice only decides the participle." },
+  { q:"The number of schools <b>that teach</b> computer programming has increased.",
+    rows:rowsFor("Active","Subject","Yes"),
+    why:"The schools teach, and <i>that</i> is the subject, so the clause reduces to <span class=\"sol\">the number of schools teaching computer programming</span>.",
+    tip:"The main verb stays singular (<i>the number... has increased</i>) even though <i>schools</i> is plural right next to it." },
+  { q:"Students <b>who are given</b> more homework don't necessarily get better grades.",
+    rows:rowsFor("Passive","Subject","Yes"),
+    why:"<i>are given</i> is passive, with <i>who</i> as the subject, so the reduced form is <span class=\"sol\">students given more homework</span>.",
+    tip:"Verbs with two objects (<i>give, send, offer, teach</i>) reduce the same way. The participle alone carries the passive." },
+  { q:"I went back to visit the primary school <b>that I had attended</b>.",
+    rows:rowsFor("Active","Object","No"),
+    why:"<i>I</i> is the subject of <i>had attended</i>, so <i>that</i> is the object of an active verb and no participle is possible.",
+    tip:"Whenever a personal pronoun follows the relative word, stop: that pronoun is the subject and reduction is dead." },
+  { q:"Anyone <b>who experiences</b> problems should talk to the head teacher.",
+    rows:rowsFor("Active","Subject","Yes"),
+    why:"Active with a subject pronoun, so the participle is <i>-ing</i>: <span class=\"sol\">anyone experiencing problems should talk to the head teacher</span>.",
+    tip:"The modal <i>should</i> is in the main clause, not in the relative clause, so it does not block anything." },
+  { q:"The teachers <b>who were asked</b> to comment reported fewer problems.",
+    rows:rowsFor("Passive","Subject","Yes"),
+    why:"<i>were asked</i> is passive and <i>who</i> is its subject: <span class=\"sol\">the teachers asked to comment reported fewer problems</span>.",
+    tip:"After reducing, read the sentence again. If it now looks like two past verbs in a row, you have reduced the wrong one." },
+  { q:"The exam <b>which the teacher set</b> on Friday was impossible.",
+    rows:rowsFor("Active","Object","No"),
+    why:"<i>the teacher</i> is the subject of <i>set</i>, so <i>which</i> is the object. Compare the reducible version: <i>the exam which was set on Friday</i> &rarr; <i>the exam set on Friday</i>.",
+    tip:"The same words can reduce or not depending on the voice. Rewrite the clause as a passive and the reduction appears." }
+];
+
+/* ================= LABEL ENGINE (rows of buttons) ================= */
+var LAB = {};
+function labInit(key, host, data){
+  LAB[key] = { host:host, data:data, picked:data.map(function(it){
+    return it.rows.map(function(){ return null; });
+  }), done:false };
+  labRender(key);
+}
+function labRender(key){
+  var st = LAB[key], host = el(st.host);
+  host.innerHTML = "";
+  st.data.forEach(function(it, qi){
+    var d = document.createElement("div");
+    d.className = "item";
+    var html = '<p class="q"><span class="inum">'+(qi+1)+'</span>'+it.q+'</p>';
+    it.rows.forEach(function(r, ri){
+      html += '<div class="row"><span class="rlab">'+r.label+'</span>';
+      r.options.forEach(function(o, oi){
+        html += '<button type="button" class="opt" data-k="'+key+'" data-q="'+qi+'" data-r="'+ri+'" data-o="'+oi+'">'+o+'</button>';
+      });
+      html += '</div>';
+    });
+    html += '<div id="'+key+'exp'+qi+'"></div>';
+    d.innerHTML = html;
+    host.appendChild(d);
+  });
+  Array.prototype.forEach.call(host.querySelectorAll(".opt"), function(b){
+    b.addEventListener("click", labPick);
+  });
+  el(key+"Score").textContent = "";
+}
+function labPick(e){
+  var b = e.currentTarget, key = b.dataset.k, st = LAB[key];
+  if(st.done) return;
+  var qi = Number(b.dataset.q), ri = Number(b.dataset.r), oi = Number(b.dataset.o);
+  st.picked[qi][ri] = st.data[qi].rows[ri].options[oi];
+  Array.prototype.forEach.call(
+    el(st.host).querySelectorAll('.opt[data-q="'+qi+'"][data-r="'+ri+'"]'), function(o){
+      o.classList.toggle("sel", o === b);
+    });
+}
+function labCheck(key){
+  var st = LAB[key];
+  if(st.done) return;
+  st.done = true;
+  var right = 0, total = 0;
+  st.data.forEach(function(it, qi){
+    var allOk = true, parts = [];
+    it.rows.forEach(function(r, ri){
+      total++;
+      var mine = st.picked[qi][ri];
+      var ok = (mine === r.answer);
+      if(ok) right++; else allOk = false;
+      parts.push(r.label+": <span class=\"sol\">"+r.answer+"</span>");
+      Array.prototype.forEach.call(
+        el(st.host).querySelectorAll('.opt[data-q="'+qi+'"][data-r="'+ri+'"]'), function(o){
+          o.disabled = true; o.classList.remove("sel");
+          if(o.textContent === r.answer) o.classList.add("good");
+          else if(o.textContent === mine) o.classList.add("bad");
+        });
+    });
+    var head = '<b>'+(allOk?"Correct!":"Check this one.")+'</b> '+parts.join(" &nbsp;&bull;&nbsp; ");
+    el(key+"exp"+qi).innerHTML = expBlock(allOk, head, it);
+  });
+  el(key+"Score").textContent = "Score: "+right+"/"+total;
+}
+function labReset(key){
+  var st = LAB[key];
+  st.done = false;
+  st.picked = st.data.map(function(it){ return it.rows.map(function(){ return null; }); });
+  labRender(key);
+}
+
+/* ================= TEXT ENGINE (rewrite the bold phrase) ================= */
+var TXT = { done:false };
+function txtRender(){
+  var host = el("a3");
+  host.innerHTML = "";
+  A3.forEach(function(it, qi){
+    var d = document.createElement("div");
+    d.className = "item";
+    d.innerHTML = '<p class="q"><span class="inum">'+(qi+1)+'</span>'+it.q+'</p>'+
+      '<input type="text" id="a3in'+qi+'" autocomplete="off" spellcheck="false" placeholder="Write the reduced phrase only">'+
+      '<div id="a3exp'+qi+'"></div>';
+    host.appendChild(d);
+  });
+  el("a3Score").textContent = "";
+}
+function txtCheck(){
+  if(TXT.done) return;
+  TXT.done = true;
+  var right = 0;
+  A3.forEach(function(it, qi){
+    var inp = el("a3in"+qi);
+    var mine = norm(inp.value);
+    var ok = it.answers.some(function(a){ return norm(a) === mine; });
+    if(ok) right++;
+    inp.disabled = true;
+    inp.className = ok ? "ok" : "no";
+    var head = mine.length===0
+      ? '<b>No answer.</b> <span class="sol">'+it.answers[0]+'</span>'
+      : '<b>'+(ok?"Correct!":"Not quite.")+'</b> <span class="sol">'+it.answers[0]+'</span>';
+    el("a3exp"+qi).innerHTML = expBlock(ok, head, it);
+  });
+  el("a3Score").textContent = "Score: "+right+"/"+A3.length;
+}
+function txtReset(){ TXT.done = false; txtRender(); }
+
+/* ================= INLINE MULTI-CHOICE ENGINE ================= */
+var CH = { picked:[], done:false };
+function chRender(){
+  CH.picked = A4.map(function(){ return []; });
+  var html = '<h3>'+A4TITLE+'</h3>';
+  A4TEXT.forEach(function(par){
+    var p = par.replace(/\{(\d+)\}/g, function(_, n){
+      var gi = Number(n) - 1;
+      var set = '<span class="gapset"><span class="gnum">'+n+'</span>';
+      A4[gi].options.forEach(function(o, oi){
+        set += '<button type="button" class="ch" data-g="'+gi+'" data-o="'+oi+'">'+o+'</button>';
+      });
+      return set + '</span>';
+    });
+    html += '<p>'+p+'</p>';
+  });
+  el("a4").innerHTML = html;
+  Array.prototype.forEach.call(el("a4").querySelectorAll(".ch"), function(b){
+    b.addEventListener("click", chPick);
+  });
+  el("a4exp").innerHTML = "";
+  el("a4Score").textContent = "";
+}
+function chPick(e){
+  if(CH.done) return;
+  var b = e.currentTarget;
+  var gi = Number(b.dataset.g), oi = Number(b.dataset.o);
+  var val = A4[gi].options[oi];
+  var pos = CH.picked[gi].indexOf(val);
+  if(pos >= 0) CH.picked[gi].splice(pos,1); else CH.picked[gi].push(val);
+  b.classList.toggle("sel");
+}
+function chCheck(){
+  if(CH.done) return;
+  CH.done = true;
+  var right = 0, html = "";
+  A4.forEach(function(it, gi){
+    var ok = sameSet(CH.picked[gi], it.answers);
+    if(ok) right++;
+    Array.prototype.forEach.call(el("a4").querySelectorAll('.ch[data-g="'+gi+'"]'), function(b){
+      b.disabled = true; b.classList.remove("sel");
+      if(it.answers.indexOf(b.textContent) >= 0) b.classList.add("good");
+      else b.classList.add("bad");
+    });
+    var head = '<b>Gap '+(gi+1)+' &mdash; '+(ok?"correct!":"check this one.")+'</b> '+
+      (it.answers.length>1 ? 'Both are possible: ' : 'Only one is possible: ')+
+      '<span class="sol">'+it.answers.join(" / ")+'</span>';
+    html += expBlock(ok, head, it);
+  });
+  el("a4exp").innerHTML = html;
+  el("a4Score").textContent = "Score: "+right+"/"+A4.length;
+}
+function chReset(){ CH.done = false; chRender(); }
+
+/* ================= BUILD ================= */
+labInit("a1","a1",A1);
+labInit("a2","a2",A2);
+labInit("a5","a5",A5);
+txtRender();
+chRender();
+
+el("a1Check").addEventListener("click", function(){ labCheck("a1"); });
+el("a1Reset").addEventListener("click", function(){ labReset("a1"); });
+el("a2Check").addEventListener("click", function(){ labCheck("a2"); });
+el("a2Reset").addEventListener("click", function(){ labReset("a2"); });
+el("a5Check").addEventListener("click", function(){ labCheck("a5"); });
+el("a5Reset").addEventListener("click", function(){ labReset("a5"); });
+el("a3Check").addEventListener("click", txtCheck);
+el("a3Reset").addEventListener("click", txtReset);
+el("a4Check").addEventListener("click", chCheck);
+el("a4Reset").addEventListener("click", chReset);
+})();
+</script>
+</body>
+</html>
