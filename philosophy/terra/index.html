@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyecto Terra: how the game works</title>
+<meta name="description" content="Proyecto Terra explained: a classroom role playing game for fifth year philosophy. The three factions, how a 50 minute class runs, and what is under the hood.">
+<link rel="canonical" href="https://mecidan-design.github.io/philosophy/terra/">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Proyecto Terra: how the game works">
+<meta property="og:description" content="A classroom role playing game where students lead three factions through five rounds of hard choices, built with Claude Code.">
+<meta property="og:url" content="https://mecidan-design.github.io/philosophy/terra/">
+<meta property="og:image" content="https://mecidan-design.github.io/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%238FC7FF' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/terra.css">
+<style>.tr-sec{padding-top:128px}.tr-first{margin-top:48px}</style>
+<script>document.documentElement.className+=' js'</script>
+</head>
+<body id="top">
+<a class="skip" href="#main"><span data-l="en">Skip to content</span><span data-l="es">Saltar al contenido</span></a>
+
+<div class="nav">
+  <div class="pill">
+    <a class="brand" href="../../" aria-label="Dan M. Mecikovsky, portfolio home">Dan M. Mecikovsky</a>
+    <div class="lang" role="group" aria-label="Language / Idioma">
+      <button type="button" data-set="es" aria-pressed="false">ES</button>
+      <button type="button" data-set="en" aria-pressed="true">EN</button>
+    </div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span></span><span></span><b class="sr">Menu</b></button>
+  </div>
+</div>
+
+<nav class="menu" id="menu" aria-label="Main">
+  <ul>
+    <li><a href="../../"><span data-l="en">Portfolio home</span><span data-l="es">Inicio del portfolio</span></a></li>
+    <li><a href="../"><span data-l="en">Philosophy collection</span><span data-l="es">Colección de filosofía</span></a></li>
+    <li><a href="./" aria-current="page">Proyecto Terra</a></li>
+    <li><a href="#factions"><span data-l="en">The three factions</span><span data-l="es">Las tres facciones</span></a></li>
+    <li><a href="#class"><span data-l="en">A 50 minute class</span><span data-l="es">Una clase de 50 minutos</span></a></li>
+    <li><a href="#hood"><span data-l="en">Under the hood</span><span data-l="es">Debajo del capó</span></a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<section class="sec tr-sec" id="terra" aria-labelledby="tr-title">
+<div class="wrap">
+<div class="sec-head rv">
+<span class="eyebrow"><span data-l="en">Role playing game · fifth year philosophy · online</span><span data-l="es">Juego de rol · filosofía de 5.º año · en línea</span></span>
+<h1 class="h2" id="tr-title">Proyecto Terra</h1>
+<p class="sub"><span data-l="en">Students run a society in crisis, then explain why people obey. Three students at each laptop lead three factions, one for Aristotle, one for Hobbes and one for Rousseau, through five rounds of hard choices. This page explains how it is played and how it was built.</span><span data-l="es">Los estudiantes gobiernan una sociedad en crisis y después explican por qué la gente obedece. Tres estudiantes en cada notebook lideran tres facciones, una por Aristóteles, una por Hobbes y una por Rousseau, a lo largo de cinco rondas de decisiones difíciles. Esta página explica cómo se juega y cómo se construyó.</span></p>
+<div class="actions">
+<a class="btn btn-primary" href="https://proyect-terra.web.app/" rel="noopener" target="_blank"><span data-l="en">Play Proyecto Terra <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span><span data-l="es">Jugar Proyecto Terra <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span></a>
+<a class="btn btn-ghost" href="../"><span data-l="en">Back to philosophy</span><span data-l="es">Volver a filosofía</span></a>
+</div>
+</div>
+<div id="factions" class="tr-first"></div>
+<!-- Three factions -->
+<ul aria-label="The three factions" class="tr-factions" data-en-aria-label="The three factions" data-es-aria-label="Las tres facciones">
+<li class="rv">
+<article class="tr-card" style="--c:#3b82f6">
+<img alt="Three blue skinned bald figures with glowing red eyes stand shoulder to shoulder under a wireframe globe linked to their heads by thin cables, against a starry sky." data-en-alt="Three blue skinned bald figures with glowing red eyes stand shoulder to shoulder under a wireframe globe linked to their heads by thin cables, against a starry sky." data-es-alt="Tres figuras calvas de piel azul y ojos rojos brillantes están hombro con hombro bajo un globo de alambre unido a sus cabezas por cables finos, contra un cielo estrellado." decoding="async" height="1029" loading="lazy" src="../../assets/terra/carta-aristoteles.webp" width="768"/>
+<div class="tr-body">
+<span class="tr-tag"><span data-l="en">Aristotle · Cyborgs</span><span data-l="es">Aristóteles · Cyborgs</span></span>
+<h3 class="h3"><span data-l="en">The Magistrado</span><span data-l="es">El Magistrado</span></h3>
+<p class="tr-quote" lang="es">Fuera de la polis, solo bestias o dioses.</p>
+<p><span data-l="en">Controls the Network. The society punishes a leader who governs for himself instead of the common good.</span><span data-l="es">Controla la Red. La sociedad castiga al líder que gobierna para sí mismo en lugar del bien común.</span></p>
+</div>
+</article>
+</li>
+<li class="rv" data-d="80">
+<article class="tr-card" style="--c:#ef4444">
+<img alt="A scarred bald veteran in a military trench coat, with a cluster of red lenses bolted into his forehead, red turbines glowing in his chest and a cybernetic forearm, under a smoky red sky." data-en-alt="A scarred bald veteran in a military trench coat, with a cluster of red lenses bolted into his forehead, red turbines glowing in his chest and a cybernetic forearm, under a smoky red sky." data-es-alt="Un veterano calvo y con cicatrices, con un sobretodo militar, un racimo de lentes rojos incrustados en la frente, turbinas rojas brillando en el pecho y un antebrazo cibernético, bajo un cielo rojo cargado de humo." decoding="async" height="1029" loading="lazy" src="../../assets/terra/carta-hobbes.webp" width="768"/>
+<div class="tr-body">
+<span class="tr-tag">Hobbes · FANGS</span>
+<h3 class="h3"><span data-l="en">The Soberano</span><span data-l="es">El Soberano</span></h3>
+<p class="tr-quote" lang="es">Los pactos sin la espada son solo palabras.</p>
+<p><span data-l="en">Controls the Energy. The society punishes a leader who cannot keep its people safe.</span><span data-l="es">Controla la Energía. La sociedad castiga al líder que no puede mantener a salvo a su gente.</span></p>
+</div>
+</article>
+</li>
+<li class="rv" data-d="160">
+<article class="tr-card" style="--c:#22c55e">
+<img alt="A woman engineer in a hooded canvas poncho and brass goggles, wearing a bamboo and copper harness with a glass capsule holding a green sprout on her chest, holding a tray of glowing seedlings in front of canyon terraces with glass biodomes." data-en-alt="A woman engineer in a hooded canvas poncho and brass goggles, wearing a bamboo and copper harness with a glass capsule holding a green sprout on her chest, holding a tray of glowing seedlings in front of canyon terraces with glass biodomes." data-es-alt="Una ingeniera con poncho de lona con capucha y antiparras de bronce, con un arnés de bambú y cobre y una cápsula de vidrio con un brote verde en el pecho, sostiene una bandeja de plántulas brillantes frente a terrazas de cañón con biodomos de vidrio." decoding="async" height="1029" loading="lazy" src="../../assets/terra/carta-rousseau.webp" width="768"/>
+<div class="tr-body">
+<span class="tr-tag">Rousseau · Últimos Humanos</span>
+<h3 class="h3"><span data-l="en">The Comisario</span><span data-l="es">El Comisario</span></h3>
+<p class="tr-quote" lang="es">La voluntad general no se delega.</p>
+<p><span data-l="en">Controls the fertile land. The society punishes a leader who decides without the general will.</span><span data-l="es">Controla la tierra fértil. La sociedad castiga al líder que decide sin la voluntad general.</span></p>
+</div>
+</article>
+</li>
+</ul>
+<!-- Crisis, ending, territory -->
+<div class="tr-gallery">
+<figure class="tr-shot rv">
+<img alt="Inside a pale dome, a shelf of glowing energy cells with several slots empty. Armored soldiers with crowned helmets point at footprints while hooded villagers with torches and white humanoid robots argue at the open door." data-en-alt="Inside a pale dome, a shelf of glowing energy cells with several slots empty. Armored soldiers with crowned helmets point at footprints while hooded villagers with torches and white humanoid robots argue at the open door." data-es-alt="Dentro de una cúpula pálida, un estante de celdas de energía brillantes con varios huecos vacíos. Soldados con armadura y cascos coronados señalan huellas mientras aldeanos encapuchados con antorchas y robots humanoides blancos discuten en la puerta abierta." decoding="async" height="572" loading="lazy" src="../../assets/terra/crisis-robo-energia.webp" width="1024"/>
+<figcaption><span data-l="en">A crisis card. Energy cells are missing and the crowd wants a culprit.</span><span data-l="es">Una carta de crisis. Faltan celdas de energía y la multitud quiere un culpable.</span></figcaption>
+</figure>
+<figure class="tr-shot rv" data-d="80">
+<img alt="A giant crowned figure in armor made of thousands of tiny red, blue and green people holds a sword and a scepter above a desert plain with three settlements and a small open air assembly in the middle." data-en-alt="A giant crowned figure in armor made of thousands of tiny red, blue and green people holds a sword and a scepter above a desert plain with three settlements and a small open air assembly in the middle." data-es-alt="Una figura gigante coronada, con armadura hecha de miles de personas diminutas rojas, azules y verdes, sostiene una espada y un cetro sobre una llanura desértica con tres asentamientos y una pequeña asamblea al aire libre en el medio." decoding="async" height="572" loading="lazy" src="../../assets/terra/final-leviatan.webp" width="1024"/>
+<figcaption><span data-l="en">One possible ending, the Leviathan, where the three societies end up under a single sovereign.</span><span data-l="es">Un final posible, el Leviatán, donde las tres sociedades terminan bajo un único soberano.</span></figcaption>
+</figure>
+<figure class="tr-shot rv" data-d="160">
+<img alt="A circular platform of glowing blue lines in front of a ringed planet, ringed by stepped terraces and glass domes that each hold a pale plant." data-en-alt="A circular platform of glowing blue lines in front of a ringed planet, ringed by stepped terraces and glass domes that each hold a pale plant." data-es-alt="Una plataforma circular de líneas azules brillantes frente a un planeta con anillos, rodeada de terrazas escalonadas y cúpulas de vidrio que guardan cada una una planta pálida." decoding="async" height="572" loading="lazy" src="../../assets/terra/territorio-cyborgs.webp" width="1024"/>
+<figcaption><span data-l="en">Each society flourishes or decays on the map. This is the Cyborg territory in bloom.</span><span data-l="es">Cada sociedad florece o decae en el mapa. Este es el territorio de los Cyborgs en flor.</span></figcaption>
+</figure>
+</div>
+<!-- 50 minutes -->
+<div class="tr-block" id="class">
+<div class="sec-head rv">
+<h3 class="h2 tr-h"><span data-l="en">How a 50 minute class runs</span><span data-l="es">Cómo transcurre una clase de 50 minutos</span></h3>
+<p class="sub"><span data-l="en">The clock is tight on purpose. Every phase has a visible timer and closes when it runs out.</span><span data-l="es">El reloj está ajustado a propósito. Cada fase tiene un temporizador visible y se cierra cuando termina el tiempo.</span></p>
+</div>
+<div aria-label="Timeline of the class: minutes 0 to 4 entry, 4 to 6 tutorial, 6 to 38 five rounds, 38 to 40 written answer, 40 to 50 debrief" class="tr-timeline rv" data-en-aria-label="Timeline of the class: minutes 0 to 4 entry, 4 to 6 tutorial, 6 to 38 five rounds, 38 to 40 written answer, 40 to 50 debrief" data-es-aria-label="Cronograma de la clase: minutos 0 a 4 ingreso, 4 a 6 tutorial, 6 a 38 cinco rondas, 38 a 40 respuesta escrita, 40 a 50 puesta en común" role="img">
+<span class="tr-seg" style="flex:4"></span>
+<span class="tr-seg" style="flex:2"></span>
+<span class="tr-seg tr-on" style="flex:32"></span>
+<span class="tr-seg" style="flex:2"></span>
+<span class="tr-seg" style="flex:10"></span>
+</div>
+<ol class="tr-phases">
+<li class="rv"><span class="tr-time"><span data-l="en">Min 0 to 4</span><span data-l="es">Min 0 a 4</span></span><h4><span data-l="en">Entry</span><span data-l="es">Ingreso</span></h4><p><span data-l="en">Scan the QR code, enter a name, pick a faction.</span><span data-l="es">Escanean el código QR, escriben un nombre y eligen una facción.</span></p></li>
+<li class="rv" data-d="60"><span class="tr-time"><span data-l="en">Min 4 to 6</span><span data-l="es">Min 4 a 6</span></span><h4><span data-l="en">Tutorial round</span><span data-l="es">Ronda de tutorial</span></h4><p><span data-l="en">A guided crisis with no consequences.</span><span data-l="es">Una crisis guiada sin consecuencias.</span></p></li>
+<li class="rv" data-d="120"><span class="tr-time"><span data-l="en">Min 6 to 38</span><span data-l="es">Min 6 a 38</span></span><h4><span data-l="en">Rounds 1 to 5</span><span data-l="es">Rondas 1 a 5</span></h4><p><span data-l="en">About six minutes each. The pact is negotiated in round 3.</span><span data-l="es">Unos seis minutos cada una. El pacto se negocia en la ronda 3.</span></p></li>
+<li class="rv" data-d="180"><span class="tr-time"><span data-l="en">Min 38 to 40</span><span data-l="es">Min 38 a 40</span></span><h4><span data-l="en">Written answer</span><span data-l="es">Respuesta escrita</span></h4><p><span data-l="en">Each student answers: why did your people obey you?</span><span data-l="es">Cada estudiante responde: ¿por qué tu pueblo te obedeció?</span></p></li>
+<li class="rv" data-d="240"><span class="tr-time"><span data-l="en">Min 40 to 50</span><span data-l="es">Min 40 a 50</span></span><h4><span data-l="en">Debrief</span><span data-l="es">Puesta en común</span></h4><p><span data-l="en">The teacher projects the data from every table.</span><span data-l="es">El docente proyecta los datos de todas las mesas.</span></p></li>
+</ol>
+<div class="tr-round rv">
+<h4 class="h3"><span data-l="en">Inside each round</span><span data-l="es">Dentro de cada ronda</span></h4>
+<ol class="tr-steps">
+<li><span data-l="en">Crisis card</span><span data-l="es">Carta de crisis</span></li>
+<li><span data-l="en">Debate, 3 minutes</span><span data-l="es">Debate, 3 minutos</span></li>
+<li><span data-l="en">Public vote</span><span data-l="es">Votación pública</span></li>
+<li><span data-l="en">Secret choice on the phone</span><span data-l="es">Elección secreta en el celular</span></li>
+<li><span data-l="en">Consequences</span><span data-l="es">Consecuencias</span></li>
+</ol>
+<p><span data-l="en">Every option has a visible cost. After the vote, each student learns whether the choice fit the author they were reading. Fit raises the leader's legitimacy and a contradiction lowers it. The game never shows that verdict beforehand.</span><span data-l="es">Cada opción tiene un costo visible. Después de la votación, cada estudiante se entera de si su elección coincidía con el autor que estaba leyendo. La coincidencia sube la legitimidad del líder y una contradicción la baja. El juego nunca muestra ese veredicto de antemano.</span></p>
+</div>
+</div>
+<!-- Built with -->
+<div class="tr-block" id="hood">
+<div class="sec-head rv">
+<h3 class="h2 tr-h"><span data-l="en">What is under the hood</span><span data-l="es">Qué hay debajo del capó</span></h3>
+<p class="sub"><span data-l="en">A live multiplayer system for one classroom: the laptop is the public board and each student's phone is a private channel.</span><span data-l="es">Un sistema multijugador en vivo para un aula: el notebook es el tablero público y el celular de cada estudiante es un canal privado.</span></p>
+</div>
+<ul class="tr-built">
+<li class="rv"><i aria-hidden="true" class="ph ph-laptop"></i><div><b><span data-l="en">Classroom board</span><span data-l="es">Tablero del aula</span></b><span><span data-l="en">The laptop on each table shows the map, meters and votes.</span><span data-l="es">El notebook de cada mesa muestra el mapa, los indicadores y los votos.</span></span></div></li>
+<li class="rv" data-d="60"><i aria-hidden="true" class="ph ph-device-mobile"></i><div><b><span data-l="en">Phones as private channels</span><span data-l="es">Celulares como canales privados</span></b><span><span data-l="en">Secret objective, hidden choices and a message after each round.</span><span data-l="es">Objetivo secreto, elecciones ocultas y un mensaje después de cada ronda.</span></span></div></li>
+<li class="rv" data-d="120"><i aria-hidden="true" class="ph ph-chalkboard-teacher"></i><div><b><span data-l="en">Teacher panel</span><span data-l="es">Panel del docente</span></b><span><span data-l="en">Live rooms, pause, global events and the debrief button.</span><span data-l="es">Salas en vivo, pausa, eventos globales y el botón de puesta en común.</span></span></div></li>
+<li class="rv"><i aria-hidden="true" class="ph ph-gear-six"></i><div><b><span data-l="en">Rules engine</span><span data-l="es">Motor de reglas</span></b><span><span data-l="en">Game logic kept separate from the screens, so it can be tested alone.</span><span data-l="es">La lógica del juego separada de las pantallas, para poder probarla sola.</span></span></div></li>
+<li class="rv" data-d="60"><i aria-hidden="true" class="ph ph-seal-check"></i><div><b><span data-l="en">Content validator</span><span data-l="es">Validador de contenido</span></b><span><span data-l="en">Flags extra words, pending fields and options with no cost.</span><span data-l="es">Detecta palabras de más, campos pendientes y opciones sin costo.</span></span></div></li>
+<li class="rv" data-d="120"><i aria-hidden="true" class="ph ph-robot"></i><div><b><span data-l="en">Bot simulator</span><span data-l="es">Simulador de bots</span></b><span><span data-l="en">Plays a thousand games between bots to check the balance.</span><span data-l="es">Juega mil partidas entre bots para controlar el equilibrio.</span></span></div></li>
+<li class="rv"><i aria-hidden="true" class="ph ph-users-three"></i><div><b><span data-l="en">Six specialised subagents</span><span data-l="es">Seis subagentes especializados</span></b><span><span data-l="en">A team of agents for the build, each with its own brief.</span><span data-l="es">Un equipo de agentes para la construcción, cada uno con su propia consigna.</span></span></div></li>
+<li class="rv" data-d="60"><i aria-hidden="true" class="ph ph-terminal-window"></i><div><b><span data-l="en">Claude Code and Firebase</span><span data-l="es">Claude Code y Firebase</span></b><span><span data-l="en">Built with Claude Code and hosted on Firebase.</span><span data-l="es">Construido con Claude Code y alojado en Firebase.</span></span></div></li>
+<li class="rv" data-d="120"><i aria-hidden="true" class="ph ph-pencil-line"></i><div><b><span data-l="en">Messages I reviewed</span><span data-l="es">Mensajes que revisé</span></b><span><span data-l="en">Every message is written ahead of time and checked by me. Nothing is generated live.</span><span data-l="es">Cada mensaje está escrito de antemano y revisado por mí. Nada se genera en vivo.</span></span></div></li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="../../"><span data-l="en">Portfolio home</span><span data-l="es">Inicio del portfolio</span></a></li>
+        <li><a href="../"><span data-l="en">Philosophy collection</span><span data-l="es">Colección de filosofía</span></a></li>
+        <li><a href="mailto:meci.dan@gmail.com">meci.dan@gmail.com</a></li>
+        <li><a href="../../legal.html#privacy"><span data-l="en">Privacy</span><span data-l="es">Privacidad</span></a></li>
+        <li><a href="../../legal.html#terms"><span data-l="en">Terms</span><span data-l="es">Términos</span></a></li>
+      </ul>
+    </nav>
+    <p class="copyright">Copyright Prof Dan M. Mecikovsky</p>
+  </div>
+</footer>
+
+<script>window.LANG_T={en:{title:"Proyecto Terra: how the game works",desc:"Proyecto Terra explained: a classroom role playing game for fifth year philosophy. The three factions, how a 50 minute class runs, and what is under the hood."},es:{title:"Proyecto Terra: cómo funciona el juego",desc:"Proyecto Terra explicado: un juego de rol para el aula de filosofía de 5.º año. Las tres facciones, cómo transcurre una clase de 50 minutos y qué hay debajo del capó."}};</script>
+<script src="../../assets/lang.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
