@@ -245,3 +245,17 @@ a.row:active .rgo{transform:translate(3px,3px);box-shadow:0 0 0 var(--negro)}
   *,*::before,*::after{animation:none !important;transition-duration:.01ms !important}
   html.js .pop:not(.in){opacity:1}
 }
+
+/* Papoi, the Viking banana: pixel art from the Dan's trip to Iceland page */
+.mascot svg{overflow:visible}
+.pp-body{animation:pp-hop 1.2s steps(1,end) infinite}
+@keyframes pp-hop{0%{transform:translateY(0)}50%{transform:translateY(-.6px)}}
+.pp-f{visibility:hidden}
+.pp-f0{animation:pp-a 900ms steps(1,end) infinite}
+.pp-f1{animation:pp-b 900ms steps(1,end) infinite}
+.pp-f2{animation:pp-c 900ms steps(1,end) infinite}
+@keyframes pp-a{0%{visibility:visible}33.3%,100%{visibility:hidden}}
+@keyframes pp-b{0%,33.3%{visibility:hidden}33.4%{visibility:visible}66.6%,100%{visibility:hidden}}
+@keyframes pp-c{0%,66.6%{visibility:hidden}66.7%,100%{visibility:visible}}
+.hero.off .pp-body,.hero.off .pp-f{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.pp-f0{visibility:visible}}
