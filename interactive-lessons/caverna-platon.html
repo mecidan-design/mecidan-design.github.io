@@ -185,6 +185,22 @@ canvas {
 /* por defecto español; body.en muestra inglés */
 body:not(.en) [lang="en"]{ display:none; }
 body.en [lang="es"]{ display:none; }
+
+/* ── mobile: the pixel font was 6 to 8 px, unreadable on a phone ── */
+@media (max-width: 700px){
+  #panel{padding:0 6px 8px}
+  #panel-inner{padding:12px 12px 10px}
+  #slide-num,#concept-tag{font-size:10px}
+  #slide-title{font-size:14px}
+  #slide-subtitle,#slide-quote,#slide-body{font-size:10px}
+  #slide-quote cite,#slide-example{font-size:9px}
+  #slide-body{line-height:1.8}
+  .nav-btn{font-size:11px;min-height:44px;padding:8px 14px}
+  .dot{width:11px;height:11px}
+  #dots{gap:6px}
+  .langtoggle button{font-size:10px;min-height:36px}
+  #keyhint{display:none}
+}
 </style>
 </head>
 <body>
