@@ -4,253 +4,129 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English that marks itself</title>
-<meta name="description" content="Self-correcting English practice for the classroom: games and activities first, then worksheets sorted by level and topic.">
-<style>
-/* =========================================================
-   Estetica 5th form: dibujito de los 90. Contorno negro grueso,
-   sombra solida sin blur, colores planos y saturados, papel crema,
-   tarjetas ladeadas, tira de damero. Fuentes de sistema, sin
-   dependencias externas y sin sonido.
-   ========================================================= */
-:root{
-  --negro:#141414;
-  --crema:#FFF8E7; --papel:#FFFDF5;
-  --rosa:#FF3D7F; --turquesa:#00C2CB; --amarillo:#FFD23F;
-  --naranja:#FF7A1A; --lima:#8FE04A; --violeta:#7B3FF2;
-  --uva:#3B1D6E; --gris:#6B6B6B;
-  --titulo:"Arial Black","Arial Bold",Impact,"Franklin Gothic Heavy","Trebuchet MS",Arial,sans-serif;
-  --cuerpo:"Trebuchet MS",Verdana,"Segoe UI",Arial,sans-serif;
-  --linea:4px solid var(--negro);
-  --sombra:6px 6px 0 var(--negro);
-  --sombra-chica:4px 4px 0 var(--negro);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:var(--cuerpo); color:var(--negro); line-height:1.55; min-height:100vh;
-  background:
-    radial-gradient(circle,rgba(0,0,0,.14) 1.6px,transparent 1.7px) 0 0/22px 22px,
-    repeating-linear-gradient(135deg,rgba(255,255,255,.10) 0 26px,rgba(0,0,0,.05) 26px 52px),
-    linear-gradient(170deg,var(--violeta) 0%,#9A46E0 40%,var(--turquesa) 100%);
-  background-attachment:fixed;
-}
-.wrap{width:min(960px,100%);margin:0 auto;padding:22px 16px 0}
-a{color:inherit}
-a:focus-visible{outline:4px solid var(--amarillo);outline-offset:4px}
-h1,h2,h3,.tag,.go,.chip{font-family:var(--titulo);font-weight:400}
-h1,h2,h3{text-transform:uppercase;letter-spacing:.5px;line-height:1.04}
-
-/* texto "sticker": relleno crema, contorno negro, sombra dura */
-.sticker{
-  color:var(--crema); -webkit-text-stroke:3px var(--negro); paint-order:stroke fill;
-  text-shadow:5px 5px 0 var(--negro);
-}
-
-/* ---------- cabecera ---------- */
-.hero{
-  position:relative; overflow:hidden; background:var(--rosa);
-  border:6px solid var(--negro); border-radius:26px; box-shadow:10px 10px 0 var(--negro);
-  padding:24px 26px 26px; margin-bottom:26px; transform:rotate(-.7deg);
-}
-.hero:before{
-  content:""; position:absolute; left:50%; top:-60%; width:150%; height:220%;
-  transform:translateX(-50%); pointer-events:none;
-  background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.22) 0deg 9deg,transparent 9deg 18deg);
-}
-.hero > *{position:relative}
-.tag-top{
-  display:inline-block; background:var(--amarillo); border:var(--linea); border-radius:999px;
-  padding:4px 15px; font-family:var(--titulo); font-size:.78rem; letter-spacing:2px; text-transform:uppercase;
-  box-shadow:var(--sombra-chica); transform:rotate(-2deg); margin-bottom:14px;
-}
-.hero h1{font-size:clamp(2rem,8vw,3.8rem); margin-bottom:14px}
-.goal{
-  background:var(--papel); border:var(--linea); border-radius:14px; box-shadow:var(--sombra-chica);
-  padding:11px 14px; font-size:.95rem; font-weight:600;
-}
-.jump{display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; list-style:none}
-.chip{
-  display:inline-flex; align-items:center; gap:9px; text-decoration:none; text-transform:uppercase;
-  letter-spacing:1px; font-size:.84rem; background:var(--turquesa); border:var(--linea); border-radius:999px;
-  padding:7px 18px; box-shadow:var(--sombra-chica); transition:transform .08s,box-shadow .08s;
-}
-.chip b{font-size:.72rem; background:var(--negro); color:var(--crema); border-radius:999px; padding:2px 8px; font-weight:400}
-.jump li:nth-child(2) .chip{background:var(--lima)}
-@media (hover:hover){ .chip:hover{transform:translate(-2px,-2px)} }
-.chip:active{transform:translate(4px,4px); box-shadow:0 0 0 var(--negro)}
-
-.checker{
-  height:24px; margin:0 0 26px; border:var(--linea); border-radius:8px; box-shadow:var(--sombra-chica);
-  background:repeating-conic-gradient(var(--negro) 0% 25%,var(--crema) 0% 50%) 0 0/24px 24px;
-}
-
-/* ---------- encabezado de seccion ---------- */
-.sec{margin-bottom:34px; scroll-margin-top:16px}
-.sec > h2{font-size:clamp(1.8rem,7vw,3rem); margin-bottom:12px}
-.sec > p{
-  display:inline-block; background:var(--papel); border:var(--linea); border-radius:14px; box-shadow:var(--sombra-chica);
-  padding:9px 14px; font-weight:600; font-size:.94rem; margin-bottom:26px; max-width:640px;
-}
-
-/* ---------- tarjetas de juegos y actividades ---------- */
-.tgrid{display:grid; grid-template-columns:1fr 1fr; gap:30px}
-.tcard{
-  display:flex; flex-direction:column; text-decoration:none; color:var(--negro); position:relative;
-  background:var(--papel); border:6px solid var(--negro); border-radius:22px; box-shadow:9px 9px 0 var(--negro);
-  padding:20px 20px 22px; transition:transform .09s,box-shadow .09s;
-}
-.tcard:nth-child(odd){transform:rotate(.45deg)}
-.tcard:nth-child(even){transform:rotate(-.45deg)}
-.tcard.big{grid-column:1/-1}
-@media (hover:hover){ .tcard:hover{transform:translate(-2px,-2px) rotate(0deg); box-shadow:11px 11px 0 var(--negro)} }
-.tcard:active{transform:translate(6px,6px) rotate(0deg); box-shadow:0 0 0 var(--negro)}
-.c1{--tint:#E9FBFF} .c2{--tint:#FFE9F2} .c3{--tint:#EDFBE0} .c4{--tint:#FFF0DE} .c5{--tint:#FFF7CC}
-/* cabecera de color, como los segmentos de un bumper */
-.thead{
-  margin:-20px -20px 16px; padding:18px 20px 14px; background:var(--tint);
-  border-bottom:var(--linea); border-radius:16px 16px 0 0;
-}
-.ttag{
-  display:inline-block; color:var(--crema); background:var(--negro); border-radius:999px; padding:3px 14px;
-  font-family:var(--titulo); font-size:.72rem; letter-spacing:2px; text-transform:uppercase; transform:rotate(-1.6deg);
-}
-.tcard h3{font-size:clamp(1.2rem,4.2vw,1.75rem); color:var(--uva); margin-top:12px}
-.tcard.big h3{font-size:clamp(1.5rem,5.4vw,2.4rem)}
-.tcard p{font-weight:600; font-size:.94rem; margin-bottom:16px; max-width:720px}
-.go{
-  align-self:flex-start; margin-top:auto; text-transform:uppercase; letter-spacing:1px; font-size:.82rem;
-  background:var(--amarillo); border:var(--linea); border-radius:999px; padding:8px 20px; box-shadow:var(--sombra-chica);
-}
-
-/* ---------- worksheets: un panel por nivel y tema ---------- */
-.panel{
-  background:var(--papel); border:6px solid var(--negro); border-radius:22px; box-shadow:9px 9px 0 var(--negro);
-  margin-bottom:30px; overflow:hidden;
-}
-.panel:nth-of-type(odd){transform:rotate(.25deg)}
-.panel:nth-of-type(even){transform:rotate(-.25deg)}
-.panel .thead{margin:0; border-radius:0}
-.panel .thead h3{font-size:clamp(1.15rem,4vw,1.6rem); color:var(--uva); margin-top:10px}
-.panel .thead p{font-weight:600; font-size:.88rem; margin-top:4px; color:var(--negro)}
-a.row{
-  display:grid; grid-template-columns:140px 1fr auto; gap:14px; align-items:center;
-  padding:14px 20px; border-top:3px dashed #cdbfa0; text-decoration:none; transition:background .12s;
-}
-.thead + a.row{border-top:0}
-@media (hover:hover){ a.row:hover{background:#FFF3C4} }
-a.row:focus-visible{outline-offset:-4px}
-.rtag{
-  justify-self:start; background:var(--negro); color:var(--crema); border-radius:999px; padding:2px 12px;
-  font-family:var(--titulo); font-size:.66rem; letter-spacing:1.4px; text-transform:uppercase;
-}
-a.row strong{display:block; font-family:var(--titulo); font-weight:400; text-transform:uppercase; letter-spacing:.3px; font-size:1rem; color:var(--uva); line-height:1.15; margin-bottom:3px}
-a.row em{font-style:normal; font-weight:600; font-size:.88rem; line-height:1.45}
-.rgo{
-  font-family:var(--titulo); text-transform:uppercase; letter-spacing:1px; font-size:.74rem; white-space:nowrap;
-  background:var(--amarillo); border:3px solid var(--negro); border-radius:999px; padding:5px 16px; box-shadow:3px 3px 0 var(--negro);
-}
-a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
-
-/* ---------- pie ---------- */
-.foot{margin-top:44px; background:var(--negro); border-top:6px solid var(--negro); color:#d7d2e6; padding:30px 0 28px}
-.foot .wrap{padding-top:0}
-.note{font-size:.86rem; max-width:690px; line-height:1.6}
-.back{display:inline-block; margin-top:16px; font-weight:700; font-size:.9rem; color:var(--amarillo); text-decoration:none}
-.back:hover{text-decoration:underline}
-.foot footer{
-  margin-top:22px; padding-top:14px; border-top:1px solid #34324a;
-  font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:#a29db9;
-}
-
-@media (max-width:760px){
-  .wrap{padding:18px 12px 0}
-  .tgrid{grid-template-columns:1fr; gap:26px}
-  a.row{grid-template-columns:1fr; gap:6px; padding:14px 16px}
-  .rgo{display:none}
-  .hero{padding:20px 18px 22px}
-}
-@media (prefers-reduced-motion:reduce){ *{transition:none !important; scroll-behavior:auto !important} }
-</style>
+<meta name="description" content="English practice that corrects itself: games and activities first, then worksheets sorted by level and topic. No accounts, from A1 to B1+.">
+<link rel="canonical" href="https://mecidan-design.github.io/english-practice/">
+<meta name="theme-color" content="#7B3FF2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="English that marks itself">
+<meta property="og:description" content="Twenty six pieces of English practice that check every answer on the spot. Games, quests and worksheets from A1 to B1+.">
+<meta property="og:url" content="https://mecidan-design.github.io/english-practice/">
+<meta property="og:image" content="https://mecidan-design.github.io/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237B3FF2'/%3E%3Ccircle cx='11' cy='14' r='4' fill='%23fff'/%3E%3Ccircle cx='21' cy='14' r='4' fill='%23fff'/%3E%3Cpath d='M10 21q6 6 12 0z' fill='%23141414'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="practice.css">
+<script>document.documentElement.className+=' js'</script>
 </head>
 <body>
-
+<a class="skip" href="#games">Skip to the games</a>
 <div class="wrap">
 
-  <header class="hero">
-    <span class="tag-top">Teaching tools &middot; classroom-tested</span>
-    <h1 class="sticker">English that marks itself</h1>
-    <p class="goal">Practice material for English classes, from first steps to B1+. One rule holds all of it together: the page checks every answer on the spot, says what went wrong, and lets the student try again. No accounts, no logins, and nothing leaves the browser unless a student chooses to send a result to the teacher.</p>
-    <ul class="jump">
-      <li><a class="chip" href="#games">Games and activities <b>10</b></a></li>
-      <li><a class="chip" href="#worksheets">Worksheets <b>16</b></a></li>
-    </ul>
+  <header class="hero" id="top">
+    <svg class="burst" viewBox="-520 -520 1040 1040" aria-hidden="true"><path d="M0 0L520.0 0.0L515.6 67.9ZM0 0L502.3 134.6L480.4 199.0ZM0 0L450.3 260.0L412.5 316.6ZM0 0L367.7 367.7L316.6 412.5ZM0 0L260.0 450.3L199.0 480.4ZM0 0L134.6 502.3L67.9 515.6ZM0 0L0.0 520.0L-67.9 515.6ZM0 0L-134.6 502.3L-199.0 480.4ZM0 0L-260.0 450.3L-316.6 412.5ZM0 0L-367.7 367.7L-412.5 316.6ZM0 0L-450.3 260.0L-480.4 199.0ZM0 0L-502.3 134.6L-515.6 67.9ZM0 0L-520.0 0.0L-515.6 -67.9ZM0 0L-502.3 -134.6L-480.4 -199.0ZM0 0L-450.3 -260.0L-412.5 -316.6ZM0 0L-367.7 -367.7L-316.6 -412.5ZM0 0L-260.0 -450.3L-199.0 -480.4ZM0 0L-134.6 -502.3L-67.9 -515.6ZM0 0L-0.0 -520.0L67.9 -515.6ZM0 0L134.6 -502.3L199.0 -480.4ZM0 0L260.0 -450.3L316.6 -412.5ZM0 0L367.7 -367.7L412.5 -316.6ZM0 0L450.3 -260.0L480.4 -199.0ZM0 0L502.3 -134.6L515.6 -67.9Z"/></svg>
+    <div class="hero-copy">
+      <span class="tag-top">Teaching tools &middot; classroom tested</span>
+      <h1 class="sticker">English that marks itself</h1>
+      <p class="goal">Practice material for English classes, from first steps to B1+. One rule holds all of it together: the page checks every answer on the spot, says what went wrong, and lets the student try again. No accounts, no logins, and nothing leaves the browser unless a student chooses to send a result to the teacher.</p>
+      <ul class="jump">
+        <li><a class="chip" href="#games">Games and activities <b>10</b></a></li>
+        <li><a class="chip" href="#worksheets">Worksheets <b>16</b></a></li>
+      </ul>
+    </div>
+    <div class="hero-mascot">
+      <p class="speech" id="joke" role="status" aria-live="polite">Hello! Poke me and I will tell you a joke.</p>
+      <button class="mascot" id="mascot" type="button" aria-label="Poke the monster for a joke">
+        <svg viewBox="0 0 240 250" aria-hidden="true">
+          <ellipse cx="120" cy="244" rx="88" ry="5" fill="#141414" opacity=".25"/>
+          <circle cx="70" cy="52" r="18" fill="#FFD23F" stroke="#141414" stroke-width="5"/>
+          <circle cx="170" cy="52" r="18" fill="#FFD23F" stroke="#141414" stroke-width="5"/>
+          <ellipse cx="88" cy="232" rx="28" ry="12" fill="#7B3FF2" stroke="#141414" stroke-width="5"/>
+          <ellipse cx="152" cy="232" rx="28" ry="12" fill="#7B3FF2" stroke="#141414" stroke-width="5"/>
+          <path d="M120 40C180 40 214 90 214 150C214 205 176 232 120 232C64 232 26 205 26 150C26 90 60 40 120 40Z" fill="#9A6BFF" stroke="#141414" stroke-width="6"/>
+          <ellipse cx="120" cy="184" rx="54" ry="38" fill="#D9C8FF"/>
+          <ellipse cx="22" cy="164" rx="14" ry="28" transform="rotate(25 22 164)" fill="#9A6BFF" stroke="#141414" stroke-width="5"/>
+          <g class="m-arm"><ellipse cx="226" cy="124" rx="14" ry="30" transform="rotate(25 226 124)" fill="#9A6BFF" stroke="#141414" stroke-width="5"/><circle cx="238" cy="94" r="14" fill="#D9C8FF" stroke="#141414" stroke-width="5"/></g>
+          <g class="m-eye"><circle cx="90" cy="112" r="24" fill="#fff" stroke="#141414" stroke-width="5"/><circle cx="94" cy="114" r="11" fill="#141414"/><circle cx="98" cy="109" r="4" fill="#fff"/></g>
+          <g class="m-eye"><circle cx="150" cy="112" r="24" fill="#fff" stroke="#141414" stroke-width="5"/><circle cx="154" cy="114" r="11" fill="#141414"/><circle cx="158" cy="109" r="4" fill="#fff"/></g>
+          <circle cx="60" cy="150" r="10" fill="#FF3D7F"/><circle cx="180" cy="150" r="10" fill="#FF3D7F"/>
+          <path class="m-mouth" d="M96 150Q120 182 144 150Z" fill="#141414" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <span class="deco d1" aria-hidden="true">ABC</span>
+      <span class="deco d2" aria-hidden="true">?</span>
+      <span class="deco d3" aria-hidden="true">Yes</span>
+      <span class="deco d4" aria-hidden="true">&#9733;</span>
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+    </div>
   </header>
 
-  <div class="checker"></div>
+  <div class="checker" aria-hidden="true"><div class="checker-in"></div></div>
 
   <main>
 
   <!-- ============ JUEGOS Y ACTIVIDADES ============ -->
   <section class="sec" id="games" aria-labelledby="h-games">
-    <h2 id="h-games" class="sticker">Games and activities</h2>
-    <p>Things to play, explore and make. Start with the Imaginarium.</p>
+    <h2 id="h-games" class="pop sticker">Games and activities</h2>
+    <p class="pop">Things to play, explore and make. Start with the Imaginarium.</p>
     <div class="tgrid">
 
-      <a class="tcard c5 big" href="../imaginarium-demo/">
+      <a class="pop tcard c5 big" href="../imaginarium-demo/">
         <div class="thead"><span class="ttag">Creative writing &middot; app</span><h3>The Imaginarium Machine</h3></div>
-        <p>A local-first app for A2 learners that deals out prompt cards, characters and constraints, and then gets out of the way: the students do the writing, drawing, speaking or acting.</p>
+        <p>A local first app for A2 learners that deals out prompt cards, characters and constraints, and then gets out of the way: the students do the writing, drawing, speaking or acting.</p>
         <span class="go">Open the app</span>
       </a>
 
-      <a class="tcard c3" href="https://mecidan-design.github.io/Shmackular-fantabular/">
+      <a class="pop tcard c3" href="https://mecidan-design.github.io/Shmackular-fantabular/">
         <div class="thead"><span class="ttag">Board game &middot; 2 to 5 players</span><h3>Shmackular Fantabular Landlord Simulator</h3></div>
-        <p>A Monopoly-style board game on one computer where every street is a grammar theme. Land on a square, answer the question, buy streets and collect rent. Everyone plays for themselves.</p>
+        <p>A Monopoly style board game on one computer where every street is a grammar theme. Land on a square, answer the question, buy streets and collect rent. Everyone plays for themselves.</p>
         <span class="go">Play it &#8599;</span>
       </a>
 
-      <a class="tcard c2" href="https://mecidan-design.github.io/Dans-Journey/">
+      <a class="pop tcard c2" href="https://mecidan-design.github.io/Dans-Journey/">
         <div class="thead"><span class="ttag">Flipbook &middot; nature wonders</span><h3>Dan's trip to Iceland</h3></div>
         <p>A Viking travel flipbook. Students follow a real trip, photo by photo and video by video, and describe every stop with adjectives and comparatives. Finish the journey to unlock a Viking mascot and a small running game.</p>
         <span class="go">Start the trip &#8599;</span>
       </a>
 
-      <a class="tcard c1" href="https://mecidan-design.github.io/English-1-Get-ready/arcade.html">
+      <a class="pop tcard c1" href="https://mecidan-design.github.io/English-1-Get-ready/arcade.html">
         <div class="thead"><span class="ttag">Arcade &middot; 5 games</span><h3>English 1 Arcade</h3></div>
         <p>Five machines that use everything from the seven levels of the starter course, from hello and numbers to the past and comparisons.</p>
         <span class="go">Play &#8599;</span>
       </a>
 
-      <a class="tcard c4" href="past-simple/">
+      <a class="pop tcard c4" href="past-simple/">
         <div class="thead"><span class="ttag">Quest &middot; five chapters</span><h3>Past Simple Quest</h3></div>
-        <p>The irregular past simple, group by group, from the first three verb groups up to a master round with all of them. 39 verbs, ten groups, three replayable games and a 30-point exam.</p>
+        <p>The irregular past simple, group by group, from the first three verb groups up to a master round with all of them. 39 verbs, ten groups, three replayable games and a 30 point exam.</p>
         <span class="go">Open the quest</span>
       </a>
 
-      <a class="tcard c5" href="https://mecidan-design.github.io/Present-Perfect/">
+      <a class="pop tcard c5" href="https://mecidan-design.github.io/Present-Perfect/">
         <div class="thead"><span class="ttag">Quest &middot; seven stops</span><h3>Present Perfect Quest</h3></div>
-        <p><i>Ever</i> and <i>never</i>, <i>for</i> and <i>since</i>, <i>just</i>, <i>already</i> and <i>yet</i>: a vault of irregular participles, seven gates of verb tables, a bridge from the past simple and a citadel with five games. Units 13 and 14.</p>
+        <p><em>Ever</em> and <em>never</em>, <em>for</em> and <em>since</em>, <em>just</em>, <em>already</em> and <em>yet</em>: a vault of irregular participles, seven gates of verb tables, a bridge from the past simple and a citadel with five games. Units 13 and 14.</p>
         <span class="go">Enter the quest &#8599;</span>
       </a>
 
-      <a class="tcard c1" href="escape-the-grammar-lab.html">
+      <a class="pop tcard c1" href="escape-the-grammar-lab.html">
         <div class="thead"><span class="ttag">Escape room</span><h3>Escape the Grammar Lab</h3></div>
         <p>A locked lab that only opens on correct grammar. The same idea as the philosophy escape room, pointed at tenses instead of arguments.</p>
         <span class="go">Play it</span>
       </a>
 
-      <a class="tcard c3" href="units/unit5-games.html">
+      <a class="pop tcard c3" href="units/unit5-games.html">
         <div class="thead"><span class="ttag">Unit 5 &middot; games</span><h3>Lessons for Life</h3></div>
-        <p>School Taboo, Sentence Puzzle and a phrasal-verb match, for playing in pairs.</p>
+        <p>School Taboo, Sentence Puzzle and a phrasal verb match, for playing in pairs.</p>
         <span class="go">Play</span>
       </a>
 
-      <a class="tcard c2" href="units/unit5-vocabulary-games.html">
+      <a class="pop tcard c2" href="units/unit5-vocabulary-games.html">
         <div class="thead"><span class="ttag">Unit 5 &middot; vocab</span><h3>Quick Sorter and Sentence Rescue</h3></div>
         <p>Two short vocabulary rounds for the start of a lesson.</p>
         <span class="go">Play</span>
       </a>
 
-      <a class="tcard c4" href="reading/boy-girls-bathroom-trivia.html">
+      <a class="pop tcard c4" href="reading/boy-girls-bathroom-trivia.html">
         <div class="thead"><span class="ttag">Reading &middot; trivia</span><h3>There's a Boy in the Girls' Bathroom</h3></div>
         <p>A trivia round on chapters 10 to 22 of the Louis Sachar novel: comprehension questions the class answers in teams, marked live.</p>
         <span class="go">Open the trivia</span>
@@ -261,20 +137,20 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
 
   <!-- ============ WORKSHEETS ============ -->
   <section class="sec" id="worksheets" aria-labelledby="h-ws">
-    <h2 id="h-ws" class="sticker">Worksheets</h2>
-    <p>Exercises that mark themselves, sorted by level and then by topic.</p>
+    <h2 id="h-ws" class="pop sticker">Worksheets</h2>
+    <p class="pop">Exercises that mark themselves, sorted by level and then by topic.</p>
 
-    <div class="panel">
-      <div class="thead c1"><span class="ttag">A1 &middot; starter</span><h3>My English Booklet</h3><p>Hello and <i>am, is, are</i>, numbers, the classroom, animals, <i>can</i>, the week and the clock, the past</p></div>
+    <div class="pop panel">
+      <div class="thead c1"><span class="ttag">A1 &middot; starter</span><h3>My English Booklet</h3><p>Hello and <em>am, is, are</em>, numbers, the classroom, animals, <em>can</em>, the week and the clock, the past</p></div>
       <a class="row" href="https://mecidan-design.github.io/English-1-Get-ready/">
         <span class="rtag">7 levels</span>
-        <span><strong>English 1: Get ready!</strong><em>A starter course built from the class booklet. Every level has three parts, a reading, a challenge and a self-check.</em></span>
+        <span><strong>English 1: Get ready!</strong><em>A starter course built from the class booklet. Every level has three parts, a reading, a challenge and a self check.</em></span>
         <span class="rgo">Open &#8599;</span>
       </a>
     </div>
 
-    <div class="panel">
-      <div class="thead c2"><span class="ttag">B1 &middot; mixed</span><h3>Use of English sessions</h3><p>Exam format: warm-up, gap-fill, multiple choice, key word transformation, word formation</p></div>
+    <div class="pop panel">
+      <div class="thead c2"><span class="ttag">B1 &middot; mixed</span><h3>Use of English sessions</h3><p>Exam format: warm up, gap fill, multiple choice, key word transformation, word formation</p></div>
       <a class="row" href="units/use-of-english-b1-session-2.html">
         <span class="rtag">B1 &middot; Session 2</span>
         <span><strong>Use of English practice</strong><em>A mixed session for students sitting a B1 exam.</em></span>
@@ -287,16 +163,16 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
       </a>
     </div>
 
-    <div class="panel">
+    <div class="pop panel">
       <div class="thead c3"><span class="ttag">B1+ &middot; Unit 4</span><h3>Make It Happen</h3><p>Modal verbs, personality adjectives and word formation</p></div>
       <a class="row" href="units/unit4-make-it-happen.html">
         <span class="rtag">Unit 4 &middot; B1+</span>
-        <span><strong>Make It Happen</strong><em>The full five-part session on the unit's grammar and vocabulary.</em></span>
+        <span><strong>Make It Happen</strong><em>The full five part session on the unit's grammar and vocabulary.</em></span>
         <span class="rgo">Open</span>
       </a>
     </div>
 
-    <div class="panel">
+    <div class="pop panel">
       <div class="thead c4"><span class="ttag">B1+ &middot; Unit 5</span><h3>Lessons for Life</h3><p>Relative clauses, reduced clauses and learning phrasal verbs</p></div>
       <a class="row" href="units/unit5-reduced-analysis.html">
         <span class="rtag">Explainer</span>
@@ -305,7 +181,7 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
       </a>
       <a class="row" href="units/unit5-reduced-phrasals.html">
         <span class="rtag">Practice</span>
-        <span><strong>Reduced clauses and phrasal verbs</strong><em>Two warm-ups, six activities from medium to very hard, and a reading.</em></span>
+        <span><strong>Reduced clauses and phrasal verbs</strong><em>Two warm ups, six activities from medium to very hard, and a reading.</em></span>
         <span class="rgo">Open</span>
       </a>
       <a class="row" href="units/unit5-relative-clauses-test.html">
@@ -315,13 +191,13 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
       </a>
       <a class="row" href="units/unit5-relative-clauses-test-2.html">
         <span class="rtag">Mock 2</span>
-        <span><strong>Relative clauses, second paper</strong><em>A second mock paper with the same two warm-ups, then 100 marks of defining, non-defining and reduced clauses.</em></span>
+        <span><strong>Relative clauses, second paper</strong><em>A second mock paper with the same two warm ups, then 100 marks of defining, non defining and reduced clauses.</em></span>
         <span class="rgo">Open</span>
       </a>
     </div>
 
-    <div class="panel">
-      <div class="thead c5"><span class="ttag">B1+ &middot; Unit 8</span><h3>What's in a Number?</h3><p>The passive and the causative <i>have</i></p></div>
+    <div class="pop panel">
+      <div class="thead c5"><span class="ttag">B1+ &middot; Unit 8</span><h3>What's in a Number?</h3><p>The passive and the causative <em>have</em></p></div>
       <a class="row" href="units/passive-which-be.html">
         <span class="rtag">Reference</span>
         <span><strong>The Passive: which BE?</strong><em>The explainer the passive exercises point back to: the tense lives on BE, three steps, always in the same order.</em></span>
@@ -329,7 +205,7 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
       </a>
       <a class="row" href="units/unit8-whats-in-a-number.html">
         <span class="rtag">Unit 8 &middot; B1+</span>
-        <span><strong>What's in a Number?</strong><em>The passive and causative <i>have</i>, in the same five-part format.</em></span>
+        <span><strong>What's in a Number?</strong><em>The passive and causative <em>have</em>, in the same five part format.</em></span>
         <span class="rgo">Open</span>
       </a>
       <a class="row" href="units/unit8-passive-causative-test.html">
@@ -339,7 +215,7 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
       </a>
     </div>
 
-    <div class="panel">
+    <div class="pop panel">
       <div class="thead c1"><span class="ttag">B1+ &middot; Reading</span><h3>Reading comprehension</h3><p>Every answer comes with the reason and an exam tip</p></div>
       <a class="row" href="reading/reading-b1plus-set-1.html">
         <span class="rtag">Set 1</span>
@@ -348,21 +224,21 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
       </a>
       <a class="row" href="reading/reading-b1plus-set-2.html">
         <span class="rtag">Set 2</span>
-        <span><strong>Shorter, brand-new texts</strong><em>Three new texts of about 300 to 400 words, in the same format as Set 1.</em></span>
+        <span><strong>Shorter, brand new texts</strong><em>Three new texts of about 300 to 400 words, in the same format as Set 1.</em></span>
         <span class="rgo">Open</span>
       </a>
       <a class="row" href="reading/reading-b1plus-set-3.html">
         <span class="rtag">Set 3</span>
-        <span><strong>Harder texts, with Not given</strong><em>Denser sentences, True / False / Not given, four-option questions, expressions to match and a summary to complete.</em></span>
+        <span><strong>Harder texts, with Not given</strong><em>Denser sentences, True / False / Not given, four option questions, expressions to match and a summary to complete.</em></span>
         <span class="rgo">Open</span>
       </a>
     </div>
 
-    <div class="panel">
+    <div class="pop panel">
       <div class="thead c2"><span class="ttag">B1+ &middot; Units 4, 5 and 8</span><h3>Tests and final exam</h3><p>The tests that pull the units back together</p></div>
       <a class="row" href="units/units-4-and-8-test.html">
         <span class="rtag">Units 4 + 8</span>
-        <span><strong>August test</strong><em>The end-of-term test that pulls both units back together.</em></span>
+        <span><strong>August test</strong><em>The end of term test that pulls both units back together.</em></span>
         <span class="rgo">Open</span>
       </a>
       <a class="row" href="units/final-exam-practice.html">
@@ -379,11 +255,16 @@ a.row:active .rgo{transform:translate(3px,3px); box-shadow:0 0 0 var(--negro)}
 
 <div class="foot">
   <div class="wrap">
-    <p class="note">Written for Gold Experience B1+, Prepare Second Edition Level 3, Cambridge Global English and my own 5th-form booklet, and used with my own groups and private students. Every page runs client-side and keeps working offline once it has loaded. Pieces marked with an arrow live on their own class sites.</p>
-    <a class="back" href="../">&larr; Back to the portfolio</a>
+    <p class="note">Written for Gold Experience B1+, Prepare Second Edition Level 3, Cambridge Global English and my own fifth form booklet, and used with my own groups and private students. Every page runs in the browser and keeps working offline once it has loaded. Pieces marked with an arrow live on their own class sites.</p>
+    <nav class="foot-links" aria-label="Footer">
+      <a class="back" href="../">&larr; Back to the portfolio</a>
+      <a class="back" href="../legal.html#privacy">Privacy</a>
+      <a class="back" href="../legal.html#terms">Terms</a>
+    </nav>
     <footer>Copyright Prof Dan M. Mecikovsky</footer>
   </div>
 </div>
 
+<script src="practice.js"></script>
 </body>
 </html>

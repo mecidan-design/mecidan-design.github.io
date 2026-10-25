@@ -1,271 +1,462 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html data-lang="en" lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dan Martín Mecikovsky — Philosophy & AI</title>
-<meta name="description" content="Philosophy professor (University of Buenos Aires) building classroom tools and AI agents: a Descartes unit with an escape room, self-correcting English practice, and EHOBA, a rule-bound processing agent for government survey data.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#EBEAE4;
-    --panel:#F3F2ED;
-    --ink:#16171A;
-    --muted:#5C5E60;
-    --accent:#26456B;
-    --line:#D6D4CC;
-    --line-strong:#C3C0B6;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:"Inter",system-ui,sans-serif;
-    font-size:17px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:820px;margin:0 auto;padding:0 28px}
-  a{color:inherit}
-
-  /* eyebrow / mono utility */
-  .eyebrow{
-    font-family:"JetBrains Mono",monospace;
-    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--accent);font-weight:500;
-  }
-
-  /* ---- hero ---- */
-  header{padding:96px 0 64px;border-bottom:1px solid var(--line)}
-  .name{
-    font-family:"JetBrains Mono",monospace;
-    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--muted);margin-bottom:36px;
-  }
-  .thesis{
-    font-family:"Fraunces",serif;
-    font-weight:500;
-    font-size:clamp(30px,5.4vw,50px);
-    line-height:1.12;
-    letter-spacing:-.01em;
-    max-width:15ch;
-  }
-  .thesis em{font-style:italic;color:var(--accent)}
-  .lede{
-    margin-top:28px;max-width:52ch;color:var(--muted);font-size:18px;
-  }
-  .contact{
-    margin-top:32px;font-family:"JetBrains Mono",monospace;font-size:14px;
-    display:flex;gap:22px;flex-wrap:wrap;align-items:center;
-  }
-  .contact a{
-    color:var(--ink);text-decoration:none;
-    border-bottom:1px solid var(--line-strong);padding-bottom:2px;
-    transition:border-color .2s;
-  }
-  .contact a:hover,.contact a:focus-visible{border-color:var(--accent)}
-
-  /* ---- section heading ---- */
-  .sec-head{padding:56px 0 8px}
-  .sec-head .eyebrow{display:block;margin-bottom:6px}
-  .sec-head .sec-note{color:var(--muted);max-width:56ch;margin-top:10px;font-size:16px}
-
-  /* ---- project ---- */
-  .project{
-    padding:40px 0;border-bottom:1px solid var(--line);
-  }
-  .project .eyebrow{display:block;margin-bottom:14px}
-  .p-title{
-    font-family:"Fraunces",serif;font-weight:600;
-    font-size:26px;letter-spacing:-.01em;margin-bottom:10px;
-  }
-  .claim{
-    font-family:"Fraunces",serif;font-style:italic;font-weight:400;
-    font-size:21px;line-height:1.35;color:var(--accent);
-    max-width:42ch;margin-bottom:16px;
-  }
-  .desc{max-width:60ch;color:var(--ink);margin-bottom:18px}
-  .tags{
-    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;
-  }
-  .tag{
-    font-family:"JetBrains Mono",monospace;font-size:11.5px;
-    letter-spacing:.03em;color:var(--muted);
-    border:1px solid var(--line-strong);border-radius:2px;
-    padding:4px 9px;
-  }
-
-  /* ---- media slot (placeholder for a screenshot / demo) ---- */
-  .slot{
-    background:var(--panel);
-    border:1px dashed var(--line-strong);
-    border-radius:3px;
-    aspect-ratio:16/9;
-    display:flex;align-items:center;justify-content:center;text-align:center;
-    color:var(--muted);
-    font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:.03em;
-    padding:20px;margin-bottom:18px;
-  }
-  .slot span{max-width:32ch;line-height:1.5}
-
-  /* ---- real demo embeds (used once a project block is filled in) ---- */
-  .demo-frame{
-    border:1px solid var(--line-strong);border-radius:3px;overflow:hidden;
-    background:var(--panel);aspect-ratio:16/9;margin-bottom:18px;
-  }
-  .demo-frame iframe{width:100%;height:100%;border:0;display:block}
-  video.demo,img.demo{
-    width:100%;border:1px solid var(--line-strong);border-radius:3px;
-    display:block;margin-bottom:18px;
-  }
-
-  /* ---- link button ---- */
-  .btn{
-    display:inline-block;font-family:"JetBrains Mono",monospace;
-    font-size:13px;letter-spacing:.03em;text-decoration:none;
-    color:var(--bg);background:var(--accent);
-    padding:11px 18px;border-radius:2px;
-    transition:opacity .18s,transform .18s;
-  }
-  .btn:hover,.btn:focus-visible{opacity:.9;transform:translateY(-1px)}
-  .btn + .btn{margin-left:10px}
-  @media(max-width:520px){.btn{display:block;text-align:center}.btn + .btn{margin-left:0;margin-top:10px}}
-  .btn.ghost{
-    background:transparent;color:var(--accent);
-    border:1px solid var(--accent);
-  }
-
-  /* ---- approach ---- */
-  .approach{padding:56px 0;border-bottom:1px solid var(--line)}
-  .approach p{
-    font-family:"Fraunces",serif;font-size:22px;line-height:1.5;
-    max-width:34ch;font-weight:400;
-  }
-  .approach .body{
-    font-family:"Inter",sans-serif;font-size:17px;color:var(--muted);
-    max-width:58ch;margin-top:18px;line-height:1.65;
-  }
-
-  /* ---- footer ---- */
-  footer{padding:56px 0 90px}
-  footer .eyebrow{display:block;margin-bottom:14px}
-  footer a{
-    color:var(--ink);text-decoration:none;font-family:"JetBrains Mono",monospace;
-    font-size:14px;border-bottom:1px solid var(--line-strong);padding-bottom:2px;
-  }
-  footer a:hover,footer a:focus-visible{border-color:var(--accent)}
-  footer .copyright{
-    margin-top:40px;padding-top:18px;border-top:1px solid var(--line);
-    font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;
-    color:var(--muted);
-  }
-
-  /* ---- load motion ---- */
-  .fade{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards}
-  .fade:nth-child(2){animation-delay:.06s}
-  @keyframes rise{to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion:reduce){
-    .fade{animation:none;opacity:1;transform:none}
-    html{scroll-behavior:auto}
-  }
-
-  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-
-  @media(max-width:560px){
-    body{font-size:16px}
-    header{padding:68px 0 48px}
-    .wrap{padding:0 20px}
-  }
-</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dan Martín Mecikovsky | Philosophy professor building with AI</title>
+<meta content="Philosophy professor from the University of Buenos Aires who teaches with AI, builds his own classroom tools with Claude Code and wants to work in the AI industry or in teaching technology and philosophy." name="description"/>
+<link href="https://mecidan-design.github.io/" rel="canonical"/>
+<meta content="#000000" name="theme-color"/>
+<meta content="website" property="og:type"/>
+<meta content="A philosophy professor who teaches with AI and builds the tools his classes use" property="og:title"/>
+<meta content="Proyecto Terra, a Descartes escape room, English practice that marks itself and EHOBA. By Dan Martín Mecikovsky." property="og:description"/>
+<meta content="https://mecidan-design.github.io/" property="og:url"/>
+<meta content="https://mecidan-design.github.io/assets/og.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M5 8h6v5h6v5h-6v6' fill='none' stroke='%238FC7FF' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round' transform='translate(3 0)'/%3E%3Cpath d='M17 18h6v-5h4' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round' transform='translate(-1 0)'/%3E%3C/svg%3E" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" rel="stylesheet"/>
+<link href="assets/site.css" rel="stylesheet"/>
+<link href="assets/home.css" rel="stylesheet"/>
+<link href="assets/terra.css" rel="stylesheet"/>
+<script>document.documentElement.className+=' js'</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "Person", "name": "Dan Martín Mecikovsky", "jobTitle": "Philosophy professor", "affiliation": {"@type": "CollegeOrUniversity", "name": "University of Buenos Aires"}, "email": "meci.dan@gmail.com", "url": "https://mecidan-design.github.io/", "sameAs": ["https://www.linkedin.com/in/dan-mecikovsky"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What roles is Dan looking for?", "acceptedAnswer": {"@type": "Answer", "text": "A role in the AI industry, or in teaching technology and philosophy. The work he already does fits both: evaluating the reasoning and bias of model outputs, designing and reviewing prompts, and building AI assisted educational tools."}}, {"@type": "Question", "name": "Is he open to remote work?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Dan is based in Buenos Aires, Argentina, and is open to remote work."}}, {"@type": "Question", "name": "Which languages does he work in?", "acceptedAnswer": {"@type": "Answer", "text": "Spanish is his native language and his professional English is advanced. He teaches in English."}}, {"@type": "Question", "name": "How does he use AI ethically?", "acceptedAnswer": {"@type": "Answer", "text": "He has worked with AI since 2022 under one criterion: human judgment stays at the center. He checks model outputs against explicit philosophical criteria for reasoning, coherence and bias. In Proyecto Terra, the messages students receive are written ahead of time and reviewed by him, not generated live."}}, {"@type": "Question", "name": "Which tools does he use?", "acceptedAnswer": {"@type": "Answer", "text": "Claude Code and Codex to build educational tools with automatic marking and feedback to the student. Proyecto Terra was built with Claude Code and runs on Firebase hosting."}}, {"@type": "Question", "name": "What is he studying now?", "acceptedAnswer": {"@type": "Answer", "text": "The Diplomatura en Inteligencia Artificial y Prácticas Creativas, from UNSAM and Revista Anfibia, which he started in August 2026. He graduated as Profesor de Filosofía from the University of Buenos Aires in 2024."}}]}]}
+</script>
 </head>
-<body>
-
-<header>
-  <div class="wrap">
-    <div class="name fade">Dan Martín Mecikovsky</div>
-    <h1 class="thesis fade">A model answers. Someone still has to ask whether the answer is <em>any good</em>.</h1>
-    <p class="lede fade">Philosophy professor (University of Buenos Aires). My question has always been what makes us human and sets us apart from the rest of existence. Now I ask it of the limits and challenges AI puts in front of us — and I build with these tools while I do.</p>
-    <div class="contact fade">
-      <a href="mailto:meci.dan@gmail.com">meci.dan@gmail.com</a>
-      <span style="color:var(--muted)">Buenos Aires · Remote</span>
-    </div>
-  </div>
+<body id="top">
+<a class="skip" href="#main"><span data-l="en">Skip to content</span><span data-l="es">Saltar al contenido</span></a>
+<div class="nav">
+<div class="pill">
+<a aria-label="Dan M. Mecikovsky, home" class="brand" data-en-aria-label="Dan M. Mecikovsky, home" data-es-aria-label="Dan M. Mecikovsky, inicio" href="./">Dan M. Mecikovsky</a>
+<div aria-label="Language / Idioma" class="lang" role="group">
+<button aria-pressed="false" data-set="es" type="button">ES</button>
+<button aria-pressed="true" data-set="en" type="button">EN</button>
+</div>
+<button aria-controls="menu" aria-expanded="false" class="menu-btn" type="button"><span></span><span></span><b class="sr"><span data-l="en">Menu</span><span data-l="es">Menú</span></b></button>
+</div>
+</div>
+<nav aria-label="Main" class="menu" data-en-aria-label="Main" data-es-aria-label="Principal" id="menu">
+<ul>
+<li><a aria-current="page" href="./"><span data-l="en">Home</span><span data-l="es">Inicio</span></a></li>
+<li><a href="#terra">Proyecto Terra</a></li>
+<li><a href="#work"><span data-l="en">Selected work</span><span data-l="es">Trabajos seleccionados</span></a></li>
+<li><a href="english-practice/"><span data-l="en">English practice</span><span data-l="es">Práctica de inglés</span></a></li>
+<li><a href="#experience"><span data-l="en">Experience</span><span data-l="es">Experiencia</span></a></li>
+<li><a href="#contact"><span data-l="en">Contact</span><span data-l="es">Contacto</span></a></li>
+</ul>
+</nav>
+<main id="main">
+<!-- 1. HERO -->
+<header class="hero hm-hero">
+<div class="wrap">
+<div class="hero-copy">
+<span class="eyebrow rv"><span data-l="en">Dan Martín Mecikovsky · Philosophy teacher and builder</span><span data-l="es">Dan Martín Mecikovsky · Profesor de filosofía y constructor de herramientas</span></span>
+<h1 class="display hm-title rv" data-d="80"><span data-l="en">Classroom tools that make students do the thinking.</span><span data-l="es">Herramientas de clase que hacen que los estudiantes piensen.</span></h1>
+<p class="sub rv" data-d="160"><span data-l="en">I teach philosophy in Buenos Aires and build my own interactive tools with AI: role playing games, simulations and escape rooms that my classes use. Open to roles in the AI industry, or in teaching technology and philosophy.</span><span data-l="es">Enseño filosofía en Buenos Aires y construyo mis propias herramientas interactivas con IA: juegos de rol, simulaciones y escape rooms que usan mis clases. Estoy abierto a roles en la industria de la IA o en la enseñanza de tecnología y filosofía.</span></p>
+<div class="stats hm-proof-row rv" data-d="240">
+<div class="stat"><b>9+</b><span><span data-l="en">years in Buenos Aires classrooms</span><span data-l="es">años en aulas de Buenos Aires</span></span></div>
+<div class="stat"><b>2022</b><span><span data-l="en">when I started working with AI</span><span data-l="es">cuando empecé a trabajar con IA</span></span></div>
+<div class="stat"><b>26</b><span><span data-l="en">English practice pieces that mark themselves</span><span data-l="es">piezas de práctica de inglés que se corrigen solas</span></span></div>
+</div>
+</div>
+<div class="hm-duo">
+<article class="card hm-feat rv" data-d="320">
+<div class="media">
+<img alt="Proyecto Terra crisis card: a painted scene of an energy theft that the three factions must decide how to answer" data-en-alt="Proyecto Terra crisis card: a painted scene of an energy theft that the three factions must decide how to answer" data-es-alt="Carta de crisis de Proyecto Terra: una escena pintada de un robo de energía que las tres facciones deben decidir cómo responder" loading="eager" src="assets/terra/crisis-robo-energia.webp"/>
+<a aria-label="Play Proyecto Terra" class="cover" data-en-aria-label="Play Proyecto Terra" data-es-aria-label="Jugar Proyecto Terra" href="https://proyect-terra.web.app/"></a>
+</div>
+<div class="hm-feat-body">
+<span class="eyebrow"><span data-l="en">Biggest achievement so far</span><span data-l="es">Mi mayor logro hasta ahora</span></span>
+<h2 class="h3">Proyecto Terra</h2>
+<p><span data-l="en">A crisis management game for fifth year philosophy. Students lead Aristotle's, Hobbes's and Rousseau's societies from their phones while the teacher runs the table.</span><span data-l="es">Un juego de gestión de crisis para filosofía de 5.º año. Los estudiantes lideran las sociedades de Aristóteles, Hobbes y Rousseau desde sus celulares mientras el docente conduce la mesa.</span></p>
+<a class="btn btn-primary" href="https://proyect-terra.web.app/"><span data-l="en">Play Proyecto Terra <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span><span data-l="es">Jugar Proyecto Terra <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span></a>
+</div>
+</article>
+<article class="card hm-feat rv" data-d="400">
+<div class="media" data-fit="">
+<iframe loading="lazy" src="https://mecidan-design.github.io/escape-cartesiano/" tabindex="-1" title="Preview of El Edificio, the Descartes escape room"></iframe>
+<a aria-label="Play El Edificio, the Descartes escape room" class="cover" data-en-aria-label="Play El Edificio, the Descartes escape room" data-es-aria-label="Jugar El Edificio, el escape room de Descartes" href="https://mecidan-design.github.io/escape-cartesiano/"></a>
+</div>
+<div class="hm-feat-body">
+<span class="eyebrow"><span data-l="en">Descartes unit</span><span data-l="es">Unidad de Descartes</span></span>
+<h2 class="h3">El Edificio</h2>
+<p><span data-l="en">A six floor escape room where every door opens only if the student uses Descartes's argument. It runs offline in a school browser.</span><span data-l="es">Un escape room de seis pisos donde cada puerta se abre solo si el estudiante usa el argumento de Descartes. Funciona sin conexión en el navegador de una escuela.</span></p>
+<a class="btn btn-primary" href="https://mecidan-design.github.io/escape-cartesiano/"><span data-l="en">Play the escape room <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span><span data-l="es">Jugar el escape room <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span></a>
+</div>
+</article>
+</div>
+<figure class="stairs card rv" data-d="400">
+<svg aria-label="A staircase that goes down step by step to a single point, then climbs back up" role="img" viewbox="0 0 960 220">
+<path class="ghost" d="M40 40H920"></path>
+<path class="path" d="M40 40H120V72H200V104H280V136H360V168H440V200H520V168H600V136H680V104H760V72H840V40H920" pathlength="1"></path>
+<circle class="pulse" cx="480" cy="200" r="6"></circle>
+<circle class="dot" cx="480" cy="200" r="6"></circle>
+</svg>
+<figcaption class="legend">
+<span><span data-l="en"><b>Doubt</b> goes all the way down</span><span data-l="es"><b>La duda</b> llega hasta el fondo</span></span>
+<span><span data-l="en"><b>One certainty</b> at the bottom</span><span data-l="es"><b>Una certeza</b> en lo más profundo</span></span>
+<span><span data-l="en"><b>Knowledge</b> climbs back up</span><span data-l="es"><b>El conocimiento</b> vuelve a subir</span></span>
+</figcaption>
+</figure>
+</div>
 </header>
-
-<main class="wrap">
-
-  <div class="sec-head">
-    <span class="eyebrow">Selected work</span>
-    <p class="sec-note">Two subjects I teach and one agent I shipped. The classroom collections are the same argument twice over — a tool should make someone do the thinking, and it should be honest about what it does with their data. EHOBA is that habit applied where the stakes are higher.</p>
-  </div>
-
-  <!-- COLLECTION 1 -->
-  <section class="project">
-    <span class="eyebrow">TEACHING TOOLS · PHILOSOPHY · SPANISH</span>
-    <h2 class="p-title">Philosophy, made walkable</h2>
-    <p class="claim">An argument is something a student should have to use, not something to memorise.</p>
-    <p class="desc">A complete unit on Descartes' <em>Meditations</em> in four forms of the same text: five scrollytelling lessons, a 3D simulation of the wax experiment, an argument game where the evil demon prosecutes the cogito, and <em>El Edificio</em> — a six-floor escape room whose doors only open if you use the argument rather than recall it. Plus standalone lessons on Plato's cave and the road from feudalism to modernity. Art, voice-over and puzzles ship inside the files, so a school machine with no network still runs them.</p>
-    <div class="tags">
-      <span class="tag">Game design</span>
-      <span class="tag">Claude Code</span>
-      <span class="tag">Single-file apps</span>
-      <span class="tag">Offline-first</span>
-    </div>
-    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/philosophy/" title="Philosophy collection" loading="lazy"></iframe></div>
-    <a class="btn" href="https://mecidan-design.github.io/philosophy/">Open the collection</a>
-    <a class="btn ghost" href="https://mecidan-design.github.io/escape-cartesiano/">Play the escape room</a>
-  </section>
-
-  <!-- COLLECTION 2 -->
-  <section class="project">
-    <span class="eyebrow">TEACHING TOOLS · ENGLISH · A1–B1+</span>
-    <h2 class="p-title">English that marks itself</h2>
-    <p class="claim">Feedback that arrives while the student still cares about it.</p>
-    <p class="desc">Twenty-six pieces of practice, all built on one rule: the page checks every answer on the spot, says what went wrong, and lets the student retry. Ten games and activities come first &mdash; The Imaginarium Machine (a creative-writing app that deals out prompts and then gets out of the way), a board game, a Viking trip to Iceland, two grammar quests and an escape room &mdash; followed by sixteen worksheets sorted by level and topic, from a first-steps booklet to B1+ Use of English, reading and a final exam. No accounts, no logins, and nothing leaves the browser unless a student chooses to send a result to the teacher.</p>
-    <div class="tags">
-      <span class="tag">HTML/JS</span>
-      <span class="tag">Ed-tech</span>
-      <span class="tag">Self-correcting</span>
-      <span class="tag">Private by default</span>
-    </div>
-    <div class="demo-frame"><iframe src="https://mecidan-design.github.io/english-practice/" title="English practice collection" loading="lazy"></iframe></div>
-    <a class="btn" href="https://mecidan-design.github.io/english-practice/">Open the collection</a>
-    <a class="btn ghost" href="https://mecidan-design.github.io/imaginarium-demo/">Open the writing app</a>
-  </section>
-
-  <!-- COLLECTION 3 -->
-  <section class="project">
-    <span class="eyebrow">AI AGENT · GOVERNMENT DATA</span>
-    <h2 class="p-title">EHOBA</h2>
-    <p class="claim">A monthly 53-hotel survey turned into a rule-bound processing agent.</p>
-    <p class="desc">EHOBA processes Buenos Aires's monthly hotel occupancy survey for IDECBA, validates submissions against fixed consistency rules, and follows a documented eight-step correction order. I built it end to end with Claude Code, including the desktop UI, processing pipeline, and design system. The same habit as the classroom work, on higher stakes: the rules are written down first, and the tool is held to them.</p>
-    <div class="tags">
-      <span class="tag">Claude Code</span>
-      <span class="tag">Agent design</span>
-      <span class="tag">Data processing</span>
-      <span class="tag">Design system</span>
-    </div>
-    <img class="demo" src="https://mecidan-design.github.io/ehoba-walkthrough/ehoba-walkthrough.gif" alt="Animated scrubbed EHOBA walkthrough with synthetic hotel rows and fictional identifiers">
-    <a class="btn ghost" href="https://mecidan-design.github.io/ehoba-walkthrough/">Watch the walkthrough</a>
-  </section>
-
-  <!-- APPROACH -->
-  <section class="approach">
-    <span class="eyebrow">How I work</span>
-    <p>I've worked with language models since 2022 — prompting them, testing their reasoning, watching where they fail.</p>
-    <p class="body">I build with them on one condition: they extend human judgment, they don't stand in for it. Bias, gaps, and confident errors are the interesting part — the places where a philosopher's training earns its keep. That criterion is the whole point.</p>
-  </section>
-
+<!-- TERRA FEATURE. Needs assets/terra.css linked in <head>. No JS required. -->
+<section aria-labelledby="tr-title" class="sec tr-sec" id="terra">
+<div class="wrap">
+<div class="sec-head rv">
+<span class="eyebrow"><span data-l="en">Biggest achievement so far</span><span data-l="es">Mi mayor logro hasta ahora</span></span>
+<h2 class="h2" id="tr-title"><span data-l="en">Students run a society in crisis, then explain why people obey.</span><span data-l="es">Los estudiantes gobiernan una sociedad en crisis y después explican por qué la gente obedece.</span></h2>
+<p class="sub"><span data-l="en">Proyecto Terra is a classroom role playing game I designed and built for fifth year philosophy. Three students at each laptop lead three factions, one for Aristotle, one for Hobbes and one for Rousseau, through five rounds of hard choices.</span><span data-l="es">Proyecto Terra es un juego de rol para el aula que diseñé y construí para filosofía de 5.º año. Tres estudiantes en cada notebook lideran tres facciones, una por Aristóteles, una por Hobbes y una por Rousseau, a lo largo de cinco rondas de decisiones difíciles.</span></p>
+<div class="actions">
+<a class="btn btn-ghost" href="https://proyect-terra.web.app/" rel="noopener" target="_blank"><span data-l="en">Play Proyecto Terra <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span><span data-l="es">Jugar Proyecto Terra <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span></a>
+</div>
+</div>
+<!-- Three factions -->
+<ul aria-label="The three factions" class="tr-factions" data-en-aria-label="The three factions" data-es-aria-label="Las tres facciones">
+<li class="rv">
+<article class="tr-card" style="--c:#3b82f6">
+<img alt="Three blue skinned bald figures with glowing red eyes stand shoulder to shoulder under a wireframe globe linked to their heads by thin cables, against a starry sky." data-en-alt="Three blue skinned bald figures with glowing red eyes stand shoulder to shoulder under a wireframe globe linked to their heads by thin cables, against a starry sky." data-es-alt="Tres figuras calvas de piel azul y ojos rojos brillantes están hombro con hombro bajo un globo de alambre unido a sus cabezas por cables finos, contra un cielo estrellado." decoding="async" height="1029" loading="lazy" src="assets/terra/carta-aristoteles.webp" width="768"/>
+<div class="tr-body">
+<span class="tr-tag"><span data-l="en">Aristotle · Cyborgs</span><span data-l="es">Aristóteles · Cyborgs</span></span>
+<h3 class="h3"><span data-l="en">The Magistrado</span><span data-l="es">El Magistrado</span></h3>
+<p class="tr-quote" lang="es">Fuera de la polis, solo bestias o dioses.</p>
+<p><span data-l="en">Controls the Network. The society punishes a leader who governs for himself instead of the common good.</span><span data-l="es">Controla la Red. La sociedad castiga al líder que gobierna para sí mismo en lugar del bien común.</span></p>
+</div>
+</article>
+</li>
+<li class="rv" data-d="80">
+<article class="tr-card" style="--c:#ef4444">
+<img alt="A scarred bald veteran in a military trench coat, with a cluster of red lenses bolted into his forehead, red turbines glowing in his chest and a cybernetic forearm, under a smoky red sky." data-en-alt="A scarred bald veteran in a military trench coat, with a cluster of red lenses bolted into his forehead, red turbines glowing in his chest and a cybernetic forearm, under a smoky red sky." data-es-alt="Un veterano calvo y con cicatrices, con un sobretodo militar, un racimo de lentes rojos incrustados en la frente, turbinas rojas brillando en el pecho y un antebrazo cibernético, bajo un cielo rojo cargado de humo." decoding="async" height="1029" loading="lazy" src="assets/terra/carta-hobbes.webp" width="768"/>
+<div class="tr-body">
+<span class="tr-tag">Hobbes · FANGS</span>
+<h3 class="h3"><span data-l="en">The Soberano</span><span data-l="es">El Soberano</span></h3>
+<p class="tr-quote" lang="es">Los pactos sin la espada son solo palabras.</p>
+<p><span data-l="en">Controls the Energy. The society punishes a leader who cannot keep its people safe.</span><span data-l="es">Controla la Energía. La sociedad castiga al líder que no puede mantener a salvo a su gente.</span></p>
+</div>
+</article>
+</li>
+<li class="rv" data-d="160">
+<article class="tr-card" style="--c:#22c55e">
+<img alt="A woman engineer in a hooded canvas poncho and brass goggles, wearing a bamboo and copper harness with a glass capsule holding a green sprout on her chest, holding a tray of glowing seedlings in front of canyon terraces with glass biodomes." data-en-alt="A woman engineer in a hooded canvas poncho and brass goggles, wearing a bamboo and copper harness with a glass capsule holding a green sprout on her chest, holding a tray of glowing seedlings in front of canyon terraces with glass biodomes." data-es-alt="Una ingeniera con poncho de lona con capucha y antiparras de bronce, con un arnés de bambú y cobre y una cápsula de vidrio con un brote verde en el pecho, sostiene una bandeja de plántulas brillantes frente a terrazas de cañón con biodomos de vidrio." decoding="async" height="1029" loading="lazy" src="assets/terra/carta-rousseau.webp" width="768"/>
+<div class="tr-body">
+<span class="tr-tag">Rousseau · Últimos Humanos</span>
+<h3 class="h3"><span data-l="en">The Comisario</span><span data-l="es">El Comisario</span></h3>
+<p class="tr-quote" lang="es">La voluntad general no se delega.</p>
+<p><span data-l="en">Controls the fertile land. The society punishes a leader who decides without the general will.</span><span data-l="es">Controla la tierra fértil. La sociedad castiga al líder que decide sin la voluntad general.</span></p>
+</div>
+</article>
+</li>
+</ul>
+<!-- Crisis, ending, territory -->
+<div class="tr-gallery">
+<figure class="tr-shot rv">
+<img alt="Inside a pale dome, a shelf of glowing energy cells with several slots empty. Armored soldiers with crowned helmets point at footprints while hooded villagers with torches and white humanoid robots argue at the open door." data-en-alt="Inside a pale dome, a shelf of glowing energy cells with several slots empty. Armored soldiers with crowned helmets point at footprints while hooded villagers with torches and white humanoid robots argue at the open door." data-es-alt="Dentro de una cúpula pálida, un estante de celdas de energía brillantes con varios huecos vacíos. Soldados con armadura y cascos coronados señalan huellas mientras aldeanos encapuchados con antorchas y robots humanoides blancos discuten en la puerta abierta." decoding="async" height="572" loading="lazy" src="assets/terra/crisis-robo-energia.webp" width="1024"/>
+<figcaption><span data-l="en">A crisis card. Energy cells are missing and the crowd wants a culprit.</span><span data-l="es">Una carta de crisis. Faltan celdas de energía y la multitud quiere un culpable.</span></figcaption>
+</figure>
+<figure class="tr-shot rv" data-d="80">
+<img alt="A giant crowned figure in armor made of thousands of tiny red, blue and green people holds a sword and a scepter above a desert plain with three settlements and a small open air assembly in the middle." data-en-alt="A giant crowned figure in armor made of thousands of tiny red, blue and green people holds a sword and a scepter above a desert plain with three settlements and a small open air assembly in the middle." data-es-alt="Una figura gigante coronada, con armadura hecha de miles de personas diminutas rojas, azules y verdes, sostiene una espada y un cetro sobre una llanura desértica con tres asentamientos y una pequeña asamblea al aire libre en el medio." decoding="async" height="572" loading="lazy" src="assets/terra/final-leviatan.webp" width="1024"/>
+<figcaption><span data-l="en">One possible ending, the Leviathan, where the three societies end up under a single sovereign.</span><span data-l="es">Un final posible, el Leviatán, donde las tres sociedades terminan bajo un único soberano.</span></figcaption>
+</figure>
+<figure class="tr-shot rv" data-d="160">
+<img alt="A circular platform of glowing blue lines in front of a ringed planet, ringed by stepped terraces and glass domes that each hold a pale plant." data-en-alt="A circular platform of glowing blue lines in front of a ringed planet, ringed by stepped terraces and glass domes that each hold a pale plant." data-es-alt="Una plataforma circular de líneas azules brillantes frente a un planeta con anillos, rodeada de terrazas escalonadas y cúpulas de vidrio que guardan cada una una planta pálida." decoding="async" height="572" loading="lazy" src="assets/terra/territorio-cyborgs.webp" width="1024"/>
+<figcaption><span data-l="en">Each society flourishes or decays on the map. This is the Cyborg territory in bloom.</span><span data-l="es">Cada sociedad florece o decae en el mapa. Este es el territorio de los Cyborgs en flor.</span></figcaption>
+</figure>
+</div>
+<!-- 50 minutes -->
+<div class="tr-block">
+<div class="sec-head rv">
+<h3 class="h2 tr-h"><span data-l="en">How a 50 minute class runs</span><span data-l="es">Cómo transcurre una clase de 50 minutos</span></h3>
+<p class="sub"><span data-l="en">The clock is tight on purpose. Every phase has a visible timer and closes when it runs out.</span><span data-l="es">El reloj está ajustado a propósito. Cada fase tiene un temporizador visible y se cierra cuando termina el tiempo.</span></p>
+</div>
+<div aria-label="Timeline of the class: minutes 0 to 4 entry, 4 to 6 tutorial, 6 to 38 five rounds, 38 to 40 written answer, 40 to 50 debrief" class="tr-timeline rv" data-en-aria-label="Timeline of the class: minutes 0 to 4 entry, 4 to 6 tutorial, 6 to 38 five rounds, 38 to 40 written answer, 40 to 50 debrief" data-es-aria-label="Cronograma de la clase: minutos 0 a 4 ingreso, 4 a 6 tutorial, 6 a 38 cinco rondas, 38 a 40 respuesta escrita, 40 a 50 puesta en común" role="img">
+<span class="tr-seg" style="flex:4"></span>
+<span class="tr-seg" style="flex:2"></span>
+<span class="tr-seg tr-on" style="flex:32"></span>
+<span class="tr-seg" style="flex:2"></span>
+<span class="tr-seg" style="flex:10"></span>
+</div>
+<ol class="tr-phases">
+<li class="rv"><span class="tr-time"><span data-l="en">Min 0 to 4</span><span data-l="es">Min 0 a 4</span></span><h4><span data-l="en">Entry</span><span data-l="es">Ingreso</span></h4><p><span data-l="en">Scan the QR code, enter a name, pick a faction.</span><span data-l="es">Escanean el código QR, escriben un nombre y eligen una facción.</span></p></li>
+<li class="rv" data-d="60"><span class="tr-time"><span data-l="en">Min 4 to 6</span><span data-l="es">Min 4 a 6</span></span><h4><span data-l="en">Tutorial round</span><span data-l="es">Ronda de tutorial</span></h4><p><span data-l="en">A guided crisis with no consequences.</span><span data-l="es">Una crisis guiada sin consecuencias.</span></p></li>
+<li class="rv" data-d="120"><span class="tr-time"><span data-l="en">Min 6 to 38</span><span data-l="es">Min 6 a 38</span></span><h4><span data-l="en">Rounds 1 to 5</span><span data-l="es">Rondas 1 a 5</span></h4><p><span data-l="en">About six minutes each. The pact is negotiated in round 3.</span><span data-l="es">Unos seis minutos cada una. El pacto se negocia en la ronda 3.</span></p></li>
+<li class="rv" data-d="180"><span class="tr-time"><span data-l="en">Min 38 to 40</span><span data-l="es">Min 38 a 40</span></span><h4><span data-l="en">Written answer</span><span data-l="es">Respuesta escrita</span></h4><p><span data-l="en">Each student answers: why did your people obey you?</span><span data-l="es">Cada estudiante responde: ¿por qué tu pueblo te obedeció?</span></p></li>
+<li class="rv" data-d="240"><span class="tr-time"><span data-l="en">Min 40 to 50</span><span data-l="es">Min 40 a 50</span></span><h4><span data-l="en">Debrief</span><span data-l="es">Puesta en común</span></h4><p><span data-l="en">The teacher projects the data from every table.</span><span data-l="es">El docente proyecta los datos de todas las mesas.</span></p></li>
+</ol>
+<div class="tr-round rv">
+<h4 class="h3"><span data-l="en">Inside each round</span><span data-l="es">Dentro de cada ronda</span></h4>
+<ol class="tr-steps">
+<li><span data-l="en">Crisis card</span><span data-l="es">Carta de crisis</span></li>
+<li><span data-l="en">Debate, 3 minutes</span><span data-l="es">Debate, 3 minutos</span></li>
+<li><span data-l="en">Public vote</span><span data-l="es">Votación pública</span></li>
+<li><span data-l="en">Secret choice on the phone</span><span data-l="es">Elección secreta en el celular</span></li>
+<li><span data-l="en">Consequences</span><span data-l="es">Consecuencias</span></li>
+</ol>
+<p><span data-l="en">Every option has a visible cost. After the vote, each student learns whether the choice fit the author they were reading. Fit raises the leader's legitimacy and a contradiction lowers it. The game never shows that verdict beforehand.</span><span data-l="es">Cada opción tiene un costo visible. Después de la votación, cada estudiante se entera de si su elección coincidía con el autor que estaba leyendo. La coincidencia sube la legitimidad del líder y una contradicción la baja. El juego nunca muestra ese veredicto de antemano.</span></p>
+</div>
+</div>
+<!-- Built with -->
+<div class="tr-block">
+<div class="sec-head rv">
+<h3 class="h2 tr-h"><span data-l="en">What is under the hood</span><span data-l="es">Qué hay debajo del capó</span></h3>
+<p class="sub"><span data-l="en">A live multiplayer system for one classroom: the laptop is the public board and each student's phone is a private channel.</span><span data-l="es">Un sistema multijugador en vivo para un aula: el notebook es el tablero público y el celular de cada estudiante es un canal privado.</span></p>
+</div>
+<ul class="tr-built">
+<li class="rv"><i aria-hidden="true" class="ph ph-laptop"></i><div><b><span data-l="en">Classroom board</span><span data-l="es">Tablero del aula</span></b><span><span data-l="en">The laptop on each table shows the map, meters and votes.</span><span data-l="es">El notebook de cada mesa muestra el mapa, los indicadores y los votos.</span></span></div></li>
+<li class="rv" data-d="60"><i aria-hidden="true" class="ph ph-device-mobile"></i><div><b><span data-l="en">Phones as private channels</span><span data-l="es">Celulares como canales privados</span></b><span><span data-l="en">Secret objective, hidden choices and a message after each round.</span><span data-l="es">Objetivo secreto, elecciones ocultas y un mensaje después de cada ronda.</span></span></div></li>
+<li class="rv" data-d="120"><i aria-hidden="true" class="ph ph-chalkboard-teacher"></i><div><b><span data-l="en">Teacher panel</span><span data-l="es">Panel del docente</span></b><span><span data-l="en">Live rooms, pause, global events and the debrief button.</span><span data-l="es">Salas en vivo, pausa, eventos globales y el botón de puesta en común.</span></span></div></li>
+<li class="rv"><i aria-hidden="true" class="ph ph-gear-six"></i><div><b><span data-l="en">Rules engine</span><span data-l="es">Motor de reglas</span></b><span><span data-l="en">Game logic kept separate from the screens, so it can be tested alone.</span><span data-l="es">La lógica del juego separada de las pantallas, para poder probarla sola.</span></span></div></li>
+<li class="rv" data-d="60"><i aria-hidden="true" class="ph ph-seal-check"></i><div><b><span data-l="en">Content validator</span><span data-l="es">Validador de contenido</span></b><span><span data-l="en">Flags extra words, pending fields and options with no cost.</span><span data-l="es">Detecta palabras de más, campos pendientes y opciones sin costo.</span></span></div></li>
+<li class="rv" data-d="120"><i aria-hidden="true" class="ph ph-robot"></i><div><b><span data-l="en">Bot simulator</span><span data-l="es">Simulador de bots</span></b><span><span data-l="en">Plays a thousand games between bots to check the balance.</span><span data-l="es">Juega mil partidas entre bots para controlar el equilibrio.</span></span></div></li>
+<li class="rv"><i aria-hidden="true" class="ph ph-users-three"></i><div><b><span data-l="en">Six specialised subagents</span><span data-l="es">Seis subagentes especializados</span></b><span><span data-l="en">A team of agents for the build, each with its own brief.</span><span data-l="es">Un equipo de agentes para la construcción, cada uno con su propia consigna.</span></span></div></li>
+<li class="rv" data-d="60"><i aria-hidden="true" class="ph ph-terminal-window"></i><div><b><span data-l="en">Claude Code and Firebase</span><span data-l="es">Claude Code y Firebase</span></b><span><span data-l="en">Built with Claude Code and hosted on Firebase.</span><span data-l="es">Construido con Claude Code y alojado en Firebase.</span></span></div></li>
+<li class="rv" data-d="120"><i aria-hidden="true" class="ph ph-pencil-line"></i><div><b><span data-l="en">Messages I reviewed</span><span data-l="es">Mensajes que revisé</span></b><span><span data-l="en">Every message is written ahead of time and checked by me. Nothing is generated live.</span><span data-l="es">Cada mensaje está escrito de antemano y revisado por mí. Nada se genera en vivo.</span></span></div></li>
+</ul>
+</div>
+<!-- What it shows -->
+<div class="tr-about rv">
+<span class="eyebrow"><span data-l="en">What it shows about me</span><span data-l="es">Lo que muestra sobre mí</span></span>
+<p><span data-l="en">Terra started as a reading problem: how do you get seventeen year olds to use Hobbes instead of repeating him? I answered with a game, then built the game with a team of AI agents and held every piece to a written design document. Each option carries a passage from the reading guide that supports or contradicts it, so the philosophy is checked the way code is checked. That is the work I want to do in the AI industry or in teaching technology and philosophy: a clear rule, a tool held to it, and a human judge in the loop.</span><span data-l="es">Terra nació como un problema de lectura: ¿cómo lograr que chicos de diecisiete años usen a Hobbes en lugar de repetirlo? Lo respondí con un juego, después lo construí con un equipo de agentes de IA y exigí que cada pieza respondiera a un documento de diseño escrito. Cada opción lleva un pasaje de la guía de lectura que la respalda o la contradice, así que la filosofía se verifica como se verifica el código. Ese es el trabajo que quiero hacer en la industria de la IA o en la enseñanza de tecnología y filosofía: una regla clara, una herramienta que la cumple y un juicio humano en el circuito.</span></p>
+</div>
+</div>
+</section>
+<!-- TAGLINE REVEAL -->
+<section aria-label="Core idea" class="tagline" data-en-aria-label="Core idea" data-es-aria-label="Idea central">
+<div class="wrap">
+<p data-words=""><span data-l="en">A model answers. Someone still has to ask whether the answer is any good. That someone should be a student who has learned how.</span><span data-l="es">Un modelo responde. Alguien tiene que preguntarse si la respuesta es buena. Ese alguien debería ser un estudiante que aprendió a hacerlo.</span></p>
+</div>
+</section>
+<!-- WHAT I BRING -->
+<section class="sec" id="bring">
+<div class="wrap">
+<div class="sec-head rv">
+<span class="eyebrow"><span data-l="en">What I bring</span><span data-l="es">Lo que aporto</span></span>
+<h2 class="h2"><span data-l="en">Three things I do, and the proof behind each.</span><span data-l="es">Tres cosas que hago y la prueba detrás de cada una.</span></h2>
+<p class="sub"><span data-l="en">Teaching, building and judging AI work as one practice. Each one makes the others better.</span><span data-l="es">Enseñar, construir y evaluar el trabajo de la IA como una sola práctica. Cada una mejora a las otras.</span></p>
+</div>
+<div class="grid3">
+<article class="card pad hm-pillar rv">
+<div class="icon-box"><i aria-hidden="true" class="ph ph-chalkboard-teacher"></i></div>
+<span class="hm-label"><span data-l="en">Teach</span><span data-l="es">Enseñar</span></span>
+<h3 class="h3"><span data-l="en">Students reason through a text instead of reciting it.</span><span data-l="es">Los estudiantes razonan un texto en lugar de recitarlo.</span></h3>
+<p class="hm-proof"><i aria-hidden="true" class="ph ph-seal-check"></i><span><span data-l="en">Almost ten years in four Buenos Aires schools. At Master College I teach complete fifth year units on my own interactive material, on Descartes and Hobbes.</span><span data-l="es">Casi diez años en cuatro escuelas de Buenos Aires. En Master College enseño unidades completas de 5.º año con material interactivo propio, sobre Descartes y Hobbes.</span></span></p>
+</article>
+<article class="card pad hm-pillar rv" data-d="80">
+<div class="icon-box"><i aria-hidden="true" class="ph ph-code"></i></div>
+<span class="hm-label"><span data-l="en">Build</span><span data-l="es">Construir</span></span>
+<h3 class="h3"><span data-l="en">Classroom tools that mark the work and answer the student on the spot.</span><span data-l="es">Herramientas de clase que corrigen el trabajo y le responden al estudiante en el momento.</span></h3>
+<p class="hm-proof"><i aria-hidden="true" class="ph ph-seal-check"></i><span><span data-l="en">Built with Claude Code and Codex: Proyecto Terra, a Descartes escape room, 26 English practice pieces and the EHOBA agent.</span><span data-l="es">Hechas con Claude Code y Codex: Proyecto Terra, un escape room de Descartes, 26 piezas de práctica de inglés y el agente EHOBA.</span></span></p>
+</article>
+<article class="card pad hm-pillar rv" data-d="160">
+<div class="icon-box"><i aria-hidden="true" class="ph ph-scales"></i></div>
+<span class="hm-label"><span data-l="en">Judge AI</span><span data-l="es">Evaluar la IA</span></span>
+<h3 class="h3"><span data-l="en">Model answers get checked for reasoning, coherence and bias before anyone trusts them.</span><span data-l="es">Las respuestas de los modelos se revisan en su razonamiento, coherencia y sesgo antes de confiar en ellas.</span></h3>
+<p class="hm-proof"><i aria-hidden="true" class="ph ph-seal-check"></i><span><span data-l="en">Working with AI since 2022, with human judgment at the center. I teach workshops on bias, algorithmic decisions and critical use of AI, adapted to each age.</span><span data-l="es">Trabajo con IA desde 2022, con el juicio humano en el centro. Dicto talleres sobre sesgos, decisiones algorítmicas y uso crítico de la IA, adaptados a cada edad.</span></span></p>
+</article>
+</div>
+</div>
+</section>
+<!-- 4. PROOF / WORK -->
+<section class="sec" id="work">
+<div class="wrap">
+<div class="sec-head rv">
+<span class="eyebrow"><span data-l="en">Selected work</span><span data-l="es">Trabajos seleccionados</span></span>
+<h2 class="h2"><span data-l="en">Three more builds that show how I work.</span><span data-l="es">Tres proyectos más que muestran cómo trabajo.</span></h2>
+<p class="sub"><span data-l="en">Each one starts with written rules and ends with a tool held to them. A philosophy collection that runs offline, English practice that marks every answer, and an agent that processes government survey data.</span><span data-l="es">Cada uno empieza con reglas escritas y termina con una herramienta que las cumple. Una colección de filosofía que funciona sin conexión, práctica de inglés que corrige cada respuesta y un agente que procesa datos de encuestas del Estado.</span></p>
+</div>
+<div class="works">
+<article class="card work rv">
+<div class="media" data-fit="">
+<iframe loading="lazy" src="philosophy/" tabindex="-1" title="Preview of the Philosophy, made walkable collection"></iframe>
+<a aria-label="Open the philosophy collection" class="cover" data-en-aria-label="Open the philosophy collection" data-es-aria-label="Abrir la colección de filosofía" href="philosophy/"></a>
+</div>
+<div class="work-body">
+<span class="eyebrow"><span data-l="en">Teaching tools · Philosophy · Spanish</span><span data-l="es">Herramientas de enseñanza · Filosofía · Español</span></span>
+<h3 class="h2" style="font-size:1.875rem;line-height:2.25rem"><span data-l="en">Philosophy, made walkable</span><span data-l="es">Filosofía para recorrer</span></h3>
+<p class="claim"><span data-l="en">An argument is something a student should have to use, not something to memorise.</span><span data-l="es">Un argumento es algo que el estudiante debería tener que usar, no algo para memorizar.</span></p>
+<p class="desc"><span data-l="en">A complete unit on Descartes' <em>Meditations</em> in four forms of one text: five scrollytelling lessons, a 3D simulation of the wax experiment, an argument game where the evil demon prosecutes the cogito, and <em>El Edificio</em>, a six floor escape room. Plus lessons on Plato's cave and the road from feudalism to modernity.</span><span data-l="es">Una unidad completa sobre las <em>Meditaciones</em> de Descartes en cuatro formas de un mismo texto: cinco lecciones de scrollytelling, una simulación 3D del experimento de la cera, un juego de argumentos donde el genio maligno acusa al cogito y <em>El Edificio</em>, un escape room de seis pisos. Además, lecciones sobre la caverna de Platón y el camino del feudalismo a la modernidad.</span></p>
+<div class="tags"><span class="tag"><span data-l="en">Game design</span><span data-l="es">Diseño de juegos</span></span><span class="tag">Claude Code</span><span class="tag"><span data-l="en">One file per piece</span><span data-l="es">Un archivo por pieza</span></span><span class="tag"><span data-l="en">Works offline</span><span data-l="es">Funciona sin conexión</span></span></div>
+<div class="actions">
+<a class="btn btn-ghost sm" href="philosophy/"><span data-l="en">Open the collection</span><span data-l="es">Abrir la colección</span></a>
+<a class="btn btn-ghost sm" href="https://mecidan-design.github.io/escape-cartesiano/"><span data-l="en">Play the escape room</span><span data-l="es">Jugar el escape room</span></a>
+</div>
+</div>
+</article>
+<article class="card work rv">
+<div class="media" data-fit="">
+<iframe loading="lazy" src="english-practice/" tabindex="-1" title="Preview of the English practice collection"></iframe>
+<a aria-label="Open the English practice collection" class="cover" data-en-aria-label="Open the English practice collection" data-es-aria-label="Abrir la colección de práctica de inglés" href="english-practice/"></a>
+</div>
+<div class="work-body">
+<span class="eyebrow"><span data-l="en">Teaching tools · English · A1 to B1+</span><span data-l="es">Herramientas de enseñanza · Inglés · A1 a B1+</span></span>
+<h3 class="h2" style="font-size:1.875rem;line-height:2.25rem"><span data-l="en">English that marks itself</span><span data-l="es">Inglés que se corrige solo</span></h3>
+<p class="claim"><span data-l="en">Feedback that arrives while the student still cares about it.</span><span data-l="es">Devolución que llega mientras al estudiante todavía le importa.</span></p>
+<p class="desc"><span data-l="en">Twenty six pieces of practice built on one rule: the page checks every answer, says what went wrong and lets the student retry. Ten games and activities come first, including The Imaginarium Machine, a creative writing app that deals out prompts and then gets out of the way. Sixteen worksheets follow, sorted by level and topic, up to a B1+ final exam.</span><span data-l="es">Veintiséis piezas de práctica construidas sobre una regla: la página controla cada respuesta, dice qué salió mal y deja que el estudiante reintente. Primero vienen diez juegos y actividades, entre ellos The Imaginarium Machine, una app de escritura creativa que reparte consignas y después se hace a un lado. Siguen dieciséis fichas, ordenadas por nivel y tema, hasta un examen final B1+.</span></p>
+<div class="tags"><span class="tag"><span data-l="en">HTML and JavaScript</span><span data-l="es">HTML y JavaScript</span></span><span class="tag"><span data-l="en">Ed tech</span><span data-l="es">Tecnología educativa</span></span><span class="tag"><span data-l="en">Marks every answer</span><span data-l="es">Corrige cada respuesta</span></span><span class="tag"><span data-l="en">Private by default</span><span data-l="es">Privado por defecto</span></span></div>
+<div class="actions">
+<a class="btn btn-ghost sm" href="english-practice/"><span data-l="en">Open the collection</span><span data-l="es">Abrir la colección</span></a>
+<a class="btn btn-ghost sm" href="https://mecidan-design.github.io/imaginarium-demo/"><span data-l="en">Open the writing app</span><span data-l="es">Abrir la app de escritura</span></a>
+</div>
+</div>
+</article>
+<article class="card work rv">
+<div class="media">
+<img alt="Animated EHOBA walkthrough using synthetic hotel rows and fictional identifiers" data-en-alt="Animated EHOBA walkthrough using synthetic hotel rows and fictional identifiers" data-es-alt="Recorrido animado de EHOBA con filas de hoteles sintéticas e identificadores ficticios" loading="lazy" src="https://mecidan-design.github.io/ehoba-walkthrough/ehoba-walkthrough.gif"/>
+</div>
+<div class="work-body">
+<span class="eyebrow"><span data-l="en">AI agent · Government data</span><span data-l="es">Agente de IA · Datos del Estado</span></span>
+<h3 class="h2" style="font-size:1.875rem;line-height:2.25rem">EHOBA</h3>
+<p class="claim"><span data-l="en">A monthly survey of 53 hotels, turned into an agent bound by written rules.</span><span data-l="es">Una encuesta mensual de 53 hoteles, convertida en un agente atado a reglas escritas.</span></p>
+<p class="desc"><span data-l="en">EHOBA processes the Buenos Aires hotel occupancy survey for IDECBA, validates submissions against fixed consistency rules and follows a documented eight step correction order. I built it end to end with Claude Code: the desktop interface, the processing pipeline and the design system. Same habit as the classroom work, on higher stakes. The rules come first and the tool is held to them.</span><span data-l="es">EHOBA procesa la encuesta de ocupación hotelera de Buenos Aires para IDECBA, valida los envíos contra reglas de consistencia fijas y sigue un orden de corrección documentado de ocho pasos. Lo construí de punta a punta con Claude Code: la interfaz de escritorio, el proceso de datos y el sistema de diseño. Es el mismo hábito del trabajo en el aula, con más en juego. Primero van las reglas y la herramienta se ajusta a ellas.</span></p>
+<div class="tags"><span class="tag">Claude Code</span><span class="tag"><span data-l="en">Agent design</span><span data-l="es">Diseño de agentes</span></span><span class="tag"><span data-l="en">Data processing</span><span data-l="es">Procesamiento de datos</span></span><span class="tag"><span data-l="en">Design system</span><span data-l="es">Sistema de diseño</span></span></div>
+<div class="actions">
+<a class="btn btn-ghost sm" href="https://mecidan-design.github.io/ehoba-walkthrough/"><span data-l="en">Watch the walkthrough</span><span data-l="es">Mirá el recorrido</span></a>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- EXPERIENCE AND CREDENTIALS -->
+<section class="sec" id="experience" style="padding-top:0">
+<div class="wrap">
+<div class="sec-head rv">
+<span class="eyebrow"><span data-l="en">Experience and credentials</span><span data-l="es">Experiencia y formación</span></span>
+<h2 class="h2"><span data-l="en">Almost ten years in the classroom, now with AI in the room.</span><span data-l="es">Casi diez años en el aula, ahora con la IA en la sala.</span></h2>
+</div>
+<ol aria-label="Teaching roles" class="hm-roles" data-en-aria-label="Teaching roles" data-es-aria-label="Cargos docentes">
+<li class="card hm-role rv">
+<span class="hm-years"><span data-l="en">2026 to present</span><span data-l="es">2026 al presente</span></span>
+<div class="hm-role-body">
+<h3 class="h3"><span data-l="en">Philosophy teacher, secondary</span><span data-l="es">Profesor de filosofía, escuela secundaria</span></h3>
+<p class="hm-place">Master College</p>
+<p><span data-l="en">Fifth year ethics, argumentation and critical reasoning, with complete units on my own interactive material.</span><span data-l="es">Ética, argumentación y razonamiento crítico de 5.º año, con unidades completas sobre material interactivo propio.</span></p>
+</div>
+</li>
+<li class="card hm-role rv" data-d="80">
+<span class="hm-years"><span data-l="en">2024 to present</span><span data-l="es">2024 al presente</span></span>
+<div class="hm-role-body">
+<h3 class="h3"><span data-l="en">English and Philosophy with Children teacher</span><span data-l="es">Profesor de inglés y de Filosofía con Niños</span></h3>
+<p class="hm-place">Escuela Martín Buber</p>
+<p><span data-l="en">Reasoning, citizenship and democratic debate, with digital tools and AI in class.</span><span data-l="es">Razonamiento, ciudadanía y debate democrático, con herramientas digitales e IA en clase.</span></p>
+</div>
+</li>
+<li class="card hm-role rv" data-d="80">
+<span class="hm-years"><span data-l="en">2018 to 2024</span><span data-l="es">2018 a 2024</span></span>
+<div class="hm-role-body">
+<h3 class="h3"><span data-l="en">English and Philosophy with Children teacher</span><span data-l="es">Profesor de inglés y de Filosofía con Niños</span></h3>
+<p class="hm-place">Primaria Puerta Abierta</p>
+<p><span data-l="en">Communities of inquiry, debate and interdisciplinary projects.</span><span data-l="es">Comunidades de indagación, debate y proyectos interdisciplinarios.</span></p>
+</div>
+</li>
+<li class="card hm-role rv" data-d="80">
+<span class="hm-years"><span data-l="en">2016 to 2022</span><span data-l="es">2016 a 2022</span></span>
+<div class="hm-role-body">
+<h3 class="h3"><span data-l="en">Secondary teacher</span><span data-l="es">Profesor de escuela secundaria</span></h3>
+<p class="hm-place">Instituto Educativo Cabildo</p>
+<p><span data-l="en">English, Language and Literature, Philosophy, Psychology, Ethics and Sociology.</span><span data-l="es">Inglés, Lengua y Literatura, Filosofía, Psicología, Ética y Sociología.</span></p>
+</div>
+</li>
+</ol>
+<div class="grid2 hm-creds">
+<article class="card pad rv">
+<div class="icon-box"><i aria-hidden="true" class="ph ph-graduation-cap"></i></div>
+<h3 class="h3"><span data-l="en">Education</span><span data-l="es">Formación</span></h3>
+<ul class="hm-list">
+<li><span data-l="en"><b>Profesor de Filosofía</b>, Universidad de Buenos Aires, Facultad de Filosofía y Letras, 2024. Qualifies me to teach secondary and higher education.</span><span data-l="es"><b>Profesor de Filosofía</b>, Universidad de Buenos Aires, Facultad de Filosofía y Letras, 2024. Me habilita para enseñar en la escuela secundaria y en el nivel superior.</span></li>
+<li><span data-l="en"><b>Diplomatura en Inteligencia Artificial y Prácticas Creativas</b>, UNSAM and Revista Anfibia. In progress since August 2026.</span><span data-l="es"><b>Diplomatura en Inteligencia Artificial y Prácticas Creativas</b>, UNSAM y Revista Anfibia. En curso desde agosto de 2026.</span></li>
+<li><span data-l="en"><b>Bachiller Técnico in Music Production</b>, ORT, 2003 to 2008.</span><span data-l="es"><b>Bachiller Técnico en Producción Musical</b>, ORT, 2003 a 2008.</span></li>
+</ul>
+</article>
+<article class="card pad rv" data-d="80">
+<div class="icon-box"><i aria-hidden="true" class="ph ph-books"></i></div>
+<h3 class="h3"><span data-l="en">Research and outreach</span><span data-l="es">Investigación y extensión</span></h3>
+<ul class="hm-list">
+<li><span data-l="en">PRIES project "Ancient thought from a Derridean perspective", 2015 to 2017.</span><span data-l="es">Proyecto PRIES "El pensamiento antiguo desde una perspectiva derridiana", 2015 a 2017.</span></li>
+<li><span data-l="en">Talks at "Jóvenes en Filo", UBA, 2018 to 2021, and speaker at the UBA Philosophy Student Conference.</span><span data-l="es">Charlas en "Jóvenes en Filo", UBA, 2018 a 2021, y expositor en las Jornadas de Estudiantes de Filosofía de la UBA.</span></li>
+<li><span data-l="en">Paper "Differences and inequalities in higher education", UBA, 2021.</span><span data-l="es">Ponencia "Diferencias y desigualdades en la educación superior", UBA, 2021.</span></li>
+<li><span data-l="en">Teaching team of UBA extension seminars on ethics, citizenship and intergenerational dialogue, 2018 to 2021.</span><span data-l="es">Equipo docente de seminarios de extensión de la UBA sobre ética, ciudadanía y diálogo intergeneracional, 2018 a 2021.</span></li>
+</ul>
+</article>
+</div>
+<div class="hm-foot rv">
+<p class="hm-langs"><i aria-hidden="true" class="ph ph-translate"></i><span><span data-l="en"><b>Languages:</b> native Spanish, advanced professional English. I teach in English.</span><span data-l="es"><b>Idiomas:</b> español nativo, inglés profesional avanzado. Enseño en inglés.</span></span></p>
+<a class="btn btn-ghost" href="https://www.linkedin.com/in/dan-mecikovsky" rel="noopener noreferrer" target="_blank"><span data-l="en"><i aria-hidden="true" class="ph ph-linkedin-logo"></i>See my LinkedIn <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span><span data-l="es"><i aria-hidden="true" class="ph ph-linkedin-logo"></i>Mirá mi LinkedIn <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span></a>
+</div>
+</div>
+</section>
+<!-- FAQ -->
+<section class="sec" id="faq" style="padding-top:0">
+<div class="wrap">
+<div class="sec-head rv">
+<span class="eyebrow"><span data-l="en">Questions</span><span data-l="es">Preguntas</span></span>
+<h2 class="h2"><span data-l="en">What to know before you write to me.</span><span data-l="es">Lo que conviene saber antes de escribirme.</span></h2>
+</div>
+<div class="faq rv">
+<details>
+<summary><span data-l="en">What roles is Dan looking for? <i aria-hidden="true" class="ph ph-plus"></i></span><span data-l="es">¿Qué roles busca Dan? <i aria-hidden="true" class="ph ph-plus"></i></span></summary>
+<p class="ans"><span data-l="en">A role in the AI industry, or in teaching technology and philosophy. The work he already does fits both: evaluating the reasoning and bias of model outputs, designing and reviewing prompts, and building AI assisted educational tools.</span><span data-l="es">Un rol en la industria de la IA o en la enseñanza de tecnología y filosofía. El trabajo que ya hace encaja con ambos: evaluar el razonamiento y los sesgos de las respuestas de los modelos, diseñar y revisar prompts y construir herramientas educativas asistidas por IA.</span></p>
+</details>
+<details>
+<summary><span data-l="en">Is he open to remote work? <i aria-hidden="true" class="ph ph-plus"></i></span><span data-l="es">¿Está abierto al trabajo remoto? <i aria-hidden="true" class="ph ph-plus"></i></span></summary>
+<p class="ans"><span data-l="en">Yes. Dan is based in Buenos Aires, Argentina, and is open to remote work.</span><span data-l="es">Sí. Dan vive en Buenos Aires, Argentina, y está abierto al trabajo remoto.</span></p>
+</details>
+<details>
+<summary><span data-l="en">Which languages does he work in? <i aria-hidden="true" class="ph ph-plus"></i></span><span data-l="es">¿En qué idiomas trabaja? <i aria-hidden="true" class="ph ph-plus"></i></span></summary>
+<p class="ans"><span data-l="en">Spanish is his native language and his professional English is advanced. He teaches in English.</span><span data-l="es">El español es su lengua nativa y su inglés profesional es avanzado. Enseña en inglés.</span></p>
+</details>
+<details>
+<summary><span data-l="en">How does he use AI ethically? <i aria-hidden="true" class="ph ph-plus"></i></span><span data-l="es">¿Cómo usa la IA de manera ética? <i aria-hidden="true" class="ph ph-plus"></i></span></summary>
+<p class="ans"><span data-l="en">He has worked with AI since 2022 under one criterion: human judgment stays at the center. He checks model outputs against explicit philosophical criteria for reasoning, coherence and bias. In Proyecto Terra, the messages students receive are written ahead of time and reviewed by him, not generated live.</span><span data-l="es">Trabaja con IA desde 2022 bajo un criterio: el juicio humano se mantiene en el centro. Contrasta las respuestas de los modelos con criterios filosóficos explícitos de razonamiento, coherencia y sesgo. En Proyecto Terra, los mensajes que reciben los estudiantes están escritos de antemano y revisados por él, no se generan en vivo.</span></p>
+</details>
+<details>
+<summary><span data-l="en">Which tools does he use? <i aria-hidden="true" class="ph ph-plus"></i></span><span data-l="es">¿Qué herramientas usa? <i aria-hidden="true" class="ph ph-plus"></i></span></summary>
+<p class="ans"><span data-l="en">Claude Code and Codex to build educational tools with automatic marking and feedback to the student. Proyecto Terra was built with Claude Code and runs on Firebase hosting.</span><span data-l="es">Claude Code y Codex para construir herramientas educativas con corrección automática y devolución al estudiante. Proyecto Terra se construyó con Claude Code y corre en el hosting de Firebase.</span></p>
+</details>
+<details>
+<summary><span data-l="en">What is he studying now? <i aria-hidden="true" class="ph ph-plus"></i></span><span data-l="es">¿Qué estudia ahora? <i aria-hidden="true" class="ph ph-plus"></i></span></summary>
+<p class="ans"><span data-l="en">The Diplomatura en Inteligencia Artificial y Prácticas Creativas, from UNSAM and Revista Anfibia, which he started in August 2026. He graduated as Profesor de Filosofía from the University of Buenos Aires in 2024.</span><span data-l="es">La Diplomatura en Inteligencia Artificial y Prácticas Creativas, de UNSAM y Revista Anfibia, que empezó en agosto de 2026. Se recibió de Profesor de Filosofía en la Universidad de Buenos Aires en 2024.</span></p>
+</details>
+</div>
+</div>
+</section>
+<!-- FINAL CTA -->
+<section class="sec" id="contact" style="padding-top:0">
+<div class="wrap">
+<div class="card cta rv">
+<span class="eyebrow"><span data-l="en">Open to roles</span><span data-l="es">Abierto a propuestas</span></span>
+<h2 class="h2"><span data-l="en">If your team needs someone who teaches, builds and questions AI, write to me.</span><span data-l="es">Si tu equipo necesita a alguien que enseñe, construya y cuestione la IA, escribime.</span></h2>
+<p class="sub"><span data-l="en">AI industry roles, or teaching technology and philosophy. Based in Buenos Aires, open to remote work. Native Spanish, advanced professional English.</span><span data-l="es">Roles en la industria de la IA o en la enseñanza de tecnología y filosofía. Vivo en Buenos Aires y estoy abierto al trabajo remoto. Español nativo, inglés profesional avanzado.</span></p>
+<div class="actions">
+<a class="btn btn-primary" href="mailto:meci.dan@gmail.com?subject=Role%20inquiry"><span data-l="en">Email me about a role <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span><span data-l="es">Escribime por un rol <i aria-hidden="true" class="ph ph-arrow-up-right"></i></span></a>
+<a class="btn btn-ghost" href="tel:+541158395607"><i aria-hidden="true" class="ph ph-phone"></i>+54 11 5839 5607</a>
+<button class="btn btn-ghost" data-copy="meci.dan@gmail.com" data-status="copy-status" type="button"><i aria-hidden="true" class="ph ph-copy"></i><span class="lbl"><span data-l="en">Copy email address</span><span data-l="es">Copiar dirección de email</span></span></button>
+</div>
+<p class="status" id="copy-status" role="status"></p>
+</div>
+</div>
+</section>
 </main>
-
-<footer class="wrap">
-  <span class="eyebrow">Get in touch</span>
-  <a href="mailto:meci.dan@gmail.com">meci.dan@gmail.com</a>
-  <p class="copyright">Copyright Prof Dan M. Mecikovsky</p>
+<footer class="foot">
+<div class="wrap foot-in">
+<nav aria-label="Footer" data-en-aria-label="Footer" data-es-aria-label="Pie de página">
+<ul>
+<li><a aria-current="page" href="./"><span data-l="en">Home</span><span data-l="es">Inicio</span></a></li>
+<li><a href="philosophy/"><span data-l="en">Philosophy collection</span><span data-l="es">Colección de filosofía</span></a></li>
+<li><a href="mailto:meci.dan@gmail.com">meci.dan@gmail.com</a></li>
+<li><a href="tel:+541158395607">+54 11 5839 5607</a></li>
+<li><a href="legal.html#privacy"><span data-l="en">Privacy</span><span data-l="es">Privacidad</span></a></li>
+<li><a href="legal.html#terms"><span data-l="en">Terms</span><span data-l="es">Términos</span></a></li>
+</ul>
+</nav>
+<p class="copyright">Copyright Prof Dan M. Mecikovsky</p>
+</div>
 </footer>
-
+<script>window.LANG_T={en:{title:"Dan Martín Mecikovsky | Philosophy professor building with AI",desc:"Philosophy professor from the University of Buenos Aires who teaches with AI, builds his own classroom tools with Claude Code and wants to work in the AI industry or in teaching technology and philosophy."},es:{title:"Dan Martín Mecikovsky | Profesor de Filosofía que construye con IA",desc:"Profesor de Filosofía de la Universidad de Buenos Aires que enseña con IA, construye sus propias herramientas de aula con Claude Code y quiere trabajar en la industria de la IA o en la enseñanza de tecnología y filosofía."}}</script>
+<script src="assets/lang.js"></script>
+<script src="assets/site.js"></script>
 </body>
 </html>

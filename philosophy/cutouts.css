@@ -1,0 +1,83 @@
+/* Paper cutout puppets in the style of Terry Gilliam's animations.
+   Stop motion: every movement uses steps() so it jerks like paper on a table.
+   Desktop: figures peek in from the left and right borders of each section.
+   Tablet and phone: each figure pops up out of a strip between sections.
+   Motion: transform and opacity only, paused off screen, still under reduced motion. */
+
+:root{--gut:max(0px,calc((100vw - 1024px) / 2 - 8px))}
+html,body{overflow-x:clip}
+.sec{position:relative}
+.cut-host{position:relative}
+
+.cut{
+  --w:min(340px,calc(var(--gut) * 1.5));
+  --dir:1;
+  position:absolute;z-index:0;pointer-events:none;width:var(--w);
+  top:var(--top,48px);
+}
+.cut[data-side="l"]{left:calc(var(--w) * -0.25);--dir:-1}
+.cut[data-side="r"]{right:calc(var(--w) * -0.25);--dir:1}
+
+.cut-body{position:relative;opacity:0}
+.cut-sway{position:relative;transform-origin:50% 100%}
+.cut img{display:block;width:100%;height:auto;filter:drop-shadow(6px 8px 0 rgba(0,0,0,.65))}
+.cut-jaw{position:absolute;inset:0;z-index:1}
+.cut-top{position:relative;z-index:1}
+.cut.talks .cut-top{clip-path:inset(0 0 calc(100% - var(--jaw)) 0);transform-origin:20% var(--jaw)}
+.cut.talks .cut-jaw{clip-path:inset(var(--jaw) 0 0 0)}
+.cut-mouth{
+  position:absolute;left:30%;width:34%;top:calc(var(--jaw) - 1%);height:5%;
+  background:#1B0F08;border-radius:0 0 50% 50%;z-index:0;
+}
+
+/* entrance: slides in from the border in seven jerky frames */
+.cut.in .cut-body{animation:cut-in 1050ms steps(7,end) both}
+.cut.in .cut-sway{animation:cut-sway 1300ms steps(1,end) 1050ms infinite}
+.cut.in.talks .cut-top{animation:cut-talk 2600ms steps(1,end) var(--td,1.4s) infinite}
+.cut:not(.on) .cut-body,.cut:not(.on) .cut-sway,.cut:not(.on) .cut-top{animation-play-state:paused}
+
+@keyframes cut-in{
+  0%{opacity:0;transform:translateX(calc(var(--dir) * -70%)) rotate(calc(var(--dir) * -14deg));filter:blur(8px)}
+  100%{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes cut-sway{
+  0%{transform:rotate(-1.6deg)}
+  50%{transform:rotate(1.6deg) translateY(-3px)}
+  100%{transform:rotate(-1.6deg)}
+}
+@keyframes cut-talk{
+  0%,100%{transform:rotate(0)}
+  6%{transform:rotate(-4deg)}
+  12%{transform:rotate(0)}
+  18%{transform:rotate(-5deg)}
+  24%{transform:rotate(-1deg)}
+  30%{transform:rotate(-4deg)}
+  36%{transform:rotate(0)}
+  42%{transform:rotate(-3deg)}
+  48%{transform:rotate(0)}
+}
+
+/* tablet and phone: puppets pop up from a strip between sections */
+@media(max-width:1179px){
+  .cut{
+    position:relative;top:auto;left:auto;right:auto;width:100%;
+    height:clamp(96px,22vw,150px);overflow:hidden;
+  }
+  .cut[data-side="l"],.cut[data-side="r"]{left:auto;right:auto}
+  .cut-body{
+    position:absolute;bottom:0;width:clamp(110px,30vw,170px);
+  }
+  .cut[data-side="l"] .cut-body{left:24px}
+  .cut[data-side="r"] .cut-body{right:24px}
+  .cut-body{transform:translateY(34%)}
+  .cut.in .cut-body{animation-name:cut-pop}
+  @keyframes cut-pop{
+    0%{opacity:0;transform:translateY(100%) rotate(calc(var(--dir) * 10deg))}
+    100%{opacity:1;transform:translateY(34%)}
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .cut-body{opacity:1;animation:none !important}
+  .cut-sway,.cut-top{animation:none !important}
+}
