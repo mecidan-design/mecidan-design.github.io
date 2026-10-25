@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE TANGLE ENTANGLEMENT QUIZ</title>
+<meta name="description" content="Trivia de bar sobre el piso 4 del dungeon, el Iron Tangle. Personajes, trama, debate, sistema de trenes y humor del sistema.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Big+Shoulders+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tunnel:#0f1b1f; --tunnel2:#16282d; --wall:#1b3b3a;
+  --tile:#cfe2d8; --tile2:#b4cfc1; --ink:#10201f; --paper:#f3faf6;
+  --amber:#ffb21e; --mint:#19c39a; --rose:#e0338a; --cream:#e9f2ee;
+  --c1:#c8321b; --t1:#fff;
+  --c2:#f0b429; --t2:#10201f;
+  --c3:#7a43d6; --t3:#fff;
+  --c4:#2ec4b6; --t4:#10201f;
+  --c5:#c21f74; --t5:#fff;
+  --cd:#f4f4f4; --td:#10201f;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--tunnel);color:var(--cream);font-family:var(--body);font-size:1.0625rem;line-height:1.5;min-height:100vh}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+h1:focus,h2:focus,h2:focus-visible,h1:focus-visible,.q:focus,.q:focus-visible{outline:none}
+h1,h2,h3{font-family:var(--display);font-weight:900;margin:0;line-height:.95;letter-spacing:.005em}
+
+/* ---------- Escenario ---------- */
+.stage{position:relative;height:13em;font-size:clamp(11px,1.45vw,16px);overflow:hidden;background:linear-gradient(#0a1316,#173133 62%,#1b3b3a);isolation:isolate}
+.stage::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:2.2em 1.4em;z-index:0}
+.tunnelview{position:absolute;left:0;right:0;top:1.6em;height:4.4em;background:#050b0d;border-top:2px solid #0f2328;border-bottom:2px solid #0f2328;overflow:hidden;z-index:0}
+.bgtrain{position:absolute;top:.5em;height:3em;width:62%;left:105%;border-radius:.5em;background:#1a2f4f;animation:bgTrain 34s linear infinite}
+.bgtrain::before{content:"";position:absolute;left:.6em;right:.6em;top:.55em;height:1.2em;background:repeating-linear-gradient(90deg,#a9efdb 0 1.7em,transparent 1.7em 2.5em);border-radius:.3em;opacity:.85}
+.bgtrain::after{content:"";position:absolute;left:0;right:0;bottom:.35em;height:.3em;background:var(--c2)}
+.lamp{position:absolute;top:0;width:3em;height:.8em;background:#f6e6ad;border-radius:0 0 1.5em 1.5em;z-index:1;animation:flick 6s steps(1) infinite}
+.lamp::after{content:"";position:absolute;left:-1.6em;top:.8em;width:6.2em;height:8em;background:linear-gradient(rgba(255,226,140,.26),transparent);clip-path:polygon(28% 0,72% 0,100% 100%,0 100%)}
+.l1{left:12%}.l2{left:38%;animation-delay:-2s}.l3{left:64%;animation-delay:-4s}.l4{left:90%;animation-delay:-1s}
+.floor{position:absolute;left:0;right:0;bottom:0;height:3.6em;background:linear-gradient(#1a2b30,#0b1315);z-index:0}
+.edge{position:absolute;left:0;right:0;bottom:0;height:.7em;background:repeating-linear-gradient(90deg,#ffb21e 0 1.4em,#c98a0b 1.4em 1.7em);z-index:5}
+.actor{position:absolute;z-index:3}
+.crawler-g{bottom:1.3em;left:-12%;width:4.6em;animation:crawlerWalk 42s linear infinite}
+.duchess-g{bottom:1.2em;left:-22%;width:6.4em;z-index:4;animation:duchessRun 30s linear infinite}
+.crab-g{bottom:1em;left:-34%;width:9em;z-index:3;animation:crabChase 30s linear infinite}
+.jelly-g{bottom:3.3em;left:46%;width:5.4em;z-index:2}
+.farolero-g{bottom:2.4em;left:62%;width:4.6em;z-index:2;opacity:0;animation:roam 36s linear infinite}
+.rider{position:absolute;left:1.1em;bottom:3.75em;width:5.6em;opacity:0;animation:riderShow 30s linear infinite}
+.actor svg{display:block;width:100%;height:auto;overflow:visible}
+.duchess-g svg{animation:bob .24s ease-in-out infinite alternate}
+.crab-g>svg{animation:bob .2s ease-in-out infinite alternate}
+.crawler-bob{animation:bob .5s ease-in-out infinite alternate}
+.jelly-g svg{animation:squish 3.4s ease-in-out infinite}
+.farolero-g svg{animation:float 3s ease-in-out infinite alternate}
+.leg{transform-box:fill-box;transform-origin:top center}
+.duchess-g .leg1{animation:stepA .24s ease-in-out infinite alternate}
+.duchess-g .leg2{animation:stepB .24s ease-in-out infinite alternate}
+.rider .legs{display:none}
+.rider svg{animation:none}
+.cleg{transform-box:fill-box;transform-origin:top center}
+.cleg.a{animation:stepA .5s ease-in-out infinite alternate}
+.cleg.b{animation:stepB .5s ease-in-out infinite alternate}
+.wlegs g{animation:scuttle .12s linear infinite alternate}
+.wlegs g:nth-child(even){animation-direction:alternate-reverse}
+.jaw{transform-box:fill-box;transform-origin:left center;animation:snap .6s ease-in-out infinite alternate}
+.jaw2{transform-box:fill-box;transform-origin:left center;animation:snap2 .6s ease-in-out infinite alternate}
+.brow{animation:brow 7s ease-in-out infinite}
+.quills{transform-box:fill-box;transform-origin:right center;animation:flip 5s ease-in-out infinite}
+.jeyes{transform-box:fill-box;transform-origin:center;animation:blink 5.5s infinite}
+.lglow{animation:glowp 2.2s ease-in-out infinite alternate}
+.stage[data-mood="win"] .crawler-bob{animation:hop .7s ease-out 1}
+.stage[data-mood="lose"] .crawler-bob{animation:stumble .8s ease-out 1}
+
+@keyframes bgTrain{0%,56%{left:105%}80%{left:-70%}100%{left:-70%}}
+@keyframes flick{0%{opacity:1}91%{opacity:.35}92%{opacity:1}95%{opacity:.5}96%{opacity:1}100%{opacity:1}}
+@keyframes crawlerWalk{from{left:-12%}to{left:106%}}
+@keyframes duchessRun{0%,6%{left:-22%}24%,100%{left:118%}}
+@keyframes crabChase{
+  0%,6%{left:-42%;transform:scaleX(1)}
+  24%{left:114%;transform:scaleX(1)}
+  25%,52%{left:114%;transform:scaleX(-1)}
+  78%{left:-34%;transform:scaleX(-1)}
+  100%{left:-34%;transform:scaleX(-1)}
+}
+@keyframes riderShow{0%,49%{opacity:0}50%,80%{opacity:1}81%,100%{opacity:0}}
+@keyframes roam{
+  0%,5%{opacity:0;left:62%}
+  7%{opacity:.25}8%{opacity:.9}9%{opacity:.3}10%,24%{opacity:1;left:62%}
+  26%{opacity:.2}27%{opacity:0;left:62%}
+  27.1%,50%{opacity:0;left:16%}
+  52%{opacity:.9}53%{opacity:.2}54%,68%{opacity:1;left:16%}
+  70%{opacity:.3}71%{opacity:0;left:16%}
+  71.1%,76%{opacity:0;left:84%}
+  78%{opacity:1;left:84%}84%{opacity:1;left:84%}86%{opacity:0;left:84%}100%{opacity:0}
+}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-.25em)}}
+@keyframes float{from{transform:translateY(0)}to{transform:translateY(-.6em)}}
+@keyframes squish{0%,100%{transform:scale(1,1)}50%{transform:scale(1.07,.93)}}
+@keyframes stepA{from{transform:rotate(26deg)}to{transform:rotate(-26deg)}}
+@keyframes stepB{from{transform:rotate(-26deg)}to{transform:rotate(26deg)}}
+@keyframes scuttle{from{transform:translateY(0)}to{transform:translateY(-.18em)}}
+@keyframes snap{from{transform:rotate(-14deg)}to{transform:rotate(8deg)}}
+@keyframes snap2{from{transform:rotate(14deg)}to{transform:rotate(-8deg)}}
+@keyframes brow{0%,70%,100%{transform:translateY(0)}76%,84%{transform:translateY(-3px)}}
+@keyframes flip{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(5deg)}80%{transform:rotate(-2deg)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes glowp{from{opacity:.55;transform:scale(.9)}to{opacity:1;transform:scale(1.1)}}
+@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-2.6em) rotate(-8deg)}70%{transform:translateY(0) rotate(4deg)}100%{transform:none}}
+@keyframes stumble{0%{transform:none}30%{transform:rotate(-22deg) translateY(.3em)}60%{transform:rotate(14deg)}100%{transform:none}}
+
+/* ---------- Estructura ---------- */
+main{max-width:56rem;margin:0 auto;padding:1.6rem 1rem 4rem}
+.stack>*+*{margin-top:1.1rem}
+.title{font-size:clamp(3rem,11vw,6.6rem);text-transform:uppercase;color:#fff}
+.sub{font-size:clamp(1.1rem,2.2vw,1.3rem);max-width:38rem;color:var(--cream);margin:.9rem 0 0}
+.cast{font-size:.95rem;color:#a9c4ba;max-width:40rem}
+.quote{border-left:6px solid var(--amber);padding:.2rem 0 .2rem 1rem;max-width:40rem;font-size:1.08rem}
+.btn{display:inline-block;background:var(--amber);color:var(--ink);border:0;border-radius:.3rem;padding:.8rem 1.4rem;font-weight:700;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 0 #a8730a;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 #a8730a}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #a8730a}
+.btn.ghost{background:transparent;color:var(--cream);box-shadow:inset 0 0 0 2px #4d6a66}
+.btn.ghost:hover{box-shadow:inset 0 0 0 2px var(--amber)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.setup{background:var(--tunnel2);border:2px solid #2a4549;border-radius:.4rem;padding:1rem;max-width:40rem}
+.setup label{font-weight:700;display:block;margin-bottom:.35rem}
+.row{display:flex;gap:.5rem;flex-wrap:wrap}
+.setup input{flex:1 1 12rem;background:#0b1518;border:2px solid #3b5a5e;border-radius:.3rem;padding:.55rem .7rem;color:#fff;min-width:0}
+.hint{font-size:.92rem;color:#a9c4ba;margin:.4rem 0 0}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.7rem;padding:0;list-style:none}
+.chip{display:inline-flex;align-items:center;gap:.4rem;background:#0b1518;border:2px solid #3b5a5e;border-radius:99px;padding:.2rem .3rem .2rem .8rem}
+.chip button{background:#2a4549;border:0;border-radius:50%;width:1.6rem;height:1.6rem;cursor:pointer;line-height:1}
+.chip button:hover{background:var(--rose)}
+
+.linebar{display:flex;gap:7px;margin:0 0 .9rem}
+.seg{display:flex;gap:2px;min-width:0}
+.st{flex:1;min-width:3px;height:.7rem;background:rgba(255,255,255,.14);border-radius:2px;transition:background .2s}
+.st.ok{background:var(--c)}
+.st.bad{background:transparent;box-shadow:inset 0 0 0 2px var(--c)}
+.st.debate{background:repeating-linear-gradient(45deg,var(--c) 0 3px,transparent 3px 6px)}
+.st.cur{background:#fff;transform:scaleY(1.9)}
+.score{display:flex;gap:.4rem;flex-wrap:wrap;margin:0 0 1rem;padding:0;list-style:none;font-size:.95rem}
+.score li{background:var(--tunnel2);border:2px solid #2a4549;border-radius:99px;padding:.1rem .8rem}
+.score li[aria-current="true"]{border-color:var(--amber);color:#fff;font-weight:700}
+
+.plate{background:var(--tile);color:var(--ink);border-radius:.5rem;padding:1.2rem 1.2rem 1.4rem;background-image:linear-gradient(rgba(16,32,31,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(16,32,31,.07) 1px,transparent 1px);background-size:2.6rem 1.7rem;box-shadow:0 0 0 4px var(--tunnel),0 0 0 7px var(--tile2),0 14px 30px rgba(0,0,0,.45)}
+.plate-head{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-bottom:.9rem}
+.bullet{width:2.3rem;height:2.3rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:1.5rem;background:var(--lc);color:var(--lt);flex:none}
+.plate-head .where{font-weight:700}
+.plate-head .diff{margin-left:auto;font-size:.92rem;background:var(--ink);color:#fff;border-radius:99px;padding:.1rem .8rem}
+.said{font-style:italic;color:#35514c;margin:0 0 .5rem}
+.q{font-family:var(--body);font-weight:700;font-size:clamp(1.25rem,2.7vw,1.7rem);line-height:1.3;margin:0 0 1.1rem;max-width:44rem}
+.turn{margin:0 0 .6rem;font-weight:700}
+.opts{display:grid;gap:.6rem;margin:0;padding:0;list-style:none}
+.opt{display:flex;gap:.8rem;align-items:flex-start;text-align:left;width:100%;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-left:10px solid var(--lc);border-radius:.35rem;padding:.7rem .9rem;cursor:pointer;transition:transform .12s,background .12s}
+.opt:hover:not([disabled]){transform:translateX(4px);background:#fff}
+.opt b{flex:none;width:1.9rem;height:1.9rem;display:grid;place-items:center;background:var(--ink);color:#fff;border-radius:.25rem;font-family:var(--display);font-size:1.3rem}
+.opt span{flex:1}
+.opt[disabled]{cursor:default}
+.opt[data-state="right"]{background:var(--mint);border-color:#0b6b55}
+.opt[data-state="right"] span::after{content:"  ✓ Correcta";font-weight:700}
+.opt[data-state="wrong"]{background:#f7c4de;border-color:var(--rose);animation:shake .4s}
+.opt[data-state="wrong"] span::after{content:"  ✗ Tu respuesta";font-weight:700}
+.opt[data-state="dim"]{opacity:.78}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.post{display:flex;align-items:flex-start;gap:.8rem;text-align:left;width:100%;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-left:10px solid var(--lc);border-radius:.35rem;padding:.8rem .9rem;cursor:pointer}
+.post:hover{background:#fff}
+.post .votes{flex:none;min-width:3.4rem;text-align:center;background:var(--ink);color:#fff;border-radius:.3rem;padding:.2rem .4rem;font-weight:700}
+.post strong{display:block}
+.fb{margin-top:1.2rem;border-top:3px dashed #7ea597;padding-top:1rem}
+.fb h3{font-size:1.9rem;text-transform:uppercase}
+.fb h3.good{color:#0b6b55}.fb h3.bad{color:#a3145e}
+.host{margin:.5rem 0 0;font-size:1.06rem;max-width:44rem}
+.diva{display:flex;gap:.7rem;align-items:flex-start;margin-top:.9rem;background:#1c2d3a;color:#f3e6ff;border-radius:.5rem;padding:.7rem .9rem;max-width:44rem}
+.diva svg{flex:none;width:3.6rem;height:auto}
+.diva p{margin:0;font-style:italic}
+details.ev{margin-top:.9rem;max-width:44rem}
+details.ev summary{cursor:pointer;font-weight:700}
+details.ev p{margin:.4rem 0 0;font-size:.96rem;color:#2c4a44}
+.actions{margin-top:1.2rem;display:flex;gap:.6rem;flex-wrap:wrap}
+
+.round-card{background:var(--tunnel2);border:2px solid #2a4549;border-radius:.5rem;padding:1.4rem;display:flex;gap:1.2rem;align-items:flex-start}
+.round-card .bullet{width:4.4rem;height:4.4rem;font-size:3rem}
+.round-card h2{font-size:clamp(2.2rem,6vw,3.6rem);color:#fff;text-transform:uppercase}
+.round-card p{margin:.6rem 0 1rem;max-width:36rem}
+
+.res h2{font-size:clamp(2.4rem,7vw,4rem);text-transform:uppercase;color:#fff}
+.rank{background:var(--tunnel2);border:2px solid #2a4549;border-left:10px solid var(--lc,var(--amber));border-radius:.4rem;padding:.9rem 1rem}
+.rank h3{font-size:1.9rem;color:#fff}
+.rank .pct{font-weight:700;color:var(--amber)}
+.rank p{margin:.3rem 0 0}
+.badge{display:inline-block;margin-top:.5rem;background:var(--c4);color:var(--ink);font-weight:700;border-radius:99px;padding:.1rem .8rem}
+table{border-collapse:collapse;width:100%;font-size:.97rem}
+th,td{padding:.45rem .6rem;border-bottom:1px solid #2a4549;text-align:left}
+th{color:#a9c4ba;font-weight:700}
+.tbl{overflow-x:auto}
+.tb-who{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+.tb-who button{background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:99px;padding:.3rem .9rem;cursor:pointer;font-weight:700}
+.tb-who button[aria-pressed="true"]{background:var(--mint)}
+footer{max-width:56rem;margin:0 auto;padding:0 1rem 2rem;color:#7f9c93;font-size:.9rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:640px){
+  .round-card{flex-direction:column}
+  .opt:hover:not([disabled]){transform:none}
+  .plate{padding:1rem .9rem 1.2rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .crawler-g{left:8%}.duchess-g{left:30%}.crab-g{left:70%;transform:scaleX(-1)}
+  .rider{opacity:1}.farolero-g{opacity:1}.bgtrain{left:20%}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" aria-hidden="true"></div>
+<main id="app"><noscript>Este quiz necesita JavaScript para funcionar.</noscript></main>
+<footer>Piso 4, el Iron Tangle. Las mascotas son originales de esta página.</footer>
+
+<script>
+(function(){
+"use strict";
+var D = {"title": "QUIZ SHOW DE BAR: THE DUNGEON ANARCHIST'S COOKBOOK", "subtitulo": "El juego de trivia definitivo sobre el piso 4 del dungeon, The Iron Tangle", "intro": "¡Buenas noches, crawlers! Acomódense, agarren una cerveza helada o una Dirty Shirley y bienvenidos al quiz show de bar más despiadado de la superficie. Hoy saldamos cuentas con el libro 3 de Dungeon Crawler Carl. ¡Mind the gap, motherfuckers!", "rounds": [{"n": 1, "name": "Personajes", "intro": "Arrancamos con los personajes. A ver quién se acuerda de quién traicionó a quién y quién terminó aplastado contra la pared del vagón.", "questions": [{"id": "Q01", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "Empecemos calentando motores con el libro estrella de la planta.", "pregunta": "¿Cómo consigue Carl el cotizado objeto The Dungeon Anarchist's Cookbook?", "A": "Encontrándolo en la mochila de un Jikininki aplastado en las vías.", "B": "Eligiéndolo como su premio número 6 en el Prize Carousel de Chaco el Bardo, disfrazado como un modesto libro de recetas de pollo y goblins.", "C": "Comprándolo por 50.000 monedas de oro en la tienda de Limp Richard en la estación 83.", "D": "Desbloqueándolo automáticamente al derrotar al primer City Boss de la planta.", "correcta": "B", "comentario_presentador": "¡Exacto, boludo! Carl prefirió un falso recetario de pollo antes que unos chaps de cuero sin culo. Resulta que el libro de cocina era la guía anarquista más peligrosa del cosmos.", "verificada": "si", "evidencia": "Carl elige el premio 6 en el Prize Carousel conducido por Chaco el Bardo, que figuraba en la interfaz como un libro de recetas de pollo y goblins pero resultó ser la 25ª edición del Cookbook."}, {"id": "Q02", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Katia asume una función defensiva muy particular en el grupo.", "pregunta": "¿En qué consiste la transformación biomecánica de Katia para limpiar vías e ingresar a vagones infestados?", "A": "Se convierte en una réplica gigante de Mongo para espantar ghouls con graznidos.", "B": "Utiliza su magia de Doppelgänger para duplicar el peso de los vagones del subte.", "C": "Se transforma en una estructura de arado de masa viva, goma e hule adherida al frente del vagón para triturar hordas de ghouls.", "D": "Se convierte en un cañón de combustible líquido que dispara llamas por la ventana.", "correcta": "C", "comentario_presentador": "¡Se convirtió en un arado de carne y goma acoplado al subte! Si eso no es amor por el equipo, no sé qué es.", "verificada": "si", "evidencia": "Katia usa su habilidad de Doppelgänger junto con masa cargada en una mochila modificada para formar un arado al frente del subte Vermillion que limpia ghouls en las vías."}, {"id": "Q03", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "El manager Mordecai tuvo un pequeño problemita disciplinario.", "pregunta": "¿Por qué el manager Mordecai queda en estado Naughty (sancionado) durante 7 días enteros en plena cuarta planta?", "A": "Por lanzarle una silla metálica con la lengua a la cabeza del presentador Chaco el Bardo apenas lo vio entrar en la Personal Space.", "B": "Por venderle pociones de alcoholemia ilegal a los crawlers del top 10.", "C": "Por revelar secretos del código fuente del dungeon frente a las cámaras.", "D": "Por insultar la gastronomía Bopca en la cocina del restaurante Nirula's.", "correcta": "A", "comentario_presentador": "Mordecai vio entrar al perro alado Chaco y le reventó una silla en la cara usando la lengua de sapo Grulke. ¡Sancionado 7 días pero valió cada segundo!", "verificada": "si", "evidencia": "En la Personal Space, apenas aparece Chaco el Bardo, Mordecai atrapa una silla con su lengua de Grulke y se la arroja a Chaco, recibiendo una sanción disciplinaria de 7 días."}, {"id": "Q04", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Hekla y sus tácticas de reclutamiento de la vieja escuela.", "pregunta": "¿Cuál era la verdadera intención de Hekla al dispararle a Katia con los Dirty Little Phased Bolts (dardos invisibles)?", "A": "Probar si la armadura de goma de Katia resistía proyectiles mágicos.", "B": "Limpiar los ghouls que la atacaban por la espalda sin llamar la atención de la masa.", "C": "Probar las habilidades de curación de la hada Silfa en combate real.", "D": "Desangrar a Katia a traición para forzar a Carl a un ataque de ira ejecutatorio y reclutar a Donut en Brynhild's Daughters.", "correcta": "D", "comentario_presentador": "Hekla usó los dardos invisibles para desangrar a Katia a traición sin sumar calavera de PK, buscando dejar a Donut sola y obligarla a sumarse a su clan. Cuchillo de palo.", "verificada": "si", "evidencia": "Donut descubre con sus anteojos que Hekla le disparó dardos Phased invisibles a Katia; los dardos drenan vida hasta el 1% sin otorgar calavera de PK al agresor para culpar a otros."}, {"id": "Q05", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Un regalo envenenado del Sindicato Borant a nuestra gata favorita.", "pregunta": "Tras sobrevivir al ataque en el Desperado Club, Donut recibe un PVP Coupon para liquidar a Carl a cambio de recompensas masivas. ¿Qué hace Donut con ese cupón?", "A": "Venderlo en el mercado negro por medio millón de piezas de oro.", "B": "Ocultarlo debajo de las vías del tren y deshacerse de él para no traicionar jamás a su equipo.", "C": "Reclamar la recompensa de inmediato en la caja de seguridad.", "D": "Entregárselo a Hekla a cambio de un puesto de liderazgo en el clan.", "correcta": "B", "comentario_presentador": "El Sindicato le regaló un cupón PVP para liquidar a Carl a cambio de 3 niveles y cofres legendarios. Donut, siendo una reina leal, lo tiró abajo de las vías.", "verificada": "si", "evidencia": "Donut recibe un PVP Coupon con la orden de matar a Carl #4,122; Katia revela que Donut lo tiró bajo las vías para protegerlo."}, {"id": "Q06", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "La dulce Eva Sigrid lucía adornos nada discretos en su cabeza.", "pregunta": "Las trece calaveras sobre la cabeza de Eva Sigrid (la lugarteniente de Hekla) indicaban un hecho temible. ¿Cuál era?", "A": "Que había matado a 13 crawlers en total dentro del dungeon.", "B": "Que había completado 13 misiones secundarias de la clase Nimblefoot Enforcer.", "C": "Que había sobrevivido a 13 descarrilamientos en la Red Line.", "D": "Que poseía 13 colecciones completas de sombreros de duende.", "correcta": "A", "comentario_presentador": "Eva Sigrid llevaba 13 calaveras de Player Killer flotando sobre la cabeza. La sicaria oficial de Brynhild's Daughters no andaba con chiquitas.", "verificada": "si", "evidencia": "El interfaz muestra que Eva Sigrid (Half Nagini, Half-Orc) tiene una calavera grande y tres pequeñas sobre su cabeza, indicando 13 muertes de crawlers acumuladas."}, {"id": "Q07", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Recordemos a los héroes caídos de la superficie.", "pregunta": "¿Qué ocurrió con Brandon, el recordado líder de los sobrevivientes de Meadow Lark?", "A": "Compró su pase de salida del dungeon con el oro acumulado.", "B": "Se unió a los mercenarios del Club Vanquisher tras la caída del piso 3.", "C": "Murió trágicamente en el piso 3 defendiendo la retirada contra los Shade Gremlins, dejando a Imani y Elle a cargo.", "D": "Fue congelado por la IA del dungeon por romper las reglas de combate.", "correcta": "C", "comentario_presentador": "Brandon murió como un campeón en la Over City peleando contra los Shade Gremlins para que Imani y Elle pudieran salvar al grupo y llegar al Tangle.", "verificada": "si", "evidencia": "Imani y Elle relatan que Brandon falleció defendiendo la retirada del grupo de Meadow Lark contra los Shade Gremlins en el piso 3."}, {"id": "Q08", "ronda": "1", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "El encuentro entre las dos personalidades más intensas del calabozo.", "pregunta": "¿Cómo reacciona el aristocrático Caprid Prepotente al interactuar cara a cara con la Princesa Donut?", "A": "Le grita rabiosamente en la cara a Carl pero trata a Donut con refinada cortesía llamándola deleitable.", "B": "La ataca de inmediato para arrebatarle su lugar en el Leaderboard.", "C": "Le ofrece cambiar a su mascota monstruosa por Mongo.", "D": "Se niega a dirigirle la palabra por ser un felino sin título nobiliario.", "correcta": "A", "comentario_presentador": "Prepotente odia a Carl con el alma y le berrea en el oído, pero a Donut le habló con una elegancia aristocrática digna de la realeza felina.", "verificada": "si", "evidencia": "Prepotente le grita a Carl pero trata a Donut con sumo respeto y cortesía, llamándola un ser inteligente y refinado en sus breves interacciones."}]}, {"n": 2, "name": "Trama", "intro": "Pasamos a la trama. Explosiones, trenes que van a ningún lado y las locuras administrativas del Sindicato Borant.", "questions": [{"id": "Q09", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Las reglas de confidencialidad del recetario anarquista.", "pregunta": "¿Qué regla de seguridad crucial rige sobre la lectura y posesión de The Dungeon Anarchist's Cookbook?", "A": "Debe leerse únicamente en voz alta en idioma Bopca.", "B": "Otorga 100 puntos inmediatos de fuerza al primer usuario que lo abre.", "C": "Requiere pagar 10.000 monedas de oro cada vez que se consulta una página.", "D": "Si el crawler revela su existencia a alguien o los showrunners sospechan, el texto escondido se borra para siempre.", "correcta": "D", "comentario_presentador": "Regla número uno de la guía anarquista: si hablás del libro o dejás que los showrunners sospechen, todo el contenido se borra en un pestañeo.", "verificada": "si", "evidencia": "El Cookbook advierte expresamente que si el crawler revela la existencia del libro o los administradores sospechan de su contenido, la información mágica se borrará permanentemente."}, {"id": "Q10", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "Bienvenidos a la cuarta planta, donde todo está diseñado para que te estreses.", "pregunta": "Al ingresar a The Iron Tangle, los crawlers reciben una notificación con condiciones especiales para este nivel. ¿Cuáles eran?", "A": "Tenían 30 días para completar el piso y las escaleras estaban abiertas desde el inicio.", "B": "Tenían solo 10 días para completar el piso y las escaleras (stairwells) permanecían bloqueadas hasta 6 horas antes del colapso.", "C": "La magia estaba prohibida en todos los vagones en movimiento.", "D": "Todos los crawlers debían permanecer obligatoriamente en el mismo vagón.", "correcta": "B", "comentario_presentador": "Tenían solo 10 días en lugar de los 20 habituales y las escaleras para bajar estaban cerradas a cal y canto hasta 6 horas antes del colapso total.", "verificada": "si", "evidencia": "La notificación inicial del nivel 4 indica un tiempo límite de 10 días para el colapso y advierte que las escaleras permanecerán cerradas hasta 6 horas antes del colapso."}, {"id": "Q11", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Para conseguir llaves de maquinista hay que ponerse creativo.", "pregunta": "¿Cómo logra Carl provocar el primer descarrilamiento de un subte para arrebatarle la llave al ingeniero?", "A": "Con una ráfaga masiva de Magic Missiles disparada por Donut desde la ventana.", "B": "Pidiéndole a Mongo que se pare sobre los rieles para frenar la locomotora.", "C": "Colocando dos minas explosivas en las vías justo antes de la plataforma de la estación.", "D": "Pagándole a un duende mecánico para que desenganche los vagones.", "correcta": "C", "comentario_presentador": "Puso dos minas en los rieles, voló el tren al demonio y le sacó la llave al maniático de Gore-Gore. Corta y al pie.", "verificada": "si", "evidencia": "Carl coloca dos minas de demolición sapper en las vías del tren Ochre antes de la estación 149 para provocar su descarrilamiento y recuperar la llave del ingeniero Gore-Gore."}, {"id": "Q12", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Un clímax sangriento dentro de la cabina del tren Vermillion.", "pregunta": "Durante el frenético desenlace en el vagón Vermillion entre Carl, Donut, Katia, Hekla y Eva, ¿qué sucede de forma inesperada?", "A": "Katia activa Rush para embestir a Eva, pero se desvía y aplasta mortalmente a Hekla contra la pared, cobrando los 500k de oro de la recompensa.", "B": "Hekla logra ejecutar a Carl y se lleva a Donut a su equipo.", "C": "Eva traiciona a Hekla y se alía con Carl a cambio de armamento Gold.", "D": "Donut destruye el vagón por completo con un Fireball accidental.", "correcta": "A", "comentario_presentador": "Katia activó Rush llena de furia contra Eva, pero erró por centímetros y reventó a Hekla contra la pared, embolsándose medio millón de oro de recompensa.", "verificada": "si", "evidencia": "Katia usa Rush apuntando a Eva, pero falla por poco y golpea a Hekla contra la pared interna del vagón, matándola y reclamando la recompensa de 500.000 de oro del top 10."}, {"id": "Q13", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Asomarse al Abyss tiene sus revelaciones traumáticas.", "pregunta": "Al llegar a la estación 436 y asomarse al abismo (The Abyss), ¿qué verdad macabra descubre Carl sobre el ciclo de los trenes?", "A": "Que los vagones viajan al pasado en un bucle temporal infinito.", "B": "Que la cuarta planta es una simulación holográfica montada en una nave espacial.", "C": "Que los trenes no van a ningún lado y solo giran en círculos de 100 metros.", "D": "Que solo las locomotoras (engine cars) son teletransportadas de vuelta; los vagones de pasajeros con ghouls y restos son arrojados al pozo como basura.", "correcta": "D", "comentario_presentador": "Los vagones de pasajeros eran arrojados como chatarra al abismo para ser desguazados por ghouls, mientras que solo la locomotora se reciclaba en los talleres.", "verificada": "si", "evidencia": "Carl descubre en el Abyss que solo las locomotoras pasan por el portal de retorno para ser reutilizadas; los demás vagones son arrojados al abismo gigante lleno de ghouls."}, {"id": "Q14", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "El objeto más ridículo de tu inventario a veces es la salvación.", "pregunta": "¿Qué objeto recibido al inicio de la planta servía como pase mágico para cruzar los portales del Abyss a los Trainyards sin morir?", "A": "La botella de refresco Rev-Up Moonshine.", "B": "El botón publicitario \"How may I hurt you?\".", "C": "El gorro promocional de conductor \"I rode the Iron Tangle\".", "D": "Un billete usado de la Red Line.", "correcta": "C", "comentario_presentador": "Ese gorrito choto de conductor que te daban por subirte al tren era la clave secreta para atravesar los portales del Abyss sin convertirse en mermelada.", "verificada": "si", "evidencia": "Carl descubre que equipar el Train Conductor's Souvenir Hat otorga acceso seguro a los portales sobre el Abyss para llegar a los talleres de reparación (Trainyards)."}, {"id": "Q15", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "El gran rescate masivo con banda sonora ochentera.", "pregunta": "Para rescatar a cientos de crawlers atrapados en el Abyss sin ser masacrados por las hordas en los talleres, ¿qué plan ejecutan Carl y el grupo?", "A": "Construir un puente de chatarra de 50 kilómetros a través del precipicio.", "B": "Desplegar carritos de interdicción rápida (Hobgoblin Interdiction Carts) equipados con portales al Abyss y música ochentera (Olivia Newton-John / Def Leppard) a todo volumen.", "C": "Usar pergaminos de teletransporte masivo de la diosa Lucia Mar.", "D": "Usar a las hijas de Brynhild como muro humano en las vías.", "correcta": "B", "comentario_presentador": "Mandaron carritos de interdicción con portales seteados y música de Olivia Newton-John al palo para succionar crawlers y ponerlos a salvo. ¡Épico!", "verificada": "si", "evidencia": "Carl y su equipo configuran los Hobgoblin Interdiction Carts con los portales dirigidos al Abyss y activan módulos de alarma con canciones pop/rock para guiar y rescatar crawlers."}, {"id": "Q16", "ronda": "2", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "El mantra inolvidable del anarquista del calabozo.", "pregunta": "¿Qué icónica e inolvidable declaración escribe Carl en la 25ª edición del Dungeon Anarchist's Cookbook al finalizar la planta?", "A": "\"They will not break me. Fuck them all. They will not break me. But I will break them.\"", "B": "\"Nos vemos en el piso 5, pedazo de idiotas\".", "C": "\"La Princesa Donut es la verdadera reina de este reality\".", "D": "\"Prometo no volver a subirme a un tren de subte en mi vida\".", "correcta": "A", "comentario_presentador": "\"They will not break me. Fuck them all. They will not break me. But I will break them.\" Grabáselo a los showrunners en la frente, Carl.", "verificada": "si", "evidencia": "Al cierre del libro 3, Carl escribe en la página del Cookbook su juramento final: \"They will not break me. Fuck them all. They will not break me. But I will break them.\""}]}, {"n": 3, "name": "Temas", "intro": "Hora de discutir en la mesa. No hay respuestas correctas aquí: elijan postura, debatan con los pibes y defiendan su moral.", "questions": [{"id": "Q17", "ronda": "3", "tipo": "debate", "dificultad": "debate", "presentador_intro": "La traición de Hekla a debate.", "pregunta": "¿Cómo juzga la mesa la caída y las acciones de la líder de Brynhild's Daughters?", "postura_1": "Pragmatismo de supervivencia: Hekla actuó racionalmente. Sacrificar a un peón menor (Katia) para asegurar el activo más valioso del dungeon (Donut y la estructura de Mordecai) era la única forma de garantizar la supervivencia del clan.", "postura_2": "Sociopatía de reality show: Hekla era una manipuladora hipócrita que usaba el discurso de la hermandad femenina para construir un culto de personalidad y escalar en el Leaderboard a costa de sus leales.", "postura_3": "Tragedia del sistema: Hekla era una víctima quebrada por el propio dungeon que la empujó a la paranoia y a ver a sus compañeros como piezas de ajedrez prescindibles.", "comentario_presentador": "Hekla demostró que el dungeon convierte a cualquier líder con buenas intenciones en un monstruo corporativo.", "verificada": "si", "evidencia": "Tema transversal sobre la traición de Hekla, su relación con Katia y el impacto en las Daughters a lo largo de los capítulos 21-24."}, {"id": "Q18", "ronda": "3", "tipo": "debate", "dificultad": "debate", "presentador_intro": "La salud mental y los métodos de Carl.", "pregunta": "¿La moralidad de Carl frente a los explosivos lo convierte en un héroe o en un peligro público?", "postura_1": "El Libertador de los Miserables: Carl es el único crawler con la visión estratégica y la empatía necesaria para arriesgar su vida salvando a miles de extraños mientras desafía activamente a la corporación Borant.", "postura_2": "Un lunático autodestructivo: Carl sufre un complejo de mártir. Sus métodos caóticos (descarrilar trenes, detonar zonas del Tangle, acumular bombas nucleares) ponen en riesgo colateral constante a todos los demás.", "postura_3": "Un peón consumido por el odio: Carl ya está mentalmente roto; su motivación no es salvar gente sino la venganza pura contra los showrunners, transformándose en el monstruo que el reality quiere vender.", "comentario_presentador": "Carl camina en una línea finísima entre el héroe del pueblo y el terrorista desquiciado.", "verificada": "si", "evidencia": "Debate central sobre las acciones de Carl, el uso del Cookbook y la acumulación de explosivos en el piso 4."}, {"id": "Q19", "ronda": "3", "tipo": "debate", "dificultad": "debate", "presentador_intro": "El dilema moral sobre los seres del calabozo.", "pregunta": "¿Qué representan los NPCs de servicio (Vernon, Madison, Growler Gary, Fire Brandy) en la economía del dungeon?", "postura_1": "Víctimas trágicas de la simulación: Son seres biológicos reales con recuerdos falsos implantados que sufren crisis existenciales horribles. Merecen compasión y rescate.", "postura_2": "Recursos del juego: Preocuparse por la psicología de los NPCs es una distracción letal. Son elementos del mapa diseñados por programadores para dar pistas, vender ítems o servir de engranajes.", "postura_3": "Herramientas de desestabilización: Romper la ilusión de los NPCs (como hace Carl al confrontarlos con sus paradojas) es la forma más efectiva de hackear la narrativa del reality show y destruir el guion.", "comentario_presentador": "Cuando te das cuenta de que el barman o el conductor sufren de verdad, el reality show se vuelve mil veces más oscuro.", "verificada": "si", "evidencia": "Revelaciones sobre la naturaleza de los NPCs y sus recuerdos falsos implantados por la IA en los capítulos 5, 17 y 26."}, {"id": "Q20", "ronda": "3", "tipo": "debate", "dificultad": "debate", "presentador_intro": "El vínculo entre Carl y la Princesa Donut.", "pregunta": "¿La evolución de Donut y la relación de \"familia elegida\" del grupo es un consuelo genuino o una dependencia traumática?", "postura_1": "Crecimiento emocional genuino: Donut ha pasado de ser una gata mimada de exhibición a una persona consciente, compleja y leal que utiliza su carisma para mantener unido al grupo y proteger la cordura de Carl.", "postura_2": "Una diva consentida e inestable: Donut sigue siendo caprichosa y egocéntrica. Sus arrebatos de ira y su fascinación por el show ponen en peligro mortal al grupo en momentos críticos.", "postura_3": "Co-dependencia traumática: Su relación es un vínculo de necesidad mutua bajo estrés extremo. Ninguno puede sobrevivir sin el otro, pero su apego se vuelve cada vez más oscuro a medida que el dungeon los corrompe.", "comentario_presentador": "Donut pasó de llorar por sus desfiles a tirar Magic Missiles con gafas de sol. Un aplauso para la reina felina.", "verificada": "si", "evidencia": "Evolución del personaje de Donut, su uso de habilidades y la dinámica emocional con Carl a lo largo de todo el libro."}, {"id": "Q21", "ronda": "3", "tipo": "debate", "dificultad": "debate", "presentador_intro": "La conspiración detrás de las vías.", "pregunta": "¿Qué alegoría política oculta la red ferroviaria del Iron Tangle y el centro del Abyss?", "postura_1": "Sátira del capitalismo corporativo: El Tangle es una crítica a la explotación espacial: infraestructuras colapsadas, burocracia absurda (HR) y la adicción forzada de las masas (los pookas y las dosis de opiáceos) para mantener el control.", "postura_2": "Propaganda racista de Borant: El piso fue diseñado explícitamente por Borant como una caricatura política racista destinada a difamar a las especies rivales del cosmos (Krakaren y Plenty) mediante la simulación.", "postura_3": "Espejo del entretenimiento deshumanizante: Representa el voyeurismo moderno: la transformación del sufrimiento sistémico, la guerra y el caos en un espectáculo de consumo masivo para trillones de espectadores apáticos.", "comentario_presentador": "El Tangle demuestra que hasta en las galaxias más avanzadas, la burocracia y la televisión basura mueven el mundo.", "verificada": "si", "evidencia": "Explicación de Mordecai sobre la metáfora política del Tangle, las droguerías Krakaren y la propaganda de Borant en el capítulo 30."}, {"id": "Q22", "ronda": "3", "tipo": "debate", "dificultad": "debate", "presentador_intro": "La tentación del Player Killing.", "pregunta": "¿Cómo se debe encarar la existencia de los PVP Coupons y las recompensas por matar a otros crawlers?", "postura_1": "Rechazo absoluto: Aceptar los cupones de asesinato entre compañeros es caer en el juego del Sindicato. La única forma de ganar es mantener la solidaridad humana a toda costa.", "postura_2": "Realismo frío: En un entorno de suma cero donde la mayoría va a morir, aprovechar las recompensas del juego eliminando a competidores débiles o sospechosos es una estrategia de supervivencia válida.", "postura_3": "Disuasión paranoica: Hay que conservar los cupones en secreto únicamente como un seguro de disuasión por si tu propio equipo intenta traicionarte.", "comentario_presentador": "En el dungeon no hay amigos, hay sobrevivientes temporales... salvo que seas Donut y entierres el cupón.", "verificada": "si", "evidencia": "Discusión sobre los PVP Coupons, las mecánicas de recompensa y las decisiones de Donut y Hekla sobre el Player Killing."}]}, {"n": 4, "name": "Ronda Katia, el train system", "intro": "Examen sádico de ingeniería ferroviaria del dungeon. Si aprueban esta ronda enrevesada, se ganan el título de Katia Honoraria.", "questions": [{"id": "Q23", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Empezamos con la topología de vías del Tangle.", "pregunta": "En la matriz topológica de vectorización del Iron Tangle, ¿cuál es el principio operativo que diferencia las Colored Lines de las Named Lines?", "A": "Las Colored Lines son trenes magnéticos hiperveloces; las Named Lines son locomotoras a vapor que solo transportan carga.", "B": "Las Colored Lines giran exclusivamente en bucles cerrados hacia abajo; las Named Lines ascienden sin retorno.", "C": "Las Colored Lines operan en sentido ascendente unidireccional sin retorno directo; las Named Lines recorren circuitos cerrados (loops) que permiten regresar a estaciones inferiores.", "D": "No existe diferencia operativa: ambas líneas descarrilan automáticamente cada 15 minutos.", "correcta": "C", "comentario_presentador": "Las líneas de color son un viaje de ida hacia arriba; las líneas con nombre son monorrieles o bucles que te permiten volver a bajar. Katia estaría orgullosa.", "verificada": "si", "evidencia": "Carl explica en sus mensajes que las líneas de colores solo van hacia arriba y no regresan, mientras que las Named Lines (como Nightmare Express) recorren bucles que permiten volver a estaciones anteriores."}, {"id": "Q24", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Lógica de evacuación y ubicación de stairwells.", "pregunta": "De acuerdo con la pauta de acceso a vías de evacuación, ¿a qué secuencia numerada exacta de estaciones debe dirigirse un crawler para encontrar stairwells activables?", "A": "A estaciones terminadas en los dígitos 0 y 5 (ej. 10, 15, 20, 25).", "B": "A estaciones con numeración de tres dígitos terminadas en número par.", "C": "Exclusivamente a las estaciones 10, 20, 30, 40 y 50 de cualquier línea.", "D": "A las estaciones identificadas exactamente con los números 12, 24, 36, 48 y 72 de cualquier línea de color.", "correcta": "D", "comentario_presentador": "Estaciones 12, 24, 36, 48 y 72. Aprendánselas de memoria o quédense a vivir con los ghouls para siempre.", "verificada": "si", "evidencia": "El mapa del Tangle indica explícitamente que los stairwells se encuentran únicamente en las estaciones número 12, 24, 36, 48 y 72 de las líneas de color."}, {"id": "Q25", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Zonificación nocturna y vida social en los nodos de transferencia.", "pregunta": "En las estaciones de transferencia del Tangle, ¿qué establecimiento comercial se halla si el dígito final es \"1\", y cuál si es \"9\"?", "A": "En \"1\" el Desperado Club; en \"9\" el Club Vanquisher.", "B": "En \"1\" una pizzería Arby's; en \"9\" un taller de alquimia.", "C": "En \"1\" la oficina de Recursos Humanos; en \"9\" la armería de los duendes.", "D": "En \"1\" la iglesia del dios Grull; en \"9\" la tienda del mole man Limp Richard.", "correcta": "A", "comentario_presentador": "Regla de oro de la noche nocturna del Tangle: terminó en 1 = Desperado Club (tragos y fiesta); terminó en 9 = Club Vanquisher.", "verificada": "si", "evidencia": "Las estaciones terminadas en 1 alojan el Desperado Club (ej. estación 131, 41) mientras que las terminadas en 9 alojan el Club Vanquisher (ej. estación 59)."}, {"id": "Q26", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "La amnesia de los empleados del ferrocarril.", "pregunta": "El conductor enano Vernon padece una anomalía de memoria al arribar a la estación 435. ¿A qué procedimiento del sistema obedece este reseteo?", "A": "A la congelación criogénica aplicada por la IA del dungeon cada 8 horas.", "B": "A la ingesta masiva de refresco Rev-Up Moonshine en el vagón bar.", "C": "A que los Kravyad procesan a los empleados al cruzar el portal de retorno, borrándoles la memoria antes de reubicarlos en la estación 10.", "D": "A que el tren explota y se clona un nuevo enano con recuerdos falsos.", "correcta": "C", "comentario_presentador": "Los Kravyad en la estación 435 les lavan el cerebro a los empleados entre turnos para que no pidan vacaciones ni aumentos de sueldo. HR en su máxima expresión.", "verificada": "si", "evidencia": "Gore-Gore y Madison explican que los Kravyad administran el proceso de retorno de empleados en la estación 435 aplicando hipnosis y borrado de memoria para reiniciar el turno en la estación 10."}, {"id": "Q27", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Biometría de arranque en los vehículos de interdicción.", "pregunta": "Los carritos de respuesta rápida (Hobgoblin Interdiction Carts) requieren una condición biomecánica estricta para activar su motor y desplegar el portal. ¿Cuál es?", "A": "Insertar la llave maestra del maquinista y recitar una plegaria a Nekhebit.", "B": "Colocar simultáneamente dos manos izquierdas cercenadas de la especie Gnoll (Transit Security) sobre las placas del panel de control.", "C": "Inyectar 10 viales de opiáceos en el tanque de combustible.", "D": "Ingresar una clave alfanumérica de 16 dígitos proporcionada por los duendes.", "correcta": "B", "comentario_presentador": "Se necesitaban dos manos izquierdas de Gnoll en paneles separados. Carl tuvo que cortarle las manos al cadáver de Growler Gary para encender los carritos.", "verificada": "si", "evidencia": "Carl descubre que los Interdiction Carts requieren dos manos izquierdas de Gnoll de Transit Security colocadas en sensores separados para encender el motor y el portal."}, {"id": "Q28", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Cuidado donde bajan, viajeros desprevenidos.", "pregunta": "¿Qué peligroso engaño biomecánico oculta la estación de transferencia Terminus (estación 433)?", "A": "Es una ilusión holográfica que esconde un pozo de lava hirviente.", "B": "Es la sede corporativa de la Borant Corporation atendida por androides.", "C": "Es una trampa gravitacional que transporta a los crawlers directamente al piso 8.", "D": "La estación entera es en realidad un colosal monstruo urbano llamado Station Mimic Rex (City Boss) que engulle a los crawlers que desembarcan.", "correcta": "D", "comentario_presentador": "La estación 433 era un City Boss viviente llamado Station Mimic Rex que se tragaba a los crawlers como si fueran Cheese Rings.", "verificada": "si", "evidencia": "Madison y Bautista confirman que Terminus Station (433) es un City Boss llamado Station Mimic Rex que devora a los crawlers que bajan a la plataforma."}, {"id": "Q29", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Peligros eléctricos en la infraestructura del Tangle.", "pregunta": "Al acoplarse Katia al frente del subte Vermillion como arado, ¿cuál era la amenaza del entorno ferroviario que podía electrocutarla al instante si su masa tocaba la línea?", "A": "Las luces de señalización del techo del túnel.", "B": "Los cables de tracción del monorriel maglev.", "C": "El Third Rail (la tercera vía electrificada sin cubierta protectora que alimenta a los trenes).", "D": "El fluido ácido derramado por los Blister Ghouls.", "correcta": "C", "comentario_presentador": "El Third Rail, la barra de corriente continua sin cubierta protectora. Un roce sin aislamiento de goma e ibas directo a la parrilla.", "verificada": "si", "evidencia": "Carl y Katia deben diseñar el arado con capas de goma aislante para evitar tocar el Third Rail, la riel electrificada que alimenta los trenes y causa daño eléctrico masivo."}, {"id": "Q30", "ronda": "4", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "La síntesis cartográfica final de la cuarta planta.", "pregunta": "Al sintetizar la cartografía del Iron Tangle, Katia y Mordecai descubren el propósito arquitectónico y político detrás de la red. ¿Qué representa en realidad?", "A": "Un plano simbólico de la galaxia donde las vías son rutas de agujeros de gusano (worm paths), el Abyss el centro galáctico, y los elementos una sátira política racista de Borant contra Krakaren y Plenty.", "B": "Una réplica exacta del mapa del metro de Moscú expandido a escala planetaria.", "C": "Una representación anatómica del sistema digestivo de un monstruo mitológico.", "D": "Un diseño fractal aleatorio generado por un fallo de memoria de la IA.", "correcta": "A", "comentario_presentador": "Una caricatura política geogaláctica montada por Borant para difundir odio contra Krakaren y Plenty a través de la simulación del dungeon.", "verificada": "si", "evidencia": "Mordecai y Katia concluyen que las vías del Tangle trazan los worm paths galácticos y el logo del Sindicato, funcionando como una caricatura política racista contra las especies Krakaren y Plenty."}]}, {"n": 5, "name": "Humor del sistema", "intro": "La ronda sobre el absurdo puro. Logros ridículos, premios insólitos y las burlas constantes de la IA del calabozo.", "questions": [{"id": "Q31", "ronda": "5", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Craftear en el saferoom tiene sus riesgos estéticos.", "pregunta": "Al usar una mesa de trabajo para craftear por primera vez en su saferoom, Carl recibe el logro Martha Stewart. ¿Qué ridículo objeto de recompensa contenía la caja Bronze Crafter's Box?", "A": "Un delantal bordado con la cara de un goblin y un paquete de harina mágicos.", "B": "Unas pinzas comunes, una cinta métrica estándar y un balde entero lleno de glitter rosa irremovible.", "C": "Un juego de tazas de té encantadas que insultan al usuario si el agua está fría.", "D": "Un recetario impreso de galletas de avena con chispas de chocolate.", "correcta": "B", "comentario_presentador": "Un balde entero de brillantina rosa que se voló al piso e inundó la Personal Space para siempre. El herpes de las manualidades.", "verificada": "si", "evidencia": "Al obtener el logro Martha Stewart por usar una mesa de crafteo, Carl abre la Bronze Crafter's Box y recibe alicates, una cinta métrica y un balde de glitter rosa que se esparce por todo el suelo."}, {"id": "Q32", "ronda": "5", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "Farmacología y adicción en los túneles del dungeon.", "pregunta": "Para mantener complacidos y controlados a los monstruos a lo largo de las vías, los showrunners establecieron un sistema de adicción. ¿Qué les repartían los Pookas en los túneles cada 5 estaciones?", "A": "Cajas de chocolates mágicos con licor Bopca.", "B": "Galletas de carne cruda impregnadas con feromonas de rabia.", "C": "Cerveza helada con alto contenido de maná.", "D": "Viales de opiáceos y sedantes potentes conocidos como Rev-Up Vitamin Shots.", "correcta": "D", "comentario_presentador": "Los Pookas les entregaban viales de opiáceos (Rev-Up Vitamin Shots) a los monstruos para mantenerlos adictos y patrullando en bucle cada 5 estaciones.", "verificada": "si", "evidencia": "Imani y Elle descubren que cada 5 estaciones los Pooka entregan viales de sedantes/opiáceos llamados Rev-Up Vitamin Shots a los monstruos para controlar su comportamiento en el Tangle."}, {"id": "Q33", "ronda": "5", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Una de las creaciones zoológicas más bizarras de la IA.", "pregunta": "Entre la fauna grotesca y absurda que habita los vagones del Tangle se destacan los Babababoons. ¿Cuál es el origen de estas criaturas según la notificación del sistema?", "A": "Fueron creados clonando el cerebro de un alce con el cuerpo de un mandril rabioso.", "B": "Nacieron de la mezcla genérica de un gnomo de jardín con un gorila de montaña.", "C": "Se crearon cruzando un babuino común con la población del calabozo de borrachos de una cárcel de Florida.", "D": "Son el resultado de un experimento fallido de mutación cibernética con cerveza barata.", "correcta": "C", "comentario_presentador": "La IA confesó con orgullo que cruzó un babuino terrestre con la celda de borrachos de una cárcel de Florida. El rey del caos idiota.", "verificada": "si", "evidencia": "La descripción del sistema para el Babababoon indica que la IA creó este mob cruzando un babuino estándar de la Tierra con la población del calabozo de borrachos de una cárcel de Florida."}, {"id": "Q34", "ronda": "5", "tipo": "opcion_multiple", "dificultad": "facil", "presentador_intro": "Un regalo de los fans para la reina del reality.", "pregunta": "Al abrir su Platinum Fan Box, Donut recibe un accesorio para Mongo que causa sensación. ¿Qué objeto era y qué beneficio le otorgaba?", "A": "Una montura garitosa encantada (Enchanted Mongoliensis Saddle) que aumenta el daño mágico de Donut y la constitución de Mongo.", "B": "Una armadura de placas doradas que convierte a Mongo en un dragón volador.", "C": "Una corona de plata que le otorga a Mongo la capacidad de hablar en inglés fluido.", "D": "Un par de patines con ruedas de acero que duplican la velocidad de carrera de Mongo.", "correcta": "A", "comentario_presentador": "Una montura chillona estilo 4 de Julio que le daba a Donut +15% de daño de hechizos y a Mongo +20% de constitución y ataque. ¡Monta el pollo asesino!", "verificada": "si", "evidencia": "Donut recibe en su Platinum Fan Box la Enchanted Mongoliensis Saddle, que le permite montar a Mongo otorgándole +15% de daño mágico a ella y +20% de constitución/daño a Mongo."}, {"id": "Q35", "ronda": "5", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Herramientas de taller poco convencionales.", "pregunta": "¿Qué herramienta de conformado alfanumérica y absurda utilizaba Carl en su mesa de ingeniería sapper junto con el Goo-inator 3000?", "A": "El Martillo de Guerra de Thor edición portátil.", "B": "El Gorgon Marital Aid, un objeto utilizado para añadir plasticidad a materiales rígidos.", "C": "El Destornillador Sónico de los duendes mecánicos.", "D": "La Sierra Neumática de corte orbital Bopca.", "correcta": "B", "comentario_presentador": "El Gorgon Marital Aid, una herramienta de taller que le daba plasticidad a los metales rígidos. La comedia se escribe sola en este calabozo.", "verificada": "si", "evidencia": "Carl menciona en su mesa de ingeniería el uso del Gorgon Marital Aid como herramienta para otorgar plasticidad a elementos rígidos junto con el Goo-inator 3000."}, {"id": "Q36", "ronda": "5", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Higiene bucal con consecuencias devastadoras.", "pregunta": "Al abrir una caja de botín especial Platinum Big Daddy Box, Carl obtiene un tubo de pasta de dientes encantada llamada Seize the Day Toothpaste. ¿Cuál es su propiedad?", "A": "Hace que al usuario le crezcan dientes de tiburón dorados durante 24 horas.", "B": "Cura instantáneamente cualquier veneno o parásito intestinal al lavarse los dientes.", "C": "Otorga aliento de fuego con daño de área por 12 horas.", "D": "Imbue al usuario con el beneficio de causar 3X o 4X de daño a monstruos Boss por 30 horas tras lavarse en un saferoom.", "correcta": "D", "comentario_presentador": "La pasta de dientes con sabor a cereza que te multiplica el daño a jefes por 3 o 4 durante 30 horas. Lavate los dientes antes de ir a pelear, boludo.", "verificada": "si", "evidencia": "La Seize the Day Toothpaste en la Platinum Big Daddy Box otorga un buff de 30 horas de 3X daño a Bosses (o 4X a Province/Floor Bosses) tras lavarse los dientes en un saferoom."}]}], "rangos": [{"rango": "Crawler que murió apaleado en el Piso 1 por un Goblin", "desde": 0, "descripcion": "Ni llegaste a ver un subte. Volvé a leer el libro o postulate para NPC de limpieza."}, {"rango": "Conductor enano con amnesia de la Yellow Line", "desde": 25, "descripcion": "Entendiste la mitad de las cosas y seguís buscando a una esposa que nunca existió."}, {"rango": "Katia Honoraria en modo Arado", "desde": 50, "descripcion": "Te bancás el impacto en la tercera vía y entendés la tabla de horarios de los monorrieles."}, {"rango": "Veterano de los Hobgoblin Interdiction Carts", "desde": 70, "descripcion": "Rescatás crawlers en el Abyss escuchando a Olivia Newton-John a todo volumen."}, {"rango": "Miembro distinguido de The Royal Court of Princess Donut", "desde": 85, "descripcion": "Tenés la 25ª edición del Cookbook, le volás la cabeza a un Mimic Rex y sabés craftear bombas."}, {"rango": "Hijo predilecto de la Compañía Borant", "desde": 95, "descripcion": "Sos la leyenda absoluta del reality. El Sindicato te teme y Carl te pediría consejos."}], "desempate": {"intro": "Si empataron en el podio, respondan estas 3 preguntas a quemarropa.", "questions": [{"id": "QD1", "ronda": "desempate", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Nombre comercial exacto.", "pregunta": "¿Cómo se llamaba la tienda de mercancías de Limp Richard en la estación 83?", "A": "Limp Richard's General Store", "B": "Limp Richard's Sundries", "C": "The Underground Trader", "D": "Richard's Mole Bazaar", "correcta": "B", "comentario_presentador": "Limp Richard's Sundries, la tienda atendida por el topo nerd que prefirió leer ciencia ficción en lugar de pelear.", "verificada": "si", "evidencia": "En la estación 83, la tienda de mercancías del mole man Limp Richard se llama oficialmente Limp Richard's Sundries."}, {"id": "QD2", "ronda": "desempate", "tipo": "opcion_multiple", "dificultad": "media", "presentador_intro": "Tragos de alta alcurnia.", "pregunta": "¿Cuál es el trago insignia de la Princesa Donut en el Desperado Club?", "A": "Mojito de menta", "B": "Gin Tonic con lima", "C": "Dirty Shirley", "D": "Rev-Up Moonshine", "correcta": "C", "comentario_presentador": "¡El Dirty Shirley! O mejor dicho, el bowl de cerezas marrasquino bañadas en alcohol que Donut devora mientras pide ir a bailar.", "verificada": "si", "evidencia": "Donut pide constantemente su bebida favorita, un Dirty Shirley (y se come las cerezas del vaso), cada vez que asiste al Desperado Club."}, {"id": "QD3", "ronda": "desempate", "tipo": "opcion_multiple", "dificultad": "dificil", "presentador_intro": "Banda sonora ochentera de rescate.", "pregunta": "¿Qué canción pop ochentera sonaba a todo volumen en los carritos de interdicción para guiar a los crawlers en el Abyss?", "A": "\"Physical\" de Olivia Newton-John", "B": "\"Eye of the Tiger\" de Survivor", "C": "\"Beat It\" de Michael Jackson", "D": "\"Girls Just Want to Have Fun\" de Cyndi Lauper", "correcta": "A", "comentario_presentador": "\"Physical\" de Olivia Newton-John retumbaba en el pozo del Abyss mientras rescataban crawlers. ¡Imposible de olvidar!", "verificada": "si", "evidencia": "El primer carrito de interdicción enviado al Abyss activa el módulo de alarma reproduciendo \"Physical\" de Olivia Newton-John."}]}};
+var LINES = {1:"c1",2:"c2",3:"c3",4:"c4",5:"c5"};
+var REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function $(s){return document.querySelector(s);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function lineStyle(n){
+  if(n==="d"||n==="t") return "--lc:var(--cd);--lt:var(--td);--c:var(--cd)";
+  return "--lc:var(--c"+n+");--lt:var(--t"+n+");--c:var(--c"+n+")";
+}
+
+/* ---------- Datos planos ---------- */
+var flat=[], counts={};
+D.rounds.forEach(function(r){
+  counts[r.n]=r.questions.length;
+  r.questions.forEach(function(q){
+    var o={}; for(var k in q) o[k]=q[k];
+    o.roundN=r.n; o.roundName=r.name; flat.push(o);
+  });
+});
+function roundOf(n){return D.rounds.filter(function(r){return r.n===n;})[0];}
+
+/* ---------- Personajes originales (SVG) ---------- */
+function shapePts(kind){
+  var N=16, pts=[], i, a, c, s, x, y;
+  for(i=0;i<N;i++){
+    a=(i/N)*Math.PI*2-Math.PI/2; c=Math.cos(a); s=Math.sin(a);
+    if(kind==="blob"){ x=50+30*c*(1+0.06*Math.sin(3*a)); y=58+28*s*(1+0.06*Math.cos(2*a)); }
+    else if(kind==="car"){ x=50+36*(c<0?-1:1)*Math.pow(Math.abs(c),0.28); y=60+20*(s<0?-1:1)*Math.pow(Math.abs(s),0.28); }
+    else if(kind==="plow"){
+      var V=[[50,18],[88,92],[12,92]], t=i/N*3, k=Math.floor(t), f=t-k, A=V[k%3], B=V[(k+1)%3];
+      x=A[0]+(B[0]-A[0])*f; y=A[1]+(B[1]-A[1])*f;
+    } else { var r=(i%2===0)?34:15; x=50+r*c; y=58+r*s; }
+    pts.push(x.toFixed(1)+","+y.toFixed(1));
+  }
+  return pts.join(" ");
+}
+function jellySVG(){
+  var P=["blob","car","plow","star"].map(shapePts);
+  var COL=["#2ec4b6","#4b7bff","#e0338a","#f0b429"];
+  var seq=[0,0,1,1,2,2,3,3,0];
+  var kt="0;.18;.25;.43;.5;.68;.75;.93;1";
+  var h="0 0 1 1", m=".6 0 .3 1";
+  var ks=[h,m,h,m,h,m,h,m].join(";");
+  return '<svg viewBox="0 0 100 100"><polygon points="'+P[0]+'" fill="'+COL[0]+'" stroke="#0b1518" stroke-width="3" stroke-linejoin="round">'+
+   '<animate attributeName="points" dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="'+kt+'" keySplines="'+ks+'" values="'+seq.map(function(i){return P[i];}).join(";")+'"/>'+
+   '<animate attributeName="fill" dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="'+kt+'" keySplines="'+ks+'" values="'+seq.map(function(i){return COL[i];}).join(";")+'"/>'+
+   '</polygon><g class="jeyes"><circle cx="40" cy="54" r="7" fill="#fff"/><circle cx="60" cy="54" r="7" fill="#fff"/>'+
+   '<circle cx="42" cy="55" r="3.2" fill="#0b1518"/><circle cx="62" cy="55" r="3.2" fill="#0b1518"/>'+
+   '<path d="M42 68 Q50 74 58 68" stroke="#0b1518" stroke-width="2.6" fill="none" stroke-linecap="round"/></g></svg>';
+}
+function duchessSVG(){
+  return '<svg viewBox="0 0 130 100" aria-hidden="true">'+
+  '<g class="quills"><path d="M20 64 L5 54 L21 51 L9 36 L27 41 L22 23 L39 34 L41 15 L53 30 L64 13 L69 32 L84 22 L83 41 L94 50 L92 68 Z" fill="#3b2357"/></g>'+
+  '<g class="legs"><ellipse class="leg leg1" cx="52" cy="88" rx="9" ry="7" fill="#8e5fa3"/><ellipse class="leg leg2" cx="80" cy="88" rx="9" ry="7" fill="#8e5fa3"/></g>'+
+  '<ellipse cx="62" cy="62" rx="34" ry="28" fill="#b983c9"/>'+
+  '<ellipse cx="68" cy="70" rx="22" ry="16" fill="#f3d7ea"/>'+
+  '<path d="M84 50 Q101 45 120 62 Q106 77 84 74 Z" fill="#f3d7ea"/>'+
+  '<circle cx="120" cy="62" r="4.2" fill="#2a1a3a"/>'+
+  '<circle cx="82" cy="48" r="6" fill="#b983c9"/>'+
+  '<path d="M46 64 Q66 80 92 66" stroke="#8e5fa3" stroke-width="9" stroke-linecap="round" fill="none"/>'+
+  '<path d="M50 74 Q70 60 90 72" stroke="#a572b8" stroke-width="8" stroke-linecap="round" fill="none"/>'+
+  '<rect x="88" y="51" width="13" height="9" rx="4" fill="#14101c"/><rect x="104" y="53" width="12" height="8" rx="4" fill="#14101c"/><path d="M101 55 L104 56" stroke="#14101c" stroke-width="2"/>'+
+  '<path d="M91 54 L95 53" stroke="#fff" stroke-width="1.5" opacity=".7"/>'+
+  '<path class="brow" d="M92 47 L103 44" stroke="#2a1a3a" stroke-width="2.4" stroke-linecap="round"/>'+
+  '<path d="M104 69 Q110 72 115 68" stroke="#e0338a" stroke-width="2.6" stroke-linecap="round" fill="none"/>'+
+  '<path d="M87 46 L90 33 L95 41 L100 30 L105 41 L110 33 L112 46 Z" fill="#ffb21e" stroke="#a8730a" stroke-width="1.2"/>'+
+  '<circle cx="90" cy="33" r="2" fill="#e8452c"/><circle cx="100" cy="30" r="2" fill="#2e63f5"/><circle cx="110" cy="33" r="2" fill="#19c39a"/>'+
+  '</svg>';
+}
+function duchessHead(){
+  return '<svg viewBox="0 0 70 70" aria-hidden="true"><path d="M6 44 L2 30 L12 34 L8 20 L20 28 L22 12 L32 24 L40 10 L44 26 L56 20 L52 40 Z" fill="#3b2357"/>'+
+  '<ellipse cx="32" cy="42" rx="22" ry="20" fill="#b983c9"/><path d="M34 34 Q50 32 66 46 Q52 60 34 56 Z" fill="#f3d7ea"/><circle cx="66" cy="46" r="3.6" fill="#2a1a3a"/>'+
+  '<rect x="36" y="35" width="12" height="8" rx="3.5" fill="#14101c"/><rect x="50" y="37" width="11" height="7" rx="3.5" fill="#14101c"/>'+
+  '<path d="M38 31 L47 28" stroke="#2a1a3a" stroke-width="2.2" stroke-linecap="round"/>'+
+  '<path d="M52 52 Q57 55 61 51" stroke="#e0338a" stroke-width="2.4" stroke-linecap="round" fill="none"/>'+
+  '<path d="M36 32 L39 19 L43 27 L47 16 L51 27 L55 19 L58 32 Z" fill="#ffb21e" stroke="#a8730a" stroke-width="1"/></svg>';
+}
+function crabSVG(){
+  var legs="", xs=[34,52,70,88,106,122], i;
+  for(i=0;i<xs.length;i++){
+    legs+='<g><line x1="'+xs[i]+'" y1="62" x2="'+xs[i]+'" y2="88" stroke="#22303a" stroke-width="3.2"/><circle cx="'+xs[i]+'" cy="92" r="5.2" fill="#22303a"/><circle cx="'+xs[i]+'" cy="92" r="1.8" fill="#9db4bd"/></g>';
+  }
+  var wins="";
+  [32,54,76,98].forEach(function(x){wins+='<rect x="'+x+'" y="30" width="18" height="15" rx="3" fill="#bdf5e4"/>';});
+  return '<svg viewBox="0 0 175 100" aria-hidden="true">'+
+  '<g class="wlegs">'+legs+'</g>'+
+  '<rect x="22" y="22" width="104" height="46" rx="14" fill="#2e63f5" stroke="#18318a" stroke-width="2"/>'+
+  '<rect x="22" y="52" width="104" height="7" fill="#ffb21e"/>'+wins+
+  '<ellipse cx="74" cy="20" rx="10" ry="3.5" fill="#f6e6ad"/>'+
+  '<line x1="118" y1="24" x2="124" y2="8" stroke="#22303a" stroke-width="3"/><circle cx="124" cy="7" r="6.5" fill="#fff"/><circle cx="127" cy="8" r="3" fill="#0b1518"/>'+
+  '<line x1="104" y1="24" x2="106" y2="8" stroke="#22303a" stroke-width="3"/><circle cx="106" cy="7" r="6.5" fill="#fff"/><circle cx="109" cy="8" r="3" fill="#0b1518"/>'+
+  '<path d="M98 1 L112 6" stroke="#0b1518" stroke-width="2.4" stroke-linecap="round"/>'+
+  '<path d="M124 56 Q140 66 150 62" stroke="#c8321b" stroke-width="7" stroke-linecap="round" fill="none"/>'+
+  '<circle cx="152" cy="62" r="9" fill="#e8452c"/>'+
+  '<path class="jaw" d="M152 56 L174 50 L162 62 Z" fill="#e8452c" stroke="#8d1d0d" stroke-width="1.5"/>'+
+  '<path class="jaw2" d="M152 68 L174 74 L162 62 Z" fill="#e8452c" stroke="#8d1d0d" stroke-width="1.5"/>'+
+  '</svg>';
+}
+function crawlerSVG(){
+  return '<div class="crawler-bob"><svg viewBox="0 0 80 110" aria-hidden="true">'+
+  '<path d="M18 12 Q35 -6 52 12" stroke="#3a454b" fill="none" stroke-width="2.5"/>'+
+  '<path d="M17 28 L53 28 L49 10 L21 10 Z" fill="#9aa5ab" stroke="#3a454b" stroke-width="2"/>'+
+  '<rect x="13" y="26" width="44" height="5" rx="2" fill="#7c878d"/>'+
+  '<rect x="22" y="31" width="26" height="16" rx="6" fill="#e8b48a"/>'+
+  '<circle cx="30" cy="38" r="2" fill="#1b1b1b"/><circle cx="40" cy="38" r="2" fill="#1b1b1b"/>'+
+  '<path d="M31 43 Q35 46 39 43" stroke="#7a3b1e" stroke-width="1.8" fill="none" stroke-linecap="round"/>'+
+  '<path d="M14 47 L56 47 L61 90 L9 90 Z" fill="#f0b429" stroke="#8a6410" stroke-width="2"/>'+
+  '<circle cx="35" cy="60" r="2" fill="#8a6410"/><circle cx="35" cy="72" r="2" fill="#8a6410"/>'+
+  '<g class="cleg a"><rect x="20" y="88" width="12" height="16" rx="3" fill="#2e3a66"/><rect x="17" y="100" width="17" height="7" rx="3" fill="#2a1d14"/></g>'+
+  '<g class="cleg b"><rect x="40" y="88" width="12" height="16" rx="3" fill="#2e3a66"/><rect x="37" y="100" width="17" height="7" rx="3" fill="#2a1d14"/></g>'+
+  '<circle cx="12" cy="66" r="12" fill="#b9c2c6" stroke="#59666c" stroke-width="2.5"/><circle cx="12" cy="66" r="3" fill="#59666c"/>'+
+  '<line x1="58" y1="68" x2="70" y2="34" stroke="#8a5a2b" stroke-width="3.4" stroke-linecap="round"/>'+
+  '<ellipse cx="71" cy="27" rx="6" ry="8.5" fill="#c89b5c" stroke="#8a5a2b" stroke-width="1.6"/>'+
+  '</svg></div>';
+}
+function faroleroSVG(){
+  return '<svg viewBox="0 0 80 120" aria-hidden="true"><defs><radialGradient id="glowF"><stop offset="0" stop-color="#ffd86b" stop-opacity=".95"/><stop offset="1" stop-color="#ffd86b" stop-opacity="0"/></radialGradient></defs>'+
+  '<circle class="lglow" cx="64" cy="52" r="24" fill="url(#glowF)" style="transform-box:fill-box;transform-origin:center"/>'+
+  '<path d="M10 112 Q14 70 28 46 Q38 34 48 46 Q62 70 66 112 Q58 106 52 112 Q46 106 38 112 Q30 106 24 112 Q16 106 10 112Z" fill="#cdbfe8" opacity=".92"/>'+
+  '<ellipse cx="38" cy="45" rx="13" ry="14" fill="#2a2140"/>'+
+  '<path d="M23 44 Q38 20 53 44" stroke="#b6a4dc" stroke-width="6" fill="none" stroke-linecap="round"/>'+
+  '<circle cx="33" cy="45" r="2.6" fill="#ffd86b"/><circle cx="43" cy="45" r="2.6" fill="#ffd86b"/>'+
+  '<path d="M50 68 Q62 64 64 54" stroke="#b6a4dc" stroke-width="5" stroke-linecap="round" fill="none"/>'+
+  '<line x1="64" y1="54" x2="64" y2="42" stroke="#6b5a8a" stroke-width="2"/>'+
+  '<rect x="58" y="42" width="12" height="16" rx="3" fill="#ffd86b" stroke="#4a3b66" stroke-width="2"/></svg>';
+}
+
+function buildStage(){
+  var st=$("#stage");
+  st.innerHTML=
+   '<div class="tunnelview"><div class="bgtrain"></div></div>'+
+   '<div class="lamp l1"></div><div class="lamp l2"></div><div class="lamp l3"></div><div class="lamp l4"></div>'+
+   '<div class="floor"></div>'+
+   '<div class="actor farolero-g">'+faroleroSVG()+'</div>'+
+   '<div class="actor jelly-g">'+jellySVG()+'</div>'+
+   '<div class="actor crawler-g">'+crawlerSVG()+'</div>'+
+   '<div class="actor duchess-g">'+duchessSVG()+'</div>'+
+   '<div class="actor crab-g">'+crabSVG()+'<div class="rider">'+duchessSVG()+'</div></div>'+
+   '<div class="edge"></div>';
+  if(REDUCE){
+    var an=st.querySelectorAll("animate"); for(var i=0;i<an.length;i++) an[i].parentNode.removeChild(an[i]);
+  }
+}
+function mood(m){
+  var st=$("#stage"); st.removeAttribute("data-mood"); void st.offsetWidth;
+  if(m) st.setAttribute("data-mood",m);
+}
+
+/* ---------- Voz de la Duquesa ---------- */
+var SASS={
+  start:["Bienvenidos. Traten de no hacerme perder el tiempo.","Se sientan, se callan y responden. En ese orden."],
+  ok:["Obvio. ¿Alguien dudó de vos? Yo sí.","Bien. Dejá de mirarme esperando aplausos.","Correcto. Ahora pestañeá, que se te seca el ego.","Mmm. Me caés mejor cuando no hacés el ridículo.","Acertaste. Anotalo en tu lápida, va a ser lo único."],
+  bad:["Ay, no. Y lo dijiste con tanta seguridad.","Incorrecto. Tan valiente como equivocado.","Esa respuesta merece una orquesta de trombones tristes.","Querido, hasta el Tangle tiene más sentido que eso.","Anotame el nombre para el próximo tren que se descarrila."],
+  debate:["Debatan. Yo traigo pochoclos y opiniones.","Defiendan su postura o cállense para siempre.","Elijan bando. Los tibios se quedan en la vía."],
+  end:["Se acabó el viaje. Bajen por la izquierda y sin empujar.","Listo. Pueden aplaudirme ahora."]
+};
+function dibaHTML(t){
+  return '<div class="diva">'+duchessHead()+'<p><span class="sr">La Duquesa dice: </span>'+esc(pick(SASS[t]))+'</p></div>';
+}
+
+/* ---------- Estado ---------- */
+var S=null, app=$("#app");
+
+function newGame(names){
+  var list=names.length?names:["La mesa"];
+  S={players:list.map(function(n){return {name:n,score:0,answered:0,by:{}};}),
+     i:-1,turn:0,picked:null,marks:{},votes:{},tb:null};
+}
+function cur(){return S.players[S.turn%S.players.length];}
+
+function show(html,focusSel){
+  app.innerHTML=html;
+  var f=app.querySelector(focusSel||"h1,h2");
+  if(f){f.setAttribute("tabindex","-1"); try{f.focus({preventScroll:true});}catch(e){f.focus();}}
+}
+
+function linebar(){
+  var h='<div class="linebar" role="img" aria-label="Parada '+(S.i+1)+' de '+flat.length+'">', last=0;
+  flat.forEach(function(q,i){
+    if(q.roundN!==last){
+      if(last) h+='</span>';
+      h+='<span class="seg" style="'+lineStyle(q.roundN)+';flex:'+counts[q.roundN]+'">'; last=q.roundN;
+    }
+    var c=(i===S.i)?"cur":(S.marks[i]||"");
+    h+='<i class="st '+c+'"></i>';
+  });
+  return h+'</span></div>';
+}
+function scoreboard(){
+  var h='<ul class="score" aria-label="Puntajes">', k=S.turn%S.players.length;
+  S.players.forEach(function(p,i){
+    h+='<li'+(i===k&&S.players.length>1?' aria-current="true"':'')+'>'+esc(p.name)+' '+p.score+'</li>';
+  });
+  return h+'</ul>';
+}
+
+/* ---------- Pantalla de inicio ---------- */
+var names=[];
+function start(){
+  mood("");
+  var total=flat.length;
+  show(
+   '<div class="stack">'+
+   '<h1 class="title">The Tangle<br>Entanglement<br>Quiz</h1>'+
+   '<p class="sub">'+esc(D.subtitulo)+'</p>'+
+   '<p class="quote">'+esc(D.intro)+'</p>'+
+   '<p class="cast">En escena: la Duquesa Púa, el Cangrejo Vagón, Gelatina, el Farolero y el Crawler del balde. Ninguno aparece en los libros.</p>'+
+   '<div class="setup"><label for="pname">Jugadores</label>'+
+   '<div class="row"><input id="pname" type="text" maxlength="24" autocomplete="off" placeholder="Nombre y Enter"><button class="btn ghost" id="padd" type="button">Agregar</button></div>'+
+   '<p class="hint">Hasta 8 jugadores, se turnan en cada pregunta. Sin nombres, juega toda la mesa junta.</p>'+
+   '<ul class="chips" id="chips" aria-label="Jugadores agregados"></ul></div>'+
+   '<p><button class="btn" id="go" type="button">Subir al tren</button></p>'+
+   '<p class="hint">'+total+' paradas en '+D.rounds.length+' líneas, más '+D.desempate.questions.length+' preguntas de desempate.</p>'+
+   '</div>', "h1");
+  renderChips();
+}
+function renderChips(){
+  var ul=$("#chips"); if(!ul) return;
+  ul.innerHTML=names.map(function(n,i){
+    return '<li class="chip">'+esc(n)+'<button type="button" data-rm="'+i+'" aria-label="Quitar a '+esc(n)+'">×</button></li>';
+  }).join("");
+}
+function addName(){
+  var inp=$("#pname"); if(!inp) return;
+  var v=inp.value.trim().slice(0,24);
+  if(!v) return;
+  if(names.length>=8){inp.value=""; return;}
+  var low=v.toLowerCase();
+  if(names.some(function(n){return n.toLowerCase()===low;})){inp.value=""; return;}
+  names.push(v); inp.value=""; renderChips(); inp.focus();
+}
+
+/* ---------- Flujo ---------- */
+function advance(){
+  S.i++;
+  if(S.i>=flat.length) return results();
+  var q=flat[S.i], prev=flat[S.i-1];
+  if(!prev||prev.roundN!==q.roundN) return roundIntro(q.roundN);
+  question();
+}
+function roundIntro(n){
+  var r=roundOf(n); mood("");
+  show(
+   '<div class="stack">'+linebar()+scoreboard()+
+   '<div class="round-card" style="'+lineStyle(n)+'"><span class="bullet" aria-hidden="true">'+n+'</span>'+
+   '<div><h2>Línea '+n+': '+esc(r.name)+'</h2><p>'+esc(r.intro)+'</p>'+
+   '<button class="btn" id="roundgo" type="button">Arrancar</button></div></div></div>', "h2");
+}
+function question(){
+  var q=flat[S.i]; S.picked=null;
+  var p=cur(), head=
+   '<div class="plate-head"><span class="bullet" aria-hidden="true">'+q.roundN+'</span>'+
+   '<span class="where">Línea '+q.roundN+': '+esc(q.roundName)+'. Parada '+(S.i+1)+' de '+flat.length+'</span>'+
+   (q.tipo==="debate"?'<span class="diff">Debate</span>':'<span class="diff">'+esc(q.dificultad)+'</span>')+'</div>';
+  var body;
+  if(q.tipo==="debate"){
+    var ps="";
+    [1,2,3].forEach(function(k){
+      var t=q["postura_"+k]; if(!t) return;
+      var cut=t.indexOf(":"), ttl=cut>0&&cut<60?t.slice(0,cut):"Postura "+k, txt=cut>0&&cut<60?t.slice(cut+1).trim():t;
+      var v=(S.votes[q.id]&&S.votes[q.id][k])||0;
+      ps+='<li><button class="post" type="button" data-post="'+k+'"><span class="votes" aria-live="polite">'+v+' '+(v===1?"voto":"votos")+'</span><span><strong>'+esc(ttl)+'</strong>'+esc(txt)+'</span></button></li>';
+    });
+    body='<p class="said">'+esc(q.presentador_intro)+'</p><h2 class="q">'+esc(q.pregunta)+'</h2>'+
+      '<p class="hint" style="color:#35514c">Cada toque suma un voto a esa postura.</p><ul class="opts">'+ps+'</ul>'+
+      '<div class="actions"><button class="btn" id="close" type="button">Cerrar el debate</button></div><div id="fb" aria-live="polite"></div>';
+    mood("");
+  } else {
+    var os="";
+    ["A","B","C","D"].forEach(function(L){
+      os+='<li><button class="opt" type="button" data-l="'+L+'"><b>'+L+'</b><span>'+esc(q[L])+'</span></button></li>';
+    });
+    body=(S.players.length>1?'<p class="turn">Le toca a '+esc(p.name)+'</p>':'')+
+      '<p class="said">'+esc(q.presentador_intro)+'</p><h2 class="q">'+esc(q.pregunta)+'</h2><ul class="opts">'+os+'</ul><div id="fb" aria-live="polite"></div>';
+    mood("");
+  }
+  show('<div class="stack">'+linebar()+scoreboard()+'<section class="plate" style="'+lineStyle(q.roundN)+'">'+head+body+'</section></div>', ".q");
+}
+function evidence(q){
+  return q.evidencia?'<details class="ev"><summary>De dónde sale la respuesta</summary><p>'+esc(q.evidencia)+'</p></details>':"";
+}
+function nextBtn(){
+  var last=S.i>=flat.length-1;
+  return '<div class="actions"><button class="btn" id="next" type="button">'+(last?"Ver resultados":"Siguiente parada")+'</button></div>';
+}
+function answer(L){
+  if(S.picked) return;
+  var q=flat[S.i]; S.picked=L;
+  var ok=(L===q.correcta), p=cur();
+  p.answered++; if(ok) p.score++;
+  var b=p.by[q.roundN]||(p.by[q.roundN]={a:0,c:0}); b.a++; if(ok) b.c++;
+  S.marks[S.i]=ok?"ok":"bad";
+  Array.prototype.forEach.call(app.querySelectorAll(".opt"),function(btn){
+    var l=btn.getAttribute("data-l"); btn.disabled=true;
+    if(l===q.correcta) btn.setAttribute("data-state","right");
+    else if(l===L) btn.setAttribute("data-state","wrong");
+    else btn.setAttribute("data-state","dim");
+  });
+  $("#fb").innerHTML='<div class="fb"><h3 class="'+(ok?"good":"bad")+'">'+(ok?"Correcta":"Incorrecta, era la "+esc(q.correcta))+'</h3>'+
+    '<p class="host">'+esc(q.comentario_presentador)+'</p>'+dibaHTML(ok?"ok":"bad")+evidence(q)+nextBtn()+'</div>';
+  refreshBars(); mood(ok?"win":"lose");
+  var nb=$("#next"); if(nb) nb.focus({preventScroll:false});
+}
+function closeDebate(){
+  var q=flat[S.i]; S.marks[S.i]="debate";
+  var c=$("#close"); if(c) c.parentNode.removeChild(c);
+  $("#fb").innerHTML='<div class="fb"><p class="host">'+esc(q.comentario_presentador)+'</p>'+dibaHTML("debate")+evidence(q)+nextBtn()+'</div>';
+  refreshBars();
+  var nb=$("#next"); if(nb) nb.focus();
+}
+function refreshBars(){
+  var old=app.querySelector(".linebar"); if(!old) return;
+  var tmp=document.createElement("div"); tmp.innerHTML=linebar();
+  old.parentNode.replaceChild(tmp.firstChild,old);
+  var sc=app.querySelector(".score"); if(sc){var t2=document.createElement("div"); t2.innerHTML=scoreboard(); sc.parentNode.replaceChild(t2.firstChild,sc);}
+}
+function next(){
+  var q=flat[S.i];
+  if(q&&q.tipo!=="debate") S.turn++;
+  advance();
+}
+
+/* ---------- Resultados ---------- */
+function rankFor(pct){
+  var r=D.rangos[0];
+  D.rangos.forEach(function(x){ if(pct>=x.desde) r=x; });
+  return r;
+}
+function results(){
+  mood(""); S.i=flat.length;
+  var rows=S.players.map(function(p){
+    var pct=p.answered?Math.round(p.score*100/p.answered):0;
+    return {p:p,pct:pct,rank:rankFor(pct)};
+  });
+  var best=Math.max.apply(null,rows.map(function(r){return r.p.score;}));
+  var top=rows.filter(function(r){return r.p.score===best;});
+  var r4=roundOf(4), r4name=r4?r4.name:"";
+  var bestK=0; rows.forEach(function(r){var b=r.p.by[4]; if(b&&b.c>bestK) bestK=b.c;});
+  var h='<div class="stack res"><h1 class="sr">Resultados</h1><h2>Fin del viaje</h2>'+dibaHTML("end");
+  rows.forEach(function(r){
+    var k=r.p.by[4]&&r.p.by[4].c===bestK&&bestK>=2;
+    h+='<div class="rank"><h3>'+esc(r.p.name)+': '+esc(r.rank.rango)+'</h3>'+
+       '<p><span class="pct">'+r.p.score+' de '+r.p.answered+' ('+r.pct+'%)</span></p><p>'+esc(r.rank.descripcion)+'</p>'+
+       (k?'<span class="badge">Katia honoraria: mejor en la ronda del tren</span>':'')+'</div>';
+  });
+  h+='<div class="tbl"><table><caption class="sr">Aciertos por línea</caption><thead><tr><th scope="col">Jugador</th>';
+  D.rounds.forEach(function(r){ if(r.questions.some(function(q){return q.tipo==="opcion_multiple";})) h+='<th scope="col">Línea '+r.n+'</th>'; });
+  h+='</tr></thead><tbody>';
+  S.players.forEach(function(p){
+    h+='<tr><th scope="row">'+esc(p.name)+'</th>';
+    D.rounds.forEach(function(r){ if(r.questions.some(function(q){return q.tipo==="opcion_multiple";})){ var b=p.by[r.n]; h+='<td>'+(b?b.c+" de "+b.a:"0 de 0")+'</td>'; } });
+    h+='</tr>';
+  });
+  h+='</tbody></table></div><div class="actions">';
+  if(S.players.length>1&&top.length>1&&best>0) h+='<button class="btn" id="tie" type="button">Desempate entre '+top.map(function(r){return esc(r.p.name);}).join(" y ")+'</button>';
+  h+='<button class="btn ghost" id="again" type="button">Jugar de nuevo</button></div></div>';
+  S._top=top.map(function(r){return r.p;});
+  show(h,"h2");
+}
+
+/* ---------- Desempate ---------- */
+function tiebreak(){
+  S.tb={q:0,pts:S._top.map(function(){return 0;}),marks:{},revealed:false};
+  tbQuestion();
+}
+function tbQuestion(){
+  var q=D.desempate.questions[S.tb.q], n=D.desempate.questions.length;
+  S.tb.revealed=false; S.tb.marks={};
+  var os="";
+  ["A","B","C","D"].forEach(function(L){
+    os+='<li><button class="opt" type="button" disabled data-l="'+L+'"><b>'+L+'</b><span>'+esc(q[L])+'</span></button></li>';
+  });
+  show('<div class="stack"><section class="plate" style="'+lineStyle("d")+'"><div class="plate-head"><span class="bullet" aria-hidden="true">'+(S.tb.q+1)+'</span><span class="where">Desempate, pregunta '+(S.tb.q+1)+' de '+n+'</span><span class="diff">'+esc(q.dificultad)+'</span></div>'+
+    '<p class="said">'+esc(q.presentador_intro)+'</p><h2 class="q">'+esc(q.pregunta)+'</h2><ul class="opts">'+os+'</ul>'+
+    '<p class="hint" style="color:#35514c">Todos responden a la vez, en voz alta o con los dedos.</p>'+
+    '<div class="actions"><button class="btn" id="reveal" type="button">Revelar respuesta</button></div><div id="fb" aria-live="polite"></div></section></div>', ".q");
+}
+function tbReveal(){
+  var q=D.desempate.questions[S.tb.q]; S.tb.revealed=true;
+  Array.prototype.forEach.call(app.querySelectorAll(".opt"),function(b){ if(b.getAttribute("data-l")===q.correcta) b.setAttribute("data-state","right"); else b.setAttribute("data-state","dim"); });
+  var rv=$("#reveal"); if(rv) rv.parentNode.removeChild(rv);
+  var who=S._top.map(function(p,i){return '<button type="button" aria-pressed="false" data-who="'+i+'">'+esc(p.name)+'</button>';}).join("");
+  var last=S.tb.q>=D.desempate.questions.length-1;
+  $("#fb").innerHTML='<div class="fb"><h3 class="good">Era la '+esc(q.correcta)+'</h3><p class="host">'+esc(q.comentario_presentador)+'</p>'+evidence(q)+
+    '<p class="turn" style="margin-top:1rem">¿Quién acertó?</p><div class="tb-who">'+who+'</div>'+
+    '<div class="actions"><button class="btn" id="tbnext" type="button">'+(last?"Ver al ganador":"Siguiente")+'</button></div></div>';
+}
+function tbNext(){
+  Object.keys(S.tb.marks).forEach(function(i){ if(S.tb.marks[i]) S.tb.pts[i]++; });
+  S.tb.q++;
+  if(S.tb.q>=D.desempate.questions.length) return tbEnd();
+  tbQuestion();
+}
+function tbEnd(){
+  var mx=Math.max.apply(null,S.tb.pts), win=[];
+  S._top.forEach(function(p,i){ if(S.tb.pts[i]===mx) win.push(p); });
+  var h='<div class="stack res"><h2>Desempate</h2><ul class="score">'+
+    S._top.map(function(p,i){return '<li>'+esc(p.name)+' '+S.tb.pts[i]+'</li>';}).join("")+'</ul>';
+  if(win.length===1) h+='<div class="rank"><h3>Gana '+esc(win[0].name)+'</h3><p>Se lleva el título de '+esc(D.rangos[D.rangos.length-1].rango)+'.</p></div>';
+  else h+='<div class="rank"><h3>Empate otra vez</h3><p>'+win.map(function(p){return esc(p.name);}).join(" y ")+' quedan como co-ganadores. El Sindicato los adopta a todos.</p></div>';
+  h+=dibaHTML("end")+'<div class="actions"><button class="btn ghost" id="again" type="button">Jugar de nuevo</button></div></div>';
+  show(h,"h2");
+}
+
+/* ---------- Eventos ---------- */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("button"); if(!t) return;
+  if(t.id==="go"){ newGame(names.slice()); advance(); }
+  else if(t.id==="padd") addName();
+  else if(t.hasAttribute("data-rm")){ names.splice(+t.getAttribute("data-rm"),1); renderChips(); }
+  else if(t.id==="roundgo") question();
+  else if(t.hasAttribute("data-l")&&t.classList.contains("opt")) answer(t.getAttribute("data-l"));
+  else if(t.hasAttribute("data-post")){
+    var q=flat[S.i], k=t.getAttribute("data-post"); S.votes[q.id]=S.votes[q.id]||{}; S.votes[q.id][k]=(S.votes[q.id][k]||0)+1;
+    var v=S.votes[q.id][k]; t.querySelector(".votes").textContent=v+" "+(v===1?"voto":"votos");
+  }
+  else if(t.id==="close") closeDebate();
+  else if(t.id==="next") next();
+  else if(t.id==="tie") tiebreak();
+  else if(t.id==="reveal") tbReveal();
+  else if(t.hasAttribute("data-who")){ var i=t.getAttribute("data-who"), on=!S.tb.marks[i]; S.tb.marks[i]=on; t.setAttribute("aria-pressed",on?"true":"false"); }
+  else if(t.id==="tbnext") tbNext();
+  else if(t.id==="again"){ S=null; start(); window.scrollTo(0,0); }
+});
+document.addEventListener("keydown",function(e){
+  var tag=(e.target.tagName||"").toLowerCase();
+  if(tag==="input"){ if(e.key==="Enter"){ e.preventDefault(); addName(); } return; }
+  if(!S||e.ctrlKey||e.metaKey||e.altKey) return;
+  var q=flat[S.i];
+  if(q&&q.tipo!=="debate"&&!S.picked&&/^[a-dA-D]$/.test(e.key)&&app.querySelector(".opt:not([disabled])")){ answer(e.key.toUpperCase()); }
+});
+
+buildStage();
+start();
+})();
+</script>
+</body>
+</html>
