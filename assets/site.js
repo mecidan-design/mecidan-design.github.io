@@ -113,4 +113,22 @@
       }).catch(function(){say('Copy failed. Select the address instead: '+v+'.',true)});
     });
   });
+  /* ---------- mailto with webmail fallback ---------- */
+  /* Many desktops have no mail app, so a plain mailto does nothing. Try it, and if the page keeps focus, open Gmail instead. */
+  d.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var u=a.getAttribute('href').replace(/^mailto:/,''), q=u.split('?'), to=q[0], su='';
+      (q[1]||'').split('&').forEach(function(kv){if(kv.indexOf('subject=')===0) su=kv.slice(8)});
+      e.preventDefault();
+      var left=false;
+      function mark(){left=true}
+      window.addEventListener('blur',mark,{once:true});
+      d.addEventListener('visibilitychange',mark,{once:true});
+      window.location.href=a.getAttribute('href');
+      setTimeout(function(){
+        if(left) return;
+        window.open('https://mail.google.com/mail/?view=cm&fs=1&to='+to+(su?'&su='+su:''),'_blank','noopener');
+      },900);
+    });
+  });
 })();
