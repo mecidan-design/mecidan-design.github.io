@@ -4,7 +4,7 @@
 /* ---------- hero ---------- */
 .hm-pill{
   display:inline-flex;align-items:center;gap:8px;
-  padding:8px 12px;border-radius:9999px;
+  padding:8px 12px;border-radius:var(--r-control);
   border:1px solid var(--line-strong);background:var(--surface);
   font-size:.875rem;line-height:1.25rem;font-weight:600;color:var(--ink);text-decoration:none;
   transition:all 700ms var(--ease);
@@ -40,12 +40,11 @@
 .hm-proof i{flex:none;font-size:1.25rem;line-height:1;color:var(--accent)}
 
 /* ---------- roles ---------- */
-.hm-roles{display:flex;flex-direction:column;gap:8px}
+.hm-roles{display:flex;flex-direction:column}
 .hm-role{
-  display:grid;gap:8px;padding:24px;
+  display:grid;gap:8px;
   transition:all 700ms var(--ease);
 }
-.hm-role:hover{border-color:var(--line-strong);background:var(--raised)}
 .hm-years{
   font-family:var(--font-mono);
   font-size:.875rem;line-height:1.25rem;color:var(--accent);
@@ -78,3 +77,10 @@
 .hm-feat-body p{color:var(--muted);max-width:60ch}
 .hm-feat-body .btn{margin-top:auto}
 @media(min-width:768px){.hm-duo{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- open rows: only what you can open stays a box ---------- */
+.card.hm-pillar,.card.hm-role,.hm-creds .card{
+  background:none;border:0;border-top:1px solid var(--line-strong);border-radius:0;
+}
+.card.hm-pillar,.hm-creds .card{padding:24px 0 0}
+.card.hm-role{padding:24px 0}
