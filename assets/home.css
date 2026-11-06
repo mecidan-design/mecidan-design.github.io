@@ -21,20 +21,16 @@
 .hm-title{font-size:2.25rem;line-height:2.5rem}
 .hm-br{display:none}
 @media(min-width:768px){
-  .hm-title{font-size:3rem;line-height:1}
+  .hm-title{font-size:3rem;line-height:1.08}
   .hm-br{display:inline}
 }
 @media(min-width:1024px){
-  .hm-title{font-size:3rem;line-height:1}
+  .hm-title{font-size:3rem;line-height:1.08}
 }
 .hm-proof-row .stat b{white-space:nowrap}
 
 /* ---------- pillars ---------- */
 .hm-pillar{display:flex;flex-direction:column;align-items:flex-start}
-.hm-label{
-  font-size:.75rem;line-height:1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:8px;
-}
 .hm-pillar .h3{color:var(--ink);margin-bottom:16px}
 .hm-pillar .hm-proof{margin-top:auto}
 .hm-proof{
@@ -51,7 +47,7 @@
 }
 .hm-role:hover{border-color:var(--line-strong);background:var(--raised)}
 .hm-years{
-  font-family:"Geist Mono",ui-monospace,monospace;
+  font-family:var(--font-mono);
   font-size:.875rem;line-height:1.25rem;color:var(--accent);
 }
 .hm-role-body{display:flex;flex-direction:column;gap:4px}
