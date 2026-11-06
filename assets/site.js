@@ -4,6 +4,41 @@
   var d=document, reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasIO='IntersectionObserver' in window;
 
+  /* ---------- light / dark, remembered in this browser only ---------- */
+  var root=d.documentElement, themeMeta=d.querySelector('meta[name="theme-color"]'), themeBtn=null;
+  var THEME_LABEL={
+    en:{dark:'Switch to light mode',light:'Switch to dark mode'},
+    es:{dark:'Cambiar a modo claro',light:'Cambiar a modo oscuro'}
+  };
+  function currentTheme(){return root.getAttribute('data-theme')==='light'?'light':'dark'}
+  function paintThemeBtn(){
+    if(!themeBtn) return;
+    var t=currentTheme(), l=/^es/i.test(root.lang||'')?'es':'en';
+    themeBtn.setAttribute('aria-label',THEME_LABEL[l][t]);
+    themeBtn.title=THEME_LABEL[l][t];
+    themeBtn.innerHTML='<i class="ph ph-'+(t==='light'?'moon':'sun')+'" aria-hidden="true"></i>';
+  }
+  function setTheme(t){
+    if(t==='light') root.setAttribute('data-theme','light'); else root.removeAttribute('data-theme');
+    if(themeMeta) themeMeta.content=t==='light'?'#FAF7F0':'#000000';
+    paintThemeBtn();
+  }
+  var themePill=d.querySelector('.pill'), themeAnchor=d.querySelector('.pill .menu-btn');
+  if(themePill&&themeAnchor){
+    themeBtn=d.createElement('button');
+    themeBtn.type='button'; themeBtn.className='theme-btn';
+    themePill.insertBefore(themeBtn,themeAnchor);
+    themeBtn.addEventListener('click',function(){
+      var t=currentTheme()==='light'?'dark':'light';
+      setTheme(t);
+      try{localStorage.setItem('site-theme',t)}catch(e){}
+    });
+    d.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setTimeout(paintThemeBtn,0)})});
+  }
+  setTheme(currentTheme());
+  /* previews embedded in the home follow the page that holds them */
+  window.addEventListener('storage',function(e){if(e.key==='site-theme') setTheme(e.newValue==='light'?'light':'dark')});
+
   /* ---------- island nav ---------- */
   var btn=d.querySelector('.menu-btn'), menu=d.getElementById('menu');
   if(btn&&menu){

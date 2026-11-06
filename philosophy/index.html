@@ -16,7 +16,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M5 8h6v5h6v5h-6v6' fill='none' stroke='%238FC7FF' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round' transform='translate(3 0)'/%3E%3Cpath d='M17 18h6v-5h4' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round' transform='translate(-1 0)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Piazzolla:opsz,wght@8..30,500..700&family=Open+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&family=Open+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="cutouts.css">
@@ -31,7 +31,7 @@
   @media(min-width:1024px){.hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
   @media(max-width:420px){.brand{display:none}}
 </style>
-<script>document.documentElement.className+=' js'</script>
+<script>document.documentElement.className+=' js';try{if(localStorage.getItem('site-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 </head>
 <body id="top">
 <a class="skip" href="#main"><span data-l="en">Skip to content</span><span data-l="es">Saltar al contenido</span></a>
@@ -105,7 +105,7 @@
       </div>
 
     <div class="wrap">
-      <a class="card tile gold lift rv" href="https://proyect-terra.web.app/" style="border-color:#4a4330">
+      <a class="card tile gold lift rv" href="https://proyect-terra.web.app/" style="border-color:var(--gold-line)">
         <div>
           <h2 class="h2" style="margin-bottom:12px">Proyecto Terra</h2>
           <span class="label"><span data-l="en">Biggest achievement so far · role playing game · online</span><span data-l="es">Mi mayor logro hasta ahora · juego de rol · en línea</span></span>

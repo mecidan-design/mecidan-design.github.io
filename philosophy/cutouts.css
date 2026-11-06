@@ -81,3 +81,5 @@ html,body{overflow-x:clip}
   .cut-body{opacity:1;animation:none !important}
   .cut-sway,.cut-top{animation:none !important}
 }
+
+html[data-theme="light"] .cut img{filter:drop-shadow(6px 8px 0 rgba(0,0,0,.22))}
