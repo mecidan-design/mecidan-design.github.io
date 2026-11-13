@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skills Test - Set D (B2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.92rem;color:#3b3b3b;margin:0 0 18px;line-height:1.5}
+
+.read p{font-size:1.04rem;line-height:1.85;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.headline{
+  font-family:var(--head);font-weight:800;font-size:1.15rem;text-align:center;
+  text-transform:uppercase;letter-spacing:.8px;margin:6px 0 14px;
+}
+.ph{white-space:nowrap}
+.ph u{text-decoration-thickness:3px;text-decoration-color:var(--pink);text-underline-offset:3px;font-weight:600}
+.phn{
+  font-family:var(--head);font-weight:800;font-size:.7rem;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:999px;padding:0 6px;margin-left:3px;
+}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;min-width:26px;height:26px;margin-right:8px;padding:0 4px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.prompt{font-family:var(--head);font-weight:800;font-size:1.05rem;margin:4px 0 12px}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;text-align:left;
+  border:3px solid #000;border-radius:16px;padding:8px 16px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;display:flex;gap:11px;align-items:flex-start;width:100%;line-height:1.45;
+}
+.opt .ol{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--yellow);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:5px 8px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.gapwrap{display:inline-flex;align-items:center;gap:5px;margin:0 3px;vertical-align:baseline}
+.gn{
+  font-family:var(--head);font-weight:800;font-size:.78rem;color:#fff;background:var(--pink);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+
+.box{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff;
+}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:8px}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 8px;line-height:1.45;font-size:.97rem;display:flex;gap:10px}
+.ends li:last-child{margin-bottom:0}
+.ends b{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--cyan);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+
+.para{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.para p{margin:0;font-size:1.02rem;line-height:1.7}
+.pl{
+  font-family:var(--head);font-weight:800;background:var(--violet);color:#fff;border:3px solid #000;border-radius:50%;
+  width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;
+}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.exp .sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+.expgap{margin-top:18px}
+.expgap h3{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 4px}
+[hidden]{display:none !important}
+
+.total .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.total .pill{
+  font-family:var(--head);font-weight:800;border:3px solid #000;border-radius:999px;padding:4px 16px;background:var(--yellow);
+}
+.total .big{font-family:var(--head);font-weight:800;font-size:1.5rem;margin-top:10px}
+
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+@media (max-width:560px){
+  .card{padding:18px 14px 20px}
+  .read p{line-height:2}
+  .para{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="herotitle"></h1>
+    <p>Gapped text &bull; Matching &bull; Multiple choice</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Skills Test: Set D (nivel B2). Mismo formato que Set A, B y C (ver datos-skills-b.js). ====== */
+var DATA = {
+  heroTitle: "SKILLS TEST · SET D · B2",
+
+  part1: {
+    title: "THE LIBRARY OF EVERYTHING",
+    headline: "Borrow a drill, return a book",
+    instructions: "Read the article. Choose which sentence (A–G) fits each gap (1–6). There is one extra sentence you do not need.",
+    sentences: [
+      "Most existing libraries rely almost entirely on volunteers, and volunteers eventually get tired.",
+      "Behind that simple arrangement lies a surprisingly radical idea.",
+      "Some of the larger ones have even begun to lend out musical instruments and board games.",
+      "The evidence so far, though, suggests that these fears may be exaggerated.",
+      "Multiplied across every garage and cupboard in a city, the waste is enormous.",
+      "It is not the money saved that keeps people coming back, they say, but the contact.",
+      "That generosity, however, can create difficulties of its own."
+    ],
+    paras: [
+      "Most people think of a library as a place full of books. In a growing number of neighbourhoods, however, the shelves hold something quite different: ladders, sewing machines, camping tents and cake tins. Anyone who lives nearby can walk in, show a membership card and leave with a tool that would otherwise cost a week’s wages. These ‘libraries of things’ work on exactly the same principle as the traditional kind. Members sign up, borrow what they need for a week or two, and bring it back when they have finished. {1}",
+      "It starts from an everyday observation: the average power drill, we are told, is used for only a few minutes in its whole life, yet millions of households own one. {2} A single drill, shared among a hundred families, would do the same work at a fraction of the cost, both to its users and to the planet. Seen in this light, a library of things is less a charity than a piece of common sense, the sort of arrangement that earlier generations would simply have called neighbourly.",
+      "Setting up a library of this kind is less complicated than it sounds, though it does demand patience. Most begin with donations from neighbours who are happy to clear out a garage, and with a team of volunteers who repair and label every item. {3} Many of the tools arrive broken, or without the attachments and instructions that make them usable, and it can take months to separate the useful from the hopeless. Volunteers with a talent for repair become, almost by accident, the most valued members of the group.",
+      "Not everyone is convinced that the idea can last. Critics point out that tools wear out, and that a library’s income, which usually consists of small membership fees, rarely covers the cost of replacing them. {4} Several have survived for decades, partly because members regard them less as a service than as a community project, and look after the stock accordingly. Their experience suggests that people take better care of things that belong to everybody than critics tend to assume.",
+      "Supporters claim that the real value of such libraries lies elsewhere. {5} Members who borrow a ladder from a volunteer they have never met often end up chatting about the neighbourhood, or about the repair they are attempting, and some later offer their own skills as volunteers. Several organisers admit that they were surprised by how quickly these small conversations turned into friendships.",
+      "Whether the idea will spread much further is hard to say. {6} That is why campaigners are asking local councils to treat these libraries as a public service rather than as a hobby. If they succeed, the humble drill may soon be something that most of us borrow rather than own. Until then, the shelves of ladders and sewing machines will remain, for most people, a pleasant curiosity at the edge of the high street."
+    ],
+    gaps: [
+      { ans: "B",
+        why: "The paragraph describes how a library of things works in a very simple way. ‘That simple arrangement’ points back to it, and the next paragraph begins with ‘It starts from…’, so ‘It’ must mean the ‘idea’ named in the gap.",
+        tip: "‘It’ at the start of a paragraph needs a noun in the sentence before. Look for the gap sentence that supplies it (here, ‘idea’)." },
+      { ans: "E",
+        why: "‘Multiplied’ takes the single drill from the sentence before and applies it to a whole city, so the waste is huge. The next sentence offers a solution (‘A single drill, shared…’), which contrasts with that waste.",
+        tip: "Problem first, solution next. A gap about ‘waste’ followed by a sentence about sharing is a typical problem + solution link." },
+      { ans: "G",
+        why: "‘That generosity’ means the donations from neighbours in the sentence before. ‘However’ shows a problem, and the next sentence explains it: many donated tools arrive broken.",
+        tip: "‘That + noun’ (that generosity) repeats an idea from the sentence before. Then check that the next sentence develops the problem that ‘however’ announces." },
+      { ans: "D",
+        why: "‘These fears’ means the criticisms about tools wearing out and low income. ‘Several’ in the next sentence means several libraries that lasted for decades, which is evidence that the fears were exaggerated.",
+        tip: "‘These fears’ or ‘this view’ points back to a worry. A sentence that says ‘though’ and offers evidence usually answers it." },
+      { ans: "F",
+        why: "‘The real value… lies elsewhere’ is explained here: not the money but the contact. The next sentence gives an example of contact between members and volunteers.",
+        tip: "When a sentence says ‘the real value lies elsewhere’, the next idea explains where. Then check that the example after the gap matches it." },
+      { ans: "A",
+        why: "The paragraph asks whether the idea will spread. Sentence A names a problem (volunteers get tired), and the next sentence begins ‘That is why’, which introduces the result: campaigners want councils to take over.",
+        tip: "‘That is why…’ always follows a cause. Find the gap sentence that gives the reason." }
+    ],
+    extra: { ans: "C",
+      why: "Sentence C adds a new fact about libraries, but none of the gaps can take it. At gap 1 the next sentence needs the word ‘idea’, and at gap 6 the next sentence needs a problem to which ‘That is why’ can refer.",
+      tip: "A sentence on the right topic can still be wrong. Test it in each gap and read the sentence that follows." }
+  },
+
+  part2: {
+    title: "OFFLINE",
+    instructions: "Read the blog post. Match the questions (1–8) with the paragraphs (A, B, C or D).",
+    prompt: "Which paragraph in the article:",
+    paras: [
+      "Last spring, I counted. For one ordinary Tuesday I made a mark on a notepad every time I picked up my phone, and by midnight I had made ninety-three marks. That figure was embarrassing, but it was not what changed my mind. That happened a fortnight later at my niece’s birthday party, when I realised that I had spent the moment she blew out her candles filming it, and had not actually seen it. It had been the whole point of the party, and I had missed it through a screen the size of my hand. I looked at the shaky clip afterwards and felt a strange kind of grief. The next morning I bought a basic phone that could only make calls and send messages, put my smartphone in a drawer, and told everyone that I would be offline for a month.",
+      "I had expected the first week to be difficult, and it was, but not in the way I had imagined. What I dreaded most was missing something important: a job offer, an emergency, an invitation. In fact, nothing of the kind happened, and the people who really needed me simply rang. My bank wrote letters, and my friends, to my surprise, remembered that they had my address. The real problem was my body. For days, I kept feeling my pocket buzz when there was nothing in it, and my thumb moved on its own towards a screen that was no longer there. On the bus I did not know where to put my eyes, and the silence inside my own head seemed louder than any notification.",
+      "Not everybody welcomed my experiment. A colleague called it a performance, and said that going offline was a luxury that only people without real responsibilities could afford; my editor, less politely, asked who would be reachable in a crisis. My friends found it harder to cope with than I did, since they had to ring me, and some suggested that I was being selfish. Only my grandmother seemed delighted. She has never owned a smartphone, and she told me, with obvious satisfaction, that she had been waiting forty years for somebody in the family to notice that conversation could be done in person. Even so, I noticed that the people who criticised me most were often the ones who glanced at their screens during our conversations.",
+      "By the third week, something unexpected had happened: I was sleeping through the night, and I had finished two novels, which I had not managed in the previous three years. I would not say that I have become a better person, only a less distracted one. Since the month ended, I have gone back to a smartphone, but with most of its apps removed, and I would not recommend that you go as far as I did. Anyone who is thinking of trying it should start gently: switch off notifications for a week, leave the phone in another room at mealtimes, and only then consider a longer break. Cutting everything at once, I now believe, is more likely to end in failure than in enlightenment. The point, after all, is not to prove that one can live without a phone, but to decide when one is in charge of it."
+    ],
+    qs: [
+      { q: "describes a benefit the writer had not expected?", ans: "D",
+        ev: "“something unexpected had happened: I was sleeping through the night”",
+        why: "In paragraph D the writer calls sleeping through the night and finishing two novels ‘unexpected’. These are the benefits of the experiment.",
+        tip: "The question repeats the idea of ‘not expected’. Look for words like unexpected, surprisingly or ‘I had not imagined’." },
+      { q: "refers to criticism of the writer’s decision?", ans: "C",
+        ev: "“some suggested that I was being selfish”",
+        why: "In paragraph C a colleague calls the experiment ‘a performance’, the editor asks who would be reachable in a crisis, and friends say the writer is selfish. All of these are criticism.",
+        tip: "Criticism can be indirect. Look for what other people say or ask about the writer’s choice, not only for the word ‘criticism’." },
+      { q: "says what finally persuaded the writer to take action?", ans: "A",
+        ev: "“That figure was embarrassing, but it was not what changed my mind.”",
+        why: "In paragraph A the number of phone checks was embarrassing but did not change the writer’s mind. The niece’s birthday party did, and the next morning the writer acted.",
+        tip: "‘Finally persuaded’ often follows a ‘but’. The first reason is rejected, and the real reason comes next." },
+      { q: "expresses a fear that proved unfounded?", ans: "B",
+        ev: "“What I dreaded most was missing something important”",
+        why: "In paragraph B the writer feared missing a job offer or an emergency. ‘Nothing of the kind happened’, so the fear was unfounded.",
+        tip: "Look for a worry (dreaded, feared) followed by ‘in fact’ or ‘but’ and the real result." },
+      { q: "recommends a cautious approach to anyone attempting something similar?", ans: "D",
+        ev: "“Anyone who is thinking of trying it should start gently”",
+        why: "In paragraph D the writer advises starting gently, with small steps, and warns against cutting everything at once.",
+        tip: "Advice to the reader often uses ‘should’ or ‘I would not recommend’, and addresses ‘anyone’ or ‘you’." },
+      { q: "mentions someone who supported the writer’s decision?", ans: "C",
+        ev: "“Only my grandmother seemed delighted.”",
+        why: "In paragraph C the grandmother is delighted and says she had been waiting for somebody to notice that conversation can be done in person. She is the only person who approves.",
+        tip: "‘Only’ + a person often marks the exception to the rest of the paragraph. Here everyone else criticises." },
+      { q: "describes a physical sensation the writer experienced?", ans: "B",
+        ev: "“I kept feeling my pocket buzz when there was nothing in it”",
+        why: "In paragraph B the writer feels the pocket buzz when the phone is not there, and the thumb moves by itself. Both are bodily sensations.",
+        tip: "Look for the body: feeling, thumb, eyes, pocket. Sensations are described as things the body does or feels." },
+      { q: "mentions how often the writer used to check the phone?", ans: "A",
+        ev: "“by midnight I had made ninety-three marks”",
+        why: "In paragraph A the writer counted ninety-three marks, one for each time the phone was picked up, in a single day.",
+        tip: "‘How often’ questions are answered with numbers or words like every, daily or ‘times a day’. Scan for figures." }
+    ]
+  },
+
+  part3: {
+    title: "SMALL THINGS THAT CHANGED EVERYTHING",
+    headline: "Small things that changed everything",
+    instructions: "You are going to read an article about everyday objects with surprising histories. For questions 1–6, choose the answer (A, B, C or D) which you think fits best according to the text.",
+    paras: [
+      "We rarely think about the objects that make modern life possible. They are too familiar, too cheap or too small to attract our attention. Yet behind several of them lie stories of accident, rivalry and, occasionally, myth, and the people who are credited with them are not always the ones who deserve it. Few of us could say who designed them, or when.",
+      "In the late 1940s, the owner of a food-store chain asked a college in Philadelphia whether products could be identified automatically at the checkout. The college turned him down, but a graduate student named Bernard Silver heard about the request and passed it on to his friend Norman Woodland, a young engineer. Woodland took up the problem, but the answer came to him only when he stopped trying to find it. Sitting on a beach in Florida one afternoon, he began idly drawing lines in the sand with his fingers and found himself thinking of the dots and dashes of Morse code. When he pulled his fingers through the marks, making them longer and thicker, he saw the beginnings of a pattern that a machine might be able to read.",
+      "The idea was far ahead of its time. Lasers were large and expensive, and computers cheap enough to read the patterns did not yet exist, so the patent that Woodland and Silver obtained in the early 1950s made them very little money. It was only in 1974 that the first product, a packet of chewing gum, was scanned at a supermarket till in Ohio, and even then shops were slow to be convinced. Within a decade, however, the system had [[2|taken hold]], and the black stripes on almost every product we buy had become so ordinary that nobody noticed them.",
+      "Many people assume that Malcom McLean, an American trucking businessman, invented the shipping container. He did not: boxes of various kinds had been carried by rail and sea for years. What he grasped was that the real saving lay not in the box but in the way it was handled. According to the usual account, he got the idea while waiting at a crowded dockside, watching cargo being unloaded piece by piece, and asking himself why the whole body of a lorry could not simply be lifted onto a ship. In 1956, a converted tanker carrying fifty-eight such boxes sailed from New Jersey to Texas.",
+      "The effects were greater than McLean could have foreseen. Loading a ship, which had once taken days, could now be done in hours, and the cost of moving goods across oceans fell so sharply that it became cheaper to make things far from where they were sold. Entire harbours built for older kinds of cargo fell quiet. Dockers were alarmed, and with good reason: a job that had once needed hundreds of men was now done by a few. Yet within a decade the new system had spread to every major port.",
+      "Few observers at the time understood how far-reaching [[5|it]] would be. Cheap, predictable transport allowed manufacturers to split production across continents, and it is no exaggeration to say that the modern global economy, with its parts made in one country, assembled in another and sold in a third, rests on the humble steel box. Even the price of everyday goods, from clothes to televisions, fell as a result, though few shoppers ever connected the change with a steel box in a distant harbour.",
+      "Neither of these inventions was dramatic in itself. A pattern of stripes and a metal box would not make a good film. Yet each of them, by quietly removing a source of waste, altered the way the world works, which is perhaps why the people responsible are so easily forgotten. It is tempting to look for genius in dramatic moments of discovery, but these stories suggest that it often lies in noticing something that everyone else has learned to ignore."
+    ],
+    qs: [
+      { q: "What do we learn about Norman Woodland in the second paragraph?", ans: "C",
+        o: ["He developed his idea after talking to the owner of a food store.",
+            "He tried several different methods before one finally worked.",
+            "He found inspiration at a moment when he was not working on the problem.",
+            "He lost interest in the project after a college refused to help."],
+        ev: "“the answer came to him only when he stopped trying to find it”",
+        why: "The text says the answer came ‘only when he stopped trying to find it’, while he was drawing in the sand. He did not talk to the store owner himself (not A), and no other methods are mentioned (not B).",
+        tip: "Look for contrast words (‘but’, ‘only when’). They often introduce the key detail. Then check each option against exact details in the text." },
+      { q: "What does ‘taken hold’ mean in the third paragraph?", ans: "A",
+        o: ["become firmly established",
+            "become more complicated",
+            "been strongly criticised",
+            "been used by fewer shops"],
+        ev: "“Within a decade, however, the system had taken hold”",
+        why: "The sentence contrasts the early slowness (‘shops were slow to be convinced’) with a later success: the stripes became ‘so ordinary that nobody noticed them’. So the system became firmly established.",
+        tip: "Read what comes after the phrase. ‘So ordinary that nobody noticed them’ shows that the system had become part of normal life." },
+      { q: "What is the writer doing in the first three sentences of the fourth paragraph?", ans: "D",
+        o: ["giving the background of McLean’s business",
+            "listing the kinds of box in use before 1956",
+            "praising McLean for solving a technical problem",
+            "questioning what McLean is usually credited with"],
+        ev: "“Many people assume that Malcom McLean, an American trucking businessman, invented the shipping container. He did not”",
+        why: "The writer starts with what many people assume and says ‘He did not’. The third sentence says what McLean really understood, so the writer is questioning the usual credit.",
+        tip: "‘Many people assume… He did not’ is a pattern for challenging a belief. Do not choose an option that only matches one detail (boxes, business)." },
+      { q: "According to the fourth paragraph, McLean’s idea came to him while he was", ans: "B",
+        o: ["talking to dockers about their working conditions.",
+            "watching cargo being unloaded slowly.",
+            "travelling on a ship to Texas.",
+            "visiting a factory that made metal boxes."],
+        ev: "“watching cargo being unloaded piece by piece”",
+        why: "The paragraph says that, according to the usual account, he got the idea at a crowded dockside while watching cargo unloaded piece by piece, which is slow work.",
+        tip: "Find the words in the question (‘came to him’) and match them with ‘got the idea’ in the text. Then pick the option that paraphrases the next phrase." },
+      { q: "What does ‘it’ refer to in the first sentence of the sixth paragraph?", ans: "C",
+        o: ["the first voyage",
+            "the dockers’ alarm",
+            "the new system",
+            "the saving in costs"],
+        ev: "“Yet within a decade the new system had spread to every major port.”",
+        why: "The last sentence of the previous paragraph is about ‘the new system’ spreading to every port. ‘Few observers understood how far-reaching it would be’ means the effect of that system.",
+        tip: "For ‘it’ questions, go back to the end of the previous paragraph. Replace ‘it’ with each option and see which still makes sense." },
+      { q: "What is the writer’s main purpose in the article?", ans: "A",
+        o: ["to show how modest-looking ideas can have far-reaching effects",
+            "to explain why inventors are not given enough credit",
+            "to describe the difficulties faced by dockers",
+            "to compare two examples of commercial failure"],
+        ev: "“altered the way the world works”",
+        why: "Both stories show a simple thing (a pattern of stripes, a metal box) with huge consequences. The last paragraph says each of them ‘altered the way the world works’.",
+        tip: "Check the last paragraph. Be careful with options that match only a small part of the text, such as the inventors being forgotten or the dockers." }
+    ]
+  }
+};
+
+</script>
+
+<script id="engine-block">
+(function () {
+  "use strict";
+  var D = DATA;
+  var LET = "ABCDEFGH";
+  var app = document.getElementById("app");
+  var scores = { p1: null, p2: null, p3: null };
+  var totals = { p1: D.part1.gaps.length, p2: D.part2.qs.length, p3: D.part3.qs.length };
+  var updateTotal = function () {};
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function paraHtml(txt) {
+    return esc(txt)
+      .replace(/\{(\d)\}/g, '<span class="gapslot" data-slot="$1"></span>')
+      .replace(/\[\[(\d)\|([^\]]+)\]\]/g, '<span class="ph"><u>$2</u><sup class="phn">$1</sup></span>');
+  }
+  function expBlock(ok, lines) {
+    var d = el("div", "exp " + (ok ? "right" : "wrong"));
+    lines.forEach(function (ln) { d.appendChild(el("p", null, ln)); });
+    return d;
+  }
+  function whyTip(x) {
+    return [
+      '<b class="lab why">Why</b>' + esc(x.why),
+      '<b class="lab tip">Exam tip</b>' + esc(x.tip)
+    ];
+  }
+  function buttons(onCheck, onReset) {
+    var row = el("div", "btnrow");
+    var b1 = el("button", "btn", "Check answers"); b1.type = "button";
+    var b2 = el("button", "btn ghost", "Try again"); b2.type = "button";
+    var sc = el("span", "scoreline", "");
+    b1.addEventListener("click", onCheck);
+    b2.addEventListener("click", onReset);
+    row.appendChild(b1); row.appendChild(b2); row.appendChild(sc);
+    return { row: row, score: sc, check: b1 };
+  }
+  function head(card, tag, title, sub) {
+    card.appendChild(el("span", "tag", tag));
+    card.appendChild(el("h2", null, esc(title)));
+    card.appendChild(el("p", "sub", esc(sub)));
+  }
+  function showScore(span, got, tot, blank) {
+    span.textContent = "Score: " + got + " / " + tot + (blank ? "  (" + blank + " blank)" : "");
+  }
+
+  /* ---------------------------------------------------------- PART 1 */
+  function buildPart1() {
+    var P = D.part1, sels = [];
+    var card = el("section", "card"); card.id = "part1";
+    head(card, "Part 1", P.title, P.instructions);
+
+    var box = el("div", "box"); box.appendChild(el("div", "bt", "Sentences"));
+    var ul = el("ul", "ends");
+    P.sentences.forEach(function (s, i) { ul.appendChild(el("li", null, "<b>" + LET.charAt(i) + "</b><span>" + esc(s) + "</span>")); });
+    box.appendChild(ul); card.appendChild(box);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) {
+      var p = el("p", null, paraHtml(t));
+      var slots = p.querySelectorAll(".gapslot");
+      for (var k = 0; k < slots.length; k++) {
+        var n = +slots[k].getAttribute("data-slot");
+        var wrap = el("span", "gapwrap", '<span class="gn">' + n + "</span>");
+        var sel = document.createElement("select");
+        sel.setAttribute("aria-label", "Gap " + n);
+        sel.appendChild(new Option("—", ""));
+        for (var i = 0; i < P.sentences.length; i++) sel.appendChild(new Option(LET.charAt(i), LET.charAt(i)));
+        wrap.appendChild(sel);
+        sels[n - 1] = sel;
+        slots[k].parentNode.replaceChild(wrap, slots[k]);
+      }
+      read.appendChild(p);
+    });
+    card.appendChild(read);
+
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = "";
+      panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.gaps.forEach(function (g, i) {
+        var v = sels[i].value, ok = v === g.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        sels[i].className = ok ? "ok" : "no";
+        sels[i].disabled = true;
+        var idx = LET.indexOf(g.ans);
+        panel.appendChild(expBlock(ok, [
+          '<b>Gap ' + (i + 1) + '</b><span class="mark ' + (ok ? "y" : "n") + '">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span>",
+          'Right answer: <span class="sol">' + g.ans + "</span> – " + esc(P.sentences[idx])
+        ].concat(whyTip(g))));
+      });
+      var ei = LET.indexOf(P.extra.ans);
+      panel.appendChild(expBlock(true, [
+        '<b>The extra sentence: ' + P.extra.ans + "</b> – " + esc(P.sentences[ei])
+      ].concat(whyTip(P.extra))));
+      panel.hidden = false;
+      showScore(bt.score, got, P.gaps.length, blank);
+      scores.p1 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      sels.forEach(function (s) { s.value = ""; s.className = ""; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p1 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    card.appendChild(panel);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 2 */
+  function buildPart2() {
+    var P = D.part2, items = [];
+    var card = el("section", "card"); card.id = "part2";
+    head(card, "Part 2", P.title, P.instructions);
+
+    var read = el("div", "read");
+    P.paras.forEach(function (t, i) {
+      var d = el("div", "para", '<span class="pl">' + LET.charAt(i) + "</span>");
+      d.appendChild(el("p", null, esc(t)));
+      read.appendChild(d);
+    });
+    card.appendChild(read);
+
+    card.appendChild(el("div", "prompt", esc(P.prompt)));
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var row = el("div", "selrow");
+      var sel = document.createElement("select");
+      sel.setAttribute("aria-label", "Question " + (i + 1));
+      sel.appendChild(new Option("Paragraph…", ""));
+      for (var k = 0; k < P.paras.length; k++) sel.appendChild(new Option(LET.charAt(k), LET.charAt(k)));
+      row.appendChild(sel); it.appendChild(row);
+      var slot = el("div"); slot.hidden = true; it.appendChild(slot);
+      items.push({ q: x, sel: sel, slot: slot });
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var v = o.sel.value, ok = v === o.q.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        o.sel.className = ok ? "ok" : "no"; o.sel.disabled = true;
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">paragraph " + o.q.ans + "</span>",
+          '<b class="lab ev">Evidence</b>' + esc(o.q.ev)
+        ].concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p2 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) { o.sel.value = ""; o.sel.className = ""; o.sel.disabled = false; o.slot.hidden = true; o.slot.innerHTML = ""; });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p2 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 3 */
+  function buildPart3() {
+    var P = D.part3, items = [];
+    var card = el("section", "card"); card.id = "part3";
+    head(card, "Part 3", P.title, P.instructions);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) { read.appendChild(el("p", null, paraHtml(t))); });
+    card.appendChild(read);
+    card.appendChild(el("div", "prompt", "Questions"));
+
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var opts = el("div", "opts"), btns = [], o = { q: x, picked: -1, btns: btns, slot: null };
+      x.o.forEach(function (txt, k) {
+        var b = el("button", "opt", '<span class="ol">' + LET.charAt(k) + "</span><span>" + esc(txt) + "</span>");
+        b.type = "button";
+        b.addEventListener("click", function () {
+          o.picked = k;
+          btns.forEach(function (bb, j) { bb.className = "opt" + (j === k ? " sel" : ""); });
+        });
+        btns.push(b); opts.appendChild(b);
+      });
+      it.appendChild(opts);
+      o.slot = el("div"); o.slot.hidden = true; it.appendChild(o.slot);
+      items.push(o);
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var right = LET.indexOf(o.q.ans), ok = o.picked === right;
+        if (o.picked < 0) blank++;
+        if (ok) got++;
+        o.btns.forEach(function (b, j) {
+          b.disabled = true;
+          b.className = "opt" + (j === right ? " good" : (j === o.picked ? " bad" : ""));
+        });
+        var lines = [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (o.picked >= 0 ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">" + o.q.ans + "</span>"
+        ];
+        if (o.q.ev) lines.push('<b class="lab ev">Evidence</b>' + esc(o.q.ev));
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, lines.concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p3 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) {
+        o.picked = -1; o.slot.hidden = true; o.slot.innerHTML = "";
+        o.btns.forEach(function (b) { b.className = "opt"; b.disabled = false; });
+      });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p3 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- TOTAL */
+  function buildTotal() {
+    var card = el("section", "card total"); card.id = "total";
+    card.appendChild(el("span", "tag", "My score"));
+    var body = el("div");
+    card.appendChild(body);
+    updateTotal = function () {
+      var parts = [["Part 1", scores.p1, totals.p1], ["Part 2", scores.p2, totals.p2], ["Part 3", scores.p3, totals.p3]];
+      var html = '<div class="row">', done = 0, sum = 0, max = 0;
+      parts.forEach(function (p) {
+        html += '<span class="pill">' + p[0] + ": " + (p[1] == null ? "–" : p[1]) + " / " + p[2] + "</span>";
+        max += p[2];
+        if (p[1] != null) { done++; sum += p[1]; }
+      });
+      html += "</div>";
+      if (done === 3) html += '<div class="big">Total: ' + sum + " / " + max + "</div>";
+      else html += '<p class="sub">Check all three parts to see your total score.</p>';
+      body.innerHTML = html;
+    };
+    updateTotal();
+    return card;
+  }
+
+  document.getElementById("herotitle").textContent = D.heroTitle;
+  var nav = document.getElementById("nav");
+  [["part1", "Part 1"], ["part2", "Part 2"], ["part3", "Part 3"], ["total", "My score"]].forEach(function (p) {
+    var a = el("a", null, p[1]); a.href = "#" + p[0]; nav.appendChild(a);
+  });
+  app.appendChild(buildPart1());
+  app.appendChild(buildPart2());
+  app.appendChild(buildPart3());
+  app.appendChild(buildTotal());
+})();
+</script>
+</body>
+</html>

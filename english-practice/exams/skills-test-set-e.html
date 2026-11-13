@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skills Test - Set E (B2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.92rem;color:#3b3b3b;margin:0 0 18px;line-height:1.5}
+
+.read p{font-size:1.04rem;line-height:1.85;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.headline{
+  font-family:var(--head);font-weight:800;font-size:1.15rem;text-align:center;
+  text-transform:uppercase;letter-spacing:.8px;margin:6px 0 14px;
+}
+.ph{white-space:nowrap}
+.ph u{text-decoration-thickness:3px;text-decoration-color:var(--pink);text-underline-offset:3px;font-weight:600}
+.phn{
+  font-family:var(--head);font-weight:800;font-size:.7rem;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:999px;padding:0 6px;margin-left:3px;
+}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;min-width:26px;height:26px;margin-right:8px;padding:0 4px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.prompt{font-family:var(--head);font-weight:800;font-size:1.05rem;margin:4px 0 12px}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;text-align:left;
+  border:3px solid #000;border-radius:16px;padding:8px 16px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;display:flex;gap:11px;align-items:flex-start;width:100%;line-height:1.45;
+}
+.opt .ol{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--yellow);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:5px 8px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.gapwrap{display:inline-flex;align-items:center;gap:5px;margin:0 3px;vertical-align:baseline}
+.gn{
+  font-family:var(--head);font-weight:800;font-size:.78rem;color:#fff;background:var(--pink);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+
+.box{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff;
+}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:8px}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 8px;line-height:1.45;font-size:.97rem;display:flex;gap:10px}
+.ends li:last-child{margin-bottom:0}
+.ends b{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--cyan);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+
+.para{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.para p{margin:0;font-size:1.02rem;line-height:1.7}
+.pl{
+  font-family:var(--head);font-weight:800;background:var(--violet);color:#fff;border:3px solid #000;border-radius:50%;
+  width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;
+}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.exp .sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+.expgap{margin-top:18px}
+.expgap h3{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 4px}
+[hidden]{display:none !important}
+
+.total .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.total .pill{
+  font-family:var(--head);font-weight:800;border:3px solid #000;border-radius:999px;padding:4px 16px;background:var(--yellow);
+}
+.total .big{font-family:var(--head);font-weight:800;font-size:1.5rem;margin-top:10px}
+
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+@media (max-width:560px){
+  .card{padding:18px 14px 20px}
+  .read p{line-height:2}
+  .para{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="herotitle"></h1>
+    <p>Gapped text &bull; Matching &bull; Multiple choice</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Skills Test: Set E (nivel B2). Mismo formato que Set A, B, C y D (ver datos-skills-b.js). ====== */
+var DATA = {
+  heroTitle: "SKILLS TEST · SET E · B2",
+
+  part1: {
+    title: "THE FOUR-DAY WEEK",
+    headline: "Is the five-day week finished?",
+    instructions: "Read the article. Choose which sentence (A–G) fits each gap (1–6). There is one extra sentence you do not need.",
+    sentences: [
+      "There is, however, little evidence so far that this happens.",
+      "Enthusiasm at the start of a trial does not always survive the second year.",
+      "The results, so far, have surprised even the optimists.",
+      "Some employees have used their extra day to study, to volunteer or to start a small business.",
+      "For employers in services like these, the idea raises awkward practical questions.",
+      "Long hours have come to be seen as proof of commitment, whether or not they produce anything useful.",
+      "The explanation seems to be that people simply learned to waste less of the time they had."
+    ],
+    paras: [
+      "For well over a century, the five-day working week has been treated almost as a fact of nature. Yet it is only a custom, and customs can change. Earlier attempts to shorten the week, in factories and offices alike, were usually dismissed as unrealistic. In several countries, companies have recently begun to test what would happen if employees worked four days instead of five, with no reduction in pay. The idea has been championed by trade unions and watched sceptically by many employers. {1}",
+      "Many of the firms taking part reported that output had held steady or even risen, while employees said they felt less stressed and were less likely to look for another job. {2} Meetings were shortened, emails were cut back and unnecessary reports quietly disappeared. Some managers admitted that they had expected chaos, and found instead that their teams worked with unusual focus. Trade unions, unsurprisingly, welcomed the figures.",
+      "None of this means that the arrangement suits every organisation, and the trials were careful to include very different kinds of workplace. A hospital cannot close its wards on Fridays, and a shop that opens six days a week still needs staff on each of them. {3} Some have dealt with the problem by dividing employees into teams that take different days off, but this requires careful planning and can make the working week more complicated, not simpler. Even so, supporters argue that the difficulty lies in the planning, not in the principle.",
+      "Critics raise a different objection. They fear that a shorter week will merely squeeze the same amount of work into fewer hours, leaving people exhausted on the days they do work. {4} Researchers who followed the trial reported the opposite: most employees said they felt better, not worse, by the end of it. Several of them said that they would be reluctant to go back to five days.",
+      "Why, then, has the change not come sooner? Part of the answer is habit. {5} Managers who built their careers on being seen at their desks until late find it hard to believe that results can matter more than presence. It will take time, and a good deal of evidence, for those assumptions to change.",
+      "The experiment is still young, and the long-term effects are unknown. {6} If the evidence continues to be positive, however, it may turn out that the real surprise was not that the five-day week could be replaced, but that it lasted for so long. Either way, the argument about how we spend our working lives is unlikely to go away. Governments in several countries are watching closely, and some are already paying for larger studies."
+    ],
+    gaps: [
+      { ans: "C",
+        why: "The paragraph ends by describing the trials. ‘The results’ introduces what they found, and the next paragraph starts to list those findings: output steady, staff less stressed.",
+        tip: "A short sentence that announces ‘the results’ is usually followed by the results themselves. Check the first words of the next paragraph." },
+      { ans: "G",
+        why: "The paragraph gives results (output steady, people less stressed), and ‘The explanation’ says why. The next sentence gives examples of waste being reduced: shorter meetings, fewer emails and reports.",
+        tip: "‘The explanation’ or ‘the reason’ answers a ‘why?’ that the sentence before has raised. Then look for examples after the gap." },
+      { ans: "E",
+        why: "‘Services like these’ refers to hospitals and shops in the sentence before. ‘Some’ in the next sentence means some of these employers, who found a solution to the practical questions.",
+        tip: "‘Like these’ points back to examples. ‘Some… ’ at the start of the next sentence needs a plural group before it (employers)." },
+      { ans: "A",
+        why: "‘This’ refers to the critics’ fear that people will be exhausted. The next sentence, ‘reported the opposite’, shows that researchers found no such effect. So there is little evidence that it happens.",
+        tip: "‘The opposite’ must be the opposite of something stated just before. Find the gap sentence that states it, here the fear of exhaustion." },
+      { ans: "F",
+        why: "The paragraph asks why change took so long, and says ‘part of the answer is habit’. Sentence F gives that habit: long hours seen as proof of commitment. The next sentence gives an example with managers.",
+        tip: "A paragraph that starts with a question and an answer in short form (‘Part of the answer is habit’) needs the explanation next. The following sentence then gives an example." },
+      { ans: "B",
+        why: "The paragraph begins with a warning that the effects are unknown. Sentence B adds a reason for caution, and ‘however’ in the next sentence shows the contrast: if the evidence stays positive…",
+        tip: "‘If… however’ means that the previous sentence was cautious or negative. Find the gap sentence that gives a doubt." }
+    ],
+    extra: { ans: "D",
+      why: "Sentence D gives a new example of how people use the extra day, but no gap needs it. The sentences after the gaps ask for results, an explanation, a solution, a contrast or an example of managers, not for the employees’ free time.",
+      tip: "Extra sentences are often on the topic but have no link to the sentences around the gap. Read both sides of every gap." }
+  },
+
+  part2: {
+    title: "WHAT NOBODY TELLS YOU",
+    instructions: "Read the blog post. Match the questions (1–8) with the paragraphs (A, B, C or D).",
+    prompt: "Which paragraph in the article:",
+    paras: [
+      "When I arrived in Britain to start my degree, I thought my English was excellent. It took about a week to discover otherwise. I had studied the language for ten years, but nobody had taught me that in everyday British speech, words often mean the opposite of what they say. When my tutor described my first essay as ‘quite good’, I was delighted and told my parents so; it took me two months to learn that, from a British tutor, this can mean ‘not as good as I had hoped’. I was equally unprepared for the small things: the way strangers apologised to me when I stepped on their feet, or the fact that nobody seemed to eat dinner later than six. For a long time I kept a list of phrases that I had understood too literally, and it grew longer every week.",
+      "The loneliest moment came in November, when the days had shrunk to a few hours of grey light and my flatmates had all gone home for a long weekend. I sat in the kitchen eating cereal for dinner and realised that I could not remember the last time anyone had asked me a question about myself. Looking back, I made one serious mistake: in the first month, I spent nearly all of my time with other students from my own country, because it was comfortable. It delayed my English, and it delayed my friendships. If I were starting again, I would join a society in the first week, even if I felt too shy to speak. Eventually, a girl on my course invited me to a quiz night, and that was the beginning of everything else.",
+      "Money was the other constant worry. My scholarship covered the rent but little else, and by the end of the first term I had learnt to read supermarket labels the way other people read novels. When my laptop broke in February, I had to borrow from a friend, an embarrassment I had promised myself I would avoid. But necessity is a good teacher. I now cook for six people on a budget that would not feed two, and I can turn a bag of lentils, an onion and a few spices into a meal that has made me popular in my building. It is not a qualification I can put on my CV, but it may be the most useful thing I have learnt. Nobody had warned me that the hardest part of living on my own would be arithmetic.",
+      "My advice to anyone about to go abroad is simple: expect to feel foolish, and do not take it personally. Be curious before you are comfortable, and say yes to things that frighten you a little. The biggest change has been in how I think about home. I used to imagine it as a fixed place that would wait for me unchanged. When I went back at Christmas, the streets looked smaller, my friends had new jokes that I did not understand, and I realised that I had left something behind without noticing. I had not, after all, lost it; I had only started to see it from the outside. I am no longer sure that I will ever feel completely at home in one place, but I have stopped thinking of that as a problem."
+    ],
+    qs: [
+      { q: "refers to a financial difficulty?", ans: "C",
+        ev: "“When my laptop broke in February, I had to borrow from a friend”",
+        why: "In paragraph C the scholarship covers only the rent, and the writer has to borrow money from a friend when the laptop breaks. These are financial difficulties.",
+        tip: "Money words are the clue: scholarship, rent, budget, borrow. Scan for them." },
+      { q: "describes a misunderstanding caused by language?", ans: "A",
+        ev: "“it took me two months to learn that, from a British tutor, this can mean ‘not as good as I had hoped’”",
+        why: "In paragraph A the writer thought ‘quite good’ was praise, but a British tutor can use it to mean ‘not as good as I had hoped’. That is a misunderstanding caused by the language.",
+        tip: "‘I thought… it took me time to learn that…’ is a typical pattern for a misunderstanding." },
+      { q: "gives advice to future students?", ans: "D",
+        ev: "“My advice to anyone about to go abroad is simple”",
+        why: "Paragraph D addresses ‘anyone about to go abroad’ and gives advice: expect to feel foolish, be curious and say yes to things that frighten you.",
+        tip: "Advice to readers uses ‘my advice is’, ‘you should’ or commands. Compare with paragraph B, where the writer only talks about a personal regret." },
+      { q: "mentions a mistake the writer would avoid repeating?", ans: "B",
+        ev: "“I made one serious mistake: in the first month, I spent nearly all of my time with other students from my own country”",
+        why: "In paragraph B the writer calls spending the first month only with students from the same country ‘one serious mistake’, and says what would be done differently.",
+        tip: "‘Looking back’ and ‘If I were starting again’ introduce regret about the past. Look for the word ‘mistake’ too." },
+      { q: "indicates a change in how the writer sees home?", ans: "D",
+        ev: "“I had only started to see it from the outside.”",
+        why: "In paragraph D the writer used to imagine home as unchanged, but after going back it feels different, and the writer now sees it ‘from the outside’.",
+        tip: "‘I used to… but now’ and ‘I realised’ show a change of view. Compare the writer’s earlier and later ideas." },
+      { q: "says what surprised the writer about everyday life in the new country?", ans: "A",
+        ev: "“the way strangers apologised to me when I stepped on their feet”",
+        why: "In paragraph A the writer was unprepared for small things: strangers apologising for being stepped on, and dinner being eaten very early.",
+        tip: "‘Unprepared for the small things’ is the signal. The question asks about everyday life, so look for details of daily habits." },
+      { q: "mentions a feeling of isolation?", ans: "B",
+        ev: "“I could not remember the last time anyone had asked me a question about myself”",
+        why: "In paragraph B the writer is alone in the kitchen, flatmates are away, and nobody has asked about the writer’s life for a long time. This is loneliness.",
+        tip: "Loneliness is often shown by a scene, not by the word itself: an empty flat, a poor dinner, nobody to talk to." },
+      { q: "refers to a skill the writer developed?", ans: "C",
+        ev: "“I now cook for six people on a budget that would not feed two”",
+        why: "In paragraph C the writer learnt to cook cheap meals for many people. The last sentence calls it ‘the most useful thing I have learnt’.",
+        tip: "A skill is something the writer can do now but could not do before. Look for ‘I learnt to’, ‘I can’ and ‘I now’." }
+    ]
+  },
+
+  part3: {
+    title: "WHY WE REMEMBER THINGS THAT NEVER HAPPENED",
+    headline: "Why we remember things that never happened",
+    instructions: "You are going to read an article about how memory works. For questions 1–6, choose the answer (A, B, C or D) which you think fits best according to the text.",
+    paras: [
+      "Most of us trust our memories the way we trust our eyes. We believe that when we recall a childhood birthday or a conversation from last week, we are playing back a recording that is stored somewhere in the brain. Psychologists have spent more than a century showing that this belief is mistaken, and the evidence is stranger than most people expect. These are comfortable assumptions, shared by juries, teachers and friends alike.",
+      "In the 1880s, a German psychologist named Hermann Ebbinghaus set out to study memory in the cleanest way he could imagine. To make sure that previous knowledge could not help him, he invented thousands of meaningless three-letter syllables, learned long lists of them, and then measured how many he could still recall after an hour, a day or a week. He had no other volunteers: for years, he was the only person in the experiment. What he found was a pattern that has been confirmed many times since. Forgetting is fastest in the first hours after learning, and then slows to a crawl.",
+      "Ebbinghaus’s results suggested that memory could be measured like any other natural phenomenon, and his methods [[2|set the tone for]] a century of research. But they also had a limitation: remembering a list of nonsense syllables is a long way from remembering a conversation or a car crash, and it said little about the way real memories are formed. Even so, the curve he drew is still used in classrooms to explain why revision should be repeated rather than left until the night before an exam.",
+      "Many people imagine that memory works like a video recorder. In fact, psychologists now believe that every memory is partly rebuilt each time we recall it. The pieces used for the rebuilding include what we expect, what other people have told us since, and what we would like to be true. The most famous demonstration came in 1974, when Elizabeth Loftus and John Palmer showed volunteers films of car accidents and then asked them how fast the cars had been going. Those who were asked about cars that had ‘smashed into’ each other gave higher estimates than those who were asked about cars that had ‘hit’ each other, and a week later they were more likely to say that they had seen broken glass, although there was none in the film.",
+      "The implications go well beyond the laboratory. In courtrooms, witnesses who are completely sincere have identified the wrong person, and in some cases innocent people have been sent to prison on the strength of a memory that felt perfectly vivid. Eyewitness testimony, once treated as the best evidence available, is now handled with considerable caution by many legal systems. Researchers have also shown that a vivid memory may be completely false, and that the feeling of certainty is no guide to accuracy.",
+      "[[5|It]] is a disturbing finding, but it is not the whole story. The same flexibility that allows a false detail to creep into a memory is what lets us learn from experience, imagine the future and adapt old knowledge to new situations. A brain that stored perfect recordings would, paradoxically, be much worse at ordinary thinking. Some of the rare people with unusually complete memories of their own lives describe it as a burden rather than a gift.",
+      "None of this means that memory is useless. It means only that it is a tool for making sense of the past rather than a window onto it, and that we should hold our most certain recollections a little more loosely than we usually do. That is not a reason for despair, but it is a good reason for humility when two people remember the same event differently."
+    ],
+    qs: [
+      { q: "What do we learn about Hermann Ebbinghaus in the second paragraph?", ans: "B",
+        o: ["He used familiar words so that his results would be realistic.",
+            "He was the only person who took part in his own experiments.",
+            "He tested large numbers of volunteers over a short period.",
+            "He stopped testing his memory after a week."],
+        ev: "“for years, he was the only person in the experiment”",
+        why: "The paragraph says ‘He had no other volunteers: for years, he was the only person in the experiment’. He used meaningless syllables, not familiar words (not A), and tested for years, not a short period (not C).",
+        tip: "Read the details in the options carefully. One word (familiar, large numbers, short period) can make an option wrong." },
+      { q: "What does ‘set the tone for’ mean in the third paragraph?", ans: "D",
+        o: ["had little effect on",
+            "caused arguments within",
+            "reduced the cost of",
+            "established the general approach of"],
+        ev: "“his methods set the tone for a century of research”",
+        why: "The sentence says that his results showed that memory could be measured, and his methods ‘set the tone for a century of research’, so later researchers followed his general approach.",
+        tip: "A phrase about ‘tone’ is about the general style. Use the rest of the sentence: methods that influence a century of research." },
+      { q: "What is the writer doing in the first three sentences of the fourth paragraph?", ans: "C",
+        o: ["describing the first experiment on false memory",
+            "explaining why some memories last longer than others",
+            "replacing a popular view of memory with a different explanation",
+            "warning readers not to trust psychologists"],
+        ev: "“Many people imagine that memory works like a video recorder. In fact, psychologists now believe”",
+        why: "The paragraph starts with what many people imagine and then says ‘In fact, psychologists now believe…’. The third sentence explains what goes into the rebuilding of a memory.",
+        tip: "‘Many people imagine… In fact…’ is a pattern for replacing a popular idea with a better one." },
+      { q: "In the fourth paragraph we learn that the volunteers who read the words ‘smashed into’", ans: "A",
+        o: ["remembered details that had not been in the film.",
+            "saw a more violent film than the other volunteers.",
+            "were less sure of their answers a week later.",
+            "changed their estimates when they saw the film again."],
+        ev: "“they were more likely to say that they had seen broken glass, although there was none in the film”",
+        why: "The text says that a week later they were more likely to say that they had seen broken glass, although there was none. So they remembered a detail that was not in the film.",
+        tip: "Find the group named in the question and read on. A trick option often changes a detail (here, the film was the same for everyone)." },
+      { q: "What does ‘It’ refer to at the beginning of the sixth paragraph?", ans: "B",
+        o: ["the feeling of certainty that comes with a memory",
+            "the discovery that vivid memories can be false",
+            "the use of memory evidence in court",
+            "the rebuilding of memory each time it is recalled"],
+        ev: "“a vivid memory may be completely false, and that the feeling of certainty is no guide to accuracy”",
+        why: "‘It is a disturbing finding’ refers to the whole idea in the last sentence of paragraph five: a vivid memory may be false, and certainty is no guide. ‘Finding’ matches ‘Researchers have shown’.",
+        tip: "‘It’ can mean a whole idea, not just one noun. Look for the word the writer uses to name it (here, ‘finding’) and match it with ‘Researchers have also shown’." },
+      { q: "What is the writer’s main purpose in the article?", ans: "C",
+        o: ["to explain how memory evidence is used in courts",
+            "to describe the career of an important researcher",
+            "to show that memory is less reliable than it feels, and why that matters",
+            "to compare how memory works in different people"],
+        ev: "“a tool for making sense of the past rather than a window onto it”",
+        why: "The article gives examples of unreliable memory in the laboratory and in courts, and its last paragraph says memory is ‘a tool for making sense of the past rather than a window onto it’.",
+        tip: "Check the first and last paragraphs for the main message. Options about only one part (courts, one researcher) are too narrow." }
+    ]
+  }
+};
+
+</script>
+
+<script id="engine-block">
+(function () {
+  "use strict";
+  var D = DATA;
+  var LET = "ABCDEFGH";
+  var app = document.getElementById("app");
+  var scores = { p1: null, p2: null, p3: null };
+  var totals = { p1: D.part1.gaps.length, p2: D.part2.qs.length, p3: D.part3.qs.length };
+  var updateTotal = function () {};
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function paraHtml(txt) {
+    return esc(txt)
+      .replace(/\{(\d)\}/g, '<span class="gapslot" data-slot="$1"></span>')
+      .replace(/\[\[(\d)\|([^\]]+)\]\]/g, '<span class="ph"><u>$2</u><sup class="phn">$1</sup></span>');
+  }
+  function expBlock(ok, lines) {
+    var d = el("div", "exp " + (ok ? "right" : "wrong"));
+    lines.forEach(function (ln) { d.appendChild(el("p", null, ln)); });
+    return d;
+  }
+  function whyTip(x) {
+    return [
+      '<b class="lab why">Why</b>' + esc(x.why),
+      '<b class="lab tip">Exam tip</b>' + esc(x.tip)
+    ];
+  }
+  function buttons(onCheck, onReset) {
+    var row = el("div", "btnrow");
+    var b1 = el("button", "btn", "Check answers"); b1.type = "button";
+    var b2 = el("button", "btn ghost", "Try again"); b2.type = "button";
+    var sc = el("span", "scoreline", "");
+    b1.addEventListener("click", onCheck);
+    b2.addEventListener("click", onReset);
+    row.appendChild(b1); row.appendChild(b2); row.appendChild(sc);
+    return { row: row, score: sc, check: b1 };
+  }
+  function head(card, tag, title, sub) {
+    card.appendChild(el("span", "tag", tag));
+    card.appendChild(el("h2", null, esc(title)));
+    card.appendChild(el("p", "sub", esc(sub)));
+  }
+  function showScore(span, got, tot, blank) {
+    span.textContent = "Score: " + got + " / " + tot + (blank ? "  (" + blank + " blank)" : "");
+  }
+
+  /* ---------------------------------------------------------- PART 1 */
+  function buildPart1() {
+    var P = D.part1, sels = [];
+    var card = el("section", "card"); card.id = "part1";
+    head(card, "Part 1", P.title, P.instructions);
+
+    var box = el("div", "box"); box.appendChild(el("div", "bt", "Sentences"));
+    var ul = el("ul", "ends");
+    P.sentences.forEach(function (s, i) { ul.appendChild(el("li", null, "<b>" + LET.charAt(i) + "</b><span>" + esc(s) + "</span>")); });
+    box.appendChild(ul); card.appendChild(box);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) {
+      var p = el("p", null, paraHtml(t));
+      var slots = p.querySelectorAll(".gapslot");
+      for (var k = 0; k < slots.length; k++) {
+        var n = +slots[k].getAttribute("data-slot");
+        var wrap = el("span", "gapwrap", '<span class="gn">' + n + "</span>");
+        var sel = document.createElement("select");
+        sel.setAttribute("aria-label", "Gap " + n);
+        sel.appendChild(new Option("—", ""));
+        for (var i = 0; i < P.sentences.length; i++) sel.appendChild(new Option(LET.charAt(i), LET.charAt(i)));
+        wrap.appendChild(sel);
+        sels[n - 1] = sel;
+        slots[k].parentNode.replaceChild(wrap, slots[k]);
+      }
+      read.appendChild(p);
+    });
+    card.appendChild(read);
+
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = "";
+      panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.gaps.forEach(function (g, i) {
+        var v = sels[i].value, ok = v === g.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        sels[i].className = ok ? "ok" : "no";
+        sels[i].disabled = true;
+        var idx = LET.indexOf(g.ans);
+        panel.appendChild(expBlock(ok, [
+          '<b>Gap ' + (i + 1) + '</b><span class="mark ' + (ok ? "y" : "n") + '">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span>",
+          'Right answer: <span class="sol">' + g.ans + "</span> – " + esc(P.sentences[idx])
+        ].concat(whyTip(g))));
+      });
+      var ei = LET.indexOf(P.extra.ans);
+      panel.appendChild(expBlock(true, [
+        '<b>The extra sentence: ' + P.extra.ans + "</b> – " + esc(P.sentences[ei])
+      ].concat(whyTip(P.extra))));
+      panel.hidden = false;
+      showScore(bt.score, got, P.gaps.length, blank);
+      scores.p1 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      sels.forEach(function (s) { s.value = ""; s.className = ""; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p1 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    card.appendChild(panel);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 2 */
+  function buildPart2() {
+    var P = D.part2, items = [];
+    var card = el("section", "card"); card.id = "part2";
+    head(card, "Part 2", P.title, P.instructions);
+
+    var read = el("div", "read");
+    P.paras.forEach(function (t, i) {
+      var d = el("div", "para", '<span class="pl">' + LET.charAt(i) + "</span>");
+      d.appendChild(el("p", null, esc(t)));
+      read.appendChild(d);
+    });
+    card.appendChild(read);
+
+    card.appendChild(el("div", "prompt", esc(P.prompt)));
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var row = el("div", "selrow");
+      var sel = document.createElement("select");
+      sel.setAttribute("aria-label", "Question " + (i + 1));
+      sel.appendChild(new Option("Paragraph…", ""));
+      for (var k = 0; k < P.paras.length; k++) sel.appendChild(new Option(LET.charAt(k), LET.charAt(k)));
+      row.appendChild(sel); it.appendChild(row);
+      var slot = el("div"); slot.hidden = true; it.appendChild(slot);
+      items.push({ q: x, sel: sel, slot: slot });
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var v = o.sel.value, ok = v === o.q.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        o.sel.className = ok ? "ok" : "no"; o.sel.disabled = true;
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">paragraph " + o.q.ans + "</span>",
+          '<b class="lab ev">Evidence</b>' + esc(o.q.ev)
+        ].concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p2 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) { o.sel.value = ""; o.sel.className = ""; o.sel.disabled = false; o.slot.hidden = true; o.slot.innerHTML = ""; });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p2 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 3 */
+  function buildPart3() {
+    var P = D.part3, items = [];
+    var card = el("section", "card"); card.id = "part3";
+    head(card, "Part 3", P.title, P.instructions);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) { read.appendChild(el("p", null, paraHtml(t))); });
+    card.appendChild(read);
+    card.appendChild(el("div", "prompt", "Questions"));
+
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var opts = el("div", "opts"), btns = [], o = { q: x, picked: -1, btns: btns, slot: null };
+      x.o.forEach(function (txt, k) {
+        var b = el("button", "opt", '<span class="ol">' + LET.charAt(k) + "</span><span>" + esc(txt) + "</span>");
+        b.type = "button";
+        b.addEventListener("click", function () {
+          o.picked = k;
+          btns.forEach(function (bb, j) { bb.className = "opt" + (j === k ? " sel" : ""); });
+        });
+        btns.push(b); opts.appendChild(b);
+      });
+      it.appendChild(opts);
+      o.slot = el("div"); o.slot.hidden = true; it.appendChild(o.slot);
+      items.push(o);
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var right = LET.indexOf(o.q.ans), ok = o.picked === right;
+        if (o.picked < 0) blank++;
+        if (ok) got++;
+        o.btns.forEach(function (b, j) {
+          b.disabled = true;
+          b.className = "opt" + (j === right ? " good" : (j === o.picked ? " bad" : ""));
+        });
+        var lines = [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (o.picked >= 0 ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">" + o.q.ans + "</span>"
+        ];
+        if (o.q.ev) lines.push('<b class="lab ev">Evidence</b>' + esc(o.q.ev));
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, lines.concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p3 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) {
+        o.picked = -1; o.slot.hidden = true; o.slot.innerHTML = "";
+        o.btns.forEach(function (b) { b.className = "opt"; b.disabled = false; });
+      });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p3 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- TOTAL */
+  function buildTotal() {
+    var card = el("section", "card total"); card.id = "total";
+    card.appendChild(el("span", "tag", "My score"));
+    var body = el("div");
+    card.appendChild(body);
+    updateTotal = function () {
+      var parts = [["Part 1", scores.p1, totals.p1], ["Part 2", scores.p2, totals.p2], ["Part 3", scores.p3, totals.p3]];
+      var html = '<div class="row">', done = 0, sum = 0, max = 0;
+      parts.forEach(function (p) {
+        html += '<span class="pill">' + p[0] + ": " + (p[1] == null ? "–" : p[1]) + " / " + p[2] + "</span>";
+        max += p[2];
+        if (p[1] != null) { done++; sum += p[1]; }
+      });
+      html += "</div>";
+      if (done === 3) html += '<div class="big">Total: ' + sum + " / " + max + "</div>";
+      else html += '<p class="sub">Check all three parts to see your total score.</p>';
+      body.innerHTML = html;
+    };
+    updateTotal();
+    return card;
+  }
+
+  document.getElementById("herotitle").textContent = D.heroTitle;
+  var nav = document.getElementById("nav");
+  [["part1", "Part 1"], ["part2", "Part 2"], ["part3", "Part 3"], ["total", "My score"]].forEach(function (p) {
+    var a = el("a", null, p[1]); a.href = "#" + p[0]; nav.appendChild(a);
+  });
+  app.appendChild(buildPart1());
+  app.appendChild(buildPart2());
+  app.appendChild(buildPart3());
+  app.appendChild(buildTotal());
+})();
+</script>
+</body>
+</html>
