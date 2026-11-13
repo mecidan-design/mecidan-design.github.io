@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use of English - Exam 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.6rem,5vw,2.7rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.5rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.92rem;color:#3b3b3b;margin:0 0 14px;line-height:1.5}
+.example{font-size:.92rem;background:#fffbd6;border:2px dashed #000;border-radius:10px;padding:6px 12px;margin:0 0 16px}
+
+.read p{font-size:1.04rem;line-height:2.1;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.headline{
+  font-family:var(--head);font-weight:800;font-size:1.15rem;text-align:center;
+  text-transform:uppercase;letter-spacing:.8px;margin:6px 0 14px;
+}
+.exw{font-weight:700;border-bottom:3px solid #000;padding:0 4px}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn[disabled]{opacity:.55;cursor:default}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+select,input[type=text]{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:4px 8px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus,input[type=text]:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok,input.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no,input.no{background:#ffe0ec;border-color:#c2004c}
+input.gi{width:128px}
+input.wide{width:min(340px,100%)}
+.gapwrap{display:inline-flex;align-items:center;gap:5px;margin:0 3px;vertical-align:baseline;white-space:nowrap}
+.gn{
+  font-family:var(--head);font-weight:800;font-size:.78rem;color:#fff;background:var(--pink);
+  border:2px solid #000;border-radius:50%;min-width:24px;height:24px;padding:0 3px;display:inline-flex;align-items:center;justify-content:center;
+}
+.root{
+  font-family:var(--head);font-weight:800;font-size:.8rem;background:var(--cyan);border:2px solid #000;
+  border-radius:999px;padding:0 9px;letter-spacing:.5px;
+}
+
+.opttable{margin:18px 0 0;border:3px solid #000;border-radius:14px;background:#f4efff;padding:10px 14px}
+.orow{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:4px 0;border-bottom:1px dashed #b9a9e8;font-size:.95rem}
+.orow:last-child{border-bottom:0}
+.orow .gn{flex:none}
+.orow span.o{white-space:nowrap}
+.orow span.o b{font-family:var(--head);margin-right:4px}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.02rem;font-weight:500;margin:0 0 8px;line-height:2}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;min-width:26px;height:26px;margin-right:8px;padding:0 4px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.keyw{
+  display:inline-block;font-family:var(--head);font-weight:800;letter-spacing:1px;background:var(--yellow);
+  border:3px solid #000;border-radius:10px;padding:0 12px;margin:2px 0 8px;
+}
+.lead{font-style:italic;color:#262626}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.exp .sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+.expgap{margin-top:18px}
+.expgap h3{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 4px}
+[hidden]{display:none !important}
+
+.total .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.total .pill{
+  font-family:var(--head);font-weight:800;border:3px solid #000;border-radius:999px;padding:4px 16px;background:var(--yellow);
+}
+.total .big{font-family:var(--head);font-weight:800;font-size:1.5rem;margin-top:10px}
+
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+@media (max-width:560px){
+  .card{padding:18px 14px 20px}
+  input.gi{width:104px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="herotitle"></h1>
+    <p id="herosub"></p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Reading & Use of English, Practice Exam 3.
+   Adaptacion directa de un test FCE de Flo-Joe (Environmental Concerns / Exam Tips / Food Production / Key word)
+   a nuestro formato: mismos temas, mismos tipos de hueco y misma dificultad, pero con textos reescritos. ====== */
+var DATA = {
+  heroTitle: "USE OF ENGLISH · EXAM 3",
+  heroSub: "Environment • Exam day • Food • Mixed grammar",
+
+  part1: {
+    title: "Multiple-choice cloze",
+    instructions: "For questions 1–8, read the text below and decide which answer (A, B, C or D) best fits each gap.",
+    exampleLine: "(0) A situation  B place  C position  D site",
+    headline: "Environmental concerns",
+    example: "place",
+    text: "Earth is the only {0} in the universe where, as far as we know, human beings can live. {1} our activities are making the planet less suitable for life. The richest countries {2} to use two thirds of the world’s resources, while half of the world’s population do so {3} to stay alive. In this way we are destroying the very thing that all of us depend on.\n\nEverywhere, good farmland is {4} covered with buildings or carried away by rivers into the sea. We pour harmful chemicals into the air without thinking about what will happen. As a {5}, the planet’s ability to feed people is falling just when growing numbers of people are {6} heavier demands on it. The Earth’s resources are there for us to use: we need them to {7} us fed, warm and healthy. Used carefully, they will {8} us for a very long time. Used wastefully, they will soon run out.",
+    items: [
+      { options: ["Although", "Whereas", "Yet", "Despite"], correct: 2,
+        why: "‘Yet’ starts a new sentence and means ‘but’: the Earth supports life, but our activities are damaging it. ‘Although’ and ‘whereas’ need a second clause in the same sentence, and ‘despite’ needs a noun.",
+        tip: "A gap at the start of a sentence, followed by a complete clause, needs a linking adverb (yet, however), not a conjunction." },
+      { options: ["carry", "continue", "repeat", "follow"], correct: 1,
+        why: "‘Continue to use’ means to keep using something. The richest countries keep using most of the resources.",
+        tip: "Verb + ‘to’ + infinitive: continue to do. Carry and repeat do not take ‘to use’ in this meaning." },
+      { options: ["already", "hardly", "ever", "just"], correct: 3,
+        why: "‘Do so just to stay alive’ means that they only do it to survive. ‘Just’ here means ‘only’.",
+        tip: "‘Just to + verb’ = only to + verb. Test every option in the sentence and read it aloud." },
+      { options: ["either", "neither", "both", "rather"], correct: 0,
+        why: "‘Either … or’ shows two possibilities: the farmland is covered with buildings or it is carried away by rivers. The word ‘or’ after the gap is the clue.",
+        tip: "Gap before ‘or’: think of either … or. ‘Both’ goes with ‘and’; ‘neither’ goes with ‘nor’." },
+      { options: ["development", "product", "result", "reaction"], correct: 2,
+        why: "‘As a result’ is a fixed phrase that introduces the consequence of what we just read.",
+        tip: "‘As a …’ + comma at the start of a sentence: as a result, as a consequence. Learn it as one block." },
+      { options: ["doing", "making", "taking", "bringing"], correct: 1,
+        why: "We ‘make demands on’ something. Doing, taking and bringing do not make a natural expression with ‘demands’.",
+        tip: "Collocations: make demands, make an effort, make a decision, make a mistake. Do you know the noun after the gap?" },
+      { options: ["hold", "maintain", "stay", "keep"], correct: 3,
+        why: "‘Keep us fed, warm and healthy’ means that the resources make us stay in that state. ‘Keep’ + object + adjective is the pattern.",
+        tip: "Keep + somebody + adjective (keep us warm, keep it clean). Stay and hold do not take an object like this." },
+      { options: ["last", "stand", "go", "remain"], correct: 0,
+        why: "‘Last us’ means to be enough for us for a period of time. Remain and go do not take ‘us’ as an object.",
+        tip: "If a pronoun comes after the gap (us), the verb must take an object. ‘Last’ is the only one that can: last us for years." }
+    ]
+  },
+
+  part2: {
+    title: "Open cloze",
+    instructions: "Read the following extract from a brochure giving advice on taking an examination. For questions 1–8, think of the word which best fits each gap. Use only one word in each gap.",
+    exampleLine: "(0) to",
+    headline: "Exam tips",
+    example: "to",
+    text: "On the morning of the exam, leave home in plenty of time {0} get ready. Have a good breakfast, but do not drink {1} much coffee, because it will only make you more nervous. Once the exam has started, try to calm {2} down by breathing slowly and thinking positive thoughts. Read every question carefully and underline the words {3} tell you how to answer.\n\nBegin with the questions {4} find easiest, as they will give you confidence. Do not panic {5} the students around you start writing straight away: just follow your own plan. When the exam is over, do not discuss {6} the other students wrote, {7} you want to lose your confidence before the next test. Above {8}, remember that an exam is not meant to catch you out, but to show what you know.",
+    items: [
+      { answers: ["too", "so"],
+        why: "‘Too much’ means more than is good. Coffee can make you nervous, so ‘too much’ fits. ‘So much’ is also possible.",
+        tip: "Gap before ‘much’ or ‘many’: too, so, how, as. Read the idea of the sentence to choose." },
+      { answers: ["yourself"],
+        why: "The subject and the object are the same person (you), so we need a reflexive pronoun: calm yourself down.",
+        tip: "When the person who acts is the same person who receives the action, use -self: yourself, myself, himself." },
+      { answers: ["that", "which"],
+        why: "‘That’ or ‘which’ starts a relative clause about things: the words that tell you how to answer. ‘Who’ is only for people.",
+        tip: "Noun (words) + gap + verb (tell) = relative pronoun as the subject. For things use that or which." },
+      { answers: ["you"],
+        why: "‘The questions you find easiest’ is a relative clause without a relative pronoun. The subject of ‘find’ is ‘you’.",
+        tip: "Noun + subject + verb: the relative pronoun can be left out. Here the missing word is the subject ‘you’." },
+      { answers: ["if", "when", "because", "as"],
+        why: "The sentence says why a student might panic: the others start writing at once. ‘If’ (also ‘when’, ‘because’ or ‘as’) introduces this situation.",
+        tip: "A gap between a command (Do not panic) and a full clause is usually a conjunction like if or when." },
+      { answers: ["what"],
+        why: "‘What the other students wrote’ means ‘the things that the other students wrote’. ‘What’ includes both the noun and the pronoun.",
+        tip: "After discuss/know/tell you often find ‘what’ + subject + verb as one noun phrase." },
+      { answers: ["unless"],
+        why: "‘Unless you want to lose your confidence’ means ‘if you do not want to lose it’. It warns the reader that discussing the exam is a bad idea.",
+        tip: "A warning with a positive verb after the gap: think of unless (= if … not)." },
+      { answers: ["all"],
+        why: "‘Above all’ is a fixed expression that introduces the most important point.",
+        tip: "At the end of a list of advice: above all, first of all, in all. Learn ‘above all’ as one block." }
+    ]
+  },
+
+  part3: {
+    title: "Word formation",
+    instructions: "Read the text and then write the correct form of the word in capitals to complete the gaps. There is an example at the beginning.",
+    exampleLine: "(0) natural (NATURE)",
+    headline: "Food production",
+    example: "natural",
+    exampleRoot: "NATURE",
+    text: "In the past, farm animals could live {0} lives outdoors, in what we now call “free-range” conditions. Today, however, farms must feed a rapidly growing world {1}, and traditional methods cannot meet the increase in {2}.\n\nTo solve this problem, factory farming spread, together with the {3} of new feed and the use of artificial hormones that speed up animal {4}. These methods produce more food, but the {5} of animals has made many people uncomfortable. Many consumers {6} with keeping animals indoors for their whole {7}, and they ask for more support for {8} farming methods.",
+    items: [
+      { root: "POPULATE", answers: ["population"],
+        why: "After ‘growing world’ we need a noun. The noun from ‘populate’ is ‘population’.",
+        tip: "Verbs in -ate usually make nouns in -ation: populate – population, calculate – calculation." },
+      { root: "CONSUME", answers: ["consumption"],
+        why: "‘The increase in’ needs a noun. The noun from ‘consume’ is ‘consumption’, which changes -sume to -sumption.",
+        tip: "After ‘increase in’ or ‘demand for’ expect an uncountable noun. Watch the irregular spelling: consume – consumption." },
+      { root: "DEVELOP", answers: ["development"],
+        why: "‘The … of new feed’ needs a noun, and the suffix -ment makes ‘development’. Remember that it has only one ‘p’ and no ‘e’ before ‘m’.",
+        tip: "‘The’ + gap + ‘of’ = noun. Verb + -ment: develop – development, treat – treatment." },
+      { root: "GROW", answers: ["growth"],
+        why: "‘Animal …’ needs a noun, and the noun from ‘grow’ is ‘growth’ (not ‘growing’ or ‘grower’).",
+        tip: "Some nouns are irregular: grow – growth, long – length, strong – strength. Learn them." },
+      { root: "TREAT", answers: ["treatment"],
+        why: "‘The … of animals’ needs a noun. ‘Treat’ + -ment makes ‘treatment’, which means the way somebody behaves towards animals.",
+        tip: "‘The’ + gap + ‘of’ shows a noun. -ment is the most common ending after a verb that ends in a consonant." },
+      { root: "AGREE", answers: ["disagree"],
+        why: "The consumers do not like the methods and want alternatives, so the verb has a negative meaning: ‘disagree’. It takes the prefix dis-.",
+        tip: "Read the whole sentence. If the idea is negative (they ask for more support for alternatives), the verb needs a negative prefix." },
+      { root: "EXIST", answers: ["existence"],
+        why: "‘Their whole …’ needs a noun. The noun from ‘exist’ is ‘existence’, with the ending -ence.",
+        tip: "Possessive (their) + adjective (whole) + gap = noun. Verbs in -ist often make nouns in -istence." },
+      { root: "ALTERNATE", answers: ["alternative"],
+        why: "‘Alternative farming methods’ means other ways of farming. The adjective is ‘alternative’, which is different from ‘alternate’ (= one after the other).",
+        tip: "Gap + noun (farming methods) = adjective. The suffix -ive makes adjectives: alternative, creative." }
+    ]
+  },
+
+  part4: {
+    title: "Key word transformation",
+    instructions: "For questions 1–6, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. You must use between two and five words, including the word given.",
+    example: { lead: "Jack hates getting up early.", key: "STAND", before: "Jack", answer: "can’t stand", after: "getting up early." },
+    items: [
+      { lead: "“Have you been to the cinema recently, Sara?” asked Dan.", key: "BEEN",
+        before: "Dan asked Sara", after: "to the cinema recently.",
+        answers: ["if she had been", "whether she had been"],
+        why: "In reported questions there is no question order, and we use if or whether. The present perfect (have you been) changes to the past perfect (she had been).",
+        tip: "Reported yes/no question = asked + if/whether + subject + verb. Move the tense one step back." },
+      { lead: "I was too nervous to eat anything.", key: "THAT",
+        before: "I was", after: "I couldn’t eat anything.",
+        answers: ["so nervous that"],
+        why: "‘Too nervous to eat’ means so nervous that the result is impossible. The structure is so + adjective + that + clause.",
+        tip: "Key word THAT and a result clause after the gap: use so + adjective + that." },
+      { lead: "There is no point repairing this old bike.", key: "WASTE",
+        before: "It’s", after: "repairing this old bike.",
+        answers: ["a waste of time", "a waste of money", "a waste of effort"],
+        why: "‘No point in doing something’ means that it is a waste of time. The noun phrase is ‘a waste of time’ (or money or effort).",
+        tip: "WASTE is always in the pattern a waste of + noun, followed by the -ing form." },
+      { lead: "I am sure it was Pablo I saw at the station, because I recognised his hat.", key: "MUST",
+        before: "It", after: "Pablo I saw at the station, because I recognised his hat.",
+        answers: ["must have been"],
+        why: "The speaker is certain about the past, so we use must + have + third form of ‘be’ (been).",
+        tip: "‘I am sure it was’ = it must have been. A certain conclusion about the past needs have + third form." },
+      { lead: "We demanded to speak to the teacher about the marks.", key: "INSISTED",
+        before: "We", after: "to the teacher about the marks.",
+        answers: ["insisted on speaking", "insisted on talking"],
+        why: "‘Insist on’ is followed by the -ing form. We used ‘demanded to speak’, so ‘insisted on speaking’ has the same meaning.",
+        tip: "Verb + preposition + -ing: insist on doing, object to doing, apologise for doing." },
+      { lead: "The head teacher would not object to us leaving early.", key: "OBJECTION",
+        before: "The head teacher would not", after: "us leaving early.",
+        answers: ["have any objection to", "have an objection to", "raise any objection to", "raise an objection to", "make any objection to", "make an objection to"],
+        why: "‘Object to’ is a verb; the noun is ‘objection’. After ‘would not’ we need a base verb, and ‘have any objection to’ is the natural way to say it.",
+        tip: "Change the verb into a noun and add a light verb (have, raise, make). ‘Object to’ becomes ‘have an objection to’." }
+    ]
+  }
+};
+
+</script>
+
+<script id="lib-block">
+var UOE = (function () {
+  function expand(s) {
+    s = String(s).toLowerCase().replace(/[‘’´`]/g, "'");
+    s = s.replace(/\bcan't\b/g, "can not").replace(/\bcannot\b/g, "can not").replace(/\bwon't\b/g, "will not").replace(/\bshan't\b/g, "shall not");
+    return s.replace(/n't\b/g, " not").replace(/'ll\b/g, " will").replace(/'re\b/g, " are")
+            .replace(/'ve\b/g, " have").replace(/'m\b/g, " am").replace(/'d\b/g, " would");
+  }
+  function norm(s) {
+    return expand(s).replace(/[.,;:!?"“”()]/g, " ").replace(/\s+/g, " ").trim();
+  }
+  function countWords(s) {
+    var n = norm(s);
+    return n ? n.split(" ").length : 0;
+  }
+  function isRight(input, answers) {
+    var n = norm(input);
+    if (!n) return false;
+    return answers.some(function (a) { return norm(a) === n; });
+  }
+  function hasKey(input, key) {
+    return (" " + norm(input) + " ").indexOf(" " + norm(key) + " ") >= 0;
+  }
+  return { expand: expand, norm: norm, countWords: countWords, isRight: isRight, hasKey: hasKey };
+})();
+</script>
+
+<script id="engine-block">
+(function () {
+  "use strict";
+  var D = DATA, LET = "ABCD";
+  var app = document.getElementById("app");
+  var scores = [null, null, null, null];
+  var totals = [D.part1.items.length, D.part2.items.length, D.part3.items.length, D.part4.items.length];
+  var updateTotal = function () {};
+
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function expBlock(ok, lines) {
+    var d = el("div", "exp " + (ok ? "right" : "wrong"));
+    lines.forEach(function (ln) { d.appendChild(el("p", null, ln)); });
+    return d;
+  }
+  function whyTip(x) {
+    return ['<b class="lab why">Why</b>' + esc(x.why), '<b class="lab tip">Exam tip</b>' + esc(x.tip)];
+  }
+  function verdict(ok, blank) {
+    return '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (blank ? "Blank" : "Not quite")) + "</span>";
+  }
+  function buttons(onCheck, onReset) {
+    var row = el("div", "btnrow");
+    var b1 = el("button", "btn", "Check answers"); b1.type = "button";
+    var b2 = el("button", "btn ghost", "Try again"); b2.type = "button";
+    var sc = el("span", "scoreline", "");
+    b1.addEventListener("click", onCheck);
+    b2.addEventListener("click", onReset);
+    row.appendChild(b1); row.appendChild(b2); row.appendChild(sc);
+    return { row: row, score: sc, check: b1 };
+  }
+  function head(card, tag, P) {
+    card.appendChild(el("span", "tag", tag));
+    card.appendChild(el("h2", null, esc(P.title)));
+    card.appendChild(el("p", "sub", esc(P.instructions)));
+    if (P.exampleLine) card.appendChild(el("div", "example", "<b>Example:</b> " + esc(P.exampleLine)));
+  }
+  function showScore(span, got, tot, blank) {
+    span.textContent = "Score: " + got + " / " + tot + (blank ? "  (" + blank + " blank)" : "");
+  }
+  function gapBadge(n) { return '<span class="gn">' + n + "</span>"; }
+
+  /* Texto corrido: {0} = ejemplo, {n} = hueco n. mk(n) devuelve el nodo del hueco. */
+  function buildText(P, mk) {
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.text.split(/\n\n/).forEach(function (para) {
+      var p = el("p");
+      para.split(/(\{\d+\})/).forEach(function (piece) {
+        var m = piece.match(/^\{(\d+)\}$/);
+        if (!m) { p.appendChild(document.createTextNode(piece)); return; }
+        var n = +m[1];
+        if (n === 0) p.appendChild(el("span", "gapwrap", gapBadge(0) + '<span class="exw">' + esc(P.example) + "</span>" +
+          (P.exampleRoot ? '<span class="root">' + esc(P.exampleRoot) + "</span>" : "")));
+        else p.appendChild(mk(n));
+      });
+      read.appendChild(p);
+    });
+    return read;
+  }
+
+  /* -------------------------------------------------- PART 1: multiple-choice cloze */
+  function buildPart1() {
+    var P = D.part1, sels = [];
+    var card = el("section", "card"); card.id = "part1";
+    head(card, "Part 1", P);
+    card.appendChild(buildText(P, function (n) {
+      var wrap = el("span", "gapwrap", gapBadge(n));
+      var sel = document.createElement("select");
+      sel.setAttribute("aria-label", "Gap " + n);
+      sel.appendChild(new Option("—", ""));
+      for (var i = 0; i < 4; i++) sel.appendChild(new Option(LET.charAt(i), LET.charAt(i)));
+      wrap.appendChild(sel); sels[n - 1] = sel;
+      return wrap;
+    }));
+    var tb = el("div", "opttable");
+    P.items.forEach(function (it, i) {
+      var r = el("div", "orow", gapBadge(i + 1));
+      it.options.forEach(function (o, k) { r.appendChild(el("span", "o", "<b>" + LET.charAt(k) + "</b>" + esc(o))); });
+      tb.appendChild(r);
+    });
+    card.appendChild(tb);
+
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = ""; panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.items.forEach(function (it, i) {
+        var v = sels[i].value, ok = v === LET.charAt(it.correct);
+        if (!v) blank++;
+        if (ok) got++;
+        sels[i].className = ok ? "ok" : "no"; sels[i].disabled = true;
+        panel.appendChild(expBlock(ok, [
+          "<b>Gap " + (i + 1) + "</b> " + verdict(ok, !v),
+          'Right answer: <span class="sol">' + LET.charAt(it.correct) + " – " + esc(it.options[it.correct]) + "</span>"
+        ].concat(whyTip(it))));
+      });
+      panel.hidden = false;
+      showScore(bt.score, got, P.items.length, blank);
+      scores[0] = got; updateTotal(); bt.check.disabled = true;
+    }
+    function reset() {
+      sels.forEach(function (s) { s.value = ""; s.className = ""; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores[0] = null; updateTotal(); card.scrollIntoView();
+    }
+    card.appendChild(bt.row); card.appendChild(panel);
+    return card;
+  }
+
+  /* -------------------------------------------------- PART 2 & 3: typed gaps in a text */
+  function buildTyped(P, idx, tag, withRoot) {
+    var ins = [];
+    var card = el("section", "card"); card.id = "part" + (idx + 1);
+    head(card, tag, P);
+    card.appendChild(buildText(P, function (n) {
+      var wrap = el("span", "gapwrap", gapBadge(n));
+      var inp = document.createElement("input");
+      inp.type = "text"; inp.className = "gi"; inp.autocomplete = "off"; inp.spellcheck = false;
+      inp.setAttribute("aria-label", "Gap " + n);
+      wrap.appendChild(inp);
+      if (withRoot) wrap.appendChild(el("span", "root", esc(P.items[n - 1].root)));
+      ins[n - 1] = inp;
+      return wrap;
+    }));
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = ""; panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.items.forEach(function (it, i) {
+        var v = ins[i].value, ok = UOE.isRight(v, it.answers);
+        if (!v.trim()) blank++;
+        if (ok) got++;
+        ins[i].className = "gi " + (ok ? "ok" : "no"); ins[i].disabled = true;
+        panel.appendChild(expBlock(ok, [
+          "<b>Gap " + (i + 1) + "</b> " + verdict(ok, !v.trim()),
+          (ok ? "" : "You wrote: <i>" + (v.trim() ? esc(v.trim()) : "nothing") + "</i>. ") +
+            'Right answer: <span class="sol">' + esc(it.answers.join("  /  ")) + "</span>"
+        ].concat(whyTip(it))));
+      });
+      panel.hidden = false;
+      showScore(bt.score, got, P.items.length, blank);
+      scores[idx] = got; updateTotal(); bt.check.disabled = true;
+    }
+    function reset() {
+      ins.forEach(function (s) { s.value = ""; s.className = "gi"; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores[idx] = null; updateTotal(); card.scrollIntoView();
+    }
+    card.appendChild(bt.row); card.appendChild(panel);
+    return card;
+  }
+
+  /* -------------------------------------------------- PART 4: key word transformation */
+  function buildPart4() {
+    var P = D.part4, rows = [];
+    var card = el("section", "card"); card.id = "part4";
+    head(card, "Part 4", P);
+    if (P.example) {
+      var ex = P.example;
+      card.appendChild(el("div", "example", "<b>Example:</b> <span class=\"lead\">" + esc(ex.lead) + "</span> &nbsp;<b>" + esc(ex.key) + "</b><br>" + esc(ex.before) + " <b>" + esc(ex.answer) + "</b> " + esc(ex.after)));
+    }
+    P.items.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q lead", '<span class="n">' + (i + 1) + "</span>" + esc(x.lead)));
+      it.appendChild(el("div", null, '<span class="keyw">' + esc(x.key) + "</span>"));
+      var line = el("p", "q");
+      line.appendChild(document.createTextNode(x.before + " "));
+      var inp = document.createElement("input");
+      inp.type = "text"; inp.className = "wide"; inp.autocomplete = "off"; inp.spellcheck = false;
+      inp.setAttribute("aria-label", "Question " + (i + 1));
+      line.appendChild(inp);
+      line.appendChild(document.createTextNode(" " + x.after));
+      it.appendChild(line);
+      var slot = el("div"); slot.hidden = true; it.appendChild(slot);
+      rows.push({ x: x, inp: inp, slot: slot });
+      card.appendChild(it);
+    });
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      rows.forEach(function (r) {
+        var v = r.inp.value, ok = UOE.isRight(v, r.x.answers);
+        if (!v.trim()) blank++;
+        if (ok) got++;
+        r.inp.className = "wide " + (ok ? "ok" : "no"); r.inp.disabled = true;
+        var lines = [verdict(ok, !v.trim())];
+        if (!ok && v.trim()) {
+          var n = UOE.countWords(v), tips = [];
+          if (n < 2 || n > 5) tips.push("You must use between two and five words (you used " + n + ").");
+          if (!UOE.hasKey(v, r.x.key)) tips.push("The word " + r.x.key + " must be in your answer, unchanged.");
+          if (tips.length) lines.push(esc(tips.join(" ")));
+        }
+        lines.push((ok ? "" : "You wrote: <i>" + (v.trim() ? esc(v.trim()) : "nothing") + "</i>. ") +
+          'Right answer: <span class="sol">' + esc(r.x.answers[0]) + "</span>" +
+          (r.x.answers.length > 1 ? " <small>(also: " + esc(r.x.answers.slice(1).join(" / ")) + ")</small>" : ""));
+        r.slot.innerHTML = "";
+        r.slot.appendChild(expBlock(ok, lines.concat(whyTip(r.x))));
+        r.slot.hidden = false;
+      });
+      showScore(bt.score, got, rows.length, blank);
+      scores[3] = got; updateTotal(); bt.check.disabled = true;
+    }
+    function reset() {
+      rows.forEach(function (r) { r.inp.value = ""; r.inp.className = "wide"; r.inp.disabled = false; r.slot.hidden = true; r.slot.innerHTML = ""; });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores[3] = null; updateTotal(); card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* -------------------------------------------------- total */
+  function buildTotal() {
+    var card = el("section", "card total"); card.id = "total";
+    card.appendChild(el("span", "tag", "My score"));
+    var body = el("div"); card.appendChild(body);
+    updateTotal = function () {
+      var html = '<div class="row">', done = 0, sum = 0, max = 0;
+      for (var i = 0; i < 4; i++) {
+        html += '<span class="pill">Part ' + (i + 1) + ": " + (scores[i] == null ? "–" : scores[i]) + " / " + totals[i] + "</span>";
+        max += totals[i];
+        if (scores[i] != null) { done++; sum += scores[i]; }
+      }
+      html += "</div>";
+      html += done === 4 ? '<div class="big">Total: ' + sum + " / " + max + "</div>"
+                         : '<p class="sub">Check all four parts to see your total score.</p>';
+      body.innerHTML = html;
+    };
+    updateTotal();
+    return card;
+  }
+
+  document.getElementById("herotitle").textContent = D.heroTitle;
+  document.getElementById("herosub").textContent = D.heroSub;
+  var nav = document.getElementById("nav");
+  [["part1", "Part 1"], ["part2", "Part 2"], ["part3", "Part 3"], ["part4", "Part 4"], ["total", "My score"]].forEach(function (p) {
+    var a = el("a", null, p[1]); a.href = "#" + p[0]; nav.appendChild(a);
+  });
+  app.appendChild(buildPart1());
+  app.appendChild(buildTyped(D.part2, 1, "Part 2", false));
+  app.appendChild(buildTyped(D.part3, 2, "Part 3", true));
+  app.appendChild(buildPart4());
+  app.appendChild(buildTotal());
+})();
+</script>
+</body>
+</html>

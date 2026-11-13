@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Comprehension B1+ - Version 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+.read p{font-size:1.04rem;line-height:1.7;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.hl{background:var(--yellow);border-radius:4px;padding:0 3px;font-weight:600}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;margin-right:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 22px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:500;padding:7px 10px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+/* Activity x.3: definiciones fijas al costado mientras se scrollea */
+.vocgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.defsbox{position:sticky;top:12px;margin:0;max-height:calc(100vh - 24px);overflow-y:auto;background:#fffbd6}
+.defsbox .ends li{font-size:.88rem;line-height:1.4;margin-bottom:8px}
+.vsel{width:100%}
+@media (max-width:820px){
+  .vocgrid{grid-template-columns:minmax(0,1fr)}
+  .defsbox{display:none}
+}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+
+.box{
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff;
+}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.words span{
+  font-family:var(--head);font-weight:700;background:var(--cyan);border:2px solid #000;
+  border-radius:999px;padding:1px 12px;
+}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 6px;line-height:1.45;font-size:.97rem}
+.ends b{font-family:var(--head);font-weight:800;margin-right:6px}
+.blank{display:inline-block;min-width:56px;border-bottom:3px solid #000;margin:0 3px}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>READING &middot; B1+</h1>
+    <p>Read the text &bull; True or false &bull; Complete the sentences &bull; Match the meanings</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Reading comprehension, version 2. Textos nuevos y mas cortos
+   (aprox. 300, 350 y 400 palabras). Mismo formato que la version 1:
+   - tf: verdadero/falso con evidencia textual (ev), why y tip.
+   - comp: se elige el final (A-F) y la palabra de la caja. end = indice del
+           final, word = indice en box. En los finales, "___" es el hueco.
+   - vocab: expresion resaltada con ** en el texto -> definicion (def = indice).
+   Gramatica trabajada: relativas reducidas, causativa, tercer condicional,
+   ought to / wish, unless / provided that, too / so ... that, deduccion. ====== */
+var DATA = {
+
+texts: [
+
+/* ---------------------------------------------------------------- TEXT 1 */
+{
+  id: "t1", nav: "Text 1", level: "Medium", title: "Running the School Café",
+  paras: [
+    "Every morning at Lakeside School, the students working behind the café counter are busy before the first bell. The café, **set up** last year by a group of fifteen-year-olds, sells sandwiches, fruit and hot drinks to more than two hundred people each week. Teachers, parents and visitors also stop by, and the menu changes every month. Its manager, Leo, is a sensible and ambitious boy who has always been **keen on** cooking.",
+    "At the beginning, nobody was sure that the idea would work. The school had given the group a small loan, and they had to **work out** how much to charge for each item. “If we had charged too little, we would have lost money straight away,” says Leo. After a month of careful calculations, the team managed to **break even**: they earned exactly the same amount as they spent.",
+    "Then came the first real problem. One Friday, the café **ran out of** bread by ten o’clock, and a long queue of hungry students was left waiting. Leo admits that the team ought to have ordered more supplies. “We wish we had checked the stock the night before,” he says. Since then, the stock has been checked every evening by a volunteer, and the team had the old fridge repaired by a technician.",
+    "Today the café makes a small profit every week, and the money is spent on books for the school library. Working there has also taught the team how to **get on with** customers who are in a hurry. Unless the students keep improving, Leo says, the café will not survive, but he is confident. The team meets every Monday to talk about what went well and what could be better. “It is not just a business,” he says. “It is a place where we learn.”"
+  ],
+  tf: [
+    { q: "The café was started by the school’s teachers.", a: false,
+      ev: "“set up last year by a group of fifteen-year-olds”",
+      why: "The text says a group of fifteen-year-olds started the café. The teachers are not mentioned as the founders.",
+      tip: "Check WHO did the action. “Set up … by + people” tells you who started it." },
+    { q: "In the beginning, the team had to decide the price of each item.", a: true,
+      ev: "“they had to work out how much to charge for each item.”",
+      why: "“Work out how much to charge” means to calculate the price. The statement says the same with different words.",
+      tip: "“Decide the price” and “work out how much to charge” are two ways to say the same thing. Look for the idea, not the same words." },
+    { q: "After one month, the café was losing money.", a: false,
+      ev: "“the team managed to break even: they earned exactly the same amount as they spent.”",
+      why: "To break even means to earn as much as you spend. They were not losing money, and they were not making a profit yet.",
+      tip: "Look for the colon (:). The part after it often explains the expression before it." },
+    { q: "Leo thinks the team should have ordered more supplies.", a: true,
+      ev: "“Leo admits that the team ought to have ordered more supplies.”",
+      why: "“Ought to have + past participle” shows that it was a good idea, but it did not happen. It is a kind of regret.",
+      tip: "“Admits” and “ought to have” together tell you that someone feels a past mistake." },
+    { q: "The students repaired the old fridge themselves.", a: false,
+      ev: "“the team had the old fridge repaired by a technician.”",
+      why: "“Had the fridge repaired by a technician” means that the technician did the work. The students arranged it.",
+      tip: "Have + object + past participle + by + person: the other person does the job." },
+    { q: "The money that the café makes is used to help the school library.", a: true,
+      ev: "“the money is spent on books for the school library.”",
+      why: "The profit is spent on books for the library, so the café helps the library.",
+      tip: "“Spent on” tells you what money is used for. Look at what comes after it." }
+  ],
+  box: ["unless", "wishes he had", "working", "provided that", "ought to have", "had it repaired"],
+  endings: [
+    "___ the students keep improving.",
+    "___ checked the stock the night before.",
+    "___ by a technician.",
+    "___ behind the counter are busy.",
+    "___ ordered more bread.",
+    "___ they pay it back in a year."
+  ],
+  comp: [
+    { begin: "Before the first bell, the students", end: 3, word: 2, d: ["worked", "work"],
+      why: "“The students who are working behind the counter” can be shortened to “the students working behind the counter”. We use the -ing form for an action that is happening now.",
+      tip: "A noun + -ing form + place (working behind the counter) is a short way to say “who are working”." },
+    { begin: "The old fridge was broken, so the team", end: 2, word: 5, d: ["repaired it", "had repaired it"],
+      why: "The ending says “by a technician”, so someone else did the work. “Had it repaired” is the structure for this.",
+      tip: "See “by + person” after the gap? Think of have + object + past participle." },
+    { begin: "Leo thinks the team", end: 4, word: 4, d: ["ought to", "ought have"],
+      why: "“Ordered” is a past participle, so we need “have” before it. “Ought to have ordered” shows that it was a good idea, but they did not do it.",
+      tip: "Gap + past participle (ordered)? Try ought to have, should have or could have." },
+    { begin: "The café will not survive", end: 0, word: 0, d: ["if not", "unless not"],
+      why: "“Unless” means “if not”. The idea is: if the students do not keep improving, the café will close.",
+      tip: "“Unless” already has a negative idea, so the verb after it is positive (keep, not do not keep)." },
+    { begin: "The team could use the loan", end: 5, word: 3, d: ["provided", "provide that"],
+      why: "“Provided that” gives a condition: they can use the money if they pay it back in a year.",
+      tip: "“Provided that” means “only if”. It is followed by a full sentence with a subject and a verb." },
+    { begin: "Leo says that he", end: 1, word: 1, d: ["wishes he would have", "wish he have"],
+      why: "“Checked” is a past participle and the speaker feels sorry about the past. “Wishes he had checked” shows regret.",
+      tip: "Wish + had + past participle is for a regret about the past. Compare: I wish I had known." }
+  ],
+  vocab: [
+    { term: "Set up", para: 1, def: 2,
+      why: "A group of students started the café last year, so they created it from nothing.",
+      tip: "“Set up” is used with things that start from nothing: a business, a club, a website." },
+    { term: "Keen on", para: 1, def: 5,
+      why: "Leo is a manager who has “always” liked cooking, so he is very interested in it.",
+      tip: "“Keen on” goes with a noun or an -ing form: keen on football, keen on cooking." },
+    { term: "Work out", para: 2, def: 1,
+      why: "They had to find the right price for each item. That means using numbers to find the answer.",
+      tip: "Look at the next sentence: “careful calculations”. Numbers are the clue for work out." },
+    { term: "Break even", para: 2, def: 3,
+      why: "The text explains it right after the colon: they earned the same amount as they spent.",
+      tip: "Break even is not a loss and not a profit. It is exactly in the middle." },
+    { term: "Run out of", para: 3, def: 0,
+      why: "By ten o’clock there was no more bread, so people in the queue had to wait.",
+      tip: "Run out of + something you need: bread, money, time, battery." },
+    { term: "Get on with", para: 4, def: 4,
+      why: "The team learns to have good relations with customers, even when these customers are in a hurry.",
+      tip: "Get on with + a person = have a good relationship. Do not confuse it with “get on” a bus." }
+  ],
+  defs: [
+    "Have no more of something left.",
+    "Calculate or find the answer to something.",
+    "Start a business, club or organisation.",
+    "Earn exactly as much money as you spend.",
+    "Have a good relationship with someone.",
+    "Be very interested in something and enjoy it."
+  ]
+},
+
+/* ---------------------------------------------------------------- TEXT 2 */
+{
+  id: "t2", nav: "Text 2", level: "Hard", title: "The Saturday Bike Workshop",
+  paras: [
+    "Three years ago, seventeen-year-old Amara noticed something strange near the town station: dozens of bicycles left outside for months, with flat tyres and broken chains. “Those bikes can’t be useful to anyone in that condition,” she thought. “But they must belong to someone.” After asking around, she discovered that most owners had simply stopped riding because repairs were too expensive. That was when she decided to **take up** bike repair as a hobby.",
+    "Amara had no experience, so she watched videos and read manuals every evening. On Sundays she visited second-hand shops to find cheap tools, and she kept a notebook with all her mistakes. Her first attempts were disastrous, and she nearly **gave up** twice. Her uncle, a mechanic, helped her try again with an old wheel, and slowly she improved. Soon she **came up with** a bigger idea: a free workshop where teenagers could learn to repair bikes and teach others.",
+    "Finding a place was the next challenge. The council offered an empty garage, provided that the volunteers paid for the electricity themselves. Amara’s friends organised a car wash and sold cakes, and in two weekends they raised three hundred pounds. “If we hadn’t worked together, we would never have opened so quickly,” says Amara. Not everything went smoothly, however. The opening was **put off** for a week because the water pipes were broken, and the team had them repaired by a plumber.",
+    "Today the workshop is open every Saturday, and around forty bikes are repaired each month, and children as young as eight now come to learn how to fix a flat tyre in ten minutes. Some of the old bikes are too old to ride, so the metal is recycled. In this way, the team **gets rid of** very little rubbish. Amara sometimes wishes she had started earlier, because the project has already saved local families more than a thousand pounds, according to the local newspaper. Her hard work has clearly **paid off**. Unless more volunteers join, she says, the workshop will have to close on some weekends, but she is optimistic about the future."
+  ],
+  tf: [
+    { q: "Amara saw a lot of old bicycles near the station.", a: true,
+      ev: "“dozens of bicycles left outside for months”",
+      why: "“Dozens” means many, and the bikes were left outside for months. The statement says the same in simpler words.",
+      tip: "“Dozens of” = a lot of. It is a quantity word, so think of a big number." },
+    { q: "Most owners stopped riding because they were bored with cycling.", a: false,
+      ev: "“most owners had simply stopped riding because repairs were too expensive.”",
+      why: "The reason was money. Repairs cost too much, and nobody was bored.",
+      tip: "Look for the word “because”. It gives the real reason, and you can compare it with the statement." },
+    { q: "Amara knew a lot about bikes before she started.", a: false,
+      ev: "“Amara had no experience”",
+      why: "“Had no experience” is the opposite of knowing a lot. She learned from videos and manuals.",
+      tip: "“No” + noun is a strong negative signal. The statement says the opposite, so it is False." },
+    { q: "The council gave the volunteers a garage and paid for the electricity.", a: false,
+      ev: "“provided that the volunteers paid for the electricity themselves.”",
+      why: "The council gave the garage, but the volunteers had to pay for the electricity. The statement is only half correct.",
+      tip: "When a statement has two parts, check both parts. If one is wrong, the answer is False." },
+    { q: "The workshop opened later than planned.", a: true,
+      ev: "“The opening was put off for a week”",
+      why: "“Put off” means delay. If the opening was delayed by a week, it opened later than planned.",
+      tip: "“Later than planned” is another way to say “put off” or “delayed”." },
+    { q: "Amara thinks it would have been better to start the project sooner.", a: true,
+      ev: "“Amara sometimes wishes she had started earlier”",
+      why: "“Wishes she had started earlier” shows regret. In other words, she thinks it would have been better to begin sooner.",
+      tip: "Wish + had + past participle = a regret. Earlier = sooner." }
+  ],
+  box: ["would never have", "too old", "left", "can’t", "had them repaired", "provided that"],
+  endings: [
+    "___ opened so quickly.",
+    "___ by a plumber.",
+    "___ outside the station for months.",
+    "___ the volunteers paid for the electricity.",
+    "___ to ride, so the metal was recycled.",
+    "___ be in good condition."
+  ],
+  comp: [
+    { begin: "Amara noticed dozens of bikes", end: 2, word: 2, d: ["leaving", "leave"],
+      why: "“Bikes that were left outside” can be made shorter: “bikes left outside”. “Left” is a past participle with a passive meaning.",
+      tip: "Noun + past participle (bikes left, books written, food cooked) is a short passive relative clause." },
+    { begin: "The water pipes were broken, so the team", end: 1, word: 4, d: ["repaired them", "had repaired them"],
+      why: "The ending says “by a plumber”, so an expert did the work. “Had them repaired” is the structure for arranging a service.",
+      tip: "Have + object + past participle + by someone. Here the object is “them” (the pipes)." },
+    { begin: "The council offered an empty garage,", end: 3, word: 5, d: ["provided", "if provided"],
+      why: "“Provided that” introduces a condition. The garage is available only if the volunteers pay for the electricity.",
+      tip: "A condition with “only if” in the meaning = provided that." },
+    { begin: "Nobody has touched that bike for a year, so it", end: 5, word: 3, d: ["must", "mustn’t"],
+      why: "After a year without any care, we are sure that the bike is NOT in good condition. We use “can’t be” for negative certainty.",
+      tip: "Sure it is NOT true = can’t be. Sure it IS true = must be." },
+    { begin: "If the team had not worked together, they", end: 0, word: 0, d: ["would never", "will never have"],
+      why: "This is the third conditional: if + had + past participle, would have + past participle. The result is in the past and it did not happen.",
+      tip: "“If … had” in the first part? Then use would (never) have + past participle in the second part." },
+    { begin: "Some of the old bikes were", end: 4, word: 1, d: ["enough old", "very old"],
+      why: "“Too old to ride” means so old that it is not possible to ride them. “Too” gives a negative result.",
+      tip: "too + adjective + to + verb = so much that something is not possible." }
+  ],
+  vocab: [
+    { term: "Take up", para: 1, def: 2,
+      why: "Amara decided to start repairing bikes as a hobby, so she began a new activity.",
+      tip: "“Take up” goes with a hobby or a sport: take up painting, take up running." },
+    { term: "Give up", para: 2, def: 0,
+      why: "Her first attempts were disastrous. She almost stopped because it was too difficult.",
+      tip: "“Nearly gave up twice” shows how hard it was. Give up = stop trying." },
+    { term: "Come up with", para: 2, def: 4,
+      why: "She had a new, bigger idea: the free workshop. Coming up with something means to produce an idea.",
+      tip: "Come up with + idea, plan, solution, answer." },
+    { term: "Put off", para: 3, def: 1,
+      why: "The opening was delayed by a week because of the pipes, so it was moved to a later date.",
+      tip: "“Put off” + a plan, a trip or an event = move it to a later time." },
+    { term: "Get rid of", para: 4, def: 3,
+      why: "Old metal is recycled, so the team does not throw things away. They have very little rubbish.",
+      tip: "Get rid of + something you do not want: old clothes, a bad habit, a problem." },
+    { term: "Pay off", para: 4, def: 5,
+      why: "The project saved families a lot of money, so Amara’s hard work gave a good result.",
+      tip: "“Paid off” often comes after a long effort. Think of the result of hard work." }
+  ],
+  defs: [
+    "Stop doing something because it is too difficult.",
+    "Delay something until a later time.",
+    "Start doing a new hobby or activity.",
+    "Throw away or remove something you do not want.",
+    "Think of a new idea or plan.",
+    "Bring a good result after hard work."
+  ]
+},
+
+/* ---------------------------------------------------------------- TEXT 3 */
+{
+  id: "t3", nav: "Text 3", level: "Very hard", title: "The Teenage Film Festival",
+  paras: [
+    "When fifteen-year-old Ines started making short films with her phone, she never imagined that her hobby would lead to an international event. Her first film, shot in her grandmother’s kitchen, was watched by only twelve people. However, one of the viewers, a teacher working at the local cinema, suggested that she should **look into** the possibility of organising a festival for young filmmakers.",
+    "Ines was not sure that she was old enough, but her friend Tomás, who is outgoing and very confident, persuaded her. Together they wrote to forty companies asking for money. Most of them **turned down** the request, saying that the festival was too small to be worth supporting. One reply, however, changed everything: a printing company agreed to pay for the posters, provided that its logo appeared on every one. “If we had given up after the first refusals, we would never have found our first sponsor,” Tomás explains.",
+    "Preparing the festival was exhausting. The team had to **carry out** dozens of tasks at the same time: choosing films, booking a room, and having a banner made by a local designer. Nearly two hundred films were sent in from fourteen countries, and a committee of six students was asked to watch every one of them. Some films were so long that the committee could not finish them in one evening. Ines now thinks that they ought to have set a maximum length of ten minutes from the start. “We really should have thought about that earlier,” she says.",
+    "On the opening night, a technical problem almost ruined everything. The projector, lent by the school, stopped working ten minutes before the first screening. Luckily, a volunteer who had studied electronics **pulled off** a quick repair, and the show started only fifteen minutes late. That night, a documentary about a small fishing village **stood out** from the rest. It had been filmed by a nineteen-year-old student, and it won the audience prize.",
+    "The festival has now been running for three years, and the number of visitors has grown from eighty to over six hundred. Many of the young directors **ended up** working in television or advertising. Ines wishes the festival could be held in a bigger building, but unless more sponsors appear, it will probably stay in the old theatre. For now she is happy: the film that was seen by twelve people has been watched by thousands online."
+  ],
+  tf: [
+    { q: "Ines’s first film was seen by a large audience.", a: false,
+      ev: "“was watched by only twelve people.”",
+      why: "“Only twelve people” is a very small audience. The word “only” shows that it was not large.",
+      tip: "“Only” + number = a small quantity. It is a strong signal for a negative statement." },
+    { q: "A teacher told Ines to think about starting a festival.", a: true,
+      ev: "“suggested that she should look into the possibility of organising a festival for young filmmakers.”",
+      why: "“Suggested that she should look into” means that he advised her to examine the idea.",
+      tip: "“Suggest” and “tell somebody to think about” are close in meaning. Look at the verb, not only the nouns." },
+    { q: "Almost all the companies agreed to give money.", a: false,
+      ev: "“Most of them turned down the request”",
+      why: "“Turned down” means refused. Most companies refused, and only a few said yes.",
+      tip: "“Most of them” + a negative verb means that almost all said no." },
+    { q: "The printing company wanted its logo on the posters.", a: true,
+      ev: "“provided that its logo appeared on every one.”",
+      why: "“Provided that” introduces the condition: the company pays if its logo is on each poster.",
+      tip: "The condition after “provided that” tells you what the person wants in return." },
+    { q: "The films came from more than ten different countries.", a: true,
+      ev: "“Nearly two hundred films were sent in from fourteen countries”",
+      why: "Fourteen is more than ten, so the statement is true.",
+      tip: "Do the simple maths. Compare the numbers in the statement and in the text." },
+    { q: "The projector worked perfectly on the opening night.", a: false,
+      ev: "“The projector, lent by the school, stopped working ten minutes before the first screening.”",
+      why: "The projector stopped working, so it did not work perfectly. A volunteer had to repair it.",
+      tip: "“Almost ruined everything” in the same paragraph is also a clue: something went wrong." }
+  ],
+  box: ["so", "lent", "unless", "could", "had one made", "although"],
+  endings: [
+    "___ more sponsors appear.",
+    "___ by a local designer.",
+    "___ long that the committee could not finish them in one evening.",
+    "___ it receives films from many countries.",
+    "___ by the school, stopped working.",
+    "___ be held in a bigger building."
+  ],
+  comp: [
+    { begin: "The projector,", end: 4, word: 1, d: ["lending", "lend"],
+      why: "“The projector that was lent by the school” can be shortened to “The projector, lent by the school”. “Lent” is a past participle with a passive meaning.",
+      tip: "A past participle + by + person or place (lent by the school) is a shorter way to say “that was lent by”." },
+    { begin: "Ines needed a banner for the stage, so she", end: 1, word: 4, d: ["made one", "had made one"],
+      why: "The ending says “by a local designer”, so another person made the banner. “Had one made” is the structure for this.",
+      tip: "Have + object + past participle: you ask someone else to do it. “One” replaces “a banner”." },
+    { begin: "Ines wishes the festival", end: 5, word: 3, d: ["can", "will"],
+      why: "She wishes for a different situation now. After “wish” we use “could” for something that is not possible at the moment.",
+      tip: "Wish + could = you want a different present situation. Wish + had + past participle = a regret about the past." },
+    { begin: "The festival is quite small,", end: 3, word: 5, d: ["because", "so"],
+      why: "“Although” introduces a surprising contrast: it is small, but it receives films from many countries.",
+      tip: "“Although” = in spite of the fact that. Two ideas that seem to go in different directions often need although." },
+    { begin: "The festival will probably stay in the old theatre", end: 0, word: 2, d: ["although", "because"],
+      why: "“Unless more sponsors appear” means “if more sponsors do not appear”. Then the festival stays where it is.",
+      tip: "Unless = if not. The verb after “unless” is positive." },
+    { begin: "Some films were", end: 2, word: 0, d: ["too", "such"],
+      why: "“So long that” shows the result of the length: the films were so long that the committee could not finish them.",
+      tip: "So + adjective + that + result. Do not forget the word “that” after the adjective." }
+  ],
+  vocab: [
+    { term: "Look into", para: 1, def: 1,
+      why: "The teacher suggests that she examine the possibility of a festival, so she should find out more.",
+      tip: "“Look into” + a possibility, problem or idea = investigate it." },
+    { term: "Turn down", para: 2, def: 2,
+      why: "Most companies said no, because the festival seemed too small. Then they refused the request.",
+      tip: "“However” in the next sentence shows that the first part was negative. Turn down = say no." },
+    { term: "Carry out", para: 3, def: 4,
+      why: "The team had dozens of tasks to do, so they had to complete all of them.",
+      tip: "Carry out + task, plan, test, research = do it from start to finish." },
+    { term: "Pull off", para: 4, def: 5,
+      why: "The projector stopped working and the repair was quick. The volunteer was able to do something difficult.",
+      tip: "“Pull off” is for something that was not easy, and you succeeded anyway." },
+    { term: "Stand out", para: 4, def: 0,
+      why: "The documentary was different from the others, and it won a prize. It was easy to notice.",
+      tip: "“Stand out from the rest” is a fixed phrase for something that is better or different." },
+    { term: "End up", para: 5, def: 3,
+      why: "Many of the directors finally worked in television or advertising, maybe without planning it.",
+      tip: "“End up” + -ing talks about the final situation, often a surprise." }
+  ],
+  defs: [
+    "Be easy to notice because of being better or different.",
+    "Examine something to find out more about it.",
+    "Refuse an offer or request.",
+    "Finally be in a particular place or situation.",
+    "Do or complete a task, often an official one.",
+    "Manage to do something difficult."
+  ]
+}
+
+]
+};
+</script>
+
+<script id="engine-block">
+(function () {
+  var LETTERS = ["A", "B", "C", "D", "E", "F"];
+  var TFREG = [], COMPREG = [], VOCREG = [];
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function fmt(s) {
+    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b class="hl">$1</b>');
+  }
+  function plain(s) { return String(s).replace(/\*\*/g, ""); }
+  function endHtml(s) { return esc(s).replace("___", '<span class="blank"></span>'); }
+
+  function expl(ok, solHtml, evidence, why, tip) {
+    var h = '<div class="exp ' + (ok ? "right" : "wrong") + '">';
+    h += '<p>' + (ok ? "Correct! " : "Not quite. ") + solHtml + '</p>';
+    if (evidence) h += '<p><b class="lab ev">Evidence</b>' + esc(evidence) + '</p>';
+    h += '<p><b class="lab why">Why</b>' + esc(why) + '</p>';
+    h += '<p><b class="lab tip">Exam tip</b>' + esc(tip) + '</p></div>';
+    return h;
+  }
+
+  function scoreText(ok, total) {
+    var msg = ok === total ? "Perfect!" : (ok >= total - 2 ? "Well done!" : "Keep going, read the tips and try again.");
+    return "Score: " + ok + " / " + total + " - " + msg;
+  }
+
+  function sectionShell(tag, title, sub, bodyId, prefix) {
+    return '<div class="tag">' + esc(tag) + '</div><h2>' + esc(title) + '</h2><p class="sub">' + esc(sub) + '</p>' +
+      '<div id="' + prefix + 'Body"></div>' +
+      '<div class="btnrow"><button class="btn" id="' + prefix + 'Check">Check answers</button>' +
+      '<button class="btn ghost" id="' + prefix + 'Reset">Try again</button>' +
+      '<span class="scoreline" id="' + prefix + 'Score"></span></div>';
+  }
+
+  /* ---------- True / False ---------- */
+  function buildTF(t, card) {
+    var prefix = t.id + "tf";
+    card.innerHTML = sectionShell("Activity " + t.nav.slice(-1) + ".1", "True or false?",
+      "Read the statements and decide if they are true or false, using the text.", "", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.tf.forEach(function (it, i) {
+        var id = TFREG.length;
+        TFREG.push({ item: it, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.q) + '</p>' +
+          '<div class="opts"><button class="opt" data-tfid="' + id + '" data-v="1">True</button>' +
+          '<button class="opt" data-tfid="' + id + '" data-v="0">False</button></div>' +
+          '<div class="fb" data-tfid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      var rec = TFREG[+b.getAttribute("data-tfid")];
+      rec.sel = b.getAttribute("data-v") === "1";
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = TFREG[id], it = rec.item;
+        var good = rec.sel === it.a;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-tfid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var v = b.getAttribute("data-v") === "1";
+          b.disabled = true;
+          b.classList.remove("sel");
+          if (v === it.a) b.classList.add("good");
+          else if (rec.sel === v) b.classList.add("bad");
+        });
+        var sol = 'The answer is <span class="sol">' + (it.a ? "True" : "False") + '</span>.';
+        body.querySelector('.fb[data-tfid="' + id + '"]').innerHTML = expl(good, sol, it.ev, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- Choose the correct option ---------- */
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x;
+    }
+    return a;
+  }
+
+  function buildComp(t, card) {
+    var prefix = t.id + "cp";
+    card.innerHTML = sectionShell("Activity " + t.nav.slice(-1) + ".2", "Choose the correct option",
+      "Read each sentence and choose the option that fits the gap.", "", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.comp.forEach(function (it, i) {
+        var right = t.box[it.word];
+        var opts = shuffle([right].concat(it.d));
+        var id = COMPREG.length;
+        COMPREG.push({ item: it, right: right, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        var optsH = opts.map(function (o) {
+          return '<button class="opt" data-cpid="' + id + '" data-o="' + esc(o) + '">' + esc(o) + '</button>';
+        }).join("");
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.begin) + ' ' + endHtml(t.endings[it.end]) + '</p>' +
+          '<div class="opts">' + optsH + '</div><div class="fb" data-cpid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      COMPREG[+b.getAttribute("data-cpid")].sel = b.getAttribute("data-o");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = COMPREG[id], it = rec.item;
+        var good = rec.sel === rec.right;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-cpid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var o = b.getAttribute("data-o");
+          b.disabled = true; b.classList.remove("sel");
+          if (o === rec.right) b.classList.add("good");
+          else if (o === rec.sel) b.classList.add("bad");
+        });
+        var full = it.begin + " " + t.endings[it.end].replace("___", rec.right);
+        var sol = 'Full sentence: <span class="sol">' + esc(full) + '</span>';
+        body.querySelector('.fb[data-cpid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- Match expressions ---------- */
+  function buildVocab(t, card) {
+    var prefix = t.id + "vc";
+    card.innerHTML = sectionShell("Activity " + t.nav.slice(-1) + ".3", "Match expressions with their meanings",
+      "Find each highlighted expression in the text. Choose the definition that matches.", "", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      var defsH = t.defs.map(function (d, i) { return "<li><b>" + LETTERS[i] + ".</b>" + esc(d) + "</li>"; }).join("");
+      var grid = document.createElement("div");
+      grid.className = "vocgrid";
+      grid.innerHTML = '<div class="vocitems"></div>' +
+        '<aside class="box defsbox"><div class="bt">Definitions</div><ul class="ends">' + defsH + '</ul></aside>';
+      body.appendChild(grid);
+      var left = grid.querySelector(".vocitems");
+      // en pantallas angostas el panel se oculta y cada opcion muestra la definicion completa
+      var selOpts = '<option value="">Choose the meaning</option>' + t.defs.map(function (d, i) {
+        return '<option value="' + i + '">' + LETTERS[i] + '. ' + esc(d) + '</option>';
+      }).join("");
+      t.vocab.forEach(function (it, i) {
+        var id = VOCREG.length;
+        VOCREG.push({ item: it });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span><b class="hl">' + esc(it.term) + '</b> (paragraph ' + it.para + ')</p>' +
+          '<div class="selrow"><select class="vsel" data-vcid="' + id + '">' + selOpts + '</select></div>' +
+          '<div class="fb" data-vcid="' + id + '"></div>';
+        left.appendChild(div);
+      });
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var it = VOCREG[id].item;
+        var s = body.querySelector('select[data-vcid="' + id + '"]');
+        var good = s.value !== "" && +s.value === it.def;
+        s.className = good ? "ok" : "no"; s.disabled = true;
+        if (good) ok++;
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.def] + '</span> - ' + esc(t.defs[it.def]);
+        body.querySelector('.fb[data-vcid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- page ---------- */
+  var app = document.getElementById("app");
+  var nav = document.getElementById("nav");
+  DATA.texts.forEach(function (t) {
+    var a = document.createElement("a");
+    a.href = "#" + t.id; a.textContent = t.nav + " - " + t.level;
+    nav.appendChild(a);
+
+    var read = document.createElement("section");
+    read.className = "card"; read.id = t.id;
+    read.innerHTML = '<div class="tag">' + esc(t.nav) + ' &middot; ' + esc(t.level) + ' &middot; ' + t.paras.join(' ').replace(/\*\*/g, '').split(/\s+/).filter(Boolean).length + ' words</div><h2>' + esc(t.title) + '</h2>' +
+      '<p class="sub">Read the text. The highlighted expressions are used in Activity ' + t.nav.slice(-1) + '.3.</p>' +
+      '<div class="read">' + t.paras.map(function (p) { return "<p>" + fmt(p) + "</p>"; }).join("") + '</div>';
+    app.appendChild(read);
+
+    [buildTF, buildComp, buildVocab].forEach(function (fn) {
+      var c = document.createElement("section");
+      c.className = "card";
+      app.appendChild(c);
+      fn(t, c);
+    });
+  });
+})();
+</script>
+</body>
+</html>

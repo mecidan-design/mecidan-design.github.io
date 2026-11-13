@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skills Test · Set C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.92rem;color:#3b3b3b;margin:0 0 18px;line-height:1.5}
+
+.read p{font-size:1.04rem;line-height:1.85;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.headline{
+  font-family:var(--head);font-weight:800;font-size:1.15rem;text-align:center;
+  text-transform:uppercase;letter-spacing:.8px;margin:6px 0 14px;
+}
+.ph{white-space:nowrap}
+.ph u{text-decoration-thickness:3px;text-decoration-color:var(--pink);text-underline-offset:3px;font-weight:600}
+.phn{
+  font-family:var(--head);font-weight:800;font-size:.7rem;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:999px;padding:0 6px;margin-left:3px;
+}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;min-width:26px;height:26px;margin-right:8px;padding:0 4px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.prompt{font-family:var(--head);font-weight:800;font-size:1.05rem;margin:4px 0 12px}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;text-align:left;
+  border:3px solid #000;border-radius:16px;padding:8px 16px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;display:flex;gap:11px;align-items:flex-start;width:100%;line-height:1.45;
+}
+.opt .ol{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--yellow);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:5px 8px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.gapwrap{display:inline-flex;align-items:center;gap:5px;margin:0 3px;vertical-align:baseline}
+.gn{
+  font-family:var(--head);font-weight:800;font-size:.78rem;color:#fff;background:var(--pink);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+
+.box{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff;
+}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:8px}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 8px;line-height:1.45;font-size:.97rem;display:flex;gap:10px}
+.ends li:last-child{margin-bottom:0}
+.ends b{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--cyan);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+
+.para{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.para p{margin:0;font-size:1.02rem;line-height:1.7}
+.pl{
+  font-family:var(--head);font-weight:800;background:var(--violet);color:#fff;border:3px solid #000;border-radius:50%;
+  width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;
+}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.exp .sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+.expgap{margin-top:18px}
+.expgap h3{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 4px}
+[hidden]{display:none !important}
+
+.total .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.total .pill{
+  font-family:var(--head);font-weight:800;border:3px solid #000;border-radius:999px;padding:4px 16px;background:var(--yellow);
+}
+.total .big{font-family:var(--head);font-weight:800;font-size:1.5rem;margin-top:10px}
+
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+@media (max-width:560px){
+  .card{padding:18px 14px 20px}
+  .read p{line-height:2}
+  .para{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="herotitle"></h1>
+    <p>Gapped text &bull; Matching &bull; Multiple choice</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Skills Test: Set C. Mismo formato que Set A y Set B (ver datos-skills-b.js). ====== */
+var DATA = {
+  heroTitle: "SKILLS TEST · SET C",
+
+  part1: {
+    title: "A VILLAGE WITHOUT PETROL CARS",
+    headline: "The village where petrol cars are banned",
+    instructions: "Read the article. Choose which sentence (A–G) fits each gap (1–6). There is one extra sentence you do not need.",
+    sentences: [
+      "Some of them have already tried similar rules in their own town centres.",
+      "However, life without ordinary cars is not always easy.",
+      "Most of them also spend a day on the mountain, where the cable cars run until late in the evening.",
+      "Once there, they are taken to their hotels by small electric taxis and buses.",
+      "The explanation is simple: petrol cars have not been allowed in the village for more than fifty years.",
+      "Neither of them would want to go back to the way things were before.",
+      "Visitors often say that this peace is what they enjoy most."
+    ],
+    paras: [
+      "The Swiss village of Zermatt lies at the foot of the Matterhorn, one of the most famous mountains in the world. The village has only a few thousand inhabitants, yet it welcomes many more visitors than that every winter. Thousands of tourists come every year to ski, walk and take photographs, and most of them notice something strange as soon as they arrive: there is almost no traffic, and the air smells of pine trees, not of petrol. {1}",
+      "Visitors have to leave their cars in a car park in the valley and take a short train journey up to the village. The trains are frequent and comfortable, and the views from the windows are spectacular. {2} These vehicles are narrow enough to move along the old streets, and because they run on electricity, they make hardly any noise. In winter, some visitors even choose to travel around the village in a horse-drawn sleigh. Bicycles are allowed, but most people simply walk, because the village is small and almost every street ends with a view of the mountain.",
+      "For the people who live in Zermatt, the ban has brought real advantages. Children can walk to school without crossing busy roads, and the streets are so peaceful that church bells can be heard from every corner. Local people also say that the air feels cleaner than in any city they have visited. {3} Delivery drivers, for example, must change to electric vans at the edge of the village, and this takes time and money.",
+      "Take Marco and Elena, who run a small bakery near the station. Their shop is old and tiny, and their customers include hotel chefs, farmers and children on their way to school. Every morning at five, Marco loads the day’s bread into an electric van while Elena opens the shop. {4} Elena says she has never missed the noise of traffic, and Marco jokes that the only rush hour in Zermatt is when the bread comes out of the oven.",
+      "Zermatt’s example has attracted attention from other mountain towns across Europe, and officials from several of them have visited the village to see how the system works. {5} Others, however, have found that the idea works best in small places like Zermatt, where distances are short and nearly everyone supports the plan. In the end, the officials say, the success of an idea like this depends less on the rules than on the people who live under them.",
+      "On a winter evening, when the last train has left and the snow begins to fall, the village becomes almost completely silent. {6} One visitor from London said that, for her, the silence was just as impressive as the mountain itself. She added that she had already booked her holiday for next year, and that she planned to bring her whole family."
+    ],
+    gaps: [
+      { ans: "E",
+        why: "‘Something strange’ is a puzzle (no traffic, no petrol smell), and ‘The explanation’ answers it. The next sentence continues with what visitors must do because of the ban: leave their cars in the valley.",
+        tip: "Words like ‘the explanation’ and ‘the reason’ point back to a question or a puzzle. Then check that the next sentence follows from the answer." },
+      { ans: "D",
+        why: "The next sentence starts with ‘These vehicles’, so the gap must name vehicles: ‘electric taxis and buses’. ‘Once there’ also follows the train journey to the village.",
+        tip: "‘These’ or ‘those’ + a noun means that noun was just mentioned. Find the sentence that contains it." },
+      { ans: "B",
+        why: "The paragraph lists advantages. ‘However’ introduces the other side, and ‘for example’ in the next sentence gives an example of this difficulty (delivery drivers).",
+        tip: "‘However’ after good news means bad news is coming. ‘For example’ must follow a general statement that it can support." },
+      { ans: "F",
+        why: "‘Neither of them’ refers to two people, Marco and Elena. The next sentence then gives each person’s view (‘Elena says…’, ‘Marco jokes…’).",
+        tip: "‘Both’ and ‘neither’ + ‘of them’ need exactly two people or things in the sentences before." },
+      { ans: "A",
+        why: "‘Them’ means the other mountain towns. ‘Some… Others, however’ is a contrast: some towns have tried similar rules, but others found the idea works best in small places.",
+        tip: "‘Some… others’ come in pairs. If the next sentence begins ‘Others, however’, look for a ‘Some’ before the gap." },
+      { ans: "G",
+        why: "‘This peace’ repeats the idea of the silence in the sentence before. ‘One visitor from London’ in the next sentence is an example of the visitors in the gap.",
+        tip: "‘This’ + a noun (this peace) repeats an idea from the sentence before. Then check that the next sentence gives an example or a detail." }
+    ],
+    extra: { ans: "C",
+      why: "‘Most of them’ would have to mean the visitors, but no gap leads to a day on the mountain. The sentences around the gaps are about vehicles, difficulties, a bakery, other towns and the silence.",
+      tip: "A sentence can be on the right topic and still be wrong. Always read the sentence before AND after the gap to see if the link works." }
+  },
+
+  part2: {
+    title: "RIDING THE FUTURE",
+    instructions: "Read the blog post. Match the questions (1–8) with the paragraphs (A, B, C or D).",
+    prompt: "Which paragraph in the article:",
+    paras: [
+      "For years, I was one of those cyclists who looked down on electric bikes. To me, a real cyclist climbed hills on muscle power, and anyone who used a motor was cheating. The few e-bikes I saw back then did nothing to change my mind. They were enormous and heavy, with a battery the size of a brick fixed behind the seat, and their owners seemed to spend more time looking for a socket than riding. The battery rarely lasted more than twenty kilometres, and when it ran out, the bike turned into a metal monster that was almost impossible to pedal. My friends used to joke that I would never give in. Then, last spring, a knee injury forced me to leave my normal bike at home, and my sister lent me her e-bike. I rode up the steepest hill in town without stopping, and arrived at work smiling instead of exhausted. I have not looked down on e-bikes since.",
+      "An electric bike, or e-bike, is an ordinary bicycle with a small motor and a battery that give you extra power while you pedal. The motor does not take over: it only works when you push the pedals. A sensor measures how hard you are pedalling and sends a signal to the motor, which adds just enough power to make the bike feel lighter. The battery, which is now hidden inside the frame, can be charged at home in a few hours and often lasts for eighty kilometres or more. Most models also switch the motor off automatically at twenty-five kilometres an hour, so that riders cannot go too fast. The whole system is so quiet and light that many people on the road do not even realise that a rider is using an e-bike.",
+      "I was surprised to discover how much younger people enjoy them. At the cycling camp where I volunteer every summer, children aged ten to thirteen try out e-bikes on a closed track. Most of them say that they feel strong and free, and one girl shouted that she felt like a superhero as she flew up the hill. Of course, I have to remind them that real superheroes have powers that no motor can match. It is unlikely that any e-bike will ever carry us up a wall, over a traffic jam or across a river, the way the heroes in their comics do. But for children who have always found hills exhausting, even a little extra help feels like magic. One boy even asked whether he could keep the bike for ever.",
+      "Of course, e-bikes are not perfect. The biggest problem is the price. A good e-bike can cost several times as much as a standard bicycle, which puts it out of reach of many families, and that is why some cities now help riders to pay for them. There are rules about age, too. In some countries, such as the UK, riders must be at least fourteen to use an e-bike on public roads, because the bikes are heavier and faster than they look, and younger children may not have enough experience to deal with traffic safely. For anyone who is old enough, however, the bike can open up a whole new way of getting around, and I am sure that it will change our cities for the better. Helmets, of course, are a good idea for everyone, whatever their age."
+    ],
+    qs: [
+      { q: "says that the price of e-bikes is a problem?", ans: "D",
+        ev: "“The biggest problem is the price.”",
+        why: "Paragraph D says directly that the price is the biggest problem, because a good e-bike can cost several times as much as a standard bicycle.",
+        tip: "The question repeats the idea of ‘problem’ and ‘price’. Search for those words, or for numbers and comparisons about money." },
+      { q: "gives a definition of an e-bike?", ans: "B",
+        ev: "“an ordinary bicycle with a small motor and a battery that give you extra power while you pedal”",
+        why: "Paragraph B begins by explaining what an e-bike is: an ordinary bicycle with a small motor and a battery that give extra power.",
+        tip: "A definition often starts a paragraph and uses the structure ‘An X, or Y, is a…’. Scan the first sentences." },
+      { q: "mentions how children feel when they ride e-bikes?", ans: "C",
+        ev: "“Most of them say that they feel strong and free”",
+        why: "In paragraph C, children at the camp say they feel strong and free, and one girl feels like a superhero. In paragraph A the writer is an adult, not a child.",
+        tip: "Look for a group of children and a feeling verb (feel, felt, say that they feel). Check who is speaking." },
+      { q: "explains why there is a minimum age for riding e-bikes on the road?", ans: "D",
+        ev: "“because the bikes are heavier and faster than they look”",
+        why: "Paragraph D says riders must be at least fourteen because the bikes are heavier and faster than they look, and younger children may lack the experience to deal with traffic.",
+        tip: "A rule (‘must be at least fourteen’) is usually followed by its reason after ‘because’." },
+      { q: "indicates a change in the writer’s opinion of e-bikes?", ans: "A",
+        ev: "“I have not looked down on e-bikes since.”",
+        why: "In paragraph A the writer used to look down on e-bikes, but after riding one up a hill the writer has not looked down on them ‘since’. That shows a change of opinion.",
+        tip: "Look for ‘used to… but now’ ideas and time words like ‘since’, ‘then’ and ‘until’. They mark the moment an opinion changes." },
+      { q: "predicts what e-bikes will not be able to do?", ans: "C",
+        ev: "“It is unlikely that any e-bike will ever carry us up a wall”",
+        why: "In paragraph C the writer says it is unlikely that an e-bike will ever carry us up a wall, over a traffic jam or across a river.",
+        tip: "‘It is unlikely that… will ever’ is a signal for a prediction about something that will not happen." },
+      { q: "suggests the disadvantages of early e-bikes?", ans: "A",
+        ev: "“They were enormous and heavy” … “The battery rarely lasted more than twenty kilometres”",
+        why: "Paragraph A describes the old e-bikes: they were enormous and heavy, and the battery ran out quickly. Those are clear disadvantages.",
+        tip: "Old versions are described in the past tense with words like ‘back then’ and ‘the few… I saw’. Look for negative details." },
+      { q: "explains how modern e-bikes work?", ans: "B",
+        ev: "“A sensor measures how hard you are pedalling and sends a signal to the motor”",
+        why: "Paragraph B explains the process: a sensor measures your pedalling, sends a signal to the motor, and the motor adds power.",
+        tip: "‘How does it work?’ answers use present-tense steps (measures, sends, adds). Find the paragraph with a process." }
+    ]
+  },
+
+  part3: {
+    title: "LANGUAGES THAT PEOPLE CREATED",
+    headline: "Languages that people created",
+    instructions: "You are going to read an article about languages that were created by people. For questions 1–6, choose the answer (A, B, C or D) which you think fits best according to the text.",
+    paras: [
+      "Most people imagine that languages grow slowly over hundreds of years, changing a little with every generation. But some languages have appeared in surprising ways, created by people who had a special reason to communicate. You may never have heard of them, yet they show how clever and creative human beings can be when they need to understand one another. Some were born in schools and playgrounds, others in the mountains, and one in the mind of a single doctor…",
+      "In the late 1970s, Nicaragua opened a special school for deaf children. Until then, most of the pupils had lived at home, with very little contact with other deaf people, and had never learned a proper sign language. Teachers tried to teach them to read lips and write Spanish, but the method was not very successful. In the playground and on the school bus, however, the children began to communicate by themselves. They invented signs for objects and ideas, and each year the new, younger pupils improved the system, adding rules of grammar that nobody had taught them. Within a generation, it had become a complete language.",
+      "On La Gomera, one of the Canary Islands, the steep valleys and deep ravines make it difficult to travel from one village to the next. To solve the problem, the islanders developed Silbo Gomero, a whistled version of Spanish. The sounds carry across the valleys for several kilometres, so a farmer could send a message to a friend on the other side without walking for hours. In recent decades, however, whistling has gradually [[2|given way to]] mobile phones and cars, and the language almost disappeared. Since 1999, it has been taught in the island’s schools, and in 2009 UNESCO added it to its list of cultural treasures.",
+      "Many people assume that invented languages never work. Esperanto, which was created by a Polish eye doctor named L. L. Zamenhof in the 1880s, is often given as an example of a failure. In fact, it is still spoken today by thousands of people in countries all over the world, and you can find books, songs and even films in it. Zamenhof grew up in a town where people spoke four languages and often quarrelled with their neighbours. While he was still at school, he became convinced that a shared language would help people understand one another, and he began experimenting with ideas for one. It was only when he was a young doctor that he finally finished it.",
+      "Zamenhof spent years improving his language before he showed it to anyone. In 1887, he published a short booklet that explained the basic rules, using the pen name ‘Doktoro Esperanto’, which means ‘one who hopes’. Readers liked the name so much that they began to use [[5|it]] for the language itself. The grammar was designed to be simple: for example, every noun ends in -o and every adjective in -a, with no irregular verbs to memorise. Many learners say that they can read their first book in Esperanto after only a few months of study. Within a few years, groups of learners had started clubs in several countries.",
+      "Today, Esperanto speakers meet at conferences every year, and the language is used on websites, in magazines and in online lessons. It has never become the world’s second language, as Zamenhof hoped, but it has created a community of people who feel connected despite living in different countries. For many of them, what matters most is not the grammar, but the friendships that the language has made possible.",
+      "Whether they were invented by children in a playground, by islanders separated by deep valleys or by a doctor with a dream, these languages show that human beings do not simply inherit the way they speak. They can also build it."
+    ],
+    qs: [
+      { q: "What do we learn about the children in the second paragraph?", ans: "A",
+        o: ["They developed a way of communicating by themselves.",
+            "They found the lessons given by their teachers very useful.",
+            "They learned a sign language from deaf adults.",
+            "They refused to use the methods their teachers taught."],
+        ev: "“In the playground and on the school bus, however, the children began to communicate by themselves.”",
+        why: "The paragraph says the teachers’ method was ‘not very successful’, but in the playground the children began to communicate ‘by themselves’. So they created their own way.",
+        tip: "Watch for ‘however’: the real answer often comes after it. Cross out options that say the teachers’ lessons worked." },
+      { q: "What does ‘given way to’ mean in the third paragraph?", ans: "C",
+        o: ["been improved by",
+            "been joined by",
+            "been replaced by",
+            "been blamed on"],
+        ev: "“whistling has gradually given way to mobile phones and cars, and the language almost disappeared”",
+        why: "The sentence says that mobile phones and cars arrived and the whistled language ‘almost disappeared’. So whistling was replaced by them.",
+        tip: "Use the words after the phrase. ‘And the language almost disappeared’ shows that the phones and cars took the place of whistling." },
+      { q: "What is the writer doing in the first three sentences of the fourth paragraph?", ans: "D",
+        o: ["describing how Esperanto became popular",
+            "explaining why invented languages are difficult to learn",
+            "comparing Esperanto with other invented languages",
+            "challenging a common belief about Esperanto"],
+        ev: "“Many people assume that invented languages never work.” … “In fact, it is still spoken today”",
+        why: "The writer starts with what many people assume and then says ‘In fact, it is still spoken today by thousands of people’. So the writer is challenging that belief.",
+        tip: "‘Many people assume… In fact…’ is a signal that the writer will disagree. Look for contrast words (in fact, actually, however)." },
+      { q: "In the fourth paragraph we learn that while he was at school, Zamenhof", ans: "B",
+        o: ["was punished for quarrelling with other children.",
+            "became sure that a shared language could bring people closer.",
+            "learned four languages from his neighbours.",
+            "decided that he wanted to become a doctor."],
+        ev: "“While he was still at school, he became convinced that a shared language would help people understand one another”",
+        why: "The text says that while he was still at school he became convinced that a shared language would help people understand one another. People in his town spoke four languages, but he did not learn them from neighbours.",
+        tip: "Find the time phrase in the question (‘while he was at school’) and look for it in the text. Then check small details, like who spoke the four languages." },
+      { q: "What does ‘it’ refer to in the fifth paragraph, in ‘began to use it for the language itself’?", ans: "A",
+        o: ["the pen name",
+            "the booklet",
+            "the language",
+            "the first rule"],
+        ev: "“Readers liked the name so much that they began to use it for the language itself.”",
+        why: "‘It’ replaces ‘the name’, that is, the pen name ‘Doktoro Esperanto’. Readers used the name ‘Esperanto’ for the language, so ‘it’ cannot be the language itself.",
+        tip: "Put each option in place of ‘it’ and read the sentence again. If the result is nonsense (use ‘the language’ for the language), cross it out." },
+      { q: "What is the main purpose of the article?", ans: "B",
+        o: ["to explain why some languages disappear",
+            "to show that languages can be created by people as well as inherited",
+            "to compare the history of three famous languages",
+            "to persuade readers to learn a new language"],
+        ev: "“these languages show that human beings do not simply inherit the way they speak. They can also build it.”",
+        why: "The article gives three examples of languages that people made, and the last paragraph says that humans do not only inherit speech: ‘they can also build it’.",
+        tip: "For ‘main purpose’ questions, read the last paragraph first. Do not choose an option that covers only one example or one paragraph." }
+    ]
+  }
+};
+
+</script>
+
+<script id="engine-block">
+(function () {
+  "use strict";
+  var D = DATA;
+  var LET = "ABCDEFGH";
+  var app = document.getElementById("app");
+  var scores = { p1: null, p2: null, p3: null };
+  var totals = { p1: D.part1.gaps.length, p2: D.part2.qs.length, p3: D.part3.qs.length };
+  var updateTotal = function () {};
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function paraHtml(txt) {
+    return esc(txt)
+      .replace(/\{(\d)\}/g, '<span class="gapslot" data-slot="$1"></span>')
+      .replace(/\[\[(\d)\|([^\]]+)\]\]/g, '<span class="ph"><u>$2</u><sup class="phn">$1</sup></span>');
+  }
+  function expBlock(ok, lines) {
+    var d = el("div", "exp " + (ok ? "right" : "wrong"));
+    lines.forEach(function (ln) { d.appendChild(el("p", null, ln)); });
+    return d;
+  }
+  function whyTip(x) {
+    return [
+      '<b class="lab why">Why</b>' + esc(x.why),
+      '<b class="lab tip">Exam tip</b>' + esc(x.tip)
+    ];
+  }
+  function buttons(onCheck, onReset) {
+    var row = el("div", "btnrow");
+    var b1 = el("button", "btn", "Check answers"); b1.type = "button";
+    var b2 = el("button", "btn ghost", "Try again"); b2.type = "button";
+    var sc = el("span", "scoreline", "");
+    b1.addEventListener("click", onCheck);
+    b2.addEventListener("click", onReset);
+    row.appendChild(b1); row.appendChild(b2); row.appendChild(sc);
+    return { row: row, score: sc, check: b1 };
+  }
+  function head(card, tag, title, sub) {
+    card.appendChild(el("span", "tag", tag));
+    card.appendChild(el("h2", null, esc(title)));
+    card.appendChild(el("p", "sub", esc(sub)));
+  }
+  function showScore(span, got, tot, blank) {
+    span.textContent = "Score: " + got + " / " + tot + (blank ? "  (" + blank + " blank)" : "");
+  }
+
+  /* ---------------------------------------------------------- PART 1 */
+  function buildPart1() {
+    var P = D.part1, sels = [];
+    var card = el("section", "card"); card.id = "part1";
+    head(card, "Part 1", P.title, P.instructions);
+
+    var box = el("div", "box"); box.appendChild(el("div", "bt", "Sentences"));
+    var ul = el("ul", "ends");
+    P.sentences.forEach(function (s, i) { ul.appendChild(el("li", null, "<b>" + LET.charAt(i) + "</b><span>" + esc(s) + "</span>")); });
+    box.appendChild(ul); card.appendChild(box);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) {
+      var p = el("p", null, paraHtml(t));
+      var slots = p.querySelectorAll(".gapslot");
+      for (var k = 0; k < slots.length; k++) {
+        var n = +slots[k].getAttribute("data-slot");
+        var wrap = el("span", "gapwrap", '<span class="gn">' + n + "</span>");
+        var sel = document.createElement("select");
+        sel.setAttribute("aria-label", "Gap " + n);
+        sel.appendChild(new Option("—", ""));
+        for (var i = 0; i < P.sentences.length; i++) sel.appendChild(new Option(LET.charAt(i), LET.charAt(i)));
+        wrap.appendChild(sel);
+        sels[n - 1] = sel;
+        slots[k].parentNode.replaceChild(wrap, slots[k]);
+      }
+      read.appendChild(p);
+    });
+    card.appendChild(read);
+
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = "";
+      panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.gaps.forEach(function (g, i) {
+        var v = sels[i].value, ok = v === g.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        sels[i].className = ok ? "ok" : "no";
+        sels[i].disabled = true;
+        var idx = LET.indexOf(g.ans);
+        panel.appendChild(expBlock(ok, [
+          '<b>Gap ' + (i + 1) + '</b><span class="mark ' + (ok ? "y" : "n") + '">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span>",
+          'Right answer: <span class="sol">' + g.ans + "</span> – " + esc(P.sentences[idx])
+        ].concat(whyTip(g))));
+      });
+      var ei = LET.indexOf(P.extra.ans);
+      panel.appendChild(expBlock(true, [
+        '<b>The extra sentence: ' + P.extra.ans + "</b> – " + esc(P.sentences[ei])
+      ].concat(whyTip(P.extra))));
+      panel.hidden = false;
+      showScore(bt.score, got, P.gaps.length, blank);
+      scores.p1 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      sels.forEach(function (s) { s.value = ""; s.className = ""; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p1 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    card.appendChild(panel);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 2 */
+  function buildPart2() {
+    var P = D.part2, items = [];
+    var card = el("section", "card"); card.id = "part2";
+    head(card, "Part 2", P.title, P.instructions);
+
+    var read = el("div", "read");
+    P.paras.forEach(function (t, i) {
+      var d = el("div", "para", '<span class="pl">' + LET.charAt(i) + "</span>");
+      d.appendChild(el("p", null, esc(t)));
+      read.appendChild(d);
+    });
+    card.appendChild(read);
+
+    card.appendChild(el("div", "prompt", esc(P.prompt)));
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var row = el("div", "selrow");
+      var sel = document.createElement("select");
+      sel.setAttribute("aria-label", "Question " + (i + 1));
+      sel.appendChild(new Option("Paragraph…", ""));
+      for (var k = 0; k < P.paras.length; k++) sel.appendChild(new Option(LET.charAt(k), LET.charAt(k)));
+      row.appendChild(sel); it.appendChild(row);
+      var slot = el("div"); slot.hidden = true; it.appendChild(slot);
+      items.push({ q: x, sel: sel, slot: slot });
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var v = o.sel.value, ok = v === o.q.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        o.sel.className = ok ? "ok" : "no"; o.sel.disabled = true;
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">paragraph " + o.q.ans + "</span>",
+          '<b class="lab ev">Evidence</b>' + esc(o.q.ev)
+        ].concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p2 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) { o.sel.value = ""; o.sel.className = ""; o.sel.disabled = false; o.slot.hidden = true; o.slot.innerHTML = ""; });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p2 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 3 */
+  function buildPart3() {
+    var P = D.part3, items = [];
+    var card = el("section", "card"); card.id = "part3";
+    head(card, "Part 3", P.title, P.instructions);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) { read.appendChild(el("p", null, paraHtml(t))); });
+    card.appendChild(read);
+    card.appendChild(el("div", "prompt", "Questions"));
+
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var opts = el("div", "opts"), btns = [], o = { q: x, picked: -1, btns: btns, slot: null };
+      x.o.forEach(function (txt, k) {
+        var b = el("button", "opt", '<span class="ol">' + LET.charAt(k) + "</span><span>" + esc(txt) + "</span>");
+        b.type = "button";
+        b.addEventListener("click", function () {
+          o.picked = k;
+          btns.forEach(function (bb, j) { bb.className = "opt" + (j === k ? " sel" : ""); });
+        });
+        btns.push(b); opts.appendChild(b);
+      });
+      it.appendChild(opts);
+      o.slot = el("div"); o.slot.hidden = true; it.appendChild(o.slot);
+      items.push(o);
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var right = LET.indexOf(o.q.ans), ok = o.picked === right;
+        if (o.picked < 0) blank++;
+        if (ok) got++;
+        o.btns.forEach(function (b, j) {
+          b.disabled = true;
+          b.className = "opt" + (j === right ? " good" : (j === o.picked ? " bad" : ""));
+        });
+        var lines = [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (o.picked >= 0 ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">" + o.q.ans + "</span>"
+        ];
+        if (o.q.ev) lines.push('<b class="lab ev">Evidence</b>' + esc(o.q.ev));
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, lines.concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p3 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) {
+        o.picked = -1; o.slot.hidden = true; o.slot.innerHTML = "";
+        o.btns.forEach(function (b) { b.className = "opt"; b.disabled = false; });
+      });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p3 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- TOTAL */
+  function buildTotal() {
+    var card = el("section", "card total"); card.id = "total";
+    card.appendChild(el("span", "tag", "My score"));
+    var body = el("div");
+    card.appendChild(body);
+    updateTotal = function () {
+      var parts = [["Part 1", scores.p1, totals.p1], ["Part 2", scores.p2, totals.p2], ["Part 3", scores.p3, totals.p3]];
+      var html = '<div class="row">', done = 0, sum = 0, max = 0;
+      parts.forEach(function (p) {
+        html += '<span class="pill">' + p[0] + ": " + (p[1] == null ? "–" : p[1]) + " / " + p[2] + "</span>";
+        max += p[2];
+        if (p[1] != null) { done++; sum += p[1]; }
+      });
+      html += "</div>";
+      if (done === 3) html += '<div class="big">Total: ' + sum + " / " + max + "</div>";
+      else html += '<p class="sub">Check all three parts to see your total score.</p>';
+      body.innerHTML = html;
+    };
+    updateTotal();
+    return card;
+  }
+
+  document.getElementById("herotitle").textContent = D.heroTitle;
+  var nav = document.getElementById("nav");
+  [["part1", "Part 1"], ["part2", "Part 2"], ["part3", "Part 3"], ["total", "My score"]].forEach(function (p) {
+    var a = el("a", null, p[1]); a.href = "#" + p[0]; nav.appendChild(a);
+  });
+  app.appendChild(buildPart1());
+  app.appendChild(buildPart2());
+  app.appendChild(buildPart3());
+  app.appendChild(buildTotal());
+})();
+</script>
+</body>
+</html>

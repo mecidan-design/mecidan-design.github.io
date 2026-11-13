@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Comprehension B1+ - Practice Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+.read p{font-size:1.04rem;line-height:1.7;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.hl{background:var(--yellow);border-radius:4px;padding:0 3px;font-weight:600}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;margin-right:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 22px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:500;padding:7px 10px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+
+.box{
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff;
+}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.words span{
+  font-family:var(--head);font-weight:700;background:var(--cyan);border:2px solid #000;
+  border-radius:999px;padding:1px 12px;
+}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 6px;line-height:1.45;font-size:.97rem}
+.ends b{font-family:var(--head);font-weight:800;margin-right:6px}
+.blank{display:inline-block;min-width:56px;border-bottom:3px solid #000;margin:0 3px}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 4px}
+.cloze{font-size:1.06rem;line-height:2.7;margin:0}
+select.gapsel{margin:0 4px;padding:3px 8px;font-size:.95rem}
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>READING &middot; B1+</h1>
+    <p>Read the text &bull; True, false or not given &bull; Choose the option &bull; Match the meanings &bull; Complete the summary</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Reading comprehension, version 1 (nivel +30%).
+   Respecto de la version anterior:
+   - Textos con estructuras mas complejas (inversion, participios, relativas) y
+     datos extra que permiten items "Not given".
+   - tf: True / False / Not given. a = true | false | "ng". En "ng" no hay cita.
+   - comp: opcion multiple con 4 opciones (la correcta box[word] + 3 distractores d).
+   - vocab: 8 definiciones para 6 expresiones (2 sobran). def = indice.
+   - cloze: resumen con huecos {1}..{6} y un box de 8 palabras (2 sobran).
+     ans = indice en cloze.box. Las explicaciones salen juntas debajo del texto.
+   Los marcadores ** resaltan las 6 expresiones de la actividad x.3. ====== */
+var DATA = {
+
+texts: [
+
+/* ---------------------------------------------------------------- TEXT 1 */
+{
+  id: "t1", nav: "Text 1", level: "Medium", title: "Alternative Learning and Financial Independence",
+  paras: [
+    "When sixteen-year-old Sophia transferred to Oakridge Academy, a non-traditional secondary school where students are encouraged to design their own learning path, she was extremely **anxious about** whether she had made the right decision. At her previous school, students had been required to follow rigid timetables, and Sophia, who had never fully recovered from a disastrous set of mock exams, often felt overwhelmed by competitive exam pressure. At Oakridge, however, teachers firmly believe that young people ought to be allowed to choose subjects that they are passionate about and capable of mastering.",
+    "The school, which was founded five years ago by an innovative headteacher, offers a unique curriculum that combines traditional academic subjects with essential life skills. In her favorite class, personal finance, Sophia learns how to manage money, understand local currency, and calculate monthly budgets. Before taking this course, she used to waste her pocket money on impulse purchases and frequently ran out of cash. Now she can distinguish between essential daily expenses and unnecessary luxuries. “If students learn how to manage their allowance early, they will avoid getting into serious debt when they grow up,” explains her teacher, Mr. Davies, whose creative teaching methods have received widespread praise throughout the region.",
+    "Last month, Sophia’s class took part in an enterprise project in which they had to set up small school businesses. Sophia’s team decided to produce eco-friendly study planners made from recycled materials. At first, calculating production costs seemed tricky, but working together made the entire process a **piece of cake**. Sophia, who is exceptionally creative and sensible, took charge of the marketing campaign. She had to **look up** information online about sustainable paper suppliers and note down detailed price estimates for her teammates, none of whom had any previous experience of running a business.",
+    "Whenever team members **fell behind** with their individual assignments, Sophia helped them **catch up** so that nobody felt left out. “We ought to have spent more time reviewing our initial budget,” Sophia admits, “because we almost ran out of funds midway through. Had we been more careful, we would have avoided that stress. But in the end, our planners were sold out within hours and were awarded first prize at the annual school fair!”",
+    "Through this rewarding experience, Sophia learned invaluable lessons about teamwork and financial independence. She now realizes that, had she not taken the risk of changing schools, she would never have discovered her passion for entrepreneurship. Far from feeling anxious, she feels considerably more confident about her academic future, and she believes that every school should offer practical courses where teenagers can learn how to **cope with** real-world challenges."
+  ],
+  tf: [
+    { q: "Sophia chose Oakridge mainly because it offered more traditional academic subjects than her old school.", a: false,
+      ev: "“a non-traditional secondary school where students are encouraged to design their own learning path”",
+      why: "Oakridge is described as non-traditional. Sophia’s problem at her old school was the strict timetables and the exam pressure, not a lack of traditional subjects.",
+      tip: "Words like “mainly” and “more traditional” can be traps. Check how the text describes the school before you decide." },
+    { q: "At her previous school, Sophia often felt stressed by the competition.", a: true,
+      ev: "“often felt overwhelmed by competitive exam pressure”",
+      why: "“Overwhelmed” means very stressed, and the pressure came from competition. The statement says the same with simpler words.",
+      tip: "Match the feeling, not the exact words: stressed by competition = overwhelmed by competitive pressure." },
+    { q: "Sophia’s parents persuaded her to change schools.", a: "ng",
+      ev: null,
+      why: "The text never says who decided that Sophia should change schools. Her parents are not mentioned at all.",
+      tip: "Not given means that the text is silent. Do not use your own ideas: if you cannot find it in the text, and it is not the opposite either, choose Not given." },
+    { q: "Mr. Davies believes that learning to manage an allowance early makes serious debt more likely.", a: false,
+      ev: "“they will avoid getting into serious debt when they grow up”",
+      why: "The teacher says the opposite. Managing money early helps students avoid debt, so debt becomes less likely.",
+      tip: "“More likely” and “avoid” are opposites. When a statement reverses the logic of the text, the answer is False." },
+    { q: "Sophia feels that her team should have been more careful with their first budget.", a: true,
+      ev: "“We ought to have spent more time reviewing our initial budget”",
+      why: "“Ought to have” shows regret, so she thinks they should have done more. “Initial” means first.",
+      tip: "“Ought to have”, “should have” and “had we been more careful” all point to a regret about the past." },
+    { q: "Sophia’s team made more than a hundred dollars at the school fair.", a: "ng",
+      ev: null,
+      why: "The text says that the planners sold out and won first prize, but it never gives an amount of money.",
+      tip: "Numbers in a statement must appear in the text. If a number or a quantity is new, think of Not given." }
+  ],
+  box: ["look up", "piece of cake", "manage", "ought to", "catch up", "sensible"],
+  endings: [
+    "___ information about sustainable paper suppliers.",
+    "___ have spent more time checking the budget.",
+    "___ their money and avoid debt.",
+    "___ with their work.",
+    "a ___ for everyone.",
+    "___ enough to make good choices about money."
+  ],
+  comp: [
+    { begin: "At Oakridge Academy, students learn how to", end: 2, word: 2, d: ["managed", "managing", "to manage"],
+      why: "After “learn how to” we need the base form of a verb. “Manage” fits, and money and debt go together with it.",
+      tip: "Look at the words just before the gap. “How to” is always followed by the base form (manage, not managed)." },
+    { begin: "Calculating the budget looked tricky, but working as a team made it", end: 4, word: 1, d: ["piece of pie", "slice of cake", "bit of cake"],
+      why: "“Tricky” is the problem and “but” brings the opposite idea: the task was very easy in the end. A “piece of cake” is something easy.",
+      tip: "“But” signals a contrast. If the first part says “difficult”, the second part says “easy”. Idioms must be exact: piece of cake." },
+    { begin: "Sophia was chosen to lead the marketing because she was creative and", end: 5, word: 5, d: ["sensitive", "sensibly", "sensibility"],
+      why: "“Creative and ___” needs another adjective for a person. “Sensible” means practical and able to make good decisions.",
+      tip: "After “and”, use the same type of word as before it: adjective + and + adjective. Careful: sensible and sensitive look similar but mean different things." },
+    { begin: "For the project, Sophia had to go online to", end: 0, word: 0, d: ["look after", "look out", "look down"],
+      why: "“Go online to look up information” means to search for facts on the internet.",
+      tip: "Go online / use the internet + information: the phrasal verb is “look up”." },
+    { begin: "When her teammates fell behind, Sophia helped them", end: 3, word: 4, d: ["catch on", "put up", "keep out"],
+      why: "If people are behind, they need to reach the others again. “Catch up with their work” means to reach the same level.",
+      tip: "“Fall behind” and “catch up” are opposites. They often appear in the same sentence." },
+    { begin: "Sophia says her team", end: 1, word: 3, d: ["ought", "ought to be", "would to"],
+      why: "The ending has “have spent”, and Sophia talks about a mistake in the past. “Ought to have + past participle” shows regret.",
+      tip: "See “have + past participle” after a gap? Think of ought to / should / could + have. Remember that ought always needs “to”." }
+  ],
+  vocab: [
+    { term: "Anxious about", para: 1, def: 1,
+      why: "Sophia was “extremely anxious” about her decision: she was worried because it was an important choice.",
+      tip: "“Anxious about” is followed by a worry: anxious about exams, about the future." },
+    { term: "Piece of cake", para: 3, def: 3,
+      why: "The text says calculating costs was tricky at first, but then it became very easy.",
+      tip: "Idioms are not literal. There is no real cake here, so use the context to find the meaning." },
+    { term: "Look up", para: 3, def: 0,
+      why: "Sophia goes online and finds facts about suppliers. That is searching for information.",
+      tip: "“Look up” + information, a word or a number = search for it in a book or online." },
+    { term: "Fall behind", para: 4, def: 5,
+      why: "Team members “fell behind with their assignments”, so they were slower than they should be.",
+      tip: "“Behind” is the clue: the opposite of being ahead or on time." },
+    { term: "Catch up", para: 4, def: 2,
+      why: "Sophia helped the slower students so that they could be at the same level as the group again.",
+      tip: "“Catch up” is the opposite of “fall behind”. Learn them as a pair." },
+    { term: "Cope with", para: 5, def: 4,
+      why: "Teenagers learn practical skills to handle real-world “challenges”, which means to deal with difficult situations.",
+      tip: "“Cope with” is usually followed by something hard: cope with stress, with problems, with change." }
+  ],
+  defs: [
+    "Search for specific information in a book, database, or online.",
+    "Feel worried, uneasy, or nervous about something.",
+    "Reach the same level or speed as others after being behind.",
+    "Something that is very easy to do or achieve.",
+    "Successfully deal with or handle a difficult situation.",
+    "Make slower progress than other people or fail to meet a deadline.",
+    "Refuse to accept a difficult situation and run away from it.",
+    "Spend more money than you have and end up in debt."
+  ],
+  cloze: {
+    box: ["won", "manage", "ought", "cope", "look up", "anxious", "produced", "choose"],
+    text: "Sophia moved to Oakridge because she felt {1} about the pressure at her old school. At Oakridge, students can {2} their own subjects, and Sophia’s favourite lesson teaches her how to {3} her money. With her team, she {4} study planners from recycled paper, and she had to {5} information about suppliers on the internet. Later, Sophia admitted that the team {6} to have reviewed their budget more carefully.",
+    gaps: [
+      { ans: 5, why: "After “felt” we need an adjective, and “about the pressure” follows. “Anxious about” means worried about.",
+        tip: "Gap + about: think of adjective + preposition (anxious about, keen on, passionate about)." },
+      { ans: 7, why: "After “can” we need the base form of a verb. “Choose” fits the idea that students are free to select their subjects.",
+        tip: "After a modal like can, use the base form. Then ask which verb matches the meaning." },
+      { ans: 1, why: "After “how to” we need a base verb. To manage money means to control it carefully.",
+        tip: "Money often goes with manage, save, spend or waste. Pick the one that fits the topic." },
+      { ans: 6, why: "This is a story in the past, so we need a past tense verb. “Produced” means made, and it fits “study planners”.",
+        tip: "Look at the tense of the sentences around the gap. A past story needs past forms." },
+      { ans: 4, why: "After “had to” we need the base form. She went online to search for facts, so “look up” is the right phrasal verb.",
+        tip: "Information + the internet = look up. Remember that “had to” is followed by the base form." },
+      { ans: 2, why: "“Ought” is the only word that fits before “to have reviewed”. It shows that the team did not do something that was a good idea.",
+        tip: "Ought + to + have + past participle = regret about the past. The words “to have” after the gap are the clue." }
+    ]
+  }
+},
+
+/* ---------------------------------------------------------------- TEXT 2 */
+{
+  id: "t2", nav: "Text 2", level: "Hard", title: "The Eco-Tech High School Project",
+  paras: [
+    "Across the globe, progressive high schools are increasingly recognizing that environmental education cannot be taught merely through standard classroom textbooks. At Greenfield High, an ambitious group of senior students, led by seventeen-year-old Marcus, recently embarked on what many consider an extraordinary environmental project: transforming a **derelict** storage building into a futuristic, solar-powered eco-lab.",
+    "When the initiative was first proposed to the school council, several teachers were noticeably hesitant, believing that teenagers might be too indecisive or irresponsible to manage such a complex enterprise. So convinced were some of them of eventual failure that one teacher predicted the building would still be empty a year later. However, Marcus and his classmates, who were deeply **passionate about** environmental sustainability, quickly proved the doubters wrong. They worked tirelessly every afternoon, refusing to fall behind with their regular academic studies while **going over** technical diagrams and architectural plans for the new facility.",
+    "The project demanded a sophisticated combination of scientific understanding and practical hands-on skills. First, the old damaged roof had to be completely replaced. The students **had high-efficiency solar panels installed** by local professional engineers, ensuring that the new structure could generate its own clean electricity. Inside, smart environmental sensors—which were generously donated by a local technology company—were fitted to monitor indoor temperature and energy consumption in real time. Not only do the sensors monitor energy use, but they also supply the data that the students analyse in their biology lessons. “If the team had not received professional assistance from experienced technicians, the electrical installation would have been far more dangerous,” Marcus explained during an interview with the student newspaper. “We had the entire wiring system checked three times before turning the power on to prevent any dangerous electrical accidents.”",
+    "Financing the eco-lab presented another **formidable hurdle**. The total expenditure was estimated at several thousand dollars, an amount that the school board simply could not afford to pay. Rather than giving up, the student committee organized an energetic community fundraising campaign. They sold handmade crafts, offered computer maintenance services, and applied for environmental research grants. The first application was rejected, a setback that might easily have ended the project had the committee not been so determined. “We wish we had started searching for corporate sponsorship much earlier,” admitted Elena, the team’s financial officer. “If only we had known how long grant applications take to process! We had to deal with endless administrative paperwork and provide detailed information regarding our projected energy savings. Furthermore, we had to ensure that our official accounting records were completely accurate and transparent.”",
+    "Despite these challenging obstacles, the eco-lab was officially opened last week during a special ceremony attended by local dignitaries and parents. The building, surrounded by native trees and colorful flowers, now serves as a vibrant educational space where students conduct advanced biology experiments, **calculate carbon footprints**, and study renewable energy solutions. The remarkable success of the project has generated tremendous enthusiasm throughout the entire educational district. Headteachers from neighboring towns have already visited Greenfield High to inspect the impressive facility and learn directly from the students’ unique experience. Unless young people are given genuine opportunities to solve real environmental problems, they will struggle to develop the critical thinking skills required in the modern world. Marcus and his dedicated team have clearly demonstrated that when teenagers are trusted with real responsibility, extraordinary achievements are possible."
+  ],
+  tf: [
+    { q: "From the beginning, all the teachers believed that the students could manage the project.", a: false,
+      ev: "“several teachers were noticeably hesitant”",
+      why: "“Hesitant” means unsure. Several teachers had doubts, so it is not true that all of them believed in the project.",
+      tip: "“All” and “from the beginning” are strong words. One group of teachers with doubts is enough to make the statement False." },
+    { q: "The students kept up with their ordinary school subjects during the project.", a: true,
+      ev: "“refusing to fall behind with their regular academic studies”",
+      why: "“Refusing to fall behind” means they did not allow their studies to suffer. “Keep up with” is the opposite of “fall behind”.",
+      tip: "Keep up with = not fall behind. When the statement uses the opposite expression, think carefully about the negative." },
+    { q: "Marcus’s parents helped to pay for the equipment.", a: "ng",
+      ev: null,
+      why: "The text mentions the school board, a technology company and research grants, but nothing about Marcus’s parents paying for anything.",
+      tip: "Check every person in the statement. If the text does not say that this person did this action, it is Not given." },
+    { q: "The school board could afford the cost, but asked the students to pay part of it anyway.", a: false,
+      ev: "“an amount that the school board simply could not afford to pay”",
+      why: "The board could not pay. It was not a choice, so the students had to raise the money.",
+      tip: "“Could not afford” means there was not enough money. A statement about a different reason is False." },
+    { q: "Elena would prefer to have looked for company sponsors at an earlier stage.", a: true,
+      ev: "“We wish we had started searching for corporate sponsorship much earlier”",
+      why: "“Wish + had + past participle” shows regret about the past. “Corporate sponsorship” comes from companies.",
+      tip: "“Would prefer to have + past participle” and “wish + had + past participle” both express a regret about the past." },
+    { q: "The eco-lab was inspected by representatives of the national government.", a: "ng",
+      ev: null,
+      why: "The text mentions local dignitaries and headteachers from neighboring towns. It says nothing about the national government.",
+      tip: "Look at the exact words: local and national are different. If the group is not in the text, choose Not given." }
+  ],
+  box: ["going to be", "dependent on", "unless", "going over", "had solar panels installed", "wish they had"],
+  endings: [
+    "___ started looking for grant money earlier.",
+    "___ the technical plans for the building.",
+    "___ used for science experiments next year.",
+    "___ by professional engineers.",
+    "___ they get real chances to solve real problems.",
+    "highly ___ the support of adults."
+  ],
+  comp: [
+    { begin: "The students spent their afternoons carefully", end: 1, word: 3, d: ["go over", "gone over", "goes over"],
+      why: "“Spent their afternoons carefully ___” needs an -ing form. “Going over” plans means studying them with attention.",
+      tip: "After “spend time”, use a verb with -ing: spend time going over, working on, checking." },
+    { begin: "To keep the lab safe, the team", end: 3, word: 4, d: ["installed solar panels", "had installed solar panels", "had solar panels install"],
+      why: "The ending says “by professional engineers”, so the team arranged for experts to do the work. This is the structure “have + object + past participle”.",
+      tip: "See “by + person” at the end? The sentence is passive, so look for “had … installed”." },
+    { begin: "Elena said that she and her team", end: 0, word: 5, d: ["wish they would have", "wished they have", "wish they have"],
+      why: "The ending has “started … earlier”, which is a regret about the past. “Wish they had started” shows that they are sorry.",
+      tip: "“Wish + had + past participle” = regret about the past. Do not use “would have” after wish. “Earlier” is a good clue." },
+    { begin: "The success of student projects is often", end: 5, word: 1, d: ["dependent of", "dependent from", "dependent to"],
+      why: "“Highly ___ the support of adults” needs an adjective + preposition. “Dependent on” means that something needs something else.",
+      tip: "Some adjectives always go with one preposition: dependent on, interested in, afraid of. Learn them together." },
+    { begin: "The eco-lab is", end: 2, word: 0, d: ["going to", "going be", "will going to be"],
+      why: "The ending has “next year”, so this is a plan for the future. “Is going to be used” is the passive form.",
+      tip: "A future time (next year, tomorrow) + a plan = going to. For the passive, add “be” + past participle." },
+    { begin: "Young people will not learn to think critically", end: 4, word: 2, d: ["if not", "unless not", "otherwise"],
+      why: "“Unless” means “if not”. The idea is: they will not learn if they do not get real chances.",
+      tip: "“Unless” already has a negative meaning. Do not use “not” after it (unless they get, not unless they do not get)." }
+  ],
+  vocab: [
+    { term: "Derelict", para: 1, def: 3,
+      why: "The students want to change an old building into a new lab, so the building was in a bad state because nobody used it.",
+      tip: "When a word is new, look at what the sentence says is going to change. A building that needs “transforming” is probably in bad condition." },
+    { term: "Passionate about", para: 2, def: 5,
+      why: "Marcus and his classmates worked “tirelessly” on sustainability, so they felt very strongly about it.",
+      tip: "Passionate about + a topic. The word “deeply” before it shows a strong feeling." },
+    { term: "Go over", para: 2, def: 0,
+      why: "They looked at technical diagrams and plans with attention. That means checking them carefully.",
+      tip: "“Go over” + documents, plans or notes = read and check them again." },
+    { term: "Have something installed", para: 3, def: 4,
+      why: "The panels were put in by engineers, so the students arranged for experts to do the job.",
+      tip: "Have + object + past participle = another person does it for you (have your hair cut, have a car repaired)." },
+    { term: "Formidable hurdle", para: 4, def: 1,
+      why: "The total cost was too high for the school board. This was a very big problem that the students had to solve.",
+      tip: "A “hurdle” is something you must jump over in a race. In English it also means a problem on the way to a goal." },
+    { term: "Calculate carbon footprints", para: 5, def: 2,
+      why: "A carbon footprint is the amount of carbon dioxide that people or things produce. Students work it out in numbers.",
+      tip: "“Calculate” tells you the answer is a number. Footprint here is a measure, not a real foot mark." }
+  ],
+  defs: [
+    "Examine, review, or study something carefully.",
+    "A very difficult problem or obstacle that requires great effort to overcome.",
+    "Measure the amount of carbon dioxide produced by human activities.",
+    "In a very poor condition as a result of disuse and neglect.",
+    "Arrange for an expert or technician to put equipment or machinery into place.",
+    "Having or showing compelling enthusiasm or strong feelings for something.",
+    "Careful, organised and good at planning every detail of a project.",
+    "Moving or growing very fast, especially in size or in number."
+  ],
+  cloze: {
+    box: ["since", "dependent", "derelict", "unless", "checked", "passionate", "formidable", "installed"],
+    text: "Senior students at Greenfield High turned an old, {1} storage building into a solar-powered eco-lab. Some teachers doubted them, but the students, who were {2} about sustainability, did not fall behind in their studies. They had solar panels {3} by local engineers, and the wiring was {4} three times before the power was switched on. Paying for the lab was a {5} hurdle, and the students had to raise the money themselves {6} the school board could not afford it.",
+    gaps: [
+      { ans: 2, why: "“Old, ___ storage building” needs an adjective for a building in very bad condition that nobody uses. “Derelict” fits.",
+        tip: "Two adjectives in a row (old, derelict) often describe the same idea. Look for a word with a similar meaning to “old and unused”." },
+      { ans: 5, why: "“Who were ___ about sustainability” needs an adjective + about. “Passionate about” means having strong feelings for something.",
+        tip: "Adjective + preposition pairs are good clues: passionate about, dependent on. Check the preposition after the gap." },
+      { ans: 7, why: "“Had solar panels ___ by local engineers” follows the pattern have + object + past participle. The engineers put the panels in, so “installed”.",
+        tip: "Have + object + past participle + by someone. The word “by” after the gap tells you it is a past participle." },
+      { ans: 4, why: "“The wiring was ___ three times” is a passive sentence, so we need a past participle. Checking something three times makes sense for safety.",
+        tip: "“Three times” goes with a repeated action. You check something many times, but you install it once." },
+      { ans: 6, why: "“A ___ hurdle” needs an adjective that means very difficult. A formidable hurdle is a very big problem.",
+        tip: "A hurdle is an obstacle, so choose a strong adjective of size or difficulty." },
+      { ans: 0, why: "“Since” here means “because”. It gives the reason why the students had to raise the money.",
+        tip: "A reason after a comma or a clause: because, since, as. “Unless” would change the meaning completely." }
+    ]
+  }
+},
+
+/* ---------------------------------------------------------------- TEXT 3 */
+{
+  id: "t3", nav: "Text 3", level: "Very hard", title: "Smart Future: Technology, Education, and Youth Enterprise",
+  paras: [
+    "In recent years, the rapid integration of artificial intelligence into educational platforms has fundamentally transformed how secondary school students review complex academic material. However, few digital innovations have attracted as much national attention as ‘BrainBoost’, a revolutionary learning software application developed entirely by a talented group of teenage programmers from Chicago.",
+    "The ambitious enterprise began two years ago when eighteen-year-old Julian and his classmates realized that conventional study methods were failing to **keep up with** the rigorous demands of modern secondary examinations. Many of their peers were falling behind in challenging subjects like advanced mathematics and physics, feeling completely overwhelmed by vast quantities of unfamiliar information. “If traditional revision techniques had been truly effective, so many intelligent students wouldn’t have been struggling,” Julian observed during a technology conference. “We realized that an **adaptive software algorithm**—one that identifies an individual learner’s specific weaknesses and customizes practice exercises accordingly—must be created to support struggling students.”",
+    "Developing the application was a tough, exhausting process that tested the young team’s determination to its absolute limits. Because none of the teenagers possessed formal university qualifications in software engineering at the time, they had to spend hundreds of hours studying coding tutorials online, frequently staying up late after completing their regular school homework. Furthermore, financial resources were exceptionally tight. They couldn’t afford commercial developer software, so they were forced to **make do with** basic open-source tools. “Looking back, we **ought to have** sought professional advice from experienced software engineers much earlier,” recalls Maya, the project’s lead graphic designer. “Had we done so, we would certainly have avoided several critical programming errors that set our development timeline back by months. We really should have planned our schedule far more carefully.”",
+    "Data security also presented a nightmare scenario for the young entrepreneurs. Midway through the development phase, the team **had their original cloud database server compromised** by anonymous hackers, resulting in the catastrophic loss of several months of valuable source code. They were forced to have their entire system security architecture completely **overhauled** by professional cybersecurity experts before officially launching the product. “It was an immensely stressful period,” Maya admits. “If we hadn’t had our network protocols updated immediately, the entire project would have been permanently destroyed and our young company would have gone bankrupt.”",
+    "Fortunately, their extraordinary perseverance eventually paid off. Today, ‘BrainBoost’ is being actively utilized by over fifty secondary schools across the state. The software relies on sophisticated mathematical calculations to analyze precisely how long a student spends on each question, predicting when they are likely to forget key concepts and automatically scheduling targeted review sessions. Teachers who have introduced the application report remarkable improvements in student concentration, academic performance, and overall exam results. Notably, the improvement has been most striking among students who had previously been regarded as unlikely to succeed.",
+    "The inspiring success of ‘BrainBoost’ conclusively proves that when young people are provided with proper resources and encouragement, their creative potential is virtually limitless. Educational authorities are currently evaluating whether similar student-led technological initiatives should be officially funded on a national scale. Were such initiatives to be funded nationally, the benefits would, in all likelihood, extend well beyond examination results. Unless modern educational systems adapt quickly to embrace youth-led technological innovation, they risk leaving future generations unprepared for an increasingly competitive digital economy. For Julian and Maya, who are now preparing to enter university, the journey has been an unforgettable experience that has permanently shaped their professional ambitions and opened doors to exciting new career opportunities."
+  ],
+  tf: [
+    { q: "‘BrainBoost’ was developed with the help of university professors in Chicago.", a: false,
+      ev: "“developed entirely by a talented group of teenage programmers from Chicago”",
+      why: "“Entirely” means that only the teenagers did the work, with no help from professors.",
+      tip: "“Entirely” and “with the help of” cannot both be true. A strong word like “entirely” is often a clue." },
+    { q: "Julian thought that the old ways of studying could not meet the demands of modern exams.", a: true,
+      ev: "“conventional study methods were failing to keep up with the rigorous demands of modern secondary examinations”",
+      why: "“Failing to keep up with” the demands means that the old methods were not good enough. “Conventional” means traditional.",
+      tip: "Fail to keep up with = cannot meet. Look for synonyms of traditional: conventional, old, standard." },
+    { q: "The team received money from a technology company.", a: "ng",
+      ev: null,
+      why: "The text says that money was very tight, but it does not say where any extra money came from. There is no technology company in this text.",
+      tip: "Do not mix up the texts. Use only the text you are reading, and choose Not given when the idea is missing." },
+    { q: "The team could have afforded commercial software, but they preferred open-source tools.", a: false,
+      ev: "“They couldn’t afford commercial developer software”",
+      why: "They had no choice. They could not afford the commercial software, so they were forced to use free tools.",
+      tip: "“Forced to” means no choice. A statement about preference says the opposite." },
+    { q: "Maya believes that earlier expert advice would have prevented some of the team’s coding mistakes.", a: true,
+      ev: "“Had we done so, we would certainly have avoided several critical programming errors”",
+      why: "“Had we done so” is a third conditional: if they had asked experts, they would have avoided the errors.",
+      tip: "An inverted “Had we …” means “If we had …”. It talks about a situation that did not happen." },
+    { q: "‘BrainBoost’ is used in more schools than any other study application in the state.", a: "ng",
+      ev: null,
+      why: "The text says that over fifty schools use BrainBoost, but it never compares it with other applications.",
+      tip: "A comparison (more than any other, the best) needs a comparison in the text. If there is none, choose Not given." }
+  ],
+  box: ["make do with", "provided that", "algorithm", "had their server compromised", "revise for", "ought to have"],
+  endings: [
+    "___ basic open-source tools.",
+    "___ by hackers.",
+    "___ planned their schedule more carefully.",
+    "___ they get proper funding and support.",
+    "an intelligent ___ that predicts when students will forget key ideas.",
+    "___ difficult school exams."
+  ],
+  comp: [
+    { begin: "The software helps students who need to", end: 5, word: 4, d: ["revise of", "revise about", "revise to"],
+      why: "“Revise for” an exam means to study the material again before the test. After “need to” we use the base form of a verb.",
+      tip: "Exam + study again = revise for. Remember: in British English, “revise” means to review your notes." },
+    { begin: "The app is powered by", end: 4, word: 2, d: ["algorithms", "algorithmic", "algorithming"],
+      why: "A program that follows rules to solve a problem is an algorithm. Here it works out when students forget things.",
+      tip: "After “an intelligent” we need a singular noun, and the ending says it “predicts”. Software + rules = algorithm." },
+    { begin: "Commercial software was too expensive, so the teenagers had to", end: 0, word: 0, d: ["make do of", "do make with", "make up with"],
+      why: "They had little money, so they used simple free tools. “Make do with” means to accept something that is not perfect.",
+      tip: "“So” introduces a result. Lack of money → use less good things = make do with." },
+    { begin: "Maya thinks that the team", end: 2, word: 5, d: ["ought to", "ought have", "ought to has"],
+      why: "The ending needs “have planned”, and Maya talks about a mistake in the past. “Ought to have planned” shows regret.",
+      tip: "Past participle after the gap (planned) + advice about the past = ought to have." },
+    { begin: "The project nearly failed when the team", end: 1, word: 3, d: ["had compromised their server", "compromised their server", "had their server to compromise"],
+      why: "“By hackers” tells us the team did not choose it: it happened to them. “Had their server compromised” is the structure for bad events.",
+      tip: "“Have + object + past participle” can also describe bad things that happen to you (had my phone stolen)." },
+    { begin: "Student tech projects can grow across the country", end: 3, word: 1, d: ["provided", "provide that", "providing for"],
+      why: "“Provided that” means “if, and only if”. Growth is possible on the condition that they get funding and support.",
+      tip: "“Provided that” and “as long as” both give a condition. They are followed by a normal sentence." }
+  ],
+  vocab: [
+    { term: "Keep up with", para: 2, def: 1,
+      why: "Study methods were too slow for the demands of the exams, so they were not moving at the same speed.",
+      tip: "“Keep up with” is about speed or progress: keep up with the class, with the news, with prices." },
+    { term: "Adaptive software algorithm", para: 2, def: 2,
+      why: "Julian says it finds each learner’s weak points and changes the exercises. That is software that adjusts by itself.",
+      tip: "“Adaptive” comes from “adapt”, which means to change to fit something." },
+    { term: "Make do with", para: 3, def: 3,
+      why: "They could not afford the good tools, so they used the basic ones that they had.",
+      tip: "“Make do with” usually comes after a problem: no money, no time, no space." },
+    { term: "Ought to have", para: 3, def: 5,
+      why: "Maya looks back at the past and says they should have asked for help. It was a good idea, but they did not do it.",
+      tip: "“Looking back” in the same sentence is the clue for a regret or a past mistake." },
+    { term: "Have a server compromised", para: 4, def: 0,
+      why: "Hackers got into the database without permission and the team lost months of code.",
+      tip: "In computing, “compromised” means that security was broken and strangers had access." },
+    { term: "Overhaul", para: 4, def: 4,
+      why: "Experts looked at the whole security system and improved it completely before the launch.",
+      tip: "“Overhaul” is a strong word: not a small fix, but a complete check and repair." }
+  ],
+  defs: [
+    "Experience a security breach where unauthorized people access private computer data.",
+    "Move, progress, or increase at the same rate as something else.",
+    "A self-learning set of computer rules that automatically adjusts to a user’s needs.",
+    "Manage or survive using whatever limited resources are available, even if imperfect.",
+    "Completely examine, repair, or redesign a system or process.",
+    "Express a past obligation or regret about something that was advisable but not done.",
+    "Make something much larger, more powerful or more complicated than before.",
+    "Ask for advice or help from someone with more experience."
+  ],
+  cloze: {
+    box: ["afford", "keep up", "overhaul", "reliable", "adaptive", "compromised", "make do", "ought"],
+    text: "BrainBoost was created by teenagers who felt that old study methods could not {1} with modern exams. The software uses an {2} algorithm to find each student’s weak points. Because money was short, the team had to {3} with free tools. Maya now thinks that the team {4} to have asked for expert advice earlier. After hackers {5} the server, months of work were lost, and experts had to {6} the whole security system.",
+    gaps: [
+      { ans: 1, why: "“Could not ___ with” needs a base verb. “Keep up with” means to move at the same speed, and the old methods were too slow.",
+        tip: "A gap before “with” often points to a phrasal verb with with: keep up with, cope with, catch up with." },
+      { ans: 4, why: "“An ___ algorithm”: “an” comes before a vowel sound, and “adaptive” describes software that changes to fit the user. “Reliable” would need “a”.",
+        tip: "Check the article! “An” tells you that the next word starts with a vowel sound." },
+      { ans: 6, why: "“Had to ___ with free tools”: “make do with” means to accept what you have when you cannot get something better.",
+        tip: "Money problems + with = make do with." },
+      { ans: 7, why: "“___ to have asked” only works with “ought”. It is the only one of these words that needs “to” before “have”.",
+        tip: "Ought is the only modal verb followed by to. “To have” + past participle after the gap is the clue." },
+      { ans: 5, why: "After “hackers” we need a past tense verb with the object “the server”. “Compromised” means that the security was broken.",
+        tip: "Computing words go together: hackers compromise a server, a network or an account." },
+      { ans: 2, why: "“Had to ___ the whole security system” needs a base verb. To overhaul means to repair or redesign completely.",
+        tip: "“The whole system” is a clue for a big change, not a small fix: overhaul." }
+    ]
+  }
+}
+
+]
+};
+</script>
+
+<script id="engine-block">
+(function () {
+  var LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  var TFREG = [], COMPREG = [], VOCREG = [], CLREG = [];
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function fmt(s) {
+    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b class="hl">$1</b>');
+  }
+  function plain(s) { return String(s).replace(/\*\*/g, ""); }
+  function endHtml(s) { return esc(s).replace("___", '<span class="blank"></span>'); }
+
+  function expl(ok, solHtml, evidence, why, tip) {
+    var h = '<div class="exp ' + (ok ? "right" : "wrong") + '">';
+    h += '<p>' + (ok ? "Correct! " : "Not quite. ") + solHtml + '</p>';
+    if (evidence) h += '<p><b class="lab ev">Evidence</b>' + esc(evidence) + '</p>';
+    h += '<p><b class="lab why">Why</b>' + esc(why) + '</p>';
+    h += '<p><b class="lab tip">Exam tip</b>' + esc(tip) + '</p></div>';
+    return h;
+  }
+
+  function scoreText(ok, total) {
+    var msg = ok === total ? "Perfect!" : (ok >= total - 2 ? "Well done!" : "Keep going, read the tips and try again.");
+    return "Score: " + ok + " / " + total + " - " + msg;
+  }
+
+  function sectionShell(tag, title, sub, bodyId, prefix) {
+    return '<div class="tag">' + esc(tag) + '</div><h2>' + esc(title) + '</h2><p class="sub">' + esc(sub) + '</p>' +
+      '<div id="' + prefix + 'Body"></div>' +
+      '<div class="btnrow"><button class="btn" id="' + prefix + 'Check">Check answers</button>' +
+      '<button class="btn ghost" id="' + prefix + 'Reset">Try again</button>' +
+      '<span class="scoreline" id="' + prefix + 'Score"></span></div>';
+  }
+
+  /* ---------- True / False / Not given ---------- */
+  var TFLAB = { T: "True", F: "False", NG: "Not given" };
+  function tfKey(a) { return a === true ? "T" : (a === false ? "F" : "NG"); }
+
+  function buildTF(t, card) {
+    var prefix = t.id + "tf";
+    card.innerHTML = sectionShell("Activity " + t.nav.slice(-1) + ".1", "True, false or not given?",
+      "Decide if each statement is true, false, or not given in the text. Choose Not given when the text does not say.", "", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.tf.forEach(function (it, i) {
+        var id = TFREG.length;
+        TFREG.push({ item: it, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.q) + '</p>' +
+          '<div class="opts">' + ["T", "F", "NG"].map(function (k) {
+            return '<button class="opt" data-tfid="' + id + '" data-v="' + k + '">' + TFLAB[k] + '</button>';
+          }).join("") + '</div><div class="fb" data-tfid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      TFREG[+b.getAttribute("data-tfid")].sel = b.getAttribute("data-v");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = TFREG[id], it = rec.item, key = tfKey(it.a);
+        var good = rec.sel === key;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-tfid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var v = b.getAttribute("data-v");
+          b.disabled = true; b.classList.remove("sel");
+          if (v === key) b.classList.add("good");
+          else if (rec.sel === v) b.classList.add("bad");
+        });
+        var sol = 'The answer is <span class="sol">' + TFLAB[key] + '</span>.';
+        var evid = it.ev || "The text does not say this.";
+        body.querySelector('.fb[data-tfid="' + id + '"]').innerHTML = expl(good, sol, evid, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- Choose the correct option ---------- */
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x;
+    }
+    return a;
+  }
+
+  function buildComp(t, card) {
+    var prefix = t.id + "cp";
+    card.innerHTML = sectionShell("Activity " + t.nav.slice(-1) + ".2", "Choose the correct option",
+      "Read each sentence and choose the option that fits the gap.", "", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.comp.forEach(function (it, i) {
+        var right = t.box[it.word];
+        var opts = shuffle([right].concat(it.d));
+        var id = COMPREG.length;
+        COMPREG.push({ item: it, right: right, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        var optsH = opts.map(function (o) {
+          return '<button class="opt" data-cpid="' + id + '" data-o="' + esc(o) + '">' + esc(o) + '</button>';
+        }).join("");
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.begin) + ' ' + endHtml(t.endings[it.end]) + '</p>' +
+          '<div class="opts">' + optsH + '</div><div class="fb" data-cpid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      COMPREG[+b.getAttribute("data-cpid")].sel = b.getAttribute("data-o");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = COMPREG[id], it = rec.item;
+        var good = rec.sel === rec.right;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-cpid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var o = b.getAttribute("data-o");
+          b.disabled = true; b.classList.remove("sel");
+          if (o === rec.right) b.classList.add("good");
+          else if (o === rec.sel) b.classList.add("bad");
+        });
+        var full = it.begin + " " + t.endings[it.end].replace("___", rec.right);
+        var sol = 'Full sentence: <span class="sol">' + esc(full) + '</span>';
+        body.querySelector('.fb[data-cpid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  function optsHtml(list, useLetters) {
+    var h = '<option value="">?</option>';
+    list.forEach(function (x, i) { h += '<option value="' + i + '">' + (useLetters ? LETTERS[i] : esc(x)) + '</option>'; });
+    return h;
+  }
+
+  /* ---------- Match expressions ---------- */
+  function buildVocab(t, card) {
+    var prefix = t.id + "vc";
+    card.innerHTML = sectionShell("Activity " + t.nav.slice(-1) + ".3", "Match expressions with their meanings",
+      "Find each highlighted expression in the text. Choose the definition that matches.", "", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      var defsH = t.defs.map(function (d, i) { return "<li><b>" + LETTERS[i] + ".</b>" + esc(d) + "</li>"; }).join("");
+      var info = document.createElement("div");
+      info.innerHTML = '<div class="box"><div class="bt">Definitions</div><ul class="ends">' + defsH + '</ul></div>';
+      body.appendChild(info);
+      t.vocab.forEach(function (it, i) {
+        var id = VOCREG.length;
+        VOCREG.push({ item: it });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span><b class="hl">' + esc(it.term) + '</b> (paragraph ' + it.para + ')</p>' +
+          '<div class="selrow"><label>Meaning</label><select data-vcid="' + id + '">' + optsHtml(t.defs, true) + '</select></div>' +
+          '<div class="fb" data-vcid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var it = VOCREG[id].item;
+        var s = body.querySelector('select[data-vcid="' + id + '"]');
+        var good = s.value !== "" && +s.value === it.def;
+        s.className = good ? "ok" : "no"; s.disabled = true;
+        if (good) ok++;
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.def] + '</span> - ' + esc(t.defs[it.def]);
+        body.querySelector('.fb[data-vcid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- Complete the summary (box) ---------- */
+  function buildCloze(t, card) {
+    var prefix = t.id + "cl", C = t.cloze;
+    card.innerHTML = sectionShell("Activity " + t.nav.slice(-1) + ".4", "Complete the summary",
+      "Use the words in the box to fill the gaps. Each word is used once. Two words are extra.", "", prefix) +
+      '<div class="panel" id="' + prefix + 'Panel"></div>';
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var panel = card.querySelector("#" + prefix + "Panel");
+    var ids = [];
+    var optsH = '<option value="">?</option>' + C.box.map(function (w, i) { return '<option value="' + i + '">' + esc(w) + '</option>'; }).join("");
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = []; panel.style.display = "none"; panel.innerHTML = "";
+      var wordsH = C.box.map(function (w) { return "<span>" + esc(w) + "</span>"; }).join("");
+      var parts = C.text.split(/\{(\d)\}/), html = "";
+      parts.forEach(function (p, k) {
+        if (k % 2 === 0) { html += esc(p); return; }
+        var id = CLREG.length;
+        CLREG.push({ gap: C.gaps[+p - 1], n: +p });
+        ids.push(id);
+        html += '<select class="gapsel" data-clid="' + id + '" aria-label="gap ' + p + '">' + optsH + '</select>';
+      });
+      body.innerHTML = '<div class="box"><div class="bt">Box</div><div class="words">' + wordsH + '</div></div>' +
+        '<p class="cloze">' + html + '</p>';
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0, ph = "<h3>Explanations</h3>";
+      ids.forEach(function (id) {
+        var rec = CLREG[id];
+        var s = body.querySelector('select[data-clid="' + id + '"]');
+        var good = s.value !== "" && +s.value === rec.gap.ans;
+        s.className = "gapsel " + (good ? "ok" : "no"); s.disabled = true;
+        if (good) ok++;
+        var sol = 'Gap ' + rec.n + ': <span class="sol">' + esc(C.box[rec.gap.ans]) + '</span>';
+        ph += expl(good, sol, null, rec.gap.why, rec.gap.tip);
+      });
+      panel.innerHTML = ph; panel.style.display = "block";
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- page ---------- */
+  var app = document.getElementById("app");
+  var nav = document.getElementById("nav");
+  DATA.texts.forEach(function (t) {
+    var a = document.createElement("a");
+    a.href = "#" + t.id; a.textContent = t.nav + " - " + t.level;
+    nav.appendChild(a);
+
+    var read = document.createElement("section");
+    read.className = "card"; read.id = t.id;
+    read.innerHTML = '<div class="tag">' + esc(t.nav) + ' &middot; ' + esc(t.level) + '</div><h2>' + esc(t.title) + '</h2>' +
+      '<p class="sub">Read the text. The highlighted expressions are used in Activity ' + t.nav.slice(-1) + '.3.</p>' +
+      '<div class="read">' + t.paras.map(function (p) { return "<p>" + fmt(p) + "</p>"; }).join("") + '</div>';
+    app.appendChild(read);
+
+    [buildTF, buildComp, buildVocab, buildCloze].forEach(function (fn) {
+      var c = document.createElement("section");
+      c.className = "card";
+      app.appendChild(c);
+      fn(t, c);
+    });
+  });
+})();
+</script>
+</body>
+</html>

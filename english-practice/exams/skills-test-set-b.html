@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skills Test · Set B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.92rem;color:#3b3b3b;margin:0 0 18px;line-height:1.5}
+
+.read p{font-size:1.04rem;line-height:1.85;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.headline{
+  font-family:var(--head);font-weight:800;font-size:1.15rem;text-align:center;
+  text-transform:uppercase;letter-spacing:.8px;margin:6px 0 14px;
+}
+.ph{white-space:nowrap}
+.ph u{text-decoration-thickness:3px;text-decoration-color:var(--pink);text-underline-offset:3px;font-weight:600}
+.phn{
+  font-family:var(--head);font-weight:800;font-size:.7rem;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:999px;padding:0 6px;margin-left:3px;
+}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;min-width:26px;height:26px;margin-right:8px;padding:0 4px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.prompt{font-family:var(--head);font-weight:800;font-size:1.05rem;margin:4px 0 12px}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;text-align:left;
+  border:3px solid #000;border-radius:16px;padding:8px 16px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;display:flex;gap:11px;align-items:flex-start;width:100%;line-height:1.45;
+}
+.opt .ol{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--yellow);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:5px 8px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.gapwrap{display:inline-flex;align-items:center;gap:5px;margin:0 3px;vertical-align:baseline}
+.gn{
+  font-family:var(--head);font-weight:800;font-size:.78rem;color:#fff;background:var(--pink);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+
+.box{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff;
+}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:8px}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 8px;line-height:1.45;font-size:.97rem;display:flex;gap:10px}
+.ends li:last-child{margin-bottom:0}
+.ends b{
+  font-family:var(--head);font-weight:800;flex:none;width:26px;height:26px;border:2px solid #000;border-radius:50%;
+  background:var(--cyan);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+
+.para{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.para p{margin:0;font-size:1.02rem;line-height:1.7}
+.pl{
+  font-family:var(--head);font-weight:800;background:var(--violet);color:#fff;border:3px solid #000;border-radius:50%;
+  width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;
+}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.exp .sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+.expgap{margin-top:18px}
+.expgap h3{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 4px}
+[hidden]{display:none !important}
+
+.total .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.total .pill{
+  font-family:var(--head);font-weight:800;border:3px solid #000;border-radius:999px;padding:4px 16px;background:var(--yellow);
+}
+.total .big{font-family:var(--head);font-weight:800;font-size:1.5rem;margin-top:10px}
+
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+@media (max-width:560px){
+  .card{padding:18px 14px 20px}
+  .read p{line-height:2}
+  .para{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="herotitle"></h1>
+    <p>Gapped text &bull; Matching &bull; Multiple choice</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Skills Test: Set B. Mismo formato que Set A:
+   - part1: texto con huecos {1}..{6}; 7 oraciones A-G, una sobra (extra).
+   - part2: 4 parrafos A-D y 8 preguntas "Which paragraph...". ev = cita textual del parrafo correcto.
+   - part3: articulo con 6 preguntas de opcion multiple. [[n|frase]] marca la frase de la pregunta n. ====== */
+var DATA = {
+  heroTitle: "SKILLS TEST · SET B",
+
+  part1: {
+    title: "A HOTEL THAT DISAPPEARS EVERY SPRING",
+    headline: "A hotel made of ice",
+    instructions: "Read the article. Choose which sentence (A–G) fits each gap (1–6). There is one extra sentence you do not need.",
+    sentences: [
+      "The ice used to build the hotel is so clear that you can see right through it.",
+      "Despite the price, almost every room is booked months before the first snow falls.",
+      "So how did such a strange idea begin?",
+      "This may not sound very comfortable, but there is a good reason why it works.",
+      "One room, for instance, was designed to look like the inside of a whale.",
+      "One of the visitors, who had missed the last bus home, asked if he could sleep inside it.",
+      "Some visitors find this sad, but the people who work there see it differently."
+    ],
+    paras: [
+      "Every winter, in a small village in the north of Sweden, a hotel appears where there was nothing but snow a few weeks earlier. Its walls, its beds and even the glasses in its bar are made of ice, and when spring arrives the whole building melts back into the river. It sounds like something from a fairy tale, but the hotel is completely real, and visitors now come from all over the world to see it. {1}",
+      "In 1989, a group of artists built a large igloo from snow and ice to show their work to the people who visited the village. {2} He spent the night in a warm sleeping bag on a bed of ice, and the next morning he told everyone that it had been the best night of his life. The news spread quickly, and within a few years the artists were building ice rooms for paying guests. The idea was so popular that they decided to build a bigger hotel every winter, and the village has been famous ever since.",
+      "Staying at the hotel is not like staying at an ordinary one. Guests are given thick sleeping bags and warm clothes, and they sleep on beds covered with reindeer skins. {3} The temperature inside stays at around minus five degrees, which is actually warmer than the air outside, and the thick walls keep out the wind. Before bedtime, a member of staff explains how to stay warm, for example by wearing dry, loose clothes and keeping a hat on. In the morning, a member of staff brings every guest a hot drink.",
+      "The hotel is rebuilt every year, and every year it looks different. Each room is designed by a different artist, who is invited to Sweden in the autumn and given complete freedom. The results are always surprising. {4} Another had a huge ice chandelier hanging above the bed, with tiny lights inside it that made the whole room glow. Some artists work alone, while others come in pairs, and they have only a few days to finish each room before the guests arrive. Once the work is done, the rooms are lit with soft colours that change slowly during the evening.",
+      "By the end of April, the temperature rises and the hotel begins to melt. {5} To them, the melting is not the end of the story but the start of the next one, because the same water will become next year’s hotel. In late spring, the river carries the last pieces of ice away, and the village goes back to being a quiet place for fishermen and walkers until the first frost of autumn.",
+      "Prices depend on the type of room, and a night in one of the special art suites can cost several times more than a standard ice room. The cheapest rooms cost as much as a normal hotel room, and the best ones are far more expensive. {6} Anyone who wants to stay should therefore plan well ahead. And if sleeping on ice sounds like too much, you can always visit for a few hours, look around and have a drink at the ice bar."
+    ],
+    gaps: [
+      { ans: "C",
+        why: "The first paragraph describes the hotel as it is today, and the next one starts with ‘In 1989’. A question about how the idea began leads into that story, and the next paragraph answers it.",
+        tip: "A gap at the end of a paragraph can be a question. Check that the sentence after the gap answers it." },
+      { ans: "F",
+        why: "The next sentence begins with ‘He’, so the gap must introduce one man. ‘Sleep inside it’ also matches the igloo in the sentence before the gap.",
+        tip: "If the sentence after a gap begins with He, She or They, look for that person in the gap sentence. Then check that words like ‘it’ match the sentence before." },
+      { ans: "D",
+        why: "‘This’ means sleeping on a bed of ice, which sounds cold. The next sentence gives the good reason: the room is warmer than the air outside.",
+        tip: "‘This may not sound…, but there is a reason’ always needs an explanation. Look at the sentence after the gap to find it." },
+      { ans: "E",
+        why: "‘One room, for instance’ gives a first example of the surprising results. The next sentence starts with ‘Another’, so it needs a first example before it.",
+        tip: "‘Another’, ‘the other’ and ‘some… others’ show that something must come first. Look for the first example, usually with ‘one’." },
+      { ans: "G",
+        why: "‘This’ means the melting. ‘The people who work there’ are the same people as ‘them’ in the next sentence, and ‘but’ shows the contrast with the sad visitors.",
+        tip: "‘Them’ and ‘they’ need a group in the sentence before. Find the group (here, the staff), then check the idea of contrast." },
+      { ans: "B",
+        why: "‘Despite the price’ goes back to the sentence about cost. ‘Therefore’ in the next sentence shows a result: because the rooms are booked early, you should plan ahead.",
+        tip: "‘Therefore’ and ‘so’ introduce a result. The reason for it must be in the gap, just before." }
+    ],
+    extra: { ans: "A",
+      why: "This sentence gives a fact about the ice, but no gap needs one. The sentences around the gaps ask for a story (gap 1), a single man (gap 2), a reason (gap 3), an example (gap 4), the staff (gap 5) and a result (gap 6).",
+      tip: "Test the extra sentence in every gap. A sentence that fits the topic can still be wrong if the sentence after it does not continue naturally." }
+  },
+
+  part2: {
+    title: "STEPPING INSIDE",
+    instructions: "Read the blog post. Match the questions (1–8) with the paragraphs (A, B, C or D).",
+    prompt: "Which paragraph in the article:",
+    paras: [
+      "Virtual reality, or VR, is a technology that uses a headset to make you feel as if you are inside a computer-generated world, where you can look around, walk about and even pick things up. For a long time, it was only something you saw in science-fiction films. My first experience of it came at my brother’s house, when he let me try an early headset that he had bought years before. It was a heavy, clumsy thing, connected to a computer by a thick cable that kept getting wrapped around my legs. The picture was blurry and slow, the characters moved like robots, and after about ten minutes I felt so dizzy that I had to sit down. I took the headset off, decided that VR was a silly toy, and didn’t think about it again for a long time.",
+      "Everything changed when our school technology club was lent a modern headset by a local company. It was nothing like my brother’s. It contains two small screens, one for each eye, and sensors that follow the movement of your head, so the picture changes smoothly as you turn around. Hand controllers let you pick up objects, and the sound seems to come from the direction of whatever you are looking at. Within five minutes, I was walking through ancient Rome, and it felt completely real. Since then, our club has also explored the surface of Mars and the inside of a human heart. I realised that I had been wrong all along. VR was not a toy at all; it was a way of visiting places and events that I could never see in real life.",
+      "As leader of the club, I would like every student in my school to use VR in lessons, but there are obstacles. A single headset costs about as much as a good laptop, and a full classroom set would use up the school’s technology budget for several years. Renting a set for a single term costs almost as much as buying one. For a school like ours, which depends on donations, this is a serious problem. There is another limit, too. Many manufacturers set a minimum age of about thirteen and say that younger children should not use headsets, because young eyes and brains are still developing and nobody is sure what the long-term effects might be. For this reason, our club accepts only members aged thirteen or over, and I have to find other activities for the younger classes.",
+      "Despite these difficulties, the results so far have been wonderful. When we took a headset to a class of thirteen-year-olds at a school nearby, the students were thrilled. One boy, who is normally very shy, put up his hand to describe the coral reef he had just visited, and his classmates listened with amazement. Their teacher says that VR helps even the quietest students to feel confident. Of course, it will never be a complete substitute for a real trip. It is unlikely that VR will ever let us feel the cold wind on a glacier, smell the sea or taste the food in a market on the other side of the world. Even so, I am sure that the future of learning is very exciting, and the headteacher has already asked us to prepare a demonstration for the whole school next month."
+    ],
+    qs: [
+      { q: "says that the cost of the equipment is a problem?", ans: "C",
+        ev: "“For a school like ours, which depends on donations, this is a serious problem.”",
+        why: "Paragraph C says a headset costs as much as a good laptop and a school budget cannot cover a full set. The writer calls this ‘a serious problem’.",
+        tip: "The question uses the word ‘problem’, so look for the writer’s own word ‘problem’ or words about money like costs, budget and donations." },
+      { q: "gives a definition of virtual reality?", ans: "A",
+        ev: "“a technology that uses a headset to make you feel as if you are inside a computer-generated world”",
+        why: "The first sentence of paragraph A explains what VR is: a headset that makes you feel inside a computer-generated world.",
+        tip: "Definitions usually come in the first lines and often have the pattern ‘X, or Y, is a…’. Check the opening of each paragraph." },
+      { q: "mentions how students feel when they use VR in class?", ans: "D",
+        ev: "“the students were thrilled” … “VR helps even the quietest students to feel confident”",
+        why: "In paragraph D, thirteen-year-olds are ‘thrilled’ and a shy boy feels confident. In paragraph A the writer feels dizzy, but that is at home, not in a class.",
+        tip: "Look for feeling words (thrilled, amazement, confident) and ask WHO has the feeling. The question is about students in a class, not the writer at home." },
+      { q: "explains why some people should not use headsets?", ans: "C",
+        ev: "“because young eyes and brains are still developing”",
+        why: "Paragraph C says that manufacturers set a minimum age of about thirteen. The reason comes after ‘because’: young eyes and brains are still developing.",
+        tip: "For ‘why’ questions, look for ‘because’, ‘for this reason’ or ‘so’. The explanation is right next to them." },
+      { q: "indicates a change in the writer’s opinion of VR?", ans: "B",
+        ev: "“I realised that I had been wrong all along.”",
+        why: "In paragraph A the writer thought VR was a silly toy. In paragraph B, ‘I had been wrong all along’ shows that the opinion has changed.",
+        tip: "A change of opinion often has words like ‘realised’, ‘changed my mind’ or ‘I was wrong’. Compare what the writer thought before and after." },
+      { q: "predicts what VR will not be able to do?", ans: "D",
+        ev: "“It is unlikely that VR will ever let us feel the cold wind on a glacier”",
+        why: "In paragraph D the writer says VR is unlikely to let us feel a cold wind, smell the sea or taste food. That is a prediction about its limits.",
+        tip: "Predictions use phrases such as ‘it is unlikely that’, ‘will never’ and ‘won’t’. They often come near the end of a text." },
+      { q: "suggests the disadvantages of early headsets?", ans: "A",
+        ev: "“It was a heavy, clumsy thing” … “I felt so dizzy that I had to sit down”",
+        why: "Paragraph A describes the first headset: it was heavy, had a thick cable and a blurry picture, and it made the writer feel dizzy. All of these are disadvantages.",
+        tip: "‘Early’ and ‘first’ point to the old version. Find the paragraph that describes it and lists negative things." },
+      { q: "explains how modern headsets work?", ans: "B",
+        ev: "“sensors that follow the movement of your head, so the picture changes smoothly as you turn around”",
+        why: "Paragraph B describes the parts of a modern headset (two screens, sensors and hand controllers) and what each one does.",
+        tip: "For ‘how does it work’ questions, look for the parts of the object and verbs that say what each part does (contains, follow, let you)." }
+    ]
+  },
+
+  part3: {
+    title: "HAPPY ACCIDENTS",
+    headline: "Happy accidents: discoveries nobody planned",
+    instructions: "You are going to read an article about useful things that were discovered by accident. For questions 1–6, choose the answer (A, B, C or D) which you think fits best according to the text.",
+    paras: [
+      "Some of the most useful things in our homes were never planned. They appeared by accident, when somebody who was looking for one thing found something completely different. You may not have heard the names of the people involved, but their lucky mistakes have given us everything from frozen snacks to the way we heat our dinner. A few of these stories are famous, but most are known only to the scientists and engineers who were there…",
+      "In 1905, eleven-year-old Frank Epperson from San Francisco made himself a fizzy drink by mixing soda powder and water in a glass. He stirred it with a wooden stick and then, as boys of that age often do, forgot all about it and left it on the porch overnight. The temperature fell far below freezing, and by morning the drink had turned into a solid block around the stick. Frank pulled it out and tasted it, and he enjoyed it so much that he made more. Surprisingly, it was many years before he did anything with the idea. It was only when he was an adult, and his own children kept asking for more of his frozen drinks, that he saw how popular his invention could be.",
+      "Not every accident leads to success straight away. In 1968, a scientist named Spencer Silver, who worked for a large American company, was trying to invent a very strong glue. Instead, he produced one that was so weak that it barely held two pieces of paper together. Most of his colleagues thought it was useless, but Silver refused to throw it away, and for years he told anyone who would listen about it. Then, in 1974, his colleague Art Fry became frustrated when the paper bookmarks in his hymn book kept falling out while he sang in his church choir. He remembered Silver’s glue, and the idea of the sticky yellow note was born. The company gave free samples to office workers in one town, and within a few years the product had [[2|taken off]] across the country.",
+      "Many people believe that Percy Spencer invented the microwave oven. In fact, the part that produces microwaves had been developed a few years earlier by British scientists who wanted to improve radar. Spencer, then, certainly did not create the technology itself. What he did do, in 1945, was notice something that others had ignored. While he was testing equipment for an American company, a chocolate bar in his pocket melted. Instead of being annoyed, he became curious. He tried some popcorn, which jumped around the room, and then an egg, which burst in a colleague’s face. Spencer realised that the same invisible waves could cook food, and the company soon asked him to turn the idea into a product.",
+      "Nature has also been a source of accidental inspiration. In 1941, the Swiss engineer George de Mestral went for a walk in the mountains with his dog. When they got home, he found that small seed cases, called burrs, were stuck to his trousers and to the dog’s fur. Most people would have simply pulled them off, but de Mestral put one under a microscope and saw hundreds of tiny hooks that caught on any loops of cloth or hair. He wondered whether he could copy this natural system, and made a first fastener from cotton. It wore out after only a few weeks.",
+      "De Mestral knew he could improve on [[5|it]], and he spent many years searching for a stronger material. In the end, he found that nylon, a hard-wearing man-made fabric, could be treated with heat so that the hooks and loops kept their shape. He named his fastener ‘Velcro’, and today it holds together everything from children’s shoes to astronauts’ equipment.",
+      "So the next time something goes wrong in your kitchen, your classroom or even on a country walk, stop for a moment before you throw it away. Many of these discoveries needed years of hard work to become useful, but each one began with someone who was curious enough to ask what had happened. Your mistake might just be the beginning of something great."
+    ],
+    qs: [
+      { q: "What do we learn about Frank Epperson in the second paragraph?", ans: "C",
+        o: ["He was trying to create a new kind of dessert.",
+            "He was too young to enjoy the drink he had made.",
+            "He did not realise at first how popular his idea could be.",
+            "He wanted to sell his invention to his neighbours."],
+        ev: "“Surprisingly, it was many years before he did anything with the idea.”",
+        why: "The paragraph says it was ‘many years’ before he did anything with the idea, so he did not see its value at first. He enjoyed the drink (not B), and he was making a fizzy drink, not a dessert (not A).",
+        tip: "Look for words like ‘Surprisingly’ or ‘but’, which often come before the answer. Then cross out options that the text contradicts." },
+      { q: "What does ‘taken off’ mean in the third paragraph?", ans: "A",
+        o: ["become successful very quickly",
+            "been copied by other companies",
+            "been sold at a lower price",
+            "become less unusual than before"],
+        ev: "“within a few years the product had taken off across the country”",
+        why: "The sentence says that the company gave out free samples and then the product ‘had taken off across the country’. This means it became successful, and quickly (‘within a few years’).",
+        tip: "Put each option into the sentence in place of the phrase. Only one makes sense with ‘within a few years… across the country’." },
+      { q: "What is the writer doing in the first three sentences of the fourth paragraph?", ans: "B",
+        o: ["explaining why Spencer deserves more credit",
+            "questioning a popular idea about who created the microwave",
+            "describing the problems that Spencer faced at work",
+            "comparing the work of British and American scientists"],
+        ev: "“Many people believe that Percy Spencer invented the microwave oven. In fact,”",
+        why: "The writer starts with ‘Many people believe…’ and then says ‘In fact… certainly did not create the technology’. The writer is questioning what most people think.",
+        tip: "‘Many people believe… In fact…’ is the classic pattern for correcting a mistake. Look for contrast words like in fact, actually and however." },
+      { q: "In the fourth paragraph we learn that when Percy Spencer saw that the chocolate had melted, he", ans: "D",
+        o: ["complained to his colleagues about the damage.",
+            "asked the British scientists to explain what had happened.",
+            "stopped the test and went home.",
+            "was interested enough to try other foods."],
+        ev: "“Instead of being annoyed, he became curious. He tried some popcorn”",
+        why: "The text says ‘Instead of being annoyed, he became curious’ and then he tried popcorn and an egg. He wanted to find out more and tested other foods.",
+        tip: "‘Instead of + negative feeling’ tells you the person did NOT have that feeling. Cross out options with annoyed or negative reactions." },
+      { q: "What does ‘it’ refer to in the first sentence of the sixth paragraph?", ans: "B",
+        o: ["the burr he found on the dog",
+            "the cotton fastener he had made",
+            "the microscope he had used",
+            "the system of hooks in nature"],
+        ev: "“made a first fastener from cotton. It wore out after only a few weeks.”",
+        why: "At the end of paragraph five, de Mestral makes a first fastener from cotton and it wears out. ‘Improve on it’ means to make that fastener better, and the next words, ‘a stronger material’, confirm this.",
+        tip: "For ‘it’ questions, read the sentence BEFORE the pronoun, even if it is in the previous paragraph. Then put each option in place of ‘it’." },
+      { q: "What is the main purpose of the article?", ans: "C",
+        o: ["to encourage readers to carry out experiments at home",
+            "to explain how large companies organise scientific research",
+            "to show how valuable unplanned discoveries can be",
+            "to compare the personalities of several famous inventors"],
+        ev: "“Your mistake might just be the beginning of something great.”",
+        why: "Every paragraph tells a different story of something nobody planned, and the last sentence says a mistake can be the beginning of something great. The aim is to show how valuable unplanned discoveries can be.",
+        tip: "For ‘main purpose’ questions, check the first and last paragraphs. Be careful with options that only fit one part of the text." }
+    ]
+  }
+};
+
+</script>
+
+<script id="engine-block">
+(function () {
+  "use strict";
+  var D = DATA;
+  var LET = "ABCDEFGH";
+  var app = document.getElementById("app");
+  var scores = { p1: null, p2: null, p3: null };
+  var totals = { p1: D.part1.gaps.length, p2: D.part2.qs.length, p3: D.part3.qs.length };
+  var updateTotal = function () {};
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function paraHtml(txt) {
+    return esc(txt)
+      .replace(/\{(\d)\}/g, '<span class="gapslot" data-slot="$1"></span>')
+      .replace(/\[\[(\d)\|([^\]]+)\]\]/g, '<span class="ph"><u>$2</u><sup class="phn">$1</sup></span>');
+  }
+  function expBlock(ok, lines) {
+    var d = el("div", "exp " + (ok ? "right" : "wrong"));
+    lines.forEach(function (ln) { d.appendChild(el("p", null, ln)); });
+    return d;
+  }
+  function whyTip(x) {
+    return [
+      '<b class="lab why">Why</b>' + esc(x.why),
+      '<b class="lab tip">Exam tip</b>' + esc(x.tip)
+    ];
+  }
+  function buttons(onCheck, onReset) {
+    var row = el("div", "btnrow");
+    var b1 = el("button", "btn", "Check answers"); b1.type = "button";
+    var b2 = el("button", "btn ghost", "Try again"); b2.type = "button";
+    var sc = el("span", "scoreline", "");
+    b1.addEventListener("click", onCheck);
+    b2.addEventListener("click", onReset);
+    row.appendChild(b1); row.appendChild(b2); row.appendChild(sc);
+    return { row: row, score: sc, check: b1 };
+  }
+  function head(card, tag, title, sub) {
+    card.appendChild(el("span", "tag", tag));
+    card.appendChild(el("h2", null, esc(title)));
+    card.appendChild(el("p", "sub", esc(sub)));
+  }
+  function showScore(span, got, tot, blank) {
+    span.textContent = "Score: " + got + " / " + tot + (blank ? "  (" + blank + " blank)" : "");
+  }
+
+  /* ---------------------------------------------------------- PART 1 */
+  function buildPart1() {
+    var P = D.part1, sels = [];
+    var card = el("section", "card"); card.id = "part1";
+    head(card, "Part 1", P.title, P.instructions);
+
+    var box = el("div", "box"); box.appendChild(el("div", "bt", "Sentences"));
+    var ul = el("ul", "ends");
+    P.sentences.forEach(function (s, i) { ul.appendChild(el("li", null, "<b>" + LET.charAt(i) + "</b><span>" + esc(s) + "</span>")); });
+    box.appendChild(ul); card.appendChild(box);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) {
+      var p = el("p", null, paraHtml(t));
+      var slots = p.querySelectorAll(".gapslot");
+      for (var k = 0; k < slots.length; k++) {
+        var n = +slots[k].getAttribute("data-slot");
+        var wrap = el("span", "gapwrap", '<span class="gn">' + n + "</span>");
+        var sel = document.createElement("select");
+        sel.setAttribute("aria-label", "Gap " + n);
+        sel.appendChild(new Option("—", ""));
+        for (var i = 0; i < P.sentences.length; i++) sel.appendChild(new Option(LET.charAt(i), LET.charAt(i)));
+        wrap.appendChild(sel);
+        sels[n - 1] = sel;
+        slots[k].parentNode.replaceChild(wrap, slots[k]);
+      }
+      read.appendChild(p);
+    });
+    card.appendChild(read);
+
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = "";
+      panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.gaps.forEach(function (g, i) {
+        var v = sels[i].value, ok = v === g.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        sels[i].className = ok ? "ok" : "no";
+        sels[i].disabled = true;
+        var idx = LET.indexOf(g.ans);
+        panel.appendChild(expBlock(ok, [
+          '<b>Gap ' + (i + 1) + '</b><span class="mark ' + (ok ? "y" : "n") + '">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span>",
+          'Right answer: <span class="sol">' + g.ans + "</span> – " + esc(P.sentences[idx])
+        ].concat(whyTip(g))));
+      });
+      var ei = LET.indexOf(P.extra.ans);
+      panel.appendChild(expBlock(true, [
+        '<b>The extra sentence: ' + P.extra.ans + "</b> – " + esc(P.sentences[ei])
+      ].concat(whyTip(P.extra))));
+      panel.hidden = false;
+      showScore(bt.score, got, P.gaps.length, blank);
+      scores.p1 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      sels.forEach(function (s) { s.value = ""; s.className = ""; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p1 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    card.appendChild(panel);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 2 */
+  function buildPart2() {
+    var P = D.part2, items = [];
+    var card = el("section", "card"); card.id = "part2";
+    head(card, "Part 2", P.title, P.instructions);
+
+    var read = el("div", "read");
+    P.paras.forEach(function (t, i) {
+      var d = el("div", "para", '<span class="pl">' + LET.charAt(i) + "</span>");
+      d.appendChild(el("p", null, esc(t)));
+      read.appendChild(d);
+    });
+    card.appendChild(read);
+
+    card.appendChild(el("div", "prompt", esc(P.prompt)));
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var row = el("div", "selrow");
+      var sel = document.createElement("select");
+      sel.setAttribute("aria-label", "Question " + (i + 1));
+      sel.appendChild(new Option("Paragraph…", ""));
+      for (var k = 0; k < P.paras.length; k++) sel.appendChild(new Option(LET.charAt(k), LET.charAt(k)));
+      row.appendChild(sel); it.appendChild(row);
+      var slot = el("div"); slot.hidden = true; it.appendChild(slot);
+      items.push({ q: x, sel: sel, slot: slot });
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var v = o.sel.value, ok = v === o.q.ans;
+        if (!v) blank++;
+        if (ok) got++;
+        o.sel.className = ok ? "ok" : "no"; o.sel.disabled = true;
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (v ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">paragraph " + o.q.ans + "</span>",
+          '<b class="lab ev">Evidence</b>' + esc(o.q.ev)
+        ].concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p2 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) { o.sel.value = ""; o.sel.className = ""; o.sel.disabled = false; o.slot.hidden = true; o.slot.innerHTML = ""; });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p2 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- PART 3 */
+  function buildPart3() {
+    var P = D.part3, items = [];
+    var card = el("section", "card"); card.id = "part3";
+    head(card, "Part 3", P.title, P.instructions);
+
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.paras.forEach(function (t) { read.appendChild(el("p", null, paraHtml(t))); });
+    card.appendChild(read);
+    card.appendChild(el("div", "prompt", "Questions"));
+
+    P.qs.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q", '<span class="n">' + (i + 1) + "</span>" + esc(x.q)));
+      var opts = el("div", "opts"), btns = [], o = { q: x, picked: -1, btns: btns, slot: null };
+      x.o.forEach(function (txt, k) {
+        var b = el("button", "opt", '<span class="ol">' + LET.charAt(k) + "</span><span>" + esc(txt) + "</span>");
+        b.type = "button";
+        b.addEventListener("click", function () {
+          o.picked = k;
+          btns.forEach(function (bb, j) { bb.className = "opt" + (j === k ? " sel" : ""); });
+        });
+        btns.push(b); opts.appendChild(b);
+      });
+      it.appendChild(opts);
+      o.slot = el("div"); o.slot.hidden = true; it.appendChild(o.slot);
+      items.push(o);
+      card.appendChild(it);
+    });
+
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      items.forEach(function (o) {
+        var right = LET.indexOf(o.q.ans), ok = o.picked === right;
+        if (o.picked < 0) blank++;
+        if (ok) got++;
+        o.btns.forEach(function (b, j) {
+          b.disabled = true;
+          b.className = "opt" + (j === right ? " good" : (j === o.picked ? " bad" : ""));
+        });
+        var lines = [
+          '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (o.picked >= 0 ? "Not quite" : "Blank")) + "</span> Right answer: <span class=\"sol\">" + o.q.ans + "</span>"
+        ];
+        if (o.q.ev) lines.push('<b class="lab ev">Evidence</b>' + esc(o.q.ev));
+        o.slot.innerHTML = "";
+        o.slot.appendChild(expBlock(ok, lines.concat(whyTip(o.q))));
+        o.slot.hidden = false;
+      });
+      showScore(bt.score, got, items.length, blank);
+      scores.p3 = got; updateTotal();
+      bt.check.disabled = true;
+    }
+    function reset() {
+      items.forEach(function (o) {
+        o.picked = -1; o.slot.hidden = true; o.slot.innerHTML = "";
+        o.btns.forEach(function (b) { b.className = "opt"; b.disabled = false; });
+      });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores.p3 = null; updateTotal();
+      card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* ---------------------------------------------------------- TOTAL */
+  function buildTotal() {
+    var card = el("section", "card total"); card.id = "total";
+    card.appendChild(el("span", "tag", "My score"));
+    var body = el("div");
+    card.appendChild(body);
+    updateTotal = function () {
+      var parts = [["Part 1", scores.p1, totals.p1], ["Part 2", scores.p2, totals.p2], ["Part 3", scores.p3, totals.p3]];
+      var html = '<div class="row">', done = 0, sum = 0, max = 0;
+      parts.forEach(function (p) {
+        html += '<span class="pill">' + p[0] + ": " + (p[1] == null ? "–" : p[1]) + " / " + p[2] + "</span>";
+        max += p[2];
+        if (p[1] != null) { done++; sum += p[1]; }
+      });
+      html += "</div>";
+      if (done === 3) html += '<div class="big">Total: ' + sum + " / " + max + "</div>";
+      else html += '<p class="sub">Check all three parts to see your total score.</p>';
+      body.innerHTML = html;
+    };
+    updateTotal();
+    return card;
+  }
+
+  document.getElementById("herotitle").textContent = D.heroTitle;
+  var nav = document.getElementById("nav");
+  [["part1", "Part 1"], ["part2", "Part 2"], ["part3", "Part 3"], ["total", "My score"]].forEach(function (p) {
+    var a = el("a", null, p[1]); a.href = "#" + p[0]; nav.appendChild(a);
+  });
+  app.appendChild(buildPart1());
+  app.appendChild(buildPart2());
+  app.appendChild(buildPart3());
+  app.appendChild(buildTotal());
+})();
+</script>
+</body>
+</html>

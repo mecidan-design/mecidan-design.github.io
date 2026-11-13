@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use of English - Exam 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.6rem,5vw,2.7rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.5rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.92rem;color:#3b3b3b;margin:0 0 14px;line-height:1.5}
+.example{font-size:.92rem;background:#fffbd6;border:2px dashed #000;border-radius:10px;padding:6px 12px;margin:0 0 16px}
+
+.read p{font-size:1.04rem;line-height:2.1;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.headline{
+  font-family:var(--head);font-weight:800;font-size:1.15rem;text-align:center;
+  text-transform:uppercase;letter-spacing:.8px;margin:6px 0 14px;
+}
+.exw{font-weight:700;border-bottom:3px solid #000;padding:0 4px}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn[disabled]{opacity:.55;cursor:default}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+select,input[type=text]{
+  font-family:var(--body);font-size:.95rem;font-weight:600;padding:4px 8px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus,input[type=text]:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok,input.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no,input.no{background:#ffe0ec;border-color:#c2004c}
+input.gi{width:128px}
+input.wide{width:min(340px,100%)}
+.gapwrap{display:inline-flex;align-items:center;gap:5px;margin:0 3px;vertical-align:baseline;white-space:nowrap}
+.gn{
+  font-family:var(--head);font-weight:800;font-size:.78rem;color:#fff;background:var(--pink);
+  border:2px solid #000;border-radius:50%;min-width:24px;height:24px;padding:0 3px;display:inline-flex;align-items:center;justify-content:center;
+}
+.root{
+  font-family:var(--head);font-weight:800;font-size:.8rem;background:var(--cyan);border:2px solid #000;
+  border-radius:999px;padding:0 9px;letter-spacing:.5px;
+}
+
+.opttable{margin:18px 0 0;border:3px solid #000;border-radius:14px;background:#f4efff;padding:10px 14px}
+.orow{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:4px 0;border-bottom:1px dashed #b9a9e8;font-size:.95rem}
+.orow:last-child{border-bottom:0}
+.orow .gn{flex:none}
+.orow span.o{white-space:nowrap}
+.orow span.o b{font-family:var(--head);margin-right:4px}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.02rem;font-weight:500;margin:0 0 8px;line-height:2}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;min-width:26px;height:26px;margin-right:8px;padding:0 4px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.keyw{
+  display:inline-block;font-family:var(--head);font-weight:800;letter-spacing:1px;background:var(--yellow);
+  border:3px solid #000;border-radius:10px;padding:0 12px;margin:2px 0 8px;
+}
+.lead{font-style:italic;color:#262626}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.exp .sol{font-family:var(--head);font-weight:800;color:#12006b}
+.mark{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid #000;border-radius:999px;padding:1px 10px;margin-left:8px}
+.mark.y{background:var(--lime)}
+.mark.n{background:#ff9dc4}
+.expgap{margin-top:18px}
+.expgap h3{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 4px}
+[hidden]{display:none !important}
+
+.total .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.total .pill{
+  font-family:var(--head);font-weight:800;border:3px solid #000;border-radius:999px;padding:4px 16px;background:var(--yellow);
+}
+.total .big{font-family:var(--head);font-weight:800;font-size:1.5rem;margin-top:10px}
+
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+@media (max-width:560px){
+  .card{padding:18px 14px 20px}
+  input.gi{width:104px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1 id="herotitle"></h1>
+    <p id="herosub"></p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Reading & Use of English, Practice Exam 2 (Units 7 and 8: Home and away / What's in a number?).
+   Mismo formato que el Exam 1 (ver datos-uoe-1.js). ====== */
+var DATA = {
+  heroTitle: "USE OF ENGLISH · EXAM 2",
+  heroSub: "Units 7 & 8 • Home and away • What’s in a number?",
+
+  part1: {
+    title: "Multiple-choice cloze",
+    instructions: "For questions 1–8, read the text below and decide which answer (A, B, C or D) best fits each gap.",
+    exampleLine: "(0) A get  B take  C make  D put",
+    headline: "A weekend in Lisbon",
+    example: "get",
+    text: "After a stressful term, I really needed to {0} away for a few days, so my parents booked a weekend in Lisbon. Our plane {1} off at seven in the morning, so we {2} off for the airport at four, and my grandparents came to {3} us off. We had to stop {4} in Madrid for two hours, but we reached Lisbon at lunchtime.\n\nThe hotel was in the old town, and we moved around the city {5} foot and by tram. At the hotel, we {6} in at reception and went up to our room, which was small but cosy. We spent the first afternoon just looking {7}, without any plan. On Monday morning we had to check {8} before eleven o’clock.",
+    items: [
+      { options: ["went", "left", "took", "got"], correct: 2,
+        why: "When a plane leaves the ground, we say it ‘takes off’. The word ‘off’ is already in the text, and only ‘took’ makes this phrasal verb.",
+        tip: "Plane + off = take off. Do not mix it with ‘set off’, which is for starting a journey." },
+      { options: ["set", "kept", "put", "made"], correct: 0,
+        why: "‘Set off’ means to start a journey. The family started their journey to the airport at four.",
+        tip: "‘Set off for’ + a place = start a journey to that place." },
+      { options: ["look", "say", "tell", "see"], correct: 3,
+        why: "‘See someone off’ means to go to the airport or station to say goodbye. ‘Tell us off’ means to speak angrily to us, which does not fit.",
+        tip: "Goodbye at the airport = see someone off. ‘Tell off’ is for scolding someone." },
+      { options: ["by", "over", "up", "out"], correct: 1,
+        why: "‘Stop over’ means to stay somewhere for a short time during a long journey. Here, the travellers stayed in Madrid for two hours.",
+        tip: "A short stop in the middle of a long trip = stopover / stop over." },
+      { options: ["in", "on", "by", "with"], correct: 1,
+        why: "‘On foot’ is the fixed expression for walking. We use ‘by’ with vehicles (by tram), but not with ‘foot’.",
+        tip: "By + transport (by tram, by car), but on foot. Learn ‘on foot’ as one block." },
+      { options: ["put", "got", "checked", "took"], correct: 2,
+        why: "‘Check in’ means to tell the hotel that you have arrived and to get your room. It is done at reception.",
+        tip: "Hotel or airport desk + arrival = check in. The opposite is check out." },
+      { options: ["at", "for", "after", "around"], correct: 3,
+        why: "‘Look around’ means to walk and see a place without looking for anything special. The other words need an object after them, but the sentence has none.",
+        tip: "If nothing comes after the gap, choose the particle that can end a sentence: looking around." },
+      { options: ["off", "out", "away", "down"], correct: 1,
+        why: "‘Check out’ means to pay and leave the hotel. It is the opposite of ‘check in’.",
+        tip: "Time to leave the hotel = check out (before eleven o’clock)." }
+    ]
+  },
+
+  part2: {
+    title: "Open cloze",
+    instructions: "For questions 1–8, read the text below and think of the word which best fits each gap. Use only one word in each gap.",
+    exampleLine: "(0) of",
+    headline: "Phones, numbers and money",
+    example: "of",
+    text: "Numbers are a big part {0} a teenager’s life. A recent survey, which {1} carried out in two hundred schools last spring, shows that three quarters of students own a smartphone. The results are going {2} be published next month, but there is not {3} information about the money that students spend on apps. Unless students {4} careful, they can waste a lot.\n\nLast month my brother {5} his phone repaired after he dropped it in the sink, and the repair was paid for {6} my parents. If he {7} been more careful, the phone would not have broken. Now he can use my old one, as long {8} he looks after it.",
+    items: [
+      { answers: ["was"],
+        why: "The survey was done last spring, so we need the past simple of ‘be’ for the passive: was carried out.",
+        tip: "‘Last spring’ shows the past. Past passive = was/were + third form of the verb (carried)." },
+      { answers: ["to"],
+        why: "‘Be going to’ also exists in the passive: are going to be published. The word we need is ‘to’.",
+        tip: "‘Are going’ + gap + ‘be’ + third form: the missing word is ‘to’." },
+      { answers: ["much", "any", "enough"],
+        why: "‘Information’ is uncountable, so we cannot use ‘many’. In a negative sentence we use ‘much’ (or ‘any’ or ‘enough’).",
+        tip: "Information, advice, money and news are uncountable. In negatives use much, not many." },
+      { answers: ["are", "become", "get"],
+        why: "‘Unless’ means ‘if … not’ and it is followed by a positive verb. For a general situation we use the present simple: unless students are careful.",
+        tip: "Do not add ‘not’ after ‘unless’. The verb is positive: unless you are, unless she goes." },
+      { answers: ["had", "got"],
+        why: "We use ‘have/get + something + third form’ when another person does a service for us: had his phone repaired.",
+        tip: "Gap + object + third form (repaired) = causative. The gap is had or got; here the past is needed." },
+      { answers: ["by"],
+        why: "In a passive sentence ‘by’ introduces the person who does the action: paid for by my parents.",
+        tip: "After a passive verb, ‘by’ + person tells us who did it." },
+      { answers: ["had"],
+        why: "The result is ‘would not have broken’, so this is the third conditional. The ‘if’ part needs had + third form (been).",
+        tip: "Would have + third form in one part, had + third form in the other part: ‘if he had been … would have’." },
+      { answers: ["as"],
+        why: "‘As long as’ means ‘only if’. It gives a condition: he can use the phone only if he looks after it.",
+        tip: "‘Long’ before the gap shows the fixed phrase as long as. It is followed by a full clause." }
+    ]
+  },
+
+  part3: {
+    title: "Word formation",
+    instructions: "For questions 1–8, read the text below. Use the word given in capitals to form a word that fits in the gap.",
+    exampleLine: "(0) excitement (EXCITE)",
+    headline: "A new home",
+    example: "excitement",
+    exampleRoot: "EXCITE",
+    text: "There was a lot of {0} in our house when my family decided to move to a bigger flat, but the {1} was not easy. First, my parents did a long {2} of the monthly costs. My father had just found {3} in the city centre, so we did not want to live far away.\n\nThe new flat is a big {4} on our old one: it is bright and spacious, and the neighbourhood is very {5}. Of course, there is also a monthly {6} for the rent, but my parents say it is worth it. My bedroom is still {7} because I have not unpacked yet, but the armchair in the corner is wonderfully {8}.",
+    items: [
+      { root: "DECIDE", answers: ["decision"],
+        why: "After ‘the’ we need a noun. The noun from ‘decide’ is ‘decision’ (-de changes to -sion).",
+        tip: "The + gap + ‘was’ = a noun. Verbs ending in -de often make nouns in -sion (decide – decision)." },
+      { root: "CALCULATE", answers: ["calculation"],
+        why: "‘A long … of the costs’ needs a noun. The noun from ‘calculate’ is ‘calculation’.",
+        tip: "Adjective (long) + gap + ‘of’ = noun. Verbs in -ate make nouns in -ation." },
+      { root: "EMPLOY", answers: ["employment"],
+        why: "‘Found … in the city centre’ means found work. The noun from ‘employ’ is ‘employment’, with the ending -ment.",
+        tip: "Verb + -ment makes many nouns: employ – employment, improve – improvement, pay – payment." },
+      { root: "IMPROVE", answers: ["improvement"],
+        why: "‘A big … on our old one’ needs a noun after ‘big’. The noun is ‘improvement’.",
+        tip: "‘A big’ + gap = noun. Look for the suffix -ment after verbs ending in a consonant or -e." },
+      { root: "PEACE", answers: ["peaceful"],
+        why: "‘Very … ’ describes the neighbourhood, so we need an adjective. ‘Peace’ + -ful = ‘peaceful’.",
+        tip: "After ‘very’ look for an adjective. The suffix -ful means ‘full of’: peaceful, colourful." },
+      { root: "PAY", answers: ["payment"],
+        why: "‘A monthly … for the rent’ needs a noun. The noun from ‘pay’ is ‘payment’ (the verb keeps its spelling and takes -ment).",
+        tip: "Watch the article: ‘a monthly’ + gap = singular noun. Pay – payment." },
+      { root: "TIDY", answers: ["untidy"],
+        why: "The bedroom has not been unpacked yet, so it is not tidy. The negative adjective is ‘untidy’ (prefix un-).",
+        tip: "If the sentence gives a reason for something bad (‘because I have not unpacked’), think of a negative prefix." },
+      { root: "COMFORT", answers: ["comfortable"],
+        why: "‘Wonderfully …’ describes the armchair and needs an adjective. ‘Comfort’ + -able = ‘comfortable’.",
+        tip: "An adverb (wonderfully) can be followed by an adjective. The suffix -able makes adjectives: comfortable, reliable." }
+    ]
+  },
+
+  part4: {
+    title: "Key word transformation",
+    instructions: "For questions 1–6, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. You must use between two and five words, including the word given.",
+    example: { lead: "Somebody is cleaning the classroom now.", key: "BEING", before: "The classroom", answer: "is being cleaned", after: "now." },
+    items: [
+      { lead: "If you don’t leave now, you will miss the train.", key: "UNLESS",
+        before: "You will miss the train", after: "now.",
+        answers: ["unless you leave"],
+        why: "‘Unless’ means ‘if … not’, so the verb after it is positive: unless you leave. The meaning does not change.",
+        tip: "If + negative = unless + positive verb. Do not write ‘unless you don’t leave’." },
+      { lead: "Somebody has stolen my bike.", key: "BEEN",
+        before: "My bike", after: "stolen.",
+        answers: ["has been"],
+        why: "In the passive we put the object first. The present perfect passive is has/have + been + third form: has been stolen.",
+        tip: "Present perfect passive = has/have been + third form. The subject ‘bike’ is singular, so use ‘has’." },
+      { lead: "The electrician repaired our cooker yesterday.", key: "HAD",
+        before: "We", after: "by the electrician yesterday.",
+        answers: ["had our cooker repaired", "had the cooker repaired"],
+        why: "We pay a person to do a job for us: have + object + third form. The past of ‘have’ is ‘had’, so: had our cooker repaired.",
+        tip: "A service done by someone else = have/get + object + third form. ‘By the electrician’ in the second sentence is a clue." },
+      { lead: "I did not pass the test because I did not revise.", key: "WOULD",
+        before: "If I had revised for the test, I", after: "it.",
+        answers: ["would have passed"],
+        why: "The ‘if’ part uses had + third form, so this is the third conditional. The result part needs would + have + third form (passed).",
+        tip: "‘If … had + third form’ in one part: would have + third form in the other part." },
+      { lead: "You can borrow my laptop if you take care of it.", key: "LONG",
+        before: "You can borrow my laptop", after: "you take care of it.",
+        answers: ["as long as"],
+        why: "‘As long as’ means ‘if’ and gives a condition. It uses all three words: as long as.",
+        tip: "Key word LONG in a condition: think of as long as, followed by a complete clause." },
+      { lead: "In my class, fifty per cent of the students passed the exam.", key: "HALF",
+        before: "In my class,", after: "the students passed the exam.",
+        answers: ["half of"],
+        why: "Fifty per cent is the same as one half. Before a noun with ‘the’ we say ‘half of the students’.",
+        tip: "Know your fractions: 50% = half, 25% = a quarter, 75% = three quarters. Add ‘of’ before ‘the’." }
+    ]
+  }
+};
+
+</script>
+
+<script id="lib-block">
+var UOE = (function () {
+  function expand(s) {
+    s = String(s).toLowerCase().replace(/[‘’´`]/g, "'");
+    s = s.replace(/\bcan't\b/g, "can not").replace(/\bcannot\b/g, "can not").replace(/\bwon't\b/g, "will not").replace(/\bshan't\b/g, "shall not");
+    return s.replace(/n't\b/g, " not").replace(/'ll\b/g, " will").replace(/'re\b/g, " are")
+            .replace(/'ve\b/g, " have").replace(/'m\b/g, " am").replace(/'d\b/g, " would");
+  }
+  function norm(s) {
+    return expand(s).replace(/[.,;:!?"“”()]/g, " ").replace(/\s+/g, " ").trim();
+  }
+  function countWords(s) {
+    var n = norm(s);
+    return n ? n.split(" ").length : 0;
+  }
+  function isRight(input, answers) {
+    var n = norm(input);
+    if (!n) return false;
+    return answers.some(function (a) { return norm(a) === n; });
+  }
+  function hasKey(input, key) {
+    return (" " + norm(input) + " ").indexOf(" " + norm(key) + " ") >= 0;
+  }
+  return { expand: expand, norm: norm, countWords: countWords, isRight: isRight, hasKey: hasKey };
+})();
+</script>
+
+<script id="engine-block">
+(function () {
+  "use strict";
+  var D = DATA, LET = "ABCD";
+  var app = document.getElementById("app");
+  var scores = [null, null, null, null];
+  var totals = [D.part1.items.length, D.part2.items.length, D.part3.items.length, D.part4.items.length];
+  var updateTotal = function () {};
+
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function expBlock(ok, lines) {
+    var d = el("div", "exp " + (ok ? "right" : "wrong"));
+    lines.forEach(function (ln) { d.appendChild(el("p", null, ln)); });
+    return d;
+  }
+  function whyTip(x) {
+    return ['<b class="lab why">Why</b>' + esc(x.why), '<b class="lab tip">Exam tip</b>' + esc(x.tip)];
+  }
+  function verdict(ok, blank) {
+    return '<span class="mark ' + (ok ? "y" : "n") + '" style="margin-left:0">' + (ok ? "Correct" : (blank ? "Blank" : "Not quite")) + "</span>";
+  }
+  function buttons(onCheck, onReset) {
+    var row = el("div", "btnrow");
+    var b1 = el("button", "btn", "Check answers"); b1.type = "button";
+    var b2 = el("button", "btn ghost", "Try again"); b2.type = "button";
+    var sc = el("span", "scoreline", "");
+    b1.addEventListener("click", onCheck);
+    b2.addEventListener("click", onReset);
+    row.appendChild(b1); row.appendChild(b2); row.appendChild(sc);
+    return { row: row, score: sc, check: b1 };
+  }
+  function head(card, tag, P) {
+    card.appendChild(el("span", "tag", tag));
+    card.appendChild(el("h2", null, esc(P.title)));
+    card.appendChild(el("p", "sub", esc(P.instructions)));
+    if (P.exampleLine) card.appendChild(el("div", "example", "<b>Example:</b> " + esc(P.exampleLine)));
+  }
+  function showScore(span, got, tot, blank) {
+    span.textContent = "Score: " + got + " / " + tot + (blank ? "  (" + blank + " blank)" : "");
+  }
+  function gapBadge(n) { return '<span class="gn">' + n + "</span>"; }
+
+  /* Texto corrido: {0} = ejemplo, {n} = hueco n. mk(n) devuelve el nodo del hueco. */
+  function buildText(P, mk) {
+    var read = el("div", "read");
+    read.appendChild(el("h3", "headline", esc(P.headline)));
+    P.text.split(/\n\n/).forEach(function (para) {
+      var p = el("p");
+      para.split(/(\{\d+\})/).forEach(function (piece) {
+        var m = piece.match(/^\{(\d+)\}$/);
+        if (!m) { p.appendChild(document.createTextNode(piece)); return; }
+        var n = +m[1];
+        if (n === 0) p.appendChild(el("span", "gapwrap", gapBadge(0) + '<span class="exw">' + esc(P.example) + "</span>" +
+          (P.exampleRoot ? '<span class="root">' + esc(P.exampleRoot) + "</span>" : "")));
+        else p.appendChild(mk(n));
+      });
+      read.appendChild(p);
+    });
+    return read;
+  }
+
+  /* -------------------------------------------------- PART 1: multiple-choice cloze */
+  function buildPart1() {
+    var P = D.part1, sels = [];
+    var card = el("section", "card"); card.id = "part1";
+    head(card, "Part 1", P);
+    card.appendChild(buildText(P, function (n) {
+      var wrap = el("span", "gapwrap", gapBadge(n));
+      var sel = document.createElement("select");
+      sel.setAttribute("aria-label", "Gap " + n);
+      sel.appendChild(new Option("—", ""));
+      for (var i = 0; i < 4; i++) sel.appendChild(new Option(LET.charAt(i), LET.charAt(i)));
+      wrap.appendChild(sel); sels[n - 1] = sel;
+      return wrap;
+    }));
+    var tb = el("div", "opttable");
+    P.items.forEach(function (it, i) {
+      var r = el("div", "orow", gapBadge(i + 1));
+      it.options.forEach(function (o, k) { r.appendChild(el("span", "o", "<b>" + LET.charAt(k) + "</b>" + esc(o))); });
+      tb.appendChild(r);
+    });
+    card.appendChild(tb);
+
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = ""; panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.items.forEach(function (it, i) {
+        var v = sels[i].value, ok = v === LET.charAt(it.correct);
+        if (!v) blank++;
+        if (ok) got++;
+        sels[i].className = ok ? "ok" : "no"; sels[i].disabled = true;
+        panel.appendChild(expBlock(ok, [
+          "<b>Gap " + (i + 1) + "</b> " + verdict(ok, !v),
+          'Right answer: <span class="sol">' + LET.charAt(it.correct) + " – " + esc(it.options[it.correct]) + "</span>"
+        ].concat(whyTip(it))));
+      });
+      panel.hidden = false;
+      showScore(bt.score, got, P.items.length, blank);
+      scores[0] = got; updateTotal(); bt.check.disabled = true;
+    }
+    function reset() {
+      sels.forEach(function (s) { s.value = ""; s.className = ""; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores[0] = null; updateTotal(); card.scrollIntoView();
+    }
+    card.appendChild(bt.row); card.appendChild(panel);
+    return card;
+  }
+
+  /* -------------------------------------------------- PART 2 & 3: typed gaps in a text */
+  function buildTyped(P, idx, tag, withRoot) {
+    var ins = [];
+    var card = el("section", "card"); card.id = "part" + (idx + 1);
+    head(card, tag, P);
+    card.appendChild(buildText(P, function (n) {
+      var wrap = el("span", "gapwrap", gapBadge(n));
+      var inp = document.createElement("input");
+      inp.type = "text"; inp.className = "gi"; inp.autocomplete = "off"; inp.spellcheck = false;
+      inp.setAttribute("aria-label", "Gap " + n);
+      wrap.appendChild(inp);
+      if (withRoot) wrap.appendChild(el("span", "root", esc(P.items[n - 1].root)));
+      ins[n - 1] = inp;
+      return wrap;
+    }));
+    var panel = el("div", "expgap"); panel.hidden = true;
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      panel.innerHTML = ""; panel.appendChild(el("h3", null, "Why? Check each gap"));
+      P.items.forEach(function (it, i) {
+        var v = ins[i].value, ok = UOE.isRight(v, it.answers);
+        if (!v.trim()) blank++;
+        if (ok) got++;
+        ins[i].className = "gi " + (ok ? "ok" : "no"); ins[i].disabled = true;
+        panel.appendChild(expBlock(ok, [
+          "<b>Gap " + (i + 1) + "</b> " + verdict(ok, !v.trim()),
+          (ok ? "" : "You wrote: <i>" + (v.trim() ? esc(v.trim()) : "nothing") + "</i>. ") +
+            'Right answer: <span class="sol">' + esc(it.answers.join("  /  ")) + "</span>"
+        ].concat(whyTip(it))));
+      });
+      panel.hidden = false;
+      showScore(bt.score, got, P.items.length, blank);
+      scores[idx] = got; updateTotal(); bt.check.disabled = true;
+    }
+    function reset() {
+      ins.forEach(function (s) { s.value = ""; s.className = "gi"; s.disabled = false; });
+      panel.hidden = true; panel.innerHTML = "";
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores[idx] = null; updateTotal(); card.scrollIntoView();
+    }
+    card.appendChild(bt.row); card.appendChild(panel);
+    return card;
+  }
+
+  /* -------------------------------------------------- PART 4: key word transformation */
+  function buildPart4() {
+    var P = D.part4, rows = [];
+    var card = el("section", "card"); card.id = "part4";
+    head(card, "Part 4", P);
+    if (P.example) {
+      var ex = P.example;
+      card.appendChild(el("div", "example", "<b>Example:</b> <span class=\"lead\">" + esc(ex.lead) + "</span> &nbsp;<b>" + esc(ex.key) + "</b><br>" + esc(ex.before) + " <b>" + esc(ex.answer) + "</b> " + esc(ex.after)));
+    }
+    P.items.forEach(function (x, i) {
+      var it = el("div", "item");
+      it.appendChild(el("p", "q lead", '<span class="n">' + (i + 1) + "</span>" + esc(x.lead)));
+      it.appendChild(el("div", null, '<span class="keyw">' + esc(x.key) + "</span>"));
+      var line = el("p", "q");
+      line.appendChild(document.createTextNode(x.before + " "));
+      var inp = document.createElement("input");
+      inp.type = "text"; inp.className = "wide"; inp.autocomplete = "off"; inp.spellcheck = false;
+      inp.setAttribute("aria-label", "Question " + (i + 1));
+      line.appendChild(inp);
+      line.appendChild(document.createTextNode(" " + x.after));
+      it.appendChild(line);
+      var slot = el("div"); slot.hidden = true; it.appendChild(slot);
+      rows.push({ x: x, inp: inp, slot: slot });
+      card.appendChild(it);
+    });
+    var bt = buttons(check, reset);
+    function check() {
+      var got = 0, blank = 0;
+      rows.forEach(function (r) {
+        var v = r.inp.value, ok = UOE.isRight(v, r.x.answers);
+        if (!v.trim()) blank++;
+        if (ok) got++;
+        r.inp.className = "wide " + (ok ? "ok" : "no"); r.inp.disabled = true;
+        var lines = [verdict(ok, !v.trim())];
+        if (!ok && v.trim()) {
+          var n = UOE.countWords(v), tips = [];
+          if (n < 2 || n > 5) tips.push("You must use between two and five words (you used " + n + ").");
+          if (!UOE.hasKey(v, r.x.key)) tips.push("The word " + r.x.key + " must be in your answer, unchanged.");
+          if (tips.length) lines.push(esc(tips.join(" ")));
+        }
+        lines.push((ok ? "" : "You wrote: <i>" + (v.trim() ? esc(v.trim()) : "nothing") + "</i>. ") +
+          'Right answer: <span class="sol">' + esc(r.x.answers[0]) + "</span>" +
+          (r.x.answers.length > 1 ? " <small>(also: " + esc(r.x.answers.slice(1).join(" / ")) + ")</small>" : ""));
+        r.slot.innerHTML = "";
+        r.slot.appendChild(expBlock(ok, lines.concat(whyTip(r.x))));
+        r.slot.hidden = false;
+      });
+      showScore(bt.score, got, rows.length, blank);
+      scores[3] = got; updateTotal(); bt.check.disabled = true;
+    }
+    function reset() {
+      rows.forEach(function (r) { r.inp.value = ""; r.inp.className = "wide"; r.inp.disabled = false; r.slot.hidden = true; r.slot.innerHTML = ""; });
+      bt.score.textContent = ""; bt.check.disabled = false;
+      scores[3] = null; updateTotal(); card.scrollIntoView();
+    }
+    card.appendChild(bt.row);
+    return card;
+  }
+
+  /* -------------------------------------------------- total */
+  function buildTotal() {
+    var card = el("section", "card total"); card.id = "total";
+    card.appendChild(el("span", "tag", "My score"));
+    var body = el("div"); card.appendChild(body);
+    updateTotal = function () {
+      var html = '<div class="row">', done = 0, sum = 0, max = 0;
+      for (var i = 0; i < 4; i++) {
+        html += '<span class="pill">Part ' + (i + 1) + ": " + (scores[i] == null ? "–" : scores[i]) + " / " + totals[i] + "</span>";
+        max += totals[i];
+        if (scores[i] != null) { done++; sum += scores[i]; }
+      }
+      html += "</div>";
+      html += done === 4 ? '<div class="big">Total: ' + sum + " / " + max + "</div>"
+                         : '<p class="sub">Check all four parts to see your total score.</p>';
+      body.innerHTML = html;
+    };
+    updateTotal();
+    return card;
+  }
+
+  document.getElementById("herotitle").textContent = D.heroTitle;
+  document.getElementById("herosub").textContent = D.heroSub;
+  var nav = document.getElementById("nav");
+  [["part1", "Part 1"], ["part2", "Part 2"], ["part3", "Part 3"], ["part4", "Part 4"], ["total", "My score"]].forEach(function (p) {
+    var a = el("a", null, p[1]); a.href = "#" + p[0]; nav.appendChild(a);
+  });
+  app.appendChild(buildPart1());
+  app.appendChild(buildTyped(D.part2, 1, "Part 2", false));
+  app.appendChild(buildTyped(D.part3, 2, "Part 3", true));
+  app.appendChild(buildPart4());
+  app.appendChild(buildTotal());
+})();
+</script>
+</body>
+</html>
