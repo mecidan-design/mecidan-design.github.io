@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listening &amp; Reading B1+ - Units 4, 5 and 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+
+.read p{font-size:1.04rem;line-height:1.7;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.hl{background:var(--yellow);border-radius:4px;padding:0 3px;font-weight:600}
+
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;margin-right:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 22px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+.opts.long{flex-direction:column;align-items:stretch}
+.opts.long .opt{border-radius:14px;text-align:left;padding:9px 16px;line-height:1.4}
+.opts.long .opt b{font-family:var(--head);font-weight:800;margin-right:8px}
+
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:500;padding:7px 10px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+
+.box{
+  border:3px dashed #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff;
+}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.words span{
+  font-family:var(--head);font-weight:700;background:var(--cyan);border:2px solid #000;
+  border-radius:999px;padding:1px 12px;
+}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 6px;line-height:1.45;font-size:.97rem}
+.ends b{font-family:var(--head);font-weight:800;margin-right:6px}
+.blank{display:inline-block;min-width:56px;border-bottom:3px solid #000;margin:0 3px}
+
+.audiobox{
+  background:var(--ink);border:3px solid #000;border-radius:14px;padding:10px 12px;margin:0 0 12px;
+}
+.audiobox .al{font-family:var(--head);font-weight:800;color:var(--lime);font-size:.85rem;
+  text-transform:uppercase;letter-spacing:1px;margin:0 0 6px}
+.audiobox audio{width:100%;display:block}
+
+details.trans{border:3px solid #000;border-radius:14px;padding:8px 14px;margin-top:12px;background:#fffdf2}
+details.trans summary{font-family:var(--head);font-weight:800;cursor:pointer}
+details.trans p{margin:8px 0 0;font-size:.93rem;line-height:1.55}
+details.trans p b{font-family:var(--head)}
+
+.exp{
+  border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;
+  background:#f4efff;font-size:.93rem;line-height:1.5;
+}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+.note{font-family:var(--head);font-weight:800;color:#c2004c;margin:10px 0 0}
+
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 4px}
+.cloze{font-size:1.06rem;line-height:2.7;margin:0}
+select.gapsel{margin:0 4px;padding:3px 8px;font-size:.95rem}
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>LISTENING &amp; READING &middot; B1+</h1>
+    <p>Units 4, 5 &amp; 8 &bull; Listen and match &bull; Interview &bull; Short extracts &bull; Reading</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Listening & Reading exam practice, units 4, 5 y 8.
+   - L.a1: matching, 5 audios (uno por speaker), opciones A-H (3 sobran). Cada speaker: ans = letra.
+   - L.a2: entrevista larga, 1 solo audio, 5 preguntas de 3 opciones. a = indice 0-2.
+   - L.a3: 4 extractos cortos, un audio y una pregunta cada uno.
+   - R: texto de lectura (4 actividades, igual que reading-comprehension-b1.html).
+   Cada item tiene ev (cita del audio/texto), why y tip. ====== */
+var DATA = {
+
+listening: {
+
+a1: {
+  audioNote: "Play each speaker as many times as you need.",
+  options: [
+    "I regretted following a friend’s suggestion.",
+    "I was relieved once I finally stopped delaying the choice.",
+    "I chose an option that required more hard work than expected.",
+    "I asked a teacher to help me decide.",
+    "I managed to reach a compromise that pleased everyone.",
+    "I felt pressured by my teachers to pick a specific path.",
+    "I changed my mind at the very last minute.",
+    "I used a logical method to weigh up the pros and cons."
+  ],
+  speakers: [
+    { audio: "audio/a1-speaker1.mp3", ans: 1,
+      ev: "“putting it off was exhausting ... just having the matter settled took a massive weight off my shoulders”",
+      why: "The speaker waited for months and found it tiring. After choosing the robotics team, the speaker felt a big weight leave. That is relief after delaying.",
+      tip: "Listen for the feeling, not the same words. “A weight off my shoulders” means relieved, and “putting it off” means delaying.",
+      text: "For months, I couldn’t decide whether to join the drama club or the robotics team, as both met on Thursdays. Every time someone asked, I changed the subject. Honestly, putting it off was exhausting. Last week, I finally walked into the robotics lab and signed up. Even though I’m a total beginner, just having the matter settled took a massive weight off my shoulders." },
+    { audio: "audio/a1-speaker2.mp3", ans: 4,
+      ev: "“I sat down with them and agreed to take business studies instead ... we all accepted it as a fair middle ground”",
+      why: "The speaker wanted graphic design and the parents had other ideas. They agreed on business studies, and everybody accepted it. That is a compromise.",
+      tip: "“Middle ground” means compromise. Listen to how the story ends, because the first problem is not always the answer.",
+      text: "Everyone at home assumed I’d take advanced maths because my older brother is an engineer, and my parents kept bringing up university requirements at dinner. I actually wanted to study graphic design. In the end, I sat down with them and agreed to take business studies instead—it wasn’t my first pick, and they weren’t thrilled at first, but we all accepted it as a fair middle ground." },
+    { audio: "audio/a1-speaker3.mp3", ans: 0,
+      ev: "“I really wish I’d trusted my own instincts instead of listening to him”",
+      why: "The speaker chose the café job because a friend recommended it, but it was a bad job. “I wish I had” shows regret about following the friend.",
+      tip: "“Big mistake” and “I wish I’d ...” are regret signals. A friend gives advice, then the speaker is sorry: that is option A.",
+      text: "I was torn between getting a weekend job at a café or volunteering at the local animal shelter. My best friend swore the café was a super relaxed place to work and that the tips were great, so I went with that. Big mistake. The manager was constantly yelling, and we weren’t even allowed to keep our tips. I really wish I’d trusted my own instincts instead of listening to him." },
+    { audio: "audio/a1-speaker4.mp3", ans: 7,
+      ev: "“divided a page into two columns: benefits, and drawbacks. I gave each point a score”",
+      why: "The speaker wrote good points and bad points, gave scores, and added them up. That is a logical way to weigh up the pros and cons.",
+      tip: "Listen for the method: lists, columns, scores and numbers. “Taking the emotion out of it” means using logic.",
+      text: "Choosing my electives felt impossible until I grabbed a notebook and divided a page into two columns: benefits, and drawbacks. I gave each point a score out of ten based on how much it mattered to my future goals. Once I added up the numbers, the winner was obvious. Taking the emotion out of it made the whole process completely straightforward." },
+    { audio: "audio/a1-speaker5.mp3", ans: 6,
+      ev: "“On the morning of the deadline ... Without even thinking twice, I tore up my coding form”",
+      why: "For weeks the speaker was sure about the coding camp. On the last morning, the speaker saw a poster and changed the plan completely.",
+      tip: "Time phrases like “on the morning of the deadline” show a last-minute change. The first plan in a story is often not the final decision.",
+      text: "I’d spent weeks preparing my application for a summer coding camp, completely convinced I wanted to go. On the morning of the deadline, I walked past a poster for an outdoor survival course in the mountains. Without even thinking twice, I tore up my coding form and applied for the survival trip instead. Looking back, I have no idea what came over me!" }
+  ]
+},
+
+a2: {
+  audio: "audio/a2-interview.mp3",
+  items: [
+    { q: "What initially motivated Leo to create his budgeting app?",
+      opts: ["He wanted to earn extra money to buy a new laptop.",
+             "He realized he had lost track of his small daily expenses.",
+             "His economics teacher assigned it as a class project."], a: 1,
+      ev: "“hundreds of dollars had vanished on snacks, bus fares, and random downloads. I had no clue where it was going”",
+      why: "Leo had a job and was saving, but his money disappeared and he did not know where. He made the app to follow his small expenses. The laptop was the reason he was saving, not the reason for the app.",
+      tip: "Word-spotting trap: “laptop” is in option A, but the question asks why he made the app. His teacher found out “months later”, so C is wrong too." },
+    { q: "Why did Leo reject the existing finance apps he downloaded?",
+      opts: ["They did not work well on his phone.",
+             "They charged a monthly subscription fee.",
+             "They contained too much confusing financial vocabulary."], a: 2,
+      ev: "“Words like equity and amortization just made me close the app immediately”",
+      why: "Leo says the apps were made for adults, with difficult words like “equity”. He closed them because he could not understand them.",
+      tip: "Fees are a trap: Leo says “I didn’t mind paying”. Listen for “The real issue was ...”, because it introduces the main reason." },
+    { q: "What problem did Leo face when testing the first version with his friends?",
+      opts: ["They stopped entering their purchases regularly.",
+             "The app crashed whenever they added photos of receipts.",
+             "They thought the visual design looked too childish."], a: 0,
+      ev: "“typing in every single purchase at the end of the day felt like homework, so they simply skipped it”",
+      why: "After a week, almost nobody used the app because writing every purchase was boring. So the friends stopped entering their purchases.",
+      tip: "“However” introduces the real problem. Before it, Leo says there were no bugs or crashes and his classmates loved the graphics, so B and C are wrong." },
+    { q: "How does Leo’s app encourage teenagers to save money?",
+      opts: ["It blocks access to online shopping sites after a limit is reached.",
+             "It awards digital badges when users hit their weekly targets.",
+             "It automatically transfers spare change into a locked folder."], a: 1,
+      ev: "“every time you stick to your budget for seven days straight, you unlock collectible badges”",
+      why: "If users follow their budget for seven days, they win collectible badges. The badges are the reward that keeps people saving.",
+      tip: "“We considered ... but users hated it” means the idea was rejected. Do not choose an idea that the speaker did not use." },
+    { q: "What is Leo’s main plan for the app over the next six months?",
+      opts: ["To translate it into three other languages.",
+             "To partner with local high schools to offer workshops.",
+             "To sell the software to a major banking company."], a: 1,
+      ev: "“Right now, I’m focused on teaming up with secondary schools across the region to run practical money-management sessions”",
+      why: "“Right now, I’m focused on” shows the main plan. Leo wants to work with schools and run money sessions with the app.",
+      tip: "“Maybe I’ll look into international versions” is only a possible idea for later (A). “I’m definitely not ready to sell” rules out C." }
+  ],
+  transcript: [
+    { who: "Interviewer", text: "Leo, your app PocketWise has been downloaded over fifty thousand times! What sparked the idea? Was it for a school assignment?" },
+    { who: "Leo", text: "Actually, my economics teacher only found out about it months later! No, it started when I was saving up for a laptop. I had a weekend job, so I thought I was doing fine, yet my bank balance barely grew. When I checked my receipts, I was shocked—hundreds of dollars had vanished on snacks, bus fares, and random downloads. I had no clue where it was going." },
+    { who: "Interviewer", text: "Couldn’t you just use one of the apps already on the market?" },
+    { who: "Leo", text: "I tried at least six of them. Some were free, others cost a few dollars a month, which I didn’t mind paying if they worked. The real issue was that they were built for adults with mortgages and investments. Words like equity and amortization just made me close the app immediately. Teens don’t need a bank link or corporate jargon; we just need simplicity." },
+    { who: "Interviewer", text: "So you coded your own. Did it work right away?" },
+    { who: "Leo", text: "Technically, yes—there weren’t any bugs or crashes, and my classmates loved the bright, game-like graphics. However, after a week, almost nobody was using it. They told me typing in every single purchase at the end of the day felt like homework, so they simply skipped it. That’s when I added a voice-note feature so you can log an expense in two seconds." },
+    { who: "Interviewer", text: "And how do you keep users motivated to actually save?" },
+    { who: "Leo", text: "We considered putting restrictions on shopping websites, but users hated feeling controlled. Instead, every time you stick to your budget for seven days straight, you unlock collectible badges that you can display on your profile. It sounds simple, but turning saving into a streak keeps people hooked!" },
+    { who: "Interviewer", text: "What’s next for PocketWise? Have any banks approached you?" },
+    { who: "Leo", text: "A couple of investors have reached out, though I’m definitely not ready to sell. Right now, I’m focused on teaming up with secondary schools across the region to run practical money-management sessions using the app. Once that’s running smoothly, maybe I’ll look into international versions." }
+  ]
+},
+
+a3: {
+  items: [
+    { audio: "audio/a3-extract1.mp3",
+      q: "You hear two friends talking about a charity maths marathon they entered. What do they agree on?",
+      opts: ["The time limit was unfair for the final round.",
+             "Working as a pair slowed them down.",
+             "The real problems were easier than they had feared."], a: 2,
+      ev: "Boy: “Today’s problems were way more manageable.” Girl: “I was expecting impossible equations, so I was relieved”",
+      why: "Both speakers say that the real marathon was easier than they expected. The boy was terrified of the mock tests, and the girl expected impossible equations.",
+      tip: "For “What do they agree on?”, find an idea that both speakers support. The girl says working together cost minutes, but the boy disagrees (“teaming up was worth it”), so B is not agreed.",
+      text: [
+        { who: "Boy", text: "Well, we survived the charity math marathon! Honestly, those mock tests we downloaded last week had me terrified—I barely finished half of them. Today’s problems were way more manageable." },
+        { who: "Girl", text: "Totally! I was expecting impossible equations, so I was relieved when I saw the sheet. I do think having to discuss every answer together cost us valuable minutes, though. On my own, I’d have finished faster." },
+        { who: "Boy", text: "Actually, bouncing ideas off you saved me from two huge errors, so I think teaming up was worth it. At least they gave us plenty of time at the end." }
+      ] },
+    { audio: "audio/a3-extract2.mp3",
+      q: "You hear a student leaving a voicemail about a group science project. Why is she calling?",
+      opts: ["To ask for help with a technical error.",
+             "To apologize for missing a deadline.",
+             "To suggest changing their research topic."], a: 0,
+      ev: "“whenever I try to generate the percentage pie chart, the program freezes and deletes the labels. Could you log in from your laptop and see if you can format that graphic?”",
+      why: "Elena has a problem with the program and asks Marcus to try to fix the chart. She also says they are on schedule, so there is no missed deadline.",
+      tip: "In a voicemail, the real reason often comes after “The only thing is ...”. The first sentences are background information.",
+      text: [
+        { who: "Girl", text: "Hi Marcus, it’s Elena. Look, I’ve just finished putting all our survey data into the presentation slides, and everything is ready to submit tonight—so don’t worry, we’re right on schedule. The only thing is, whenever I try to generate the percentage pie chart, the program freezes and deletes the labels. Could you log in from your laptop and see if you can format that graphic? Otherwise, we might have to rethink how we present those numbers. Call me back!" }
+      ] },
+    { audio: "audio/a3-extract3.mp3",
+      q: "You hear a boy talking about a Rubik’s Cube competition. How did he feel during the competition?",
+      opts: ["Distracted by the noise from the audience.",
+             "Annoyed that he made a careless mistake early on.",
+             "Surprised by how calm he remained."], a: 2,
+      ev: "“keeping a cool head like that was something I never expected from myself”",
+      why: "The boy thought he would freeze on stage. But when the timer started, everything faded out and he stayed calm. He is surprised by his own behaviour.",
+      tip: "“Yet” after a worry shows a surprise. The crowd was loud (A), but it “faded out”. His mistake was “near the end”, and he says it is fine (B).",
+      text: [
+        { who: "Boy", text: "When I walked onto the stage for the speed-cubing final, the crowd was cheering so loudly I thought I’d completely freeze. Usually, my hands shake whenever people watch me. Yet the second the timer started, everything around me just faded out. I didn’t break my personal record—I fumbled one turn near the end, which is fine—but keeping a cool head like that was something I never expected from myself." }
+      ] },
+    { audio: "audio/a3-extract4.mp3",
+      q: "You hear two classmates discussing a difficult logic puzzle. What does the girl think about it?",
+      opts: ["The instructions are deliberately misleading.",
+             "Solving it requires advanced calculation skills.",
+             "Most people give up on it too quickly."], a: 2,
+      ev: "“everyone glances at all those rows, assumes it’s impossible, and closes their notebook after thirty seconds”",
+      why: "The girl says people look at the puzzle, think it is impossible and stop after thirty seconds. But five minutes of effort is enough to see the pattern. So people give up too soon.",
+      tip: "The question asks about the girl’s opinion, not the boy’s. She says “it’s not a trick” (so A is wrong) and “basic addition is enough” (so B is wrong).",
+      text: [
+        { who: "Boy", text: "Have you cracked that number grid Mr. Davies put on the board? I’ve been staring at it for twenty minutes and the rules make zero sense." },
+        { who: "Girl", text: "Look closer at the third line—it’s not a trick, it’s actually super clear once you read it properly. You don’t even need to do heavy math; basic addition is enough. The trouble is, everyone glances at all those rows, assumes it’s impossible, and closes their notebook after thirty seconds. If you just stick with it for five minutes, the pattern jumps right out." }
+      ] }
+  ]
+}
+
+},
+
+reading: {
+  id: "r1", nav: "Reading", num: "4", level: "Units 4, 5 & 8", title: "The Maths Club That Nobody Expected",
+  paras: [
+    "Last September, fifteen-year-old Nadia Rossi noticed something strange at her school. The maths classroom was always full during lessons, but on Thursday afternoons, when teachers offered free extra help, nobody turned up. Nadia, who is **ambitious** and hopes to study engineering, thought that her classmates were simply too embarrassed to ask for help. “Nobody likes to be the only person who doesn’t understand,” she told the school newspaper.",
+    "So she decided to start a club run by students, not teachers. The first meetings were held in the school library, and the rules were simple: no marks, no homework and no silly questions. At first, only four students came. The problems they studied looked **tricky**, but Nadia showed them how to break each one into small steps. “Once you can **work out** the first step, the rest is much easier,” she says. Within a month, the club had thirty members, and one teacher had a sign painted for the door.",
+    "Not everybody found maths easy. Tomás, a member of the club, says that he had been falling behind since the start of the year. “I used to think I would never **keep up** with the others,” he explains. “Now I can ask a question without feeling stupid.” The parents’ association gave the club a small amount of money, and Nadia’s team spent it carefully. They bought a set of second-hand textbooks at a street market, and it was a real **bargain**. “We paid less than ten dollars for the whole set,” she says.",
+    "Some teachers were doubtful at the start. One of them, Mr Hughes, predicted that the club would be closed by December, because he believed that students never **get on with** serious work without an adult watching them. He was wrong. “I should have trusted them more,” he now admits. “The students working in the library today are more serious than many of my own classes.”",
+    "This year, the club is going to include other subjects, and Nadia hopes that students from nearby schools will be invited to join. She does not know yet whether the club will continue after she leaves, but she feels confident about the future. “The students taking part now will teach the next group,” she says. “That is the whole point.”"
+  ],
+  tf: [
+    { q: "Nobody went to the free extra help on Thursday afternoons.", a: true,
+      ev: "“on Thursday afternoons, when teachers offered free extra help, nobody turned up”",
+      why: "“Nobody turned up” means that no student came. The statement says the same with different words.",
+      tip: "“Went to” and “turned up” can mean the same. Match the idea, not the exact words." },
+    { q: "Students receive marks for the problems they solve in the club.", a: false,
+      ev: "“no marks, no homework and no silly questions”",
+      why: "The rules of the club say “no marks”. The students do not receive marks.",
+      tip: "Look for the word “no” in the text. A statement that says the opposite of a rule is False." },
+    { q: "Nadia’s parents helped her to choose a name for the club.", a: "ng",
+      ev: null,
+      why: "The text never mentions Nadia’s parents or the name of the club. Only the parents’ association is mentioned, and it gave money.",
+      tip: "Check every person in the statement. If the text does not say that this person did this action, choose Not given." },
+    { q: "Tomás now feels more comfortable asking questions.", a: true,
+      ev: "“Now I can ask a question without feeling stupid.”",
+      why: "Before the club, Tomás did not feel confident. Now he can ask questions without feeling stupid, so he is more comfortable.",
+      tip: "“Used to” and “now” show a change. Compare the old situation with the new one." },
+    { q: "Mr Hughes still believes that the club will close soon.", a: false,
+      ev: "“I should have trusted them more,”",
+      why: "Mr Hughes first thought the club would close, but now he admits that he was wrong. He says that he should have trusted the students.",
+      tip: "“Should have + past participle” shows regret about the past. When a person changes their opinion, the statement with “still” is False." },
+    { q: "The school will give Nadia a prize for her work.", a: "ng",
+      ev: null,
+      why: "The text says nothing about a prize. We only read about her club and her plans for the future.",
+      tip: "Not given means that the text is silent. Do not use your own ideas: a prize sounds possible, but it is not in the text." }
+  ],
+  box: ["were held", "ambitious", "should have", "work out", "had a sign painted", "keep up with"],
+  endings: [
+    "___ trusted the students more.",
+    "___ in the school library.",
+    "___ the other students.",
+    "___ the first step of each problem.",
+    "___ for the door of the club.",
+    "___ and hopes to become an engineer."
+  ],
+  comp: [
+    { begin: "Nadia is", end: 5, word: 1, d: ["ambition", "ambitiously", "ambitions"],
+      why: "After “is” we need an adjective to describe Nadia. “Ambitious” is the adjective, and it goes with “and hopes to become an engineer”.",
+      tip: "Look at the words before the gap. After the verb “be”, use an adjective: ambitious, not ambition (a noun)." },
+    { begin: "The first meetings", end: 1, word: 0, d: ["was held", "held", "are holding"],
+      why: "The meetings did not hold themselves, so we need the passive. “Meetings” is plural, so we use “were held”.",
+      tip: "Plural subject + past passive = were + past participle. Check that “was” or “is” agree with the subject." },
+    { begin: "Nadia teaches the members how to", end: 3, word: 3, d: ["worked out", "working out", "works out"],
+      why: "After “how to” we need the base form of the verb. “Work out” means find the answer by thinking.",
+      tip: "“How to” is always followed by the base form of the verb (work, not worked)." },
+    { begin: "A teacher", end: 4, word: 4, d: ["had paint a sign", "had a sign paint", "did a sign painted"],
+      why: "The teacher asked somebody else to paint the sign. We use have + object + past participle: “had a sign painted”.",
+      tip: "Somebody else did the job for you? Use have + thing + past participle (have your hair cut, have a sign painted)." },
+    { begin: "Tomás was afraid that he could not", end: 2, word: 5, d: ["keep up", "keep on with", "keep out of"],
+      why: "“Keep up with” means to continue at the same speed as other people. We need “with” before “the other students”.",
+      tip: "Some phrasal verbs need a preposition after them: keep up with, catch up with, get on with." },
+    { begin: "Mr Hughes says that he", end: 0, word: 2, d: ["should be", "ought have", "would have to"],
+      why: "He is talking about the past and he regrets it. “Should have + past participle” shows regret, and “trusted” is the past participle.",
+      tip: "See a past participle after the gap? Think of should have, could have or would have. Remember that “ought” needs “to”." }
+  ],
+  vocab: [
+    { term: "Ambitious", para: 1, def: 2,
+      why: "Nadia hopes to study engineering, so she has a strong wish to be successful.",
+      tip: "Personality adjectives often appear with a hope or a plan: ambitious people want to achieve a lot." },
+    { term: "Tricky", para: 2, def: 6,
+      why: "The text says that the problems “looked tricky”, but Nadia showed them how to solve them in small steps. So they were difficult.",
+      tip: "“But” signals a contrast. If the first idea is a problem, the second idea is a solution." },
+    { term: "Work out", para: 2, def: 4,
+      why: "Once you find the first step, the rest is easier. “Work out” means to find the answer by thinking.",
+      tip: "Work out + a problem, an answer or a plan = find the solution." },
+    { term: "Keep up", para: 3, def: 7,
+      why: "Tomás was falling behind, so he was afraid that he could not stay at the same level as his classmates.",
+      tip: "“Keep up” and “fall behind” are opposites. They often appear in the same text." },
+    { term: "Bargain", para: 3, def: 1,
+      why: "They bought a set of books for less than ten dollars. A bargain is something you buy for much less money than usual.",
+      tip: "Money clues like “paid less than” help you guess the meaning of shopping words." },
+    { term: "Get on with", para: 4, def: 0,
+      why: "Mr Hughes thought students would not continue with their work if an adult was not watching them.",
+      tip: "“Get on with” + work, a task or a job = continue doing it." }
+  ],
+  defs: [
+    "Continue doing a job or task.",
+    "Something you buy for much less than its usual price.",
+    "Having a strong wish to be successful.",
+    "Stop trying to do something.",
+    "Find the answer to a problem by thinking.",
+    "Easy to see and understand.",
+    "Difficult and needing careful thought.",
+    "Continue at the same speed or level as other people."
+  ],
+  cloze: {
+    box: ["bargain", "tricky", "keep up", "embarrassed", "should have", "ambitious", "work out", "were held"],
+    text: "Nadia started the club because students were too {1} to ask for help in maths. The first meetings {2} in the school library, and Nadia showed the members how to {3} the answer to difficult problems. The club bought second-hand textbooks, and it was a real {4}. Tomás used to fall behind, but now he can {5} with the others. Mr Hughes admits that he {6} trusted the students more.",
+    gaps: [
+      { ans: 3, why: "After “too” we need an adjective, and “to ask for help” follows. “Embarrassed” means that students felt shy or uncomfortable.",
+        tip: "Too + adjective + to + verb is a common pattern: too tired to study, too shy to speak." },
+      { ans: 7, why: "The meetings did not hold themselves, so we need the past passive. “Meetings” is plural, so “were held”.",
+        tip: "A verb after a plural noun and before “in the library” can show a passive. Check the tense: past story, past passive." },
+      { ans: 6, why: "After “how to” we need a base form. “Work out the answer” means find the answer to a problem.",
+        tip: "Answer, solution or problem after the gap: work out is the phrasal verb." },
+      { ans: 0, why: "After “a real” we need a noun. A “bargain” is something you buy at a very good price.",
+        tip: "The article “a” and the adjective “real” tell you that a noun comes next. Then use the shopping clue: second-hand textbooks." },
+      { ans: 2, why: "“Keep up with the others” means stay at the same level. It is the opposite of “fall behind” before the gap.",
+        tip: "“But now he can ___ with the others”: with + the others is the clue for keep up with." },
+      { ans: 4, why: "“Should have” is the only option that goes before “trusted”. It shows regret about the past.",
+        tip: "A past participle (trusted) after the gap means have + past participle. Only “should have” fits the meaning of regret." }
+    ]
+  }
+}
+
+};
+</script>
+
+<script id="engine-block">
+(function () {
+  var LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  var L1REG = [], MCREG = [], TFREG = [], COMPREG = [], VOCREG = [], CLREG = [];
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function fmt(s) {
+    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b class="hl">$1</b>');
+  }
+  function endHtml(s) { return esc(s).replace("___", '<span class="blank"></span>'); }
+
+  function expl(ok, solHtml, evidence, why, tip) {
+    var h = '<div class="exp ' + (ok ? "right" : "wrong") + '">';
+    h += '<p>' + (ok ? "Correct! " : "Not quite. ") + solHtml + '</p>';
+    if (evidence) h += '<p><b class="lab ev">Evidence</b>' + esc(evidence) + '</p>';
+    h += '<p><b class="lab why">Why</b>' + esc(why) + '</p>';
+    h += '<p><b class="lab tip">Exam tip</b>' + esc(tip) + '</p></div>';
+    return h;
+  }
+
+  function scoreText(ok, total) {
+    var msg = ok === total ? "Perfect!" : (ok >= total - 2 ? "Well done!" : "Keep going, read the tips and try again.");
+    return "Score: " + ok + " / " + total + " - " + msg;
+  }
+
+  function sectionShell(tag, title, sub, prefix) {
+    return '<div class="tag">' + esc(tag) + '</div><h2>' + esc(title) + '</h2><p class="sub">' + esc(sub) + '</p>' +
+      '<div id="' + prefix + 'Body"></div>' +
+      '<div class="btnrow"><button class="btn" id="' + prefix + 'Check">Check answers</button>' +
+      '<button class="btn ghost" id="' + prefix + 'Reset">Try again</button>' +
+      '<span class="scoreline" id="' + prefix + 'Score"></span></div>';
+  }
+
+  function audioHtml(src, label) {
+    return '<div class="audiobox"><p class="al">' + esc(label) + '</p><audio controls preload="metadata" src="' + esc(src) + '"></audio></div>';
+  }
+
+  function transHtml(text) {
+    var inner = "";
+    if (typeof text === "string") inner = "<p>" + esc(text) + "</p>";
+    else inner = text.map(function (t) { return "<p><b>" + esc(t.who) + ":</b> " + esc(t.text) + "</p>"; }).join("");
+    return '<details class="trans" open><summary>Transcript</summary>' + inner + '</details>';
+  }
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x;
+    }
+    return a;
+  }
+
+  /* ================= LISTENING 1: multiple matching ================= */
+  function buildL1(card) {
+    var A = DATA.listening.a1, prefix = "l1";
+    card.innerHTML = sectionShell("Activity 1 · Listening", "Making up your mind",
+      "You will hear five teenagers talking about difficult decisions they recently made. For speakers 1-5, choose from the list (A-H) what each speaker says. Use each letter only once. There are three extra letters you do not need.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      var listH = A.options.map(function (o, i) { return "<li><b>" + LETTERS[i] + ".</b>" + esc(o) + "</li>"; }).join("");
+      var info = document.createElement("div");
+      info.innerHTML = '<div class="box"><div class="bt">What does each speaker say about the decision?</div><ul class="ends">' + listH + '</ul></div>';
+      body.appendChild(info);
+      A.speakers.forEach(function (it, i) {
+        var id = L1REG.length;
+        L1REG.push({ item: it, n: i + 1 });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span><b>Speaker ' + (i + 1) + '</b></p>' +
+          audioHtml(it.audio, "Speaker " + (i + 1)) +
+          '<div class="selrow"><label>Letter</label><select data-l1id="' + id + '">' +
+          '<option value="">?</option>' + A.options.map(function (o, k) { return '<option value="' + k + '">' + LETTERS[k] + '</option>'; }).join("") +
+          '</select></div><div class="fb" data-l1id="' + id + '"></div>';
+        body.appendChild(div);
+      });
+      var note = document.createElement("p");
+      note.className = "note"; note.id = prefix + "Note";
+      body.appendChild(note);
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0, used = {}, dup = false;
+      ids.forEach(function (id) {
+        var s = body.querySelector('select[data-l1id="' + id + '"]');
+        if (s.value !== "") { if (used[s.value]) dup = true; used[s.value] = 1; }
+      });
+      ids.forEach(function (id) {
+        var rec = L1REG[id], it = rec.item;
+        var s = body.querySelector('select[data-l1id="' + id + '"]');
+        var good = s.value !== "" && +s.value === it.ans;
+        s.className = good ? "ok" : "no"; s.disabled = true;
+        if (good) ok++;
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.ans] + '</span> - ' + esc(A.options[it.ans]);
+        body.querySelector('.fb[data-l1id="' + id + '"]').innerHTML = expl(good, sol, it.ev, it.why, it.tip) + transHtml(it.text);
+      });
+      body.querySelector("#" + prefix + "Note").textContent = dup ? "Remember: use each letter only once." : "";
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ================= LISTENING 2 and 3: multiple choice ================= */
+  function buildMC(card, prefix, tag, title, sub, items, topAudio, topTranscript) {
+    card.innerHTML = sectionShell(tag, title, sub, prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      if (topAudio) {
+        var top = document.createElement("div");
+        top.innerHTML = audioHtml(topAudio, "Interview");
+        body.appendChild(top);
+      }
+      items.forEach(function (it, i) {
+        var id = MCREG.length;
+        MCREG.push({ item: it, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        var optsH = it.opts.map(function (o, k) {
+          return '<button class="opt" data-mcid="' + id + '" data-k="' + k + '"><b>' + LETTERS[k] + '</b>' + esc(o) + '</button>';
+        }).join("");
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.q) + '</p>' +
+          (it.audio ? audioHtml(it.audio, "Extract " + (i + 1)) : "") +
+          '<div class="opts long">' + optsH + '</div><div class="fb" data-mcid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+      var tr = document.createElement("div");
+      tr.id = prefix + "Trans";
+      body.appendChild(tr);
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      MCREG[+b.getAttribute("data-mcid")].sel = +b.getAttribute("data-k");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = MCREG[id], it = rec.item;
+        var good = rec.sel === it.a;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-mcid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var k = +b.getAttribute("data-k");
+          b.disabled = true; b.classList.remove("sel");
+          if (k === it.a) b.classList.add("good");
+          else if (rec.sel === k) b.classList.add("bad");
+        });
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.a] + '</span> - ' + esc(it.opts[it.a]);
+        body.querySelector('.fb[data-mcid="' + id + '"]').innerHTML = expl(good, sol, it.ev, it.why, it.tip) +
+          (it.text ? transHtml(it.text) : "");
+      });
+      if (topTranscript) body.querySelector("#" + prefix + "Trans").innerHTML = transHtml(topTranscript);
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ================= READING ================= */
+  var TFLAB = { T: "True", F: "False", NG: "Not given" };
+  function tfKey(a) { return a === true ? "T" : (a === false ? "F" : "NG"); }
+
+  function buildTF(t, card) {
+    var prefix = t.id + "tf";
+    card.innerHTML = sectionShell("Activity " + t.num + ".1", "True, false or not given?",
+      "Decide if each statement is true, false, or not given in the text. Choose Not given when the text does not say.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.tf.forEach(function (it, i) {
+        var id = TFREG.length;
+        TFREG.push({ item: it, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.q) + '</p>' +
+          '<div class="opts">' + ["T", "F", "NG"].map(function (k) {
+            return '<button class="opt" data-tfid="' + id + '" data-v="' + k + '">' + TFLAB[k] + '</button>';
+          }).join("") + '</div><div class="fb" data-tfid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      TFREG[+b.getAttribute("data-tfid")].sel = b.getAttribute("data-v");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = TFREG[id], it = rec.item, key = tfKey(it.a);
+        var good = rec.sel === key;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-tfid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var v = b.getAttribute("data-v");
+          b.disabled = true; b.classList.remove("sel");
+          if (v === key) b.classList.add("good");
+          else if (rec.sel === v) b.classList.add("bad");
+        });
+        var sol = 'The answer is <span class="sol">' + TFLAB[key] + '</span>.';
+        var evid = it.ev || "The text does not say this.";
+        body.querySelector('.fb[data-tfid="' + id + '"]').innerHTML = expl(good, sol, evid, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  function buildComp(t, card) {
+    var prefix = t.id + "cp";
+    card.innerHTML = sectionShell("Activity " + t.num + ".2", "Choose the correct option",
+      "Read each sentence and choose the option that fits the gap.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.comp.forEach(function (it, i) {
+        var right = t.box[it.word];
+        var opts = shuffle([right].concat(it.d));
+        var id = COMPREG.length;
+        COMPREG.push({ item: it, right: right, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        var optsH = opts.map(function (o) {
+          return '<button class="opt" data-cpid="' + id + '" data-o="' + esc(o) + '">' + esc(o) + '</button>';
+        }).join("");
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.begin) + ' ' + endHtml(t.endings[it.end]) + '</p>' +
+          '<div class="opts">' + optsH + '</div><div class="fb" data-cpid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      COMPREG[+b.getAttribute("data-cpid")].sel = b.getAttribute("data-o");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = COMPREG[id], it = rec.item;
+        var good = rec.sel === rec.right;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-cpid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var o = b.getAttribute("data-o");
+          b.disabled = true; b.classList.remove("sel");
+          if (o === rec.right) b.classList.add("good");
+          else if (o === rec.sel) b.classList.add("bad");
+        });
+        var full = it.begin + " " + t.endings[it.end].replace("___", rec.right);
+        var sol = 'Full sentence: <span class="sol">' + esc(full) + '</span>';
+        body.querySelector('.fb[data-cpid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  function optsHtml(list, useLetters) {
+    var h = '<option value="">?</option>';
+    list.forEach(function (x, i) { h += '<option value="' + i + '">' + (useLetters ? LETTERS[i] : esc(x)) + '</option>'; });
+    return h;
+  }
+
+  function buildVocab(t, card) {
+    var prefix = t.id + "vc";
+    card.innerHTML = sectionShell("Activity " + t.num + ".3", "Match expressions with their meanings",
+      "Find each highlighted expression in the text. Choose the definition that matches.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      var defsH = t.defs.map(function (d, i) { return "<li><b>" + LETTERS[i] + ".</b>" + esc(d) + "</li>"; }).join("");
+      var info = document.createElement("div");
+      info.innerHTML = '<div class="box"><div class="bt">Definitions</div><ul class="ends">' + defsH + '</ul></div>';
+      body.appendChild(info);
+      t.vocab.forEach(function (it, i) {
+        var id = VOCREG.length;
+        VOCREG.push({ item: it });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span><b class="hl">' + esc(it.term) + '</b> (paragraph ' + it.para + ')</p>' +
+          '<div class="selrow"><label>Meaning</label><select data-vcid="' + id + '">' + optsHtml(t.defs, true) + '</select></div>' +
+          '<div class="fb" data-vcid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var it = VOCREG[id].item;
+        var s = body.querySelector('select[data-vcid="' + id + '"]');
+        var good = s.value !== "" && +s.value === it.def;
+        s.className = good ? "ok" : "no"; s.disabled = true;
+        if (good) ok++;
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.def] + '</span> - ' + esc(t.defs[it.def]);
+        body.querySelector('.fb[data-vcid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  function buildCloze(t, card) {
+    var prefix = t.id + "cl", C = t.cloze;
+    card.innerHTML = sectionShell("Activity " + t.num + ".4", "Complete the summary",
+      "Use the words in the box to fill the gaps. Each word is used once. Two words are extra.", prefix) +
+      '<div class="panel" id="' + prefix + 'Panel"></div>';
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var panel = card.querySelector("#" + prefix + "Panel");
+    var ids = [];
+    var optsH = '<option value="">?</option>' + C.box.map(function (w, i) { return '<option value="' + i + '">' + esc(w) + '</option>'; }).join("");
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = []; panel.style.display = "none"; panel.innerHTML = "";
+      var wordsH = C.box.map(function (w) { return "<span>" + esc(w) + "</span>"; }).join("");
+      var parts = C.text.split(/\{(\d)\}/), html = "";
+      parts.forEach(function (p, k) {
+        if (k % 2 === 0) { html += esc(p); return; }
+        var id = CLREG.length;
+        CLREG.push({ gap: C.gaps[+p - 1], n: +p });
+        ids.push(id);
+        html += '<select class="gapsel" data-clid="' + id + '" aria-label="gap ' + p + '">' + optsH + '</select>';
+      });
+      body.innerHTML = '<div class="box"><div class="bt">Box</div><div class="words">' + wordsH + '</div></div>' +
+        '<p class="cloze">' + html + '</p>';
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0, ph = "<h3>Explanations</h3>";
+      ids.forEach(function (id) {
+        var rec = CLREG[id];
+        var s = body.querySelector('select[data-clid="' + id + '"]');
+        var good = s.value !== "" && +s.value === rec.gap.ans;
+        s.className = "gapsel " + (good ? "ok" : "no"); s.disabled = true;
+        if (good) ok++;
+        var sol = 'Gap ' + rec.n + ': <span class="sol">' + esc(C.box[rec.gap.ans]) + '</span>';
+        ph += expl(good, sol, null, rec.gap.why, rec.gap.tip);
+      });
+      panel.innerHTML = ph; panel.style.display = "block";
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- page ---------- */
+  var app = document.getElementById("app");
+  var nav = document.getElementById("nav");
+  function addNav(id, label) {
+    var a = document.createElement("a");
+    a.href = "#" + id; a.textContent = label;
+    nav.appendChild(a);
+  }
+  function addCard(id) {
+    var c = document.createElement("section");
+    c.className = "card";
+    if (id) c.id = id;
+    app.appendChild(c);
+    return c;
+  }
+
+  var L = DATA.listening;
+  addNav("act1", "Listening 1");
+  addNav("act2", "Listening 2");
+  addNav("act3", "Listening 3");
+  addNav("r1", "Reading");
+
+  buildL1(addCard("act1"));
+
+  buildMC(addCard("act2"), "l2", "Activity 2 · Listening", "An interview with a young inventor",
+    "You will hear an interview with Leo Vance, a 17-year-old who created a budgeting app for teenagers. For questions 1-5, choose the best answer (A, B or C).",
+    L.a2.items, L.a2.audio, L.a2.transcript);
+
+  buildMC(addCard("act3"), "l3", "Activity 3 · Listening", "Short extracts",
+    "You will hear people talking in four different situations. For questions 1-4, choose the best answer (A, B or C).",
+    L.a3.items, null, null);
+
+  var t = DATA.reading;
+  var read = addCard(t.id);
+  read.innerHTML = '<div class="tag">Reading &middot; ' + esc(t.level) + '</div><h2>' + esc(t.title) + '</h2>' +
+    '<p class="sub">Read the text. The highlighted expressions are used in Activity ' + t.num + '.3.</p>' +
+    '<div class="read">' + t.paras.map(function (p) { return "<p>" + fmt(p) + "</p>"; }).join("") + '</div>';
+  [buildTF, buildComp, buildVocab, buildCloze].forEach(function (fn) {
+    fn(t, addCard());
+  });
+})();
+</script>
+</body>
+</html>
