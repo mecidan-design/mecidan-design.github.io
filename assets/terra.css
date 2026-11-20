@@ -105,3 +105,8 @@
 @media (prefers-reduced-motion:reduce){
   .tr-card:hover{transform:none}
 }
+
+/* explainer video: vertical, never taller than the screen */
+.tr-video{margin-top:48px;width:min(100%,360px)}
+.tr-video video{display:block;width:100%;height:auto;max-height:80vh;aspect-ratio:9/16;background:var(--raised);border:1px solid var(--line)}
+.tr-video figcaption{margin-top:8px;font-size:.875rem;line-height:1.25rem;color:var(--muted)}
