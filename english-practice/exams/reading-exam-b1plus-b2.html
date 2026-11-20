@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Exam B1+ and B2 - Practice Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+.read p{font-size:1.04rem;line-height:1.7;margin:0 0 14px}
+.read p:last-child{margin-bottom:0}
+.hl{background:var(--yellow);border-radius:4px;padding:0 3px;font-weight:600}
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.5}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;margin-right:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;
+  border:3px solid #000;border-radius:999px;padding:7px 22px;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:500;padding:7px 10px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+.box{border:3px dashed #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.words span{font-family:var(--head);font-weight:700;background:var(--cyan);border:2px solid #000;border-radius:999px;padding:1px 12px}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 6px;line-height:1.45;font-size:.97rem}
+.ends b{font-family:var(--head);font-weight:800;margin-right:6px}
+.blank{display:inline-block;min-width:56px;border-bottom:3px solid #000;margin:0 3px}
+.exp{border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;background:#f4efff;font-size:.93rem;line-height:1.5}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+.panel{margin-top:24px;display:none}
+.panel h3{font-family:var(--head);font-size:1.2rem;margin:0 0 4px}
+.cloze{font-size:1.06rem;line-height:2.7;margin:0}
+select.gapsel{margin:0 4px;padding:3px 8px;font-size:.95rem}
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>READING EXAM &middot; B1+ &amp; B2</h1>
+    <p>Two texts &bull; True, false or not given &bull; Choose the option &bull; Match the meanings &bull; Complete the summary</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Reading exam: dos textos (B1+ y B2), 4 actividades cada uno.
+   Mismo formato que reading-comprehension-b1.html:
+   - tf: True / False / Not given. a = true | false | "ng". En "ng" no hay cita (ev = null).
+   - comp: opcion multiple con 4 opciones (la correcta box[word] + 3 distractores d).
+   - vocab: 8 definiciones para 6 expresiones (2 sobran). def = indice.
+   - cloze: resumen con huecos {1}..{6} y un box de 8 palabras (2 sobran). ans = indice en cloze.box.
+   Los marcadores ** resaltan las 6 expresiones de la actividad x.3. ====== */
+var DATA = {
+
+texts: [
+
+/* ---------------------------------------------------------------- READING 1 (B1+) */
+{
+  id: "t1", nav: "Reading 1", num: "1", level: "B1+", title: "The Bike Doctor of Millbrook",
+  paras: [
+    "Every Saturday morning, sixteen-year-old Aisha Khan opens the doors of a small garage behind her school and turns it into a free bike repair workshop. The garage smells of oil and old rubber, and tools hang on hooks along every wall. It all began last spring, when her own bike was stolen. Because her family could not **afford** a new one, Aisha decided to build one from old parts. She had never repaired anything before, so she used videos on the internet and asked an elderly neighbour, a retired mechanic, for advice.",
+    "“I **picked up** the basics in about a month,” she says. “The most difficult part was the gears. I used to **struggle** with them, and I made so many mistakes that my neighbour started calling me his disaster apprentice.” Despite this, Aisha finished the bike in time to ride it to school before the summer holidays. Her classmates were so impressed that several of them asked her to look at their own bikes, and by June she had fixed more than twenty. She keeps a notebook where she writes down every repair, so that she can remember what worked.",
+    "When the school heard about her work, the headteacher offered her the garage, which had been empty for years. A local shop was **generous** enough to give her tools and spare parts, and the town council had a new door fitted. Now the workshop is open to everybody. People who bring a bike do not pay anything, but they are asked to stay and help, so that they learn how to repair it themselves. Last month, a woman brought in a bike that had been standing in her shed for ten years, and it was working again by lunchtime. A cycling shop in the town centre even gives volunteers a **discount** when they buy new equipment.",
+    "Not everything has been easy. Exams are coming up, and Aisha is afraid that she may **fall behind** with her homework. To avoid problems, five friends help her by taking turns to run the workshop, and she limits her own hours to three each week. “I would hate to give up something I love because of my grades,” she says.",
+    "Next year, Aisha hopes to open a second workshop in a neighbouring town. She does not know yet who will pay for it, but she is optimistic. “Bikes are cheap, clean and good for your health,” she says. “If one person can learn to fix them, anyone can.”"
+  ],
+  tf: [
+    { q: "Aisha built her first bike because somebody had stolen her old one.", a: true,
+      ev: "“It all began last spring, when her own bike was stolen.”",
+      why: "Aisha’s own bike was stolen, and that is the reason why she started to build a bike from old parts.",
+      tip: "Phrases like “It all began” introduce the reason for a story. Match the idea: a stolen bike leads to a new bike." },
+    { q: "Aisha learned to repair bikes only by watching videos.", a: false,
+      ev: "“she used videos on the internet and asked an elderly neighbour, a retired mechanic, for advice”",
+      why: "Aisha learned from videos and also from a neighbour who gave her advice. The word “only” makes the statement false.",
+      tip: "Words like only, always and never are strong. One extra source in the text is enough to make the statement False." },
+    { q: "Aisha’s parents helped her to build the first bike.", a: "ng",
+      ev: null,
+      why: "The text says that her family could not afford a new bike, but it never says that her parents helped to build the first one.",
+      tip: "Careful: a related word (family) is in the text, but the action in the statement (helped to build) is not. That means Not given." },
+    { q: "People who bring a bike to the workshop are expected to help with the repair.", a: true,
+      ev: "“they are asked to stay and help, so that they learn how to repair it themselves”",
+      why: "People do not pay, but they are asked to stay and help so that they learn to repair the bike. The statement uses the same idea.",
+      tip: "“Are asked to” and “are expected to” are close in meaning. If the idea is the same, small changes in the words do not matter." },
+    { q: "Aisha works in the workshop every day.", a: false,
+      ev: "“she limits her own hours to three each week”",
+      why: "Aisha only works three hours a week. Five friends take turns to run the workshop.",
+      tip: "Look for numbers and frequency words: every day is the opposite of three hours each week." },
+    { q: "Aisha wants to study engineering at university.", a: "ng",
+      ev: null,
+      why: "The text talks about her plans for a second workshop, but it never mentions university or engineering.",
+      tip: "Not given means that the text is silent. A plan can sound possible for this kind of person, but you can only use what the text says." }
+  ],
+  box: ["could not afford", "was stolen", "had a new door fitted", "are asked to", "taking turns", "may fall"],
+  endings: [
+    "___ stay and help.",
+    "___ behind with her homework.",
+    "___ last spring.",
+    "___ a new one.",
+    "___ to run the workshop.",
+    "___ in the garage."
+  ],
+  comp: [
+    { begin: "Aisha decided to build a bike because her family", end: 3, word: 0, d: ["could not to afford", "cannot afforded", "could not affording"],
+      why: "A modal verb (could) is followed by the base verb with no “to”. “Could not afford” means that the family did not have enough money.",
+      tip: "After can, could, may and must, use the base verb. Check: could not afford, not could not to afford." },
+    { begin: "Aisha started the project after her bike", end: 2, word: 1, d: ["stole", "has stolen", "was stealing"],
+      why: "A bike cannot steal anything, so we need the passive: was + past participle. The past participle of steal is stolen.",
+      tip: "Look at the subject. If the subject receives the action, use the passive: the bike was stolen." },
+    { begin: "The town council", end: 5, word: 2, d: ["had a new door fit", "had fitted new a door", "did a new door fitted"],
+      why: "The council did not fit the door itself. It asked somebody to do the job. We use have + object + past participle: had a new door fitted.",
+      tip: "Somebody else does the job for you? Use have or had + thing + past participle (have your hair cut, had a door fitted)." },
+    { begin: "People who bring a bike", end: 0, word: 3, d: ["ask to", "is asked to", "are ask to"],
+      why: "This is a passive sentence and “people” is plural, so we need “are asked”. Then “to” goes before the next verb, “stay”.",
+      tip: "Check the subject first: people is plural, so use are. The pattern is be asked + to + base verb." },
+    { begin: "Five friends help Aisha by", end: 4, word: 4, d: ["take turns", "taken turns", "to take turns"],
+      why: "After the preposition “by” we use a verb with -ing. “Taking turns” means one friend after another.",
+      tip: "A verb after a preposition (by, without, before) is always in the -ing form." },
+    { begin: "Aisha is afraid that she", end: 1, word: 5, d: ["may to fall", "may falling", "may fell"],
+      why: "“May” shows that something is possible in the future. After a modal verb we use the base verb: may fall.",
+      tip: "Modal verbs (may, might, could) are followed by the base form. Never add “to” or -ing." }
+  ],
+  vocab: [
+    { term: "Afford", para: 1, def: 1,
+      why: "Aisha’s family did not have enough money to buy a new bike.",
+      tip: "“Afford” is usually used with can or could, often in the negative: can’t afford = not enough money." },
+    { term: "Pick up", para: 2, def: 4,
+      why: "Aisha learned the basics in about a month, without formal lessons, by watching and trying.",
+      tip: "Pick up has many meanings. After “the basics”, it means learn informally." },
+    { term: "Struggle", para: 2, def: 7,
+      why: "The gears were the most difficult part and Aisha made many mistakes, so she had difficulty.",
+      tip: "“Struggle with” is followed by the thing that is difficult (struggle with maths, struggle with gears)." },
+    { term: "Generous", para: 3, def: 5,
+      why: "The shop gave tools and spare parts for the workshop. It gave more than it needed to.",
+      tip: "Generous people give time, money or things. Look for words like give or free." },
+    { term: "Discount", para: 3, def: 3,
+      why: "Volunteers pay less than the usual price when they buy new equipment.",
+      tip: "Money words (pay, price, buy) around the word help you guess: discount = lower price." },
+    { term: "Fall behind", para: 4, def: 0,
+      why: "Aisha is afraid that her homework will progress more slowly than it should because of the workshop.",
+      tip: "“Behind” is the clue: it is the opposite of being ahead or on time." }
+  ],
+  defs: [
+    "Progress more slowly than other people.",
+    "Have enough money to buy something.",
+    "Spend money carelessly on things you do not need.",
+    "A reduction in the usual price.",
+    "Learn a skill without formal lessons.",
+    "Willing to give more than is expected.",
+    "Finish something before the deadline.",
+    "Have difficulty doing something."
+  ],
+  cloze: {
+    box: ["fall", "currency", "generous", "repair", "anxious", "offered", "discount", "struggle"],
+    text: "Aisha began to {1} bikes after hers was stolen. She learned from videos and from a retired mechanic, but at first she used to {2} with the gears. Now she runs a free workshop in a garage that the headteacher {3} her. A local shop was {4} and gave her tools, and volunteers get a {5} when they buy new equipment. Her friends take turns to run the workshop, so Aisha does not {6} behind with her homework.",
+    gaps: [
+      { ans: 3, why: "After “began to” we need a base verb, and the story is about fixing bikes. “Repair” fits.",
+        tip: "Begin to + base verb. Then check the meaning: bikes and repair go together." },
+      { ans: 7, why: "“Used to” talks about a past habit and is followed by a base verb. “Struggle with the gears” means that she found them hard.",
+        tip: "Used to + base verb. The word “with” after the gap fits struggle with." },
+      { ans: 5, why: "We need a past simple verb after “headteacher”. In the story, the headteacher gave Aisha the chance to use the garage: offered.",
+        tip: "A past story needs past forms. Offered = gave the chance to use something." },
+      { ans: 2, why: "After “was” we need an adjective. “Generous” describes a shop that gives things for free.",
+        tip: "Be + adjective. “Gave her tools” is the clue: generous." },
+      { ans: 6, why: "After “a” we need a noun. A discount means paying less money.",
+        tip: "A + noun. The words buy and equipment point to money, so discount." },
+      { ans: 0, why: "After “does not” we need a base verb. “Fall behind” is the phrasal verb, and the story is about homework.",
+        tip: "Does or do not + base verb. “Behind” belongs with fall." }
+    ]
+  }
+},
+
+/* ---------------------------------------------------------------- READING 2 (B2) */
+{
+  id: "t2", nav: "Reading 2", num: "2", level: "B2", title: "The Town That Switched Off",
+  paras: [
+    "When the council of a small coastal town announced that the internet would be switched off for one month, the reaction was far from enthusiastic. Local businesses protested, teenagers were furious, and even the mayor, who had proposed the experiment, admitted that she was **reluctant** to go ahead with it. “I expected the plan to be abandoned within a week,” she said. Yet, thanks to a small team of researchers from the nearby university, the month-long “digital pause” began in March, and nearly 90 per cent of the residents agreed to take part.",
+    "The first week was by far the hardest. Shop owners, who had grown accustomed to taking card payments through apps, were forced to **cope with** unexpected difficulties, while families who **relied on** online maps got lost on roads they had known all their lives. Not only did people complain, but several residents also gave up the experiment and drove to the next town to use the internet in cafés. Had the researchers insisted on strict rules, the experiment would almost certainly have collapsed.",
+    "Instead, they allowed exceptions for emergencies and hospital work, and they encouraged residents to keep a diary of how they felt. Early entries were gloomy. A retired teacher wrote that the evenings felt endless, and a student confessed that he had **dismissed** the whole idea as pointless during the first days. Nobody had predicted, however, how quickly people would find alternatives. People even began to ask each other for directions again. The library, which had been almost empty for years, was suddenly crowded, and a weekly market of second-hand books appeared on the main square.",
+    "By the third week, the mood had changed. Neighbours who had barely spoken to each other began to share meals, and a group of teenagers started a football league that is still running today and now has twelve teams. Interestingly, the researchers noted that sleep improved most among those who had been spending the longest hours online before the experiment. Not everyone **thrived**, though. Small online businesses lost income, and one young father, who worked remotely, had to take unpaid leave. These costs, the researchers insist, should not be ignored.",
+    "When the month ended, the town did not return to its old habits overnight. A survey showed that two thirds of residents wanted a regular switch-off day each month, although few supported a permanent ban. The mayor, who now describes the project as “the best decision I almost didn’t make”, is careful not to claim too much. “We proved nothing about the internet itself,” she says. “But we learned how much of our time we had been giving away without noticing.” Local newspapers have already received letters from readers in other regions asking how the experiment was organised. Whether other towns will **follow suit** remains to be seen."
+  ],
+  tf: [
+    { q: "From the start, the mayor was completely confident that the experiment would work.", a: false,
+      ev: "“even the mayor, who had proposed the experiment, admitted that she was reluctant to go ahead with it”",
+      why: "The mayor proposed the idea, but she admitted that she was reluctant, so she had doubts. She even expected the plan to be abandoned within a week.",
+      tip: "A person who proposes an idea can still have doubts. “Reluctant” means unwilling, so “completely confident” cannot be true." },
+    { q: "Most of the residents agreed to take part in the experiment.", a: true,
+      ev: "“nearly 90 per cent of the residents agreed to take part”",
+      why: "Nearly 90 per cent is a very large majority, so “most” is correct.",
+      tip: "Numbers can be rewritten with quantity words: nearly 90 per cent = most or the vast majority." },
+    { q: "The university paid the residents for taking part in the experiment.", a: "ng",
+      ev: null,
+      why: "The text says that researchers from the university organised the project, but it never says that anybody was paid.",
+      tip: "Do not add details that are not in the text. Payment is a new idea, so the answer is Not given, not False." },
+    { q: "The researchers allowed the internet to be used in some urgent situations.", a: true,
+      ev: "“they allowed exceptions for emergencies and hospital work”",
+      why: "“Exceptions for emergencies and hospital work” are urgent situations, so the researchers did allow some internet use.",
+      tip: "Look for synonyms: emergencies and hospital work = urgent situations; allowed = permitted." },
+    { q: "The researchers found that people who used the internet least before the experiment slept better.", a: false,
+      ev: "“sleep improved most among those who had been spending the longest hours online before the experiment”",
+      why: "Sleep improved most for the people who spent the longest hours online, not for those who used the internet least.",
+      tip: "Watch for reversals. The statement keeps the same topic (sleep) but reverses the group of people." },
+    { q: "The mayor plans to stand for election again next year.", a: "ng",
+      ev: null,
+      why: "The text describes the mayor’s opinion of the project, but it says nothing about an election or her future plans.",
+      tip: "A new topic that the text does not mention is Not given. Do not choose False just because you doubt it." }
+  ],
+  box: ["would almost certainly have", "gave up", "had been", "had barely", "who worked", "will follow"],
+  endings: [
+    "___ spoken to each other began to share meals.",
+    "___ suit remains to be seen.",
+    "___ collapsed.",
+    "___ remotely, had to take unpaid leave.",
+    "___ the experiment and drove to the next town.",
+    "___ almost empty for years, was suddenly crowded."
+  ],
+  comp: [
+    { begin: "Had the researchers insisted on strict rules, the experiment", end: 2, word: 0, d: ["would almost certainly be", "would almost certainly has", "had almost certainly"],
+      why: "This is a third conditional. “Had + subject + past participle” means “If they had insisted”, and the result needs would have + past participle.",
+      tip: "“Had the researchers insisted” is the same as “If the researchers had insisted”. The main clause needs would have + past participle." },
+    { begin: "Not only did people complain, but several residents", end: 4, word: 1, d: ["gave in", "gave out", "gave over"],
+      why: "“Gave up the experiment” means that they stopped taking part. The phrasal verb has an object (the experiment).",
+      tip: "Phrasal verbs change the meaning with the particle. “Gave in” has no object, so it does not fit here." },
+    { begin: "The library, which", end: 5, word: 2, d: ["have been", "is being", "being"],
+      why: "The library was empty before it became crowded, so we use the past perfect: had been. “Library” is singular.",
+      tip: "Two past events: the earlier one uses had + past participle. “For years” + a later event = past perfect." },
+    { begin: "Neighbours who", end: 0, word: 3, d: ["is barely", "been barely", "barely been"],
+      why: "The neighbours rarely talked before they began to share meals, so we use the past perfect. “Barely” goes between had and the past participle.",
+      tip: "Adverbs such as barely, never and always usually go between had and the past participle." },
+    { begin: "One young father,", end: 3, word: 4, d: ["whose worked", "working who", "he worked"],
+      why: "We need a relative pronoun to join “one young father” with the extra information. “Who worked remotely” describes the father.",
+      tip: "A person + extra information = who + verb. Without “who”, two parts of the sentence would have no link." },
+    { begin: "Whether other towns", end: 1, word: 5, d: ["will following", "to follow", "following to"],
+      why: "“Remains to be seen” talks about the future, which nobody knows yet. After “will” we use the base verb: will follow.",
+      tip: "Remains to be seen = the future is not known yet. So choose a future form (will + base verb)." }
+  ],
+  vocab: [
+    { term: "Reluctant", para: 1, def: 5,
+      why: "The mayor proposed the plan, but she hesitated about going ahead. She did not feel sure.",
+      tip: "“Reluctant to + verb” means unwilling or hesitant. Look for contrast words, such as “even” or “yet”, near it." },
+    { term: "Cope with", para: 2, def: 3,
+      why: "Shop owners had to deal with unexpected difficulties and succeed in the end, so they managed the problems.",
+      tip: "“Cope with” is followed by a problem or a difficult situation." },
+    { term: "Rely on", para: 2, def: 7,
+      why: "Families depended on online maps. When the internet went off, they got lost.",
+      tip: "“Rely on” + a person or thing you trust to help you. The result (got lost) shows how much they depended on it." },
+    { term: "Dismiss", para: 3, def: 0,
+      why: "The student thought the idea was pointless, so he gave it no importance.",
+      tip: "To dismiss an idea means to decide that it is not worth thinking about. “Pointless” is the clue." },
+    { term: "Thrive", para: 4, def: 1,
+      why: "“Not everyone thrived” is followed by examples of people who lost income. So thrive means to do well.",
+      tip: "“Not everyone ... though” suggests a contrast with success. Thrive = develop well and be successful." },
+    { term: "Follow suit", para: 5, def: 4,
+      why: "It remains to be seen whether other towns will do the same thing as this town.",
+      tip: "“Whether ... remains to be seen” means nobody knows yet. “Follow suit” = copy what somebody did first." }
+  ],
+  defs: [
+    "Treat something as unimportant and not worth thinking about.",
+    "Develop well and be successful or healthy.",
+    "Stop doing something that you used to do regularly.",
+    "Deal successfully with a difficult situation.",
+    "Do the same thing as somebody else has done.",
+    "Unwilling to do something and hesitating about it.",
+    "Refuse to change your opinion even when other people disagree.",
+    "Depend on someone or something to do what you need."
+  ],
+  cloze: {
+    box: ["thrived", "grateful", "cope with", "follow suit", "dismissed", "rely on", "reluctant", "crowded"],
+    text: "Many residents of a small coastal town were {1} to give up the internet for a month, and some could not {2} the difficulties of the first week. A team of researchers asked people to keep diaries, and one student admitted that he had {3} the idea at first. Gradually, people found other ways to spend their time, and the library, which had been almost empty for years, was {4} with visitors. Not everyone {5} during the month, since small online businesses lost income. Most residents now want a regular switch-off day, and it remains to be seen whether other towns will {6}.",
+    gaps: [
+      { ans: 6, why: "The pattern is “were ___ to give up”. “Reluctant to” means unwilling to do something, and the mayor was reluctant too.",
+        tip: "An adjective + to + verb: reluctant to, happy to, ready to. Then check the meaning: they did not want to give up the internet." },
+      { ans: 2, why: "After “could not” we need a base verb, and “the difficulties” is the object. “Cope with” means to deal with problems.",
+        tip: "Could not + base verb. “Cope with” is followed by difficulties or problems." },
+      { ans: 4, why: "After “had” we need a past participle. The student thought that the idea was pointless, so he had dismissed it.",
+        tip: "Had + past participle. “Pointless” in the text is the clue to dismissed." },
+      { ans: 7, why: "After “was” we need an adjective, and “with visitors” follows. “Crowded with” means full of people.",
+        tip: "Be + adjective + with. “Almost empty” before the gap and “suddenly” in the text show the opposite: crowded." },
+      { ans: 0, why: "After “Not everyone” we need a past verb. “Thrived” means did well, and the next part says that some businesses lost income.",
+        tip: "“Not everyone ...” followed by a negative example signals the verb thrive (do well)." },
+      { ans: 3, why: "After “will” we need a base form. “Follow suit” means do the same thing as the first town.",
+        tip: "“Whether other towns will ___” and “remains to be seen” show the future. Follow suit fits that idea." }
+    ]
+  }
+}
+
+]
+};
+</script>
+
+<script id="engine-block">
+(function () {
+  var LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  var TFREG = [], COMPREG = [], VOCREG = [], CLREG = [];
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function fmt(s) {
+    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b class="hl">$1</b>');
+  }
+  function endHtml(s) { return esc(s).replace("___", '<span class="blank"></span>'); }
+
+  function expl(ok, solHtml, evidence, why, tip) {
+    var h = '<div class="exp ' + (ok ? "right" : "wrong") + '">';
+    h += '<p>' + (ok ? "Correct! " : "Not quite. ") + solHtml + '</p>';
+    if (evidence) h += '<p><b class="lab ev">Evidence</b>' + esc(evidence) + '</p>';
+    h += '<p><b class="lab why">Why</b>' + esc(why) + '</p>';
+    h += '<p><b class="lab tip">Exam tip</b>' + esc(tip) + '</p></div>';
+    return h;
+  }
+
+  function scoreText(ok, total) {
+    var msg = ok === total ? "Perfect!" : (ok >= total - 2 ? "Well done!" : "Keep going, read the tips and try again.");
+    return "Score: " + ok + " / " + total + " - " + msg;
+  }
+
+  function sectionShell(tag, title, sub, prefix) {
+    return '<div class="tag">' + esc(tag) + '</div><h2>' + esc(title) + '</h2><p class="sub">' + esc(sub) + '</p>' +
+      '<div id="' + prefix + 'Body"></div>' +
+      '<div class="btnrow"><button class="btn" id="' + prefix + 'Check">Check answers</button>' +
+      '<button class="btn ghost" id="' + prefix + 'Reset">Try again</button>' +
+      '<span class="scoreline" id="' + prefix + 'Score"></span></div>';
+  }
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x;
+    }
+    return a;
+  }
+
+  /* ---------- True / False / Not given ---------- */
+  var TFLAB = { T: "True", F: "False", NG: "Not given" };
+  function tfKey(a) { return a === true ? "T" : (a === false ? "F" : "NG"); }
+
+  function buildTF(t, card) {
+    var prefix = t.id + "tf";
+    card.innerHTML = sectionShell("Activity " + t.num + ".1", "True, false or not given?",
+      "Decide if each statement is true, false, or not given in the text. Choose Not given when the text does not say.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.tf.forEach(function (it, i) {
+        var id = TFREG.length;
+        TFREG.push({ item: it, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.q) + '</p>' +
+          '<div class="opts">' + ["T", "F", "NG"].map(function (k) {
+            return '<button class="opt" data-tfid="' + id + '" data-v="' + k + '">' + TFLAB[k] + '</button>';
+          }).join("") + '</div><div class="fb" data-tfid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      TFREG[+b.getAttribute("data-tfid")].sel = b.getAttribute("data-v");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = TFREG[id], it = rec.item, key = tfKey(it.a);
+        var good = rec.sel === key;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-tfid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var v = b.getAttribute("data-v");
+          b.disabled = true; b.classList.remove("sel");
+          if (v === key) b.classList.add("good");
+          else if (rec.sel === v) b.classList.add("bad");
+        });
+        var sol = 'The answer is <span class="sol">' + TFLAB[key] + '</span>.';
+        var evid = it.ev || "The text does not say this.";
+        body.querySelector('.fb[data-tfid="' + id + '"]').innerHTML = expl(good, sol, evid, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- Choose the correct option ---------- */
+  function buildComp(t, card) {
+    var prefix = t.id + "cp";
+    card.innerHTML = sectionShell("Activity " + t.num + ".2", "Choose the correct option",
+      "Read each sentence and choose the option that fits the gap.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      t.comp.forEach(function (it, i) {
+        var right = t.box[it.word];
+        var opts = shuffle([right].concat(it.d));
+        var id = COMPREG.length;
+        COMPREG.push({ item: it, right: right, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        var optsH = opts.map(function (o) {
+          return '<button class="opt" data-cpid="' + id + '" data-o="' + esc(o) + '">' + esc(o) + '</button>';
+        }).join("");
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.begin) + ' ' + endHtml(t.endings[it.end]) + '</p>' +
+          '<div class="opts">' + optsH + '</div><div class="fb" data-cpid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      COMPREG[+b.getAttribute("data-cpid")].sel = b.getAttribute("data-o");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = COMPREG[id], it = rec.item;
+        var good = rec.sel === rec.right;
+        if (good) ok++;
+        var btns = body.querySelectorAll('.opt[data-cpid="' + id + '"]');
+        Array.prototype.forEach.call(btns, function (b) {
+          var o = b.getAttribute("data-o");
+          b.disabled = true; b.classList.remove("sel");
+          if (o === rec.right) b.classList.add("good");
+          else if (o === rec.sel) b.classList.add("bad");
+        });
+        var full = it.begin + " " + t.endings[it.end].replace("___", rec.right);
+        var sol = 'Full sentence: <span class="sol">' + esc(full) + '</span>';
+        body.querySelector('.fb[data-cpid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  function optsHtml(list, useLetters) {
+    var h = '<option value="">?</option>';
+    list.forEach(function (x, i) { h += '<option value="' + i + '">' + (useLetters ? LETTERS[i] : esc(x)) + '</option>'; });
+    return h;
+  }
+
+  /* ---------- Match expressions ---------- */
+  function buildVocab(t, card) {
+    var prefix = t.id + "vc";
+    card.innerHTML = sectionShell("Activity " + t.num + ".3", "Match expressions with their meanings",
+      "Find each highlighted expression in the text. Choose the definition that matches.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      var defsH = t.defs.map(function (d, i) { return "<li><b>" + LETTERS[i] + ".</b>" + esc(d) + "</li>"; }).join("");
+      var info = document.createElement("div");
+      info.innerHTML = '<div class="box"><div class="bt">Definitions</div><ul class="ends">' + defsH + '</ul></div>';
+      body.appendChild(info);
+      t.vocab.forEach(function (it, i) {
+        var id = VOCREG.length;
+        VOCREG.push({ item: it });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span><b class="hl">' + esc(it.term) + '</b> (paragraph ' + it.para + ')</p>' +
+          '<div class="selrow"><label>Meaning</label><select data-vcid="' + id + '">' + optsHtml(t.defs, true) + '</select></div>' +
+          '<div class="fb" data-vcid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var it = VOCREG[id].item;
+        var s = body.querySelector('select[data-vcid="' + id + '"]');
+        var good = s.value !== "" && +s.value === it.def;
+        s.className = good ? "ok" : "no"; s.disabled = true;
+        if (good) ok++;
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.def] + '</span> - ' + esc(t.defs[it.def]);
+        body.querySelector('.fb[data-vcid="' + id + '"]').innerHTML = expl(good, sol, null, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- Complete the summary (box) ---------- */
+  function buildCloze(t, card) {
+    var prefix = t.id + "cl", C = t.cloze;
+    card.innerHTML = sectionShell("Activity " + t.num + ".4", "Complete the summary",
+      "Use the words in the box to fill the gaps. Each word is used once. Two words are extra.", prefix) +
+      '<div class="panel" id="' + prefix + 'Panel"></div>';
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var panel = card.querySelector("#" + prefix + "Panel");
+    var ids = [];
+    var optsH = '<option value="">?</option>' + C.box.map(function (w, i) { return '<option value="' + i + '">' + esc(w) + '</option>'; }).join("");
+
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = []; panel.style.display = "none"; panel.innerHTML = "";
+      var wordsH = C.box.map(function (w) { return "<span>" + esc(w) + "</span>"; }).join("");
+      var parts = C.text.split(/\{(\d)\}/), html = "";
+      parts.forEach(function (p, k) {
+        if (k % 2 === 0) { html += esc(p); return; }
+        var id = CLREG.length;
+        CLREG.push({ gap: C.gaps[+p - 1], n: +p });
+        ids.push(id);
+        html += '<select class="gapsel" data-clid="' + id + '" aria-label="gap ' + p + '">' + optsH + '</select>';
+      });
+      body.innerHTML = '<div class="box"><div class="bt">Box</div><div class="words">' + wordsH + '</div></div>' +
+        '<p class="cloze">' + html + '</p>';
+    }
+
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0, ph = "<h3>Explanations</h3>";
+      ids.forEach(function (id) {
+        var rec = CLREG[id];
+        var s = body.querySelector('select[data-clid="' + id + '"]');
+        var good = s.value !== "" && +s.value === rec.gap.ans;
+        s.className = "gapsel " + (good ? "ok" : "no"); s.disabled = true;
+        if (good) ok++;
+        var sol = 'Gap ' + rec.n + ': <span class="sol">' + esc(C.box[rec.gap.ans]) + '</span>';
+        ph += expl(good, sol, null, rec.gap.why, rec.gap.tip);
+      });
+      panel.innerHTML = ph; panel.style.display = "block";
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- page ---------- */
+  var app = document.getElementById("app");
+  var nav = document.getElementById("nav");
+  DATA.texts.forEach(function (t) {
+    var a = document.createElement("a");
+    a.href = "#" + t.id; a.textContent = t.nav + " - " + t.level;
+    nav.appendChild(a);
+
+    var read = document.createElement("section");
+    read.className = "card"; read.id = t.id;
+    read.innerHTML = '<div class="tag">' + esc(t.nav) + ' &middot; ' + esc(t.level) + '</div><h2>' + esc(t.title) + '</h2>' +
+      '<p class="sub">Read the text. The highlighted expressions are used in Activity ' + t.num + '.3.</p>' +
+      '<div class="read">' + t.paras.map(function (p) { return "<p>" + fmt(p) + "</p>"; }).join("") + '</div>';
+    app.appendChild(read);
+
+    [buildTF, buildComp, buildVocab, buildCloze].forEach(function (fn) {
+      var c = document.createElement("section");
+      c.className = "card";
+      app.appendChild(c);
+      fn(t, c);
+    });
+  });
+})();
+</script>
+</body>
+</html>
