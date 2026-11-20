@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listening Exam B1+ - Units 1 to 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff2d95; --violet:#7b2ff7; --cyan:#00e5ff;
+  --yellow:#fff200; --lime:#baff29; --ink:#0d0d0d;
+  --head:"Baloo 2","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --body:"Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); min-height:100vh; padding:26px 14px 30px;
+  background:
+    radial-gradient(rgba(0,0,0,.13) 1.4px, transparent 1.5px) 0 0/17px 17px,
+    linear-gradient(135deg,#ff2d95 0%,#c02be0 32%,#7b2ff7 58%,#00e5ff 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:880px;margin:0 auto}
+.hero{
+  background:var(--ink); border:5px solid #000; border-radius:24px;
+  box-shadow:12px 12px 0 var(--cyan); padding:22px 24px; margin-bottom:22px;
+  transform:rotate(-.7deg);
+}
+.hero h1{
+  font-family:var(--head); font-weight:800; color:#fff; margin:0;
+  font-size:clamp(1.7rem,5.4vw,2.9rem); line-height:1.05; letter-spacing:.5px;
+  text-shadow:3px 3px 0 var(--pink), 6px 6px 0 var(--violet);
+}
+.hero p{font-family:var(--head);color:var(--lime);margin:.5rem 0 0;font-size:1rem;font-weight:600}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.nav a{
+  font-family:var(--head);font-weight:800;color:#000;text-decoration:none;background:var(--yellow);
+  border:3px solid #000;border-radius:999px;padding:5px 18px;box-shadow:4px 4px 0 #000;
+}
+.nav a:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.card{
+  background:#fff; border:4px solid #000; border-radius:20px; padding:22px 22px 24px;
+  margin-bottom:34px; position:relative; scroll-margin-top:14px;
+}
+.card:nth-of-type(3n+1){box-shadow:10px 10px 0 var(--pink);  transform:rotate(-.45deg)}
+.card:nth-of-type(3n+2){box-shadow:10px 10px 0 var(--violet);transform:rotate(.4deg)}
+.card:nth-of-type(3n+3){box-shadow:10px 10px 0 var(--cyan);  transform:rotate(-.3deg)}
+.tag{
+  display:inline-block; font-family:var(--head); font-weight:800; font-size:.82rem;
+  background:var(--yellow); border:3px solid #000; border-radius:999px;
+  padding:3px 14px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;
+}
+.card h2{font-family:var(--head);font-weight:800;font-size:1.55rem;margin:.1rem 0 .3rem;line-height:1.15}
+.sub{font-size:.9rem;color:#4a4a4a;margin:0 0 18px}
+.btn{
+  font-family:var(--head); font-weight:800; font-size:1rem; color:#fff; cursor:pointer;
+  background:linear-gradient(90deg,var(--pink),var(--violet));
+  border:3px solid #000; border-radius:999px; padding:10px 26px;
+  box-shadow:5px 5px 0 #000; transition:transform .07s, box-shadow .07s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000}
+.btn.ghost{background:#fff;color:#000}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.scoreline{font-family:var(--head);font-weight:800;font-size:1.05rem}
+.item{border:3px solid #000;border-radius:16px;padding:15px 16px;margin-bottom:18px;background:#fff}
+.item .q{font-size:1.04rem;font-weight:500;margin:0 0 11px;line-height:1.6}
+.item .q .n{
+  font-family:var(--head);font-size:.8rem;font-weight:800;color:#fff;background:var(--violet);
+  border:2px solid #000;border-radius:50%;width:24px;height:24px;margin-right:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  font-family:var(--body);font-size:.97rem;font-weight:500;cursor:pointer;background:#fff;text-align:left;
+  border:3px solid #000;border-radius:14px;padding:9px 16px;line-height:1.4;box-shadow:3px 3px 0 #000;
+  transition:transform .07s,box-shadow .07s;
+}
+.opt b{font-family:var(--head);font-weight:800;margin-right:8px}
+.opt:hover{background:#fff9c9}
+.opt.sel{background:var(--cyan);transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.opt.good{background:var(--lime);border-color:#1c7a00}
+.opt.bad{background:#ffc2d8;text-decoration:line-through;border-color:#c2004c}
+.opt[disabled]{cursor:default}
+select{
+  font-family:var(--body);font-size:.95rem;font-weight:500;padding:7px 10px;max-width:100%;
+  border:3px solid #000;border-radius:11px;background:#fffdf2;outline:none;
+}
+select:focus{box-shadow:0 0 0 4px var(--cyan)}
+select.ok{background:#e4ffc4;border-color:#1c7a00}
+select.no{background:#ffe0ec;border-color:#c2004c}
+.selrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.selrow label{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.8px}
+input.gapin{
+  font-family:var(--body);font-size:1rem;font-weight:600;width:170px;max-width:100%;padding:3px 8px;margin:0 4px;
+  border:0;border-bottom:3px solid #000;background:#fffdf2;outline:none;border-radius:6px 6px 0 0;
+}
+input.gapin:focus{background:#e9fbff;border-bottom-color:var(--violet)}
+input.gapin.ok{background:#e4ffc4;border-bottom-color:#1c7a00}
+input.gapin.no{background:#ffe0ec;border-bottom-color:#c2004c}
+.box{border:3px dashed #000;border-radius:14px;padding:12px 14px;margin:0 0 18px;background:#f4efff}
+.box .bt{font-family:var(--head);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.ends{list-style:none;margin:0;padding:0}
+.ends li{margin:0 0 6px;line-height:1.45;font-size:.97rem}
+.ends b{font-family:var(--head);font-weight:800;margin-right:6px}
+.audiobox{background:var(--ink);border:3px solid #000;border-radius:14px;padding:10px 12px;margin:0 0 16px}
+.audiobox .al{font-family:var(--head);font-weight:800;color:var(--lime);font-size:.85rem;text-transform:uppercase;letter-spacing:1px;margin:0 0 6px}
+.audiobox audio{width:100%;display:block}
+.seg{
+  font-family:var(--head);font-weight:800;font-size:.85rem;cursor:pointer;background:var(--yellow);color:#000;
+  border:3px solid #000;border-radius:999px;padding:3px 14px;box-shadow:3px 3px 0 #000;margin:0 0 10px;
+}
+.seg:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.exp{border:3px solid #000;border-radius:14px;padding:12px 14px;margin-top:12px;background:#f4efff;font-size:.93rem;line-height:1.5}
+.exp.right{background:#f0ffe0}
+.exp.wrong{background:#fff0f5}
+.exp b.lab{
+  font-family:var(--head);font-size:.76rem;text-transform:uppercase;letter-spacing:.9px;
+  display:inline-block;border:2px solid #000;border-radius:999px;padding:0 9px;margin-right:7px;
+}
+.lab.why{background:var(--cyan)}
+.lab.tip{background:var(--yellow)}
+.lab.ev{background:var(--lime)}
+.exp p{margin:0 0 7px}
+.exp p:last-child{margin-bottom:0}
+.sol{font-family:var(--head);font-weight:800;color:#12006b}
+.note{font-family:var(--head);font-weight:800;color:#c2004c;margin:10px 0 0}
+.divider{font-family:var(--head);font-weight:800;font-size:1.15rem;margin:26px 0 12px;padding-top:14px;border-top:3px dashed #000}
+footer{
+  max-width:880px;margin:0 auto;padding:16px 10px 8px;text-align:center;
+  font-family:var(--head);font-weight:700;color:#fff;font-size:.95rem;
+  text-shadow:2px 2px 0 rgba(0,0,0,.55);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>LISTENING EXAM &middot; B1+</h1>
+    <p>Five parts &bull; 50 questions &bull; Gap fill &bull; Interviews &bull; Matching &bull; Short extracts</p>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<footer>Copyright Prof Dan M. Mecikovsky</footer>
+
+<script id="data-block">
+/* ====== Listening exam, partes 1 a 5. Audios en audio/ (un archivo por parte).
+   - p1: completar frases (input libre). ok = array de respuestas validas.
+   - p2, p5: entrevista, opcion multiple (o = 3 opciones, a = indice correcto).
+   - p3: matching de 5 speakers, dos tareas (t1 profesiones, t2 afirmaciones). seg = [inicio, fin] en segundos.
+   - p4: 10 extractos cortos de un solo audio, opcion multiple. seg por extracto.
+   Cada item: ev (cita del audio), why, tip. ====== */
+var DATA = {
+
+p1: {
+  audio: "audio/u1-andy.mp3",
+  items: [
+    { pre: "Around", post: "people in the UK are colour blind.", ok: ["2.7 million", "2.7m", "2.7 million people", "two point seven million"],
+      ev: "around 2.7 million people have the condition in the UK",
+      why: "Andy says that 2.7 million people in the UK have the condition. Write the number and the word “million”.",
+      tip: "Numbers are common answers in gap fill. Listen for the unit too (million), not only the number." },
+    { pre: "Andy was surprised that the condition is more common in", post: "than in women.", ok: ["men"],
+      ev: "particularly that it's more men than women",
+      why: "He found the statistic surprising, “particularly that it’s more men than women”. So the answer is “men”.",
+      tip: "The sentence in the exam is a paraphrase: “more common in ... than in women” = “more men than women”." },
+    { pre: "The back of the eyeball is called the", post: ".", ok: ["retina"],
+      ev: "the back of the eyeball, that's the retina",
+      why: "Andy explains the cause and gives the name of this part of the eye: the retina.",
+      tip: "When the speaker says “that’s ...” or “which is called ...”, the next word is often the answer." },
+    { pre: "When Andy goes shopping for clothes, he has most problems with", post: ".", ok: ["shirts", "shirt", "a shirt", "the shirts"],
+      ev: "Not so much for things like socks or gloves, which don't matter much, but I'm bothered about shirts.",
+      why: "Socks and gloves do not matter much to Andy. He is bothered about shirts.",
+      tip: "Watch for “not so much ... but ...”. The first thing is the distractor, and the real answer comes after “but”." },
+    { pre: "In the school test, people who are colour blind cannot see the", post: "inside the circles.", ok: ["numbers", "number", "the numbers"],
+      ev: "if you're colorblind, the numbers aren't visible",
+      why: "The test shows circles with a red nine and a green seven. Inside them, colour blind people cannot see the numbers.",
+      tip: "Answer with the word you hear. Both “numbers” and “number” are accepted here." },
+    { pre: "It is much rarer for people to confuse blue and", post: ".", ok: ["yellow"],
+      ev: "It's much rarer for people to confuse blue and yellow as I do",
+      why: "Andy says that confusing blue and yellow is much rarer. The most common problem is green and red.",
+      tip: "Be careful with colours: the speaker says both “blue and yellow” and “green and red”. Check the word “rarer” in the sentence." },
+    { pre: "In one football match, Andy did not leave the pitch after the referee showed him a", post: "card.", ok: ["red"],
+      ev: "I didn't leave the pitch after I got a red one and got told off",
+      why: "Andy could not see the colour of the card, so he stayed on the pitch after a red card.",
+      tip: "Sometimes the answer comes in a different form: “a red one” (the speaker) = “a red card” (the sentence)." },
+    { pre: "Andy’s little sister was surprised when he put", post: "sauce on his dinner by mistake.", ok: ["chocolate"],
+      ev: "when I put chocolate sauce on my dinner by mistake",
+      why: "Andy cannot tell tomato and brown sauces apart, so he put chocolate sauce on his dinner.",
+      tip: "Listen for the key phrase “by mistake”. It stays the same in the sentence and in the audio." },
+    { pre: "Andy keeps his blue t-shirts in the", post: "drawer.", ok: ["top", "top one", "first"],
+      ev: "putting all my blue t-shirts in the top drawer",
+      why: "His strategy is to put the blue t-shirts in the top drawer and the white or yellow ones in the second drawer.",
+      tip: "Position words (top, second, bottom) are easy to mix up. Check which colour goes where." },
+    { pre: "To see when the battery of his tablet is low, Andy now checks the", post: "instead of the colour.", ok: ["icon", "the icon", "battery icon"],
+      ev: "now I check the icon, rather than the colour",
+      why: "At first the tablet was always running out of charge. Now he checks the icon, not the colour of the light.",
+      tip: "“Rather than” and “instead of” mean the same. The word after “check” is the answer." }
+  ]
+},
+
+p2: {
+  audio: "audio/u2-sarah.mp3",
+  items: [
+    { q: "How did Sarah become involved in town twinning?",
+      o: ["Her school organised a visit to Odessa.", "Her family offered to host a student.", "She won a competition about Ukrainian culture."], a: 1,
+      ev: "one of the host families couldn't take one of the girls called Elisa. Dad said she could stay with us",
+      why: "Another host family could not take Elisa, so Sarah’s father offered to have her at home. That is how Sarah started.",
+      tip: "Option A has the name Odessa, but it is only the town the students came from. Do not choose an answer just because a name sounds familiar." },
+    { q: "What did Sarah like best about Elisa’s visit?",
+      o: ["Learning about Elisa’s life back home.", "Taking Elisa to famous places.", "Speaking English with Elisa all day."], a: 0,
+      ev: "my favourite part was learning about her way of life back home",
+      why: "“My favourite part” tells you the answer. “Her way of life back home” is the same as “Elisa’s life back home”.",
+      tip: "Words like “favourite”, “best” and “most” introduce the answer to a “like best” question." },
+    { q: "What did Sarah find out about learning Ukrainian?",
+      o: ["It was too difficult to learn in two weeks.", "It was similar to learning English.", "It was easier than people say."], a: 2,
+      ev: "I discovered it's not as difficult to learn as people think",
+      why: "“Not as difficult as people think” means easier than people expect. After two weeks she could use simple phrases.",
+      tip: "“Not as ... as” is a comparison trick: not as difficult = easier. Option A says the opposite." },
+    { q: "How did Sarah feel about visiting John Lennon’s house twice?",
+      o: ["She was not sure it was worth going.", "She wanted to take photographs there.", "She thought it was the best part of the trip."], a: 0,
+      ev: "not that I thought there was much point to be honest",
+      why: "“Not that I thought there was much point” means she did not see a reason for a second visit. She went because it was Elisa’s favourite.",
+      tip: "“To be honest” often introduces a real opinion that is different from what the person did." },
+    { q: "Why did Sarah like Paul McCartney’s house more?",
+      o: ["It was larger and more modern.", "It looked like a real family home.", "She knew the family who lived there."], a: 1,
+      ev: "It felt like a genuine home with an old, worn sofa",
+      why: "She says it felt like a genuine home with an old sofa, while John’s house was too neat. “Genuine home” means a real family home.",
+      tip: "“Whereas” compares two things. Find the one that Sarah prefers: the one described with positive words." },
+    { q: "How did Elisa react to the clay models at the Tate?",
+      o: ["She wanted to make some herself.", "She found them amusing.", "She found them a little scary."], a: 2,
+      ev: "Elisa said that it felt a bit scary",
+      why: "Elisa was awestruck, but she also said that it felt a bit scary. So she was a little frightened.",
+      tip: "Two feelings can appear in the audio. Choose the one that belongs to the person in the question (Elisa), not to Sarah." },
+    { q: "What did Sarah think about the Chinese children’s English names?",
+      o: ["They seemed rather unusual to her.", "They were the same as her friends’ names.", "She helped the children to choose them."], a: 0,
+      ev: "They seemed rather unusual to me",
+      why: "Sarah says that Kent and Angel seemed rather unusual to her. Then she explains that many Chinese learners choose English names.",
+      tip: "“Rather unusual” = a bit strange. The explanation after “but apparently” is extra information, not Sarah’s opinion." },
+    { q: "What impressed Sarah most in Shanghai?",
+      o: ["The food in the restaurants.", "The size and busy life of the city.", "The chance to eat with chopsticks."], a: 1,
+      ev: "I was blown away by the size of the city and how new and busy it is",
+      why: "“Blown away” means very impressed. She talks about the size of the city. The food was exotic, but she did not like all of it.",
+      tip: "Strong expressions like “blown away” or “amazing” show the main feeling. Then check the rest: the food is a different idea." },
+    { q: "What is Sarah including in her guide for the German visitors?",
+      o: ["A map of the tennis courts.", "A list of typical British food.", "Polite phrases for shops and directions."], a: 2,
+      ev: "I've included things like politeness phrases. ... so to help them I'm providing some phrases to use when asking for things in shops or for directions and so on.",
+      why: "The guide is about the city and British customs. It includes politeness phrases for asking for things in shops and for directions.",
+      tip: "The first idea she says is “a guide to the city”, so a map could sound possible. Keep listening: the exact content comes later." },
+    { q: "What does Sarah say host families should do?",
+      o: ["Take visitors to a new place every day.", "Ask visitors to bring a present.", "Give visitors some time to rest from the foreign language."], a: 2,
+      ev: "it's exhausting to be using a foreign language every day, so if possible host families should allow their visitors some quiet time",
+      why: "Using a foreign language every day is tiring, so host families should give visitors quiet time.",
+      tip: "Option B is a trap: Sarah says it is nice when visitors bring a present, but she does not tell host families to ask for it." }
+  ]
+},
+
+p3: {
+  audio: "audio/u3-work-experience.mp3",
+  speakers: [ [24.5, 61.6], [61.6, 115.2], [117.5, 158.0], [160.5, 200.9], [203.4, 249.3] ],
+  t1: {
+    options: ["train driver", "police officer", "newspaper journalist", "pet shop assistant", "shop security worker", "farmer", "fashion designer", "vet’s assistant"],
+    items: [
+      { ans: 2,
+        ev: "shadowing a news reporter, interviewing people and writing an article about the new bus station",
+        why: "Speaker 1 follows a news reporter, interviews people and writes articles. That is the work of a newspaper journalist.",
+        tip: "Look for action words connected to a job: interviewing, writing an article, a story, an editor." },
+      { ans: 6,
+        ev: "I've always been interested in clothes and how they're made",
+        why: "Speaker 2 talks about a mood board, cutting patterns and designing a dress. That is fashion design.",
+        tip: "The first sentence often gives the topic: clothes and how they are made. Then confirm it with the details." },
+      { ans: 4,
+        ev: "I had to watch CCTV footage of different parts of the shop and radio Alan if I saw anything suspicious.",
+        why: "Speaker 3 watches cameras in a shop to find shoplifters. The speaker describes what happened to the police, but is not a police officer.",
+        tip: "Careful with distractors: the police are mentioned, but only as the people who listened to the speaker." },
+      { ans: 7,
+        ev: "I got to help prepare animals for surgery",
+        why: "Speaker 4 works with sick and injured animals, helps with surgery and passes the instruments. That is a vet’s assistant.",
+        tip: "Pets and owners at reception could suggest a pet shop, but vaccinations and surgery show it is a vet’s." },
+      { ans: 0,
+        ev: "I sat in the cab with a woman called Serena, and she explained what the different controls did",
+        why: "Speaker 5 sits in the cab, learns about the controls and sounds the whistle. A farmer appears in the story, but he is not the speaker.",
+        tip: "Ask yourself: is this person the speaker, or only part of the story? The farmer only has trouble with his dog." }
+    ]
+  },
+  t2: {
+    options: ["I learned that the job can be unpredictable.", "I did not get on well with my colleagues.", "I was surprised that the work was not very exciting.", "I enjoyed working alone on a challenging project.", "I had to work very long hours every day.", "I have decided to study this subject after school.", "I was offered the chance of a future job.", "I was worried about the dangers of the work."],
+    items: [
+      { ans: 6,
+        ev: "The editor wants me to think about working there after I leave school, which I was thrilled about.",
+        why: "The editor suggests that the speaker could work at the newspaper later, and the speaker is thrilled. That is the chance of a future job.",
+        tip: "Speaker 1 also says “stay late at the office”, but only “sometimes”. That is why option E (every day) is wrong." },
+      { ans: 3,
+        ev: "It was difficult, but I loved the challenge of having to do it on my own.",
+        why: "Speaker 2 was given a project to design a dress. It was difficult, but the speaker loved doing it alone.",
+        tip: "“Own” is a key word: my own project, on my own. It matches “working alone”." },
+      { ans: 2,
+        ev: "I thought it'd be thrilling, but in fact lots of the work is routine, even boring.",
+        why: "The speaker expected an exciting job, but most of the work is routine. “Not very exciting” is a paraphrase of “routine, even boring”.",
+        tip: "“I thought ... but in fact ...” shows a difference between what was expected and what happened." },
+      { ans: 5,
+        ev: "I want to do a course in this when I leave school.",
+        why: "Speaker 4 wants to study a course in this area after leaving school. That is a decision about studying this subject.",
+        tip: "Plans for the future (“I want to ...”, “I’m going to ...”) usually match options about decisions or studies." },
+      { ans: 0,
+        ev: "so you have to expect the unexpected",
+        why: "Sheep got onto the line and the train had to go slowly. The speaker learned that you must expect the unexpected: the job is unpredictable.",
+        tip: "The last sentence of a short monologue often gives the main message. “Unexpected” = unpredictable." }
+    ]
+  }
+},
+
+p4: {
+  audio: "audio/u4-extracts.mp3",
+  items: [
+    { seg: [15.7, 58.0], q: "What problem did the boy have when he wanted to go to the cinema?",
+      o: ["There were no cinemas in the city.", "He had no easy way to get to the cinemas.", "The film he wanted to see was not good."], a: 1,
+      ev: "but three of them are out of town, and I don't drive, and the bus system is rubbish",
+      why: "The city has four big cinemas, but three are out of town. The boy does not drive and the buses are bad, so he needs a lift.",
+      tip: "Do not choose an option only because a word is repeated: there are four cinemas, and the film was “brilliant”. Ask what the real problem is." },
+    { seg: [58.0, 104.4], q: "Why does Jo decide to enter the competition?",
+      o: ["Jo wants to work with the town planners.", "Jo likes the idea of designing a skate zone.", "The prize sounds very exciting."], a: 2,
+      ev: "you'll win a trip for your family to the next Olympics. Wow, I'm going to enter then.",
+      why: "Jo first thinks that the competition will be boring. Jo only changes the answer after hearing the prize.",
+      tip: "Listen for the word “then”: “I’m going to enter then” means that the reason comes just before it (the prize)." },
+    { seg: [104.4, 161.1], q: "What will the two friends do after the new sports complex opens?",
+      o: ["They will help each other to improve at different sports.", "They will both start swimming lessons.", "They will play tennis every day."], a: 0,
+      ev: "If there's a pool for beginners, I could teach you. ... And I'll help you improve at tennis so we can replay our match.",
+      why: "One friend offers to teach the other to swim. The other will help with tennis. So they will help each other.",
+      tip: "When both speakers make an offer (“I could teach you”, “I’ll help you”), the answer often combines both." },
+    { seg: [161.1, 216.6], q: "What does the reporter say about taxis?",
+      o: ["There are none available in the city.", "They are free for students today.", "You may have to wait a long time for one."], a: 2,
+      ev: "there's an hour's wait for one at present",
+      why: "In some parts of the city taxis are taking children to school, but the wait is an hour.",
+      tip: "Numbers and times are often the key: “an hour’s wait” = a long wait. “None” and “free” are never said." },
+    { seg: [216.6, 255.8], q: "What will the girl probably do on Saturday?",
+      o: ["Go with her dad to see Taylor Swift.", "Go to the school concert.", "Stay at home with her sister."], a: 0,
+      ev: "Not even when the tickets are to see Taylor Swift in concert? Wow! She's the best. I can't miss out on that.",
+      why: "At first she wants to go to the school concert. When her dad says the tickets are for Taylor Swift, she says she cannot miss it.",
+      tip: "The final reaction decides the answer. “I shouldn’t miss it” is the old plan, and “I can’t miss out on that” is the new one." },
+    { seg: [255.8, 301.3], q: "Why have the family’s plans about the grandparents changed?",
+      o: ["The retirement complex is too expensive.", "The father thinks the house is too small.", "The grandparents want a house of their own."], a: 1,
+      ev: "Dad isn't really happy with the idea as he's worried about space.",
+      why: "The father is worried about space because there is hardly enough room for the family now.",
+      tip: "Ask who has the problem. The grandparents liked the retirement complex, but the reason for the change is Dad’s worry." },
+    { seg: [301.3, 349.0], q: "What does Katrina say young people get from activity holidays?",
+      o: ["Better exam results.", "More confidence in themselves.", "A wish to go climbing every year."], a: 1,
+      ev: "it's a great way to meet new people and get more self-belief",
+      why: "“Self-belief” means confidence in yourself. Katrina says that young people arrive anxious and finish with new friends.",
+      tip: "Listen for synonyms: self-belief = confidence. Climbing is the most popular activity, but that is not a benefit." },
+    { seg: [349.0, 397.2], q: "What did the girl like best about her holiday?",
+      o: ["Eating food from the farm.", "Looking at the tourist spots.", "Giving food to the animals."], a: 2,
+      ev: "By far the best thing was being able to give the farmers cows and sheep their food.",
+      why: "“By far the best thing” shows her favourite part. The farm food and the tourist information were only nice extras.",
+      tip: "Superlative signals like “by far the best” or “my favourite” introduce the answer." },
+    { seg: [397.2, 441.7], q: "What does the girl suggest Johnny should do?",
+      o: ["Ask his mum to buy the tickets.", "Wait until he is old enough to go alone.", "Go with Harry and one of Harry’s parents."], a: 2,
+      ev: "Could you go with a friend and one of their parents? ... You could ask Harry if they could go with you.",
+      why: "Johnny’s mum says he is not old enough to go alone. The girl suggests asking Harry if they could go together with a parent.",
+      tip: "A suggestion often starts with “You could ...”. Listen to what comes after it." },
+    { seg: [441.7, 483.2], q: "Why does one of the friends want to buy Rita another present?",
+      o: ["Rita already has what was given to her.", "The first present was broken.", "The friend forgot to wrap the first present."], a: 0,
+      ev: "I should have known she would have all the Hunger Games books.",
+      why: "The first present was something Rita does not need, because she already has all the Hunger Games books.",
+      tip: "Regret phrases like “I should have known” explain the mistake: she already owns it." }
+  ]
+},
+
+p5: {
+  audio: "audio/u5-megan.mp3",
+  items: [
+    { q: "What does Megan say about people who study sports science?",
+      o: ["They are all dedicated athletes.", "They need a special sports skill.", "They do not have to be top sportspeople."], a: 2,
+      ev: "it must be for dedicated sports people ... But that's not the case at all.",
+      why: "People think the course is only for athletes, but Megan says this is not true. She says that she herself is “no athlete”.",
+      tip: "“People think ... but that’s not the case” means the opposite is true. Options A and B repeat what people wrongly believe." },
+    { q: "What interests Megan most about sport?",
+      o: ["The psychology behind it.", "The chance to meet famous players.", "The way athletes train their bodies."], a: 0,
+      ev: "What really fascinates me about sports is the psychology behind it all.",
+      why: "“Fascinates me” shows what interests her most: how people feel when they compete.",
+      tip: "Strong verbs like “fascinates” or “really love” introduce the answer." },
+    { q: "What does Megan say makes a championship-winning sportsperson?",
+      o: ["Great skill alone.", "The right personality and attitude.", "A good coach and plenty of training."], a: 1,
+      ev: "Without the right personality, the right attitude, individuals with great skill are unlikely to ever become championship-winning sports people.",
+      why: "Megan says that skill is not enough: without the right personality and attitude, skilled people rarely become champions.",
+      tip: "“Without X, Y is unlikely” means that X is necessary. Skill alone (option A) is not enough." },
+    { q: "What is Megan looking forward to in the third year of the course?",
+      o: ["A final exam in the USA.", "Working with a professional team.", "Studying in another country."], a: 2,
+      ev: "in year three, students have what's called an international year. That gives us the chance to go overseas to study sport",
+      why: "In year three there is an international year. Students can go overseas to study sport, and Megan cannot wait.",
+      tip: "Option A mixes two ideas: the USA is a possible country, but the course has continuous assessment, not a final exam." },
+    { q: "Which part of the course does Megan like best?",
+      o: ["Psychology.", "Anatomy.", "Nutrition."], a: 0,
+      ev: "in addition, we do a lot of psychology, and that's my absolute favourite",
+      why: "Megan names human physiology, nutrition and anatomy, but says that psychology is her absolute favourite.",
+      tip: "When a speaker lists several things, the favourite usually comes after “but” or “in addition”." },
+    { q: "What does Megan say about the graduates of the course?",
+      o: ["Most become professional athletes.", "Most work in the sports industry in some way.", "Many cannot find a job."], a: 1,
+      ev: "the majority of graduates do end up working closely with the sports industry as a whole",
+      why: "“The majority” means most people. They are not all athletes: they work as coaches, trainers, researchers or managers.",
+      tip: "“The majority” = most. “We won’t all be involved directly with athletes” shows why option A is wrong." },
+    { q: "How does Megan feel about becoming a sports psychologist?",
+      o: ["She is sure, in spite of the hard work and low pay.", "She is worried about the hard work.", "She might change her mind because of the low pay."], a: 0,
+      ev: "I also know it doesn't pay well. But I'm 100% sure that's what I want to do.",
+      why: "She knows that the job is hard and does not pay well, but she is 100% sure. “In spite of” has the same idea as “but”.",
+      tip: "The word “but” changes the direction of the sentence. Her doubts come first, her decision comes after." },
+    { q: "What would Megan’s job as a sports psychologist be?",
+      o: ["To help athletes win more money.", "To help athletes train harder.", "To help athletes get their confidence back."], a: 2,
+      ev: "I'd help them to rebuild their positive mental attitude and sharpen their focus.",
+      why: "Athletes sometimes lose their confidence and motivation. Megan would help them to rebuild their positive attitude.",
+      tip: "“Rebuild” means to make something strong again. Confidence = “positive mental attitude” here." },
+    { q: "What does Megan say about the amount of reading on the course?",
+      o: ["There is less than students expect.", "There is more than people think.", "It is the hardest part of the course."], a: 1,
+      ev: "there's a lot more reading than you might think",
+      why: "“A lot more ... than you might think” means there is more reading than people expect.",
+      tip: "Compare the comparative words: “more than you think” = more than people expect. Option A says the opposite." },
+    { q: "What is Megan’s main advice to future students?",
+      o: ["Practise as many sports as possible.", "Read more than other students.", "Do not expect too much from your own sports ability."], a: 2,
+      ev: "So many students set their athletic sights too high, and that leads to disappointment.",
+      why: "“Set their sights too high” means to expect too much. Megan’s top tip is not to do this, because it leads to disappointment.",
+      tip: "Megan says “that’d be my top tip”. The advice is the idea before that phrase. Reading and number of sports are only mentioned as extra points." }
+  ]
+}
+
+};
+</script>
+
+<script id="engine-block">
+(function () {
+  var LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  var MCREG = [], GAPREG = [], MATREG = [];
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function expl(ok, solHtml, evidence, why, tip) {
+    var h = '<div class="exp ' + (ok ? "right" : "wrong") + '">';
+    h += '<p>' + (ok ? "Correct! " : "Not quite. ") + solHtml + '</p>';
+    if (evidence) h += '<p><b class="lab ev">Evidence</b>&ldquo;' + esc(evidence) + '&rdquo;</p>';
+    h += '<p><b class="lab why">Why</b>' + esc(why) + '</p>';
+    h += '<p><b class="lab tip">Exam tip</b>' + esc(tip) + '</p></div>';
+    return h;
+  }
+  function scoreText(ok, total) {
+    var msg = ok === total ? "Perfect!" : (ok >= total - 2 ? "Well done!" : "Keep going, read the tips and listen again.");
+    return "Score: " + ok + " / " + total + " - " + msg;
+  }
+  function shell(tag, title, sub, prefix) {
+    return '<div class="tag">' + esc(tag) + '</div><h2>' + esc(title) + '</h2><p class="sub">' + esc(sub) + '</p>' +
+      '<div id="' + prefix + 'Body"></div>' +
+      '<div class="btnrow"><button class="btn" id="' + prefix + 'Check">Check answers</button>' +
+      '<button class="btn ghost" id="' + prefix + 'Reset">Try again</button>' +
+      '<span class="scoreline" id="' + prefix + 'Score"></span></div>';
+  }
+  function audioBox(id, src, label) {
+    return '<div class="audiobox"><p class="al">' + esc(label) + '</p><audio id="' + id + '" controls preload="metadata" src="' + esc(src) + '"></audio></div>';
+  }
+  function segBtn(audId, seg, label) {
+    return '<button type="button" class="seg" data-aud="' + audId + '" data-s="' + seg[0] + '" data-e="' + seg[1] + '">&#9654; ' + esc(label) + '</button>';
+  }
+
+  /* ----- play one part of a long audio file ----- */
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest(".seg");
+    if (!b) return;
+    var a = document.getElementById(b.getAttribute("data-aud"));
+    if (!a) return;
+    if (!a._hooked) {
+      a._hooked = true;
+      a.addEventListener("timeupdate", function () {
+        if (a._stop && a.currentTime >= a._stop) { a.pause(); a._stop = null; }
+      });
+      a.addEventListener("seeking", function () { if (!a._own) a._stop = null; });
+      a.addEventListener("seeked", function () { a._own = false; });
+    }
+    a._own = true;
+    a._stop = +b.getAttribute("data-e");
+    a.currentTime = +b.getAttribute("data-s");
+    var p = a.play();
+    if (p && p.catch) p.catch(function () {});
+  });
+
+  function norm(s) {
+    return String(s).toLowerCase().replace(/[‘’]/g, "'").replace(/[.,;:!?"]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  /* ================= gap fill ================= */
+  function buildGaps(card, P, tag, title, sub, prefix, audId) {
+    card.innerHTML = shell(tag, title, sub, prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      var top = document.createElement("div");
+      top.innerHTML = audioBox(audId, P.audio, "Part audio");
+      body.appendChild(top);
+      P.items.forEach(function (it, i) {
+        var id = GAPREG.length;
+        GAPREG.push({ item: it });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.pre) +
+          ' <input class="gapin" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-gid="' + id + '" aria-label="answer ' + (i + 1) + '"> ' +
+          esc(it.post) + '</p><div class="fb" data-gid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var it = GAPREG[id].item;
+        var inp = body.querySelector('input[data-gid="' + id + '"]');
+        var val = norm(inp.value).replace(/^(the|a|an) /, "");
+        var good = val !== "" && it.ok.some(function (k) { return norm(k).replace(/^(the|a|an) /, "") === val; });
+        inp.className = "gapin " + (good ? "ok" : "no"); inp.readOnly = true;
+        if (good) ok++;
+        var sol = 'Answer: <span class="sol">' + esc(it.ok[0]) + '</span>';
+        body.querySelector('.fb[data-gid="' + id + '"]').innerHTML = expl(good, sol, it.ev, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ================= multiple choice (also with per-item extract buttons) ================= */
+  function buildMC(card, P, tag, title, sub, prefix, audId, segLabel) {
+    card.innerHTML = shell(tag, title, sub, prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var ids = [];
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; ids = [];
+      var top = document.createElement("div");
+      top.innerHTML = audioBox(audId, P.audio, segLabel ? "Full recording" : "Part audio");
+      body.appendChild(top);
+      P.items.forEach(function (it, i) {
+        var id = MCREG.length;
+        MCREG.push({ item: it, sel: null });
+        ids.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        var optsH = it.o.map(function (o, k) {
+          return '<button class="opt" data-mcid="' + id + '" data-k="' + k + '"><b>' + LETTERS[k] + '</b>' + esc(o) + '</button>';
+        }).join("");
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span>' + esc(it.q) + '</p>' +
+          (it.seg ? segBtn(audId, it.seg, segLabel + " " + (i + 1)) : "") +
+          '<div class="opts">' + optsH + '</div><div class="fb" data-mcid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+    }
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (!b || b.disabled) return;
+      MCREG[+b.getAttribute("data-mcid")].sel = +b.getAttribute("data-k");
+      Array.prototype.forEach.call(b.parentNode.children, function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel");
+    });
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0;
+      ids.forEach(function (id) {
+        var rec = MCREG[id], it = rec.item;
+        var good = rec.sel === it.a;
+        if (good) ok++;
+        Array.prototype.forEach.call(body.querySelectorAll('.opt[data-mcid="' + id + '"]'), function (b) {
+          var k = +b.getAttribute("data-k");
+          b.disabled = true; b.classList.remove("sel");
+          if (k === it.a) b.classList.add("good");
+          else if (rec.sel === k) b.classList.add("bad");
+        });
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.a] + '</span> - ' + esc(it.o[it.a]);
+        body.querySelector('.fb[data-mcid="' + id + '"]').innerHTML = expl(good, sol, it.ev, it.why, it.tip);
+      });
+      score.textContent = scoreText(ok, ids.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ================= matching: two tasks on one recording ================= */
+  function buildMatching(card, P, prefix, audId) {
+    card.innerHTML = shell("Part 3 · Unit 3", "Work experience",
+      "You will hear five students talking about the work experience they did. Do Task A and then Task B. Use each letter only once in each task. There are three extra options in each list. You can play each speaker on its own.", prefix);
+    var body = card.querySelector("#" + prefix + "Body");
+    var score = card.querySelector("#" + prefix + "Score");
+    var rows = [];
+    function task(T, title, instr, key) {
+      var d = document.createElement("div");
+      var listH = T.options.map(function (o, i) { return "<li><b>" + LETTERS[i] + ".</b>" + esc(o) + "</li>"; }).join("");
+      d.innerHTML = '<p class="divider">' + esc(title) + '</p><div class="box"><div class="bt">' + esc(instr) + '</div><ul class="ends">' + listH + '</ul></div>';
+      body.appendChild(d);
+      T.items.forEach(function (it, i) {
+        var id = MATREG.length;
+        MATREG.push({ item: it, T: T, key: key });
+        rows.push(id);
+        var div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<p class="q"><span class="n">' + (i + 1) + '</span><b>Speaker ' + (i + 1) + '</b></p>' +
+          segBtn(audId, P.speakers[i], "Play speaker " + (i + 1)) +
+          '<div class="selrow"><label>Letter</label><select data-mid="' + id + '"><option value="">?</option>' +
+          T.options.map(function (o, k) { return '<option value="' + k + '">' + LETTERS[k] + '</option>'; }).join("") +
+          '</select></div><div class="fb" data-mid="' + id + '"></div>';
+        body.appendChild(div);
+      });
+      var note = document.createElement("p");
+      note.className = "note"; note.setAttribute("data-note", key);
+      body.appendChild(note);
+    }
+    function render() {
+      body.innerHTML = ""; score.textContent = ""; rows = [];
+      var top = document.createElement("div");
+      top.innerHTML = audioBox(audId, P.audio, "Full recording (all five speakers)");
+      body.appendChild(top);
+      task(P.t1, "Task A · What job is each speaker talking about?", "Choose the job (A-H)", "t1");
+      task(P.t2, "Task B · What does each speaker say about the work experience?", "Choose what each speaker says (A-H)", "t2");
+    }
+    card.querySelector("#" + prefix + "Check").addEventListener("click", function () {
+      var ok = 0, used = { t1: {}, t2: {} }, dup = { t1: false, t2: false };
+      rows.forEach(function (id) {
+        var rec = MATREG[id], s = body.querySelector('select[data-mid="' + id + '"]');
+        if (s.value !== "") { if (used[rec.key][s.value]) dup[rec.key] = true; used[rec.key][s.value] = 1; }
+      });
+      rows.forEach(function (id) {
+        var rec = MATREG[id], it = rec.item;
+        var s = body.querySelector('select[data-mid="' + id + '"]');
+        var good = s.value !== "" && +s.value === it.ans;
+        s.className = good ? "ok" : "no"; s.disabled = true;
+        if (good) ok++;
+        var sol = 'Answer: <span class="sol">' + LETTERS[it.ans] + '</span> - ' + esc(rec.T.options[it.ans]);
+        body.querySelector('.fb[data-mid="' + id + '"]').innerHTML = expl(good, sol, it.ev, it.why, it.tip);
+      });
+      ["t1", "t2"].forEach(function (k) {
+        body.querySelector('[data-note="' + k + '"]').textContent = dup[k] ? "Remember: use each letter only once in this task." : "";
+      });
+      score.textContent = scoreText(ok, rows.length);
+    });
+    card.querySelector("#" + prefix + "Reset").addEventListener("click", render);
+    render();
+  }
+
+  /* ---------- page ---------- */
+  var app = document.getElementById("app");
+  var nav = document.getElementById("nav");
+  function add(id, label) {
+    var a = document.createElement("a");
+    a.href = "#" + id; a.textContent = label; nav.appendChild(a);
+    var c = document.createElement("section");
+    c.className = "card"; c.id = id; app.appendChild(c);
+    return c;
+  }
+
+  buildGaps(add("p1", "Part 1"), DATA.p1, "Part 1 · Unit 1", "Living with colour blindness",
+    "You will hear a boy called Andy talking about his experience of being colour blind. Complete the sentences, 1-10, with a word or a short phrase.", "p1", "aud1");
+  buildMC(add("p2", "Part 2"), DATA.p2, "Part 2 · Unit 2", "Hosting overseas visitors",
+    "You will hear an interview with Sarah Reeve, who helps with overseas visitors to her town. For questions 1-10, choose the best answer (A, B or C).", "p2", "aud2", null);
+  buildMatching(add("p3", "Part 3"), DATA.p3, "p3", "aud3");
+  buildMC(add("p4", "Part 4"), DATA.p4, "Part 4 · Unit 4", "Ten short extracts",
+    "You will hear people talking in ten different situations. For questions 1-10, choose the best answer (A, B or C). Use the yellow button to play each extract on its own.", "p4", "aud4", "Play extract");
+  buildMC(add("p5", "Part 5"), DATA.p5, "Part 5 · Unit 5", "Studying sports science",
+    "You will hear an interview with Megan Corbett, who is studying sports science at university. For questions 1-10, choose the best answer (A, B or C).", "p5", "aud5", null);
+})();
+</script>
+</body>
+</html>
